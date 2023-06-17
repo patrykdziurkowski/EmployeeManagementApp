@@ -9,6 +9,9 @@
       Title="DepartmentsMenu">
 
     <Grid Height="434.04">
-        
+        <Button Content="Return" Margin="0,337,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White"/>
+        <Label Content="Manage Departments
+               " HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold"/>
+
     </Grid>
 </Page>

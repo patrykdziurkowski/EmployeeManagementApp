@@ -44,9 +44,9 @@
         <Label Content=" Logged in" HorizontalAlignment="Left" Margin="125,40,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="114" Foreground="#FF2B2E4A" FontWeight="Bold"/>
         <Button Content="Log out" Margin="251,40,0,0" VerticalAlignment="Top" Height="32" Width="77" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="Button_Click_1" Foreground="White" HorizontalAlignment="Left"/>
         <Button Content="MANAGE EMPLOYEES" Margin="42,91,0,0" VerticalAlignment="Top" Height="148" Width="358" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" FontWeight="Bold" Click="Button_Click_2" Foreground="White" HorizontalAlignment="Left" FontSize="24"/>
-        <Button Content="SALARIES" Margin="418,91,0,0" Height="317" Width="332" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" FontWeight="Bold" Click="Button_Click_4" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="48"/>
+        <Button Content="SALARIES" Margin="418,91,0,0" Height="317" Width="332" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" Click="Button_Click_4" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="48" FontWeight="Bold"/>
         <Button Content="MANAGE DEPARTMENTS" Margin="42,258,0,0" VerticalAlignment="Top" Height="150" Width="358" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" FontWeight="Bold" Click="Button_Click_3" Foreground="White" HorizontalAlignment="Left" FontSize="24"/>
-        <Label Content="username" HorizontalAlignment="Left" Margin="548,40,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="18" Height="32" Width="167" Foreground="#FF903749" RenderTransformOrigin="0.519,0.261" FontStyle="Oblique" FontStretch="Expanded"/>
+        <Label Content="username" HorizontalAlignment="Left" Margin="548,40,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="18" Height="32" Width="167" Foreground="Black" RenderTransformOrigin="0.519,0.261" FontStyle="Oblique" FontStretch="Expanded"/>
 
     </Grid>
 </Page>

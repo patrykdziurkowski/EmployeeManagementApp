@@ -9,6 +9,104 @@
       Title="EmployeesMenu">
 
     <Grid Height="434.04">
-        
+        <Button Content="Return" Margin="664,344,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
+        <Label Content="Manage Employees" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
+        <Button Content="Add Employee" Margin="50,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
+        <DataGrid Name="EmployeesTable" AutoGenerateColumns="False" Margin="0,56,10,96">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTemplateColumn Header="Name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Surname">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Surname}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Email">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Email}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Phone Number">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding PhoneNr}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Salary">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Salary}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Department">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Department}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Manager">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Manager}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Role">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Width="100" SelectedIndex="{Binding RoleId}">
+                                <ComboBoxItem>AD_PRES</ComboBoxItem>
+                                <ComboBoxItem>AD_VP</ComboBoxItem>
+                                <ComboBoxItem>AD_ASST</ComboBoxItem>
+                                <ComboBoxItem>AC_MGR</ComboBoxItem>
+                                <ComboBoxItem>AC_ACCOUNT</ComboBoxItem>
+                                <ComboBoxItem>SA_MAN</ComboBoxItem>
+                                <ComboBoxItem>SA_REP</ComboBoxItem>
+                                <ComboBoxItem>ST_MAN</ComboBoxItem>
+                                <ComboBoxItem>ST_CLERK</ComboBoxItem>
+                                <ComboBoxItem>IT_PROG</ComboBoxItem>
+                                <ComboBoxItem>MK_MAN</ComboBoxItem>
+                                <ComboBoxItem>MK_REP</ComboBoxItem>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Hire Date">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding HireDate}" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Commision (%)">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Commision}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Delete">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="25" Content="X"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

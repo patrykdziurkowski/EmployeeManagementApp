@@ -24,5 +24,10 @@ namespace EmployeeManagementApp
         {
             InitializeComponent();
         }
+
+        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenu());
+        }
     }
 }
