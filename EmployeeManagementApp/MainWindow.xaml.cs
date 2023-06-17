@@ -24,5 +24,10 @@ namespace EmployeeManagementApp
         {
             InitializeComponent();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();                  //Exit from application
+        }
     }
 }
