@@ -1,5 +1,5 @@
 # EmployeeManagementApp
 A WPF application that connects to an Oracle DB server
-#Contributors
+# Contributors
 Szymon Kruk
 Patryk Dziurkowski
