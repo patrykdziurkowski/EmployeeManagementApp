@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:EmployeeManagementApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
         <Style  TargetType="Button">
             <Setter Property="HorizontalAlignment"
           Value="Center" />
@@ -33,5 +34,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Application.Resources>
 </Application>

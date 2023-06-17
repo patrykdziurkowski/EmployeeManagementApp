@@ -11,13 +11,6 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="22*"/>
         </Grid.ColumnDefinitions>
-        <Button Content = "Exit"
-         HorizontalAlignment = "Left" Margin = "537,335,0,0"
-         VerticalAlignment = "Top" Width = "100" Height="36" Click="button_Click" Grid.Column="1" FontSize="14" FontFamily="Bahnschrift" Background="#FF903749"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="241,127,0,0" TextWrapping="Wrap" Text="Database" VerticalAlignment="Top" Width="126" Height="21" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
-        <Button x:Name="loginButton" Grid.Column="1" Content="Connect" HorizontalAlignment="Left" Margin="268,179,0,0" VerticalAlignment="Top" Height="26" Width="72" FontFamily="Bahnschrift SemiLight" Background="#FF903749" FontWeight="Bold" Click="Button_Click_1"/>
-        <PasswordBox Grid.Column="1" HorizontalAlignment="Left" Margin="241,153,0,0" VerticalAlignment="Top" Width="126" Height="21" Password="password" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
-        <Label Grid.Column="1" Content="Log into" HorizontalAlignment="Left" Margin="141,46,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="89" Foreground="#FF2B2E4A" FontWeight="Bold"/>
-        <Label Grid.Column="1" Content="Employees Database&#xD;&#xA;" HorizontalAlignment="Left" Margin="230,46,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="219" Foreground="#FF903749" FontWeight="Bold"/>
+        <Frame x:Name="FrameNavigator" Source="StartMenu.xaml" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

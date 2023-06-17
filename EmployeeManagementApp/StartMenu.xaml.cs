@@ -16,18 +16,21 @@ using System.Windows.Shapes;
 namespace EmployeeManagementApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji dla klasy StartMenu.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StartMenu : Page
     {
-        public MainWindow()
+        public StartMenu()
         {
             InitializeComponent();
         }
-
-        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Application.Current.Shutdown();                  //Exit from application
+        }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainMenu());
         }
     }
 }

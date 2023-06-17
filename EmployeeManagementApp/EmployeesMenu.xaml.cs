@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace EmployeeManagementApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji dla klasy EmployeesMenu.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EmployeesMenu : Page
     {
-        public MainWindow()
+        public EmployeesMenu()
         {
             InitializeComponent();
-        }
-
-        private void Frame_Navigated(object sender, NavigationEventArgs e)
-        {
-
         }
     }
 }
