@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Core;
+using Domain;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 namespace Infrastructure
 {
     //A class that abstracts Oracle's framework to simplify CRUD operations
-    public class OracleRepository
+    public class OracleSQLDataAccess : ISQLDataAccess
     {
         private readonly string _connectionString;
         private OracleConnection _connection;
 
-        public OracleRepository(string connectionString)
+        public OracleSQLDataAccess(string connectionString)
         {
             _connectionString = connectionString;
         }
@@ -25,7 +26,7 @@ namespace Infrastructure
         /// <typeparam name="T">The type of database entity to be returned</typeparam>
         /// <param name="query">The query in string format</param>
         /// <returns>IEnumerable of given entity, can be empty.</returns>
-        public IEnumerable<T> ExecuteQuery<T>(string query) where T : class, new()
+        public IEnumerable<T> ExecuteSQLQuery<T>(string query) where T : class, new()
         {
             List<T> result = new();
             Open();
@@ -49,7 +50,7 @@ namespace Infrastructure
         ///     Multiple queries can be used in a transaction by delimiting them with a semi-colon: ";"
         /// </param>
         /// <returns>Number of affected rows</returns>
-        public int ExecuteNonQuery(string nonQueries)
+        public int ExecuteSQLNonQuery(string nonQueries)
         {
             Open();
             OracleTransaction transaction = _connection.BeginTransaction();
