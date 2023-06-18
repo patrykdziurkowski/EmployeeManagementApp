@@ -26,7 +26,7 @@
         <Button Content="Return" Margin="692,358,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left" RenderTransformOrigin="0.376,0.571"/>
         <Label Content="Salaries
                " HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="96" Foreground="#FF903749" FontWeight="Bold"/>
-        <DataGrid Name="SalariesTable" AutoGenerateColumns="False" Margin="0,46,501,65" IsReadOnly="True">
+        <DataGrid Name="SalariesTable" AutoGenerateColumns="False" Margin="0,46,492,65" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
