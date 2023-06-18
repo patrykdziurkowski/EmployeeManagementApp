@@ -20,13 +20,7 @@ namespace ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         private ObservableCollection<DepartmentViewModel> _departments;
-
         public ObservableCollection<DepartmentViewModel> Departments
         {
             get
@@ -40,26 +34,62 @@ namespace ViewModels
             }
         }
 
+        private ObservableCollection<EmployeeViewModel> _employees;
+        public ObservableCollection<EmployeeViewModel> Employees
+        {
+            get
+            {
+                return _employees;
+            }
+            set
+            {
+                _employees = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DepartmentsMenuViewModel()
         {
             _loginViewModel = LoginViewModel.GetInstance();
+            _departments = new ObservableCollection<DepartmentViewModel>();
+            _employees = new ObservableCollection<EmployeeViewModel>();
+
             ConnectionStringProvider provider = new ConnectionStringProvider();
             string connectionString = provider
                 .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            EmployeeRepository employeeRepository = new(new OracleSQLDataAccess(connectionString));
+            OracleSQLDataAccess dataAccess = new(connectionString);
 
-            _departments = new ObservableCollection<DepartmentViewModel>();
-            List<DepartmentViewModel> DepartmentViewModels = DepartmentViewModel
-                .ToListOfDepartmentViewModel(employeeRepository
-                .GetAll());
-            ObservableCollection<DepartmentViewModel> Departments = new ObservableCollection<DepartmentViewModel>(DepartmentViewModels);
-            _departments = Departments;
+            EmployeeRepository employeeRepository = new(dataAccess);
+            DepartmentRepository departmentRepository = new(dataAccess);
+
+            
+            List<DepartmentViewModel> departmentViewModels = DepartmentViewModel
+                .ToListOfDepartmentViewModel(departmentRepository.GetAll());
+            ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
+
+            List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
+                .ToListOfEmployeeViewModel(employeeRepository.GetAll());
+            ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
+
+            _employees = employees;
+            _employees.CollectionChanged += Employees_CollectionChanged;
+            _departments = departments;
             _departments.CollectionChanged += Departments_CollectionChanged;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         private void Departments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Departments"));
+        }
+
+        private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
         }
     }
 }

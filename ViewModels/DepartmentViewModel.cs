@@ -16,105 +16,90 @@ namespace ViewModels
 {
     public class DepartmentViewModel : INotifyPropertyChanged
     {
-        private int? _employeeId;
-
-        public int? EmployeeId
+        private int? _departmentId;
+        public int? DepartmentId
         {
             get
             {
-                return _employeeId;
+                return _departmentId;
             }
             set
             {
-                _employeeId = value;
+                _departmentId = value;
                 OnPropertyChanged();
             }
         }
 
-        private string _firstName;
-        public string FirstName
+        private string _departmentName;
+        public string DepartmentName
         {
             get
             {
-                return _firstName;
+                return _departmentName;
             }
             set
             {
-                _firstName = value;
+                _departmentName = value;
+            }
+        }
+
+        private int? _managerId;
+        public int? ManagerId
+        {
+            get
+            {
+                return _managerId;
+            }
+            set
+            {
+                _managerId = value;
                 OnPropertyChanged();
             }
         }
 
-        private string _lastName;
-        public string LastName
+        private int? _locationId;
+        public int? LocationId
         {
             get
             {
-                return _lastName;
+                return _locationId;
             }
             set
             {
-                _lastName = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _jobId;
-        public string JobId
-        {
-            get
-            {
-                return _jobId;
-            }
-            set
-            {
-                _jobId = value;
+                _locationId = value;
                 OnPropertyChanged();
             }
         }
 
-        private double? _department;
-        public double? Department
-        {
-            get
-            {
-                return _department;
-            }
-            set
-            {
-                _department = value;
-                OnPropertyChanged();
-            }
-        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public DepartmentViewModel()
         {
 
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        public static List<DepartmentViewModel> ToListOfDepartmentViewModel(IEnumerable<Employee> departments)
+        public static List<DepartmentViewModel> ToListOfDepartmentViewModel(IEnumerable<Department> departments)
         {
-            List<DepartmentViewModel> result = new List<DepartmentViewModel>();
+            List<DepartmentViewModel> convertedDepartments = new List<DepartmentViewModel>();
 
-            foreach (Employee employee in departments)
+            foreach (Department department in departments)
             {
                 DepartmentViewModel DepartmentViewModel = new()
                 {
-                    EmployeeId = employee.EMPLOYEE_ID,
-                    FirstName = employee.FIRST_NAME,
-                    LastName = employee.LAST_NAME,
-                    JobId = employee.JOB_ID,
-                    Department = employee.DEPARTMENT_ID,
+                    DepartmentId = department.DEPARTMENT_ID,
+                    DepartmentName = department.DEPARTMENT_NAME,
+                    ManagerId = department.MANAGER_ID,
+                    LocationId = department.LOCATION_ID
                 };
-                result.Add(DepartmentViewModel);
+                convertedDepartments.Add(DepartmentViewModel);
             }
 
-            return result;
+            return convertedDepartments;
         }
     }
 }

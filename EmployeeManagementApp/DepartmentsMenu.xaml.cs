@@ -34,7 +34,7 @@ namespace EmployeeManagementApp
         {
             InitializeComponent();
 
-            DepartmentsTable.ItemsSource = viewModel.Departments;
+            DepartmentsTable.ItemsSource = viewModel.Employees;
         }
         private object draggedItem;
         private Point startPoint;
@@ -64,11 +64,11 @@ namespace EmployeeManagementApp
             if (targetCanvas != null)
             {
                 var targetDepartment = Convert.ToDouble(targetCanvas.Tag.ToString());
-                var droppedItem = e.Data.GetData(typeof(DepartmentViewModel)) as DepartmentViewModel;
+                var droppedItem = e.Data.GetData(typeof(EmployeeViewModel)) as EmployeeViewModel;
 
                 if (droppedItem != null)
                 {
-                    droppedItem.Department = targetDepartment;
+                    droppedItem.DepartmentId = (short?)targetDepartment;
                 }
             }
         }
@@ -80,11 +80,11 @@ namespace EmployeeManagementApp
             {
                 var targetDepartment = Convert.ToDouble(targetCanvas.Tag.ToString());
                 
-                var droppedItem = e.Data.GetData(typeof(DepartmentViewModel)) as DepartmentViewModel;
+                var droppedItem = e.Data.GetData(typeof(EmployeeViewModel)) as EmployeeViewModel;
 
                 if (droppedItem != null)
                 {
-                    droppedItem.Department = targetDepartment;
+                    droppedItem.DepartmentId = (short?)targetDepartment;
 
                     DepartmentsTable.Items.Refresh();
                 }

@@ -42,7 +42,7 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
                 <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
-                <DataGridTextColumn Header="Department" Binding="{Binding Department}"/>
+                <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Canvas Width="200" Background="LightBlue" Tag="10" AllowDrop="True" Drop="Canvas_Drop" Margin="26,46,448,335">
