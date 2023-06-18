@@ -34,10 +34,22 @@ namespace EmployeeManagementApp
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            LogInto();
+        }
+
+        private void LoginPasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                LogInto();
+            }
+        }
+    
+        private void LogInto()
+        {
             string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
             string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
             _viewModel.Login(userName, password);
-
             this.NavigationService.Navigate(new MainMenu());
         }
     }
