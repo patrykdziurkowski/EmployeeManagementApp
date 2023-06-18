@@ -21,7 +21,15 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class EmployeesMenu : Page
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private EmployeesMenuViewModel _viewModel;
+
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public EmployeesMenu()
         {
             InitializeComponent();
@@ -48,6 +56,10 @@ namespace EmployeeManagementApp
             comboBox.ItemsSource = jobs;
         }
 
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenu());

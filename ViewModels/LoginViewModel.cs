@@ -10,6 +10,9 @@ namespace ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private static LoginViewModel _instance = null;
 
         private string _userName;
@@ -38,13 +41,19 @@ namespace ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         private LoginViewModel()
         {
 
         }
 
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public void Login(string userName, string password)
         {
             _instance.UserName = userName;
@@ -59,6 +68,11 @@ namespace ViewModels
             }
             return _instance;
         }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

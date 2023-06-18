@@ -11,14 +11,23 @@ namespace Infrastructure
     //A class that abstracts Oracle's framework to simplify CRUD operations
     public class OracleSQLDataAccess : ISQLDataAccess
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private readonly string _connectionString;
         private OracleConnection _connection;
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public OracleSQLDataAccess(string connectionString)
         {
             _connectionString = connectionString;
         }
-        
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         /// <summary>
         /// Executes a SELECT type Oracle SQL command that returns matching rows
         /// </summary>

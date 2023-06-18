@@ -21,12 +21,25 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class StartMenu : Page
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private LoginViewModel _viewModel;
+
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public StartMenu()
         {
             InitializeComponent();
             _viewModel = LoginViewModel.GetInstance();
         }
+
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         private void button_Click(object sender, RoutedEventArgs e)
         {
             //Exit from application

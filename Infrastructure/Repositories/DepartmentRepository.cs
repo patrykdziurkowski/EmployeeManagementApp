@@ -10,12 +10,24 @@ namespace Infrastructure.Repositories
 {
     public class DepartmentRepository
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private ISQLDataAccess _dataAccess;
+
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public DepartmentRepository(ISQLDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
 
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public IEnumerable<Department> GetAll()
         {
             return _dataAccess

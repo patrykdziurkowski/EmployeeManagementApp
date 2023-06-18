@@ -16,8 +16,10 @@ namespace ViewModels
 {
     public class SalaryViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private int? _employeeId;
-
         public int? EmployeeId
         {
             get
@@ -58,6 +60,7 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+        
         private string _jobId;
         public string JobId
         {
@@ -86,17 +89,17 @@ namespace ViewModels
             }
         }
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public SalaryViewModel()
         {
 
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public static List<SalaryViewModel> ToListOfSalaryViewModel(IEnumerable<Employee> salaries)
         {
             List<SalaryViewModel> result = new List<SalaryViewModel>();
@@ -116,6 +119,16 @@ namespace ViewModels
 
             return result;
         }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        } 
     }
 }
 

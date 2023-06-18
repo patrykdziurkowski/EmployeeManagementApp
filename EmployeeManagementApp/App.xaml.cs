@@ -44,6 +44,7 @@ namespace EmployeeManagementApp
 
             await AppHost!.StartAsync();
 
+            //Start the window
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
 

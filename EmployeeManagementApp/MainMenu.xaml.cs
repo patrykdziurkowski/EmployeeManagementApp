@@ -20,11 +20,18 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class MainMenu : Page
     {
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public MainMenu()
         {
             InitializeComponent();
         }
 
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new StartMenu());

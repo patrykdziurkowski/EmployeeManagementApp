@@ -16,17 +16,12 @@ namespace ViewModels
 {
     public class SalariesMenuViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private LoginViewModel _loginViewModel;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         private ObservableCollection<SalaryViewModel> _salaries;
-
         public ObservableCollection<SalaryViewModel> Salaries
         {
             get
@@ -40,6 +35,9 @@ namespace ViewModels
             }
         }
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public SalariesMenuViewModel()
         {
             _loginViewModel = LoginViewModel.GetInstance();
@@ -57,6 +55,15 @@ namespace ViewModels
             _salaries.CollectionChanged += Salaries_CollectionChanged;
         }
 
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
         private void Salaries_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Salaries"));

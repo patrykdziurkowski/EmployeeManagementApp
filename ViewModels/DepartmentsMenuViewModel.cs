@@ -16,9 +16,11 @@ namespace ViewModels
 {
     public class DepartmentsMenuViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private LoginViewModel _loginViewModel;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         private ObservableCollection<DepartmentViewModel> _departments;
         public ObservableCollection<DepartmentViewModel> Departments
@@ -34,6 +36,7 @@ namespace ViewModels
             }
         }
 
+
         private ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
         {
@@ -48,6 +51,10 @@ namespace ViewModels
             }
         }
 
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public DepartmentsMenuViewModel()
         {
             _loginViewModel = LoginViewModel.GetInstance();
@@ -77,6 +84,11 @@ namespace ViewModels
             _departments.CollectionChanged += Departments_CollectionChanged;
         }
 
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

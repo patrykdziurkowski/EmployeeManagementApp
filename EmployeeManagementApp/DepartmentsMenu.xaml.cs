@@ -25,20 +25,33 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class DepartmentsMenu : Page
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         public delegate Point GetPosition(IInputElement element);
         int rowIndex = -1;
+        private object draggedItem;
+        private Point startPoint;
+
 
         private DepartmentsMenuViewModel viewModel = new();
 
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public DepartmentsMenu()
         {
             InitializeComponent();
 
             DepartmentsTable.ItemsSource = viewModel.Employees;
         }
-        private object draggedItem;
-        private Point startPoint;
+        
 
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         private void SalariesTable_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             startPoint = e.GetPosition(null);

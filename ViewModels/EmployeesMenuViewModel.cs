@@ -16,8 +16,12 @@ namespace ViewModels
 {
     public class EmployeesMenuViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
         private LoginViewModel _loginViewModel;
+
         private readonly ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
         { 
@@ -41,10 +45,12 @@ namespace ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
 
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public EmployeesMenuViewModel()
         {
             _loginViewModel = LoginViewModel.GetInstance();
@@ -63,7 +69,9 @@ namespace ViewModels
         }
 
 
-
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public void AddEmployee()
         {
             _newEmployee = Employees.LastOrDefault();
@@ -94,6 +102,10 @@ namespace ViewModels
             Employees.Remove(employeeToRemove);
         }
 
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

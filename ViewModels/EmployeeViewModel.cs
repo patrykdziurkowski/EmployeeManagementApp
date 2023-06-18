@@ -14,6 +14,9 @@ namespace ViewModels
 {
     public class EmployeeViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private int? _employeeId;
         public int? EmployeeId {
             get
@@ -167,11 +170,13 @@ namespace ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        
         private LoginViewModel _loginViewModel;
         private EmployeeRepository _employeeRepository;
 
-
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public EmployeeViewModel()
         {
             _loginViewModel = LoginViewModel.GetInstance();
@@ -180,6 +185,40 @@ namespace ViewModels
                 .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
             _employeeRepository = new(new OracleSQLDataAccess(connectionString));
         }
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees)
+        {
+            List<EmployeeViewModel> result = new List<EmployeeViewModel>();
+
+            foreach (Employee employee in employees)
+            {
+                EmployeeViewModel employeeViewModel = new()
+                {
+                    EmployeeId = employee.EMPLOYEE_ID,
+                    FirstName = employee.FIRST_NAME,
+                    LastName = employee.LAST_NAME,
+                    Email = employee.EMAIL,
+                    PhoneNumber = employee.PHONE_NUMBER,
+                    HireDate = employee.HIRE_DATE,
+                    JobId = employee.JOB_ID,
+                    Salary = employee.SALARY,
+                    CommissionPct = employee.COMMISSION_PCT,
+                    ManagerId = employee.MANAGER_ID,
+                    DepartmentId = employee.DEPARTMENT_ID
+                };
+                result.Add(employeeViewModel);
+            }
+
+            return result;
+        }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
@@ -214,31 +253,6 @@ namespace ViewModels
                 _employeeRepository.Update((int)EmployeeId, employeeToUpdate);
             }
         }
-
-        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees)
-        {
-            List<EmployeeViewModel> result = new List<EmployeeViewModel>();
-
-            foreach (Employee employee in employees)
-            {
-                EmployeeViewModel employeeViewModel = new()
-                {
-                    EmployeeId = employee.EMPLOYEE_ID,
-                    FirstName = employee.FIRST_NAME,
-                    LastName = employee.LAST_NAME,
-                    Email = employee.EMAIL,
-                    PhoneNumber = employee.PHONE_NUMBER,
-                    HireDate = employee.HIRE_DATE,
-                    JobId = employee.JOB_ID,
-                    Salary = employee.SALARY,
-                    CommissionPct = employee.COMMISSION_PCT,
-                    ManagerId = employee.MANAGER_ID,
-                    DepartmentId = employee.DEPARTMENT_ID
-                };
-                result.Add(employeeViewModel);
-            }
-
-            return result;
-        }
+        
     }
 }

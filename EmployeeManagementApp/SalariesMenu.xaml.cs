@@ -21,6 +21,9 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class SalariesMenu : Page
     {
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public SalariesMenu()
         {
             InitializeComponent();
@@ -29,6 +32,10 @@ namespace EmployeeManagementApp
             SalariesTable.ItemsSource = viewModel.Salaries;
         }
 
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenu());

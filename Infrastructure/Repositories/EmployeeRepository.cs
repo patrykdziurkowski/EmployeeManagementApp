@@ -9,12 +9,22 @@ namespace Infrastructure.Repositories
 {
     public class EmployeeRepository
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private ISQLDataAccess _dataAccess;
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public EmployeeRepository(ISQLDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
 
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public IEnumerable<Employee> GetAll()
         {
             return _dataAccess
@@ -68,7 +78,6 @@ namespace Infrastructure.Repositories
 
             return rowsAffected > 0;
         }
-
 
     }
 }
