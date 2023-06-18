@@ -1,5 +1,4 @@
-﻿using Core;
-using Domain;
+﻿using Domain;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;

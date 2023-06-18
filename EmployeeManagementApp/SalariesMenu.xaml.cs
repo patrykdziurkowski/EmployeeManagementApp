@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModels;
 
 namespace EmployeeManagementApp
 {
@@ -23,7 +24,9 @@ namespace EmployeeManagementApp
         public SalariesMenu()
         {
             InitializeComponent();
-            
+
+            SalariesMenuViewModel viewModel = new();
+            SalariesTable.ItemsSource = viewModel.Salaries;
         }
 
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)

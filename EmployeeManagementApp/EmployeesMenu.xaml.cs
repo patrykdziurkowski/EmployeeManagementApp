@@ -57,5 +57,15 @@ namespace EmployeeManagementApp
         {
             _viewModel.AddEmployee();
         }
+
+        private void Button_Add_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
