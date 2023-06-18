@@ -21,17 +21,24 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class EmployeesMenu : Page
     {
+        private EmployeesMenuViewModel _viewModel;
         public EmployeesMenu()
         {
             InitializeComponent();
 
-            EmployeesMenuViewModel viewModel = new();
-            EmployeesTable.ItemsSource = viewModel.Employees;
+            _viewModel = new();
+            EmployeesTable.ItemsSource = _viewModel.Employees;
         }
 
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenu());
+        }
+
+        private void Click_AddEmployee(object sender, RoutedEventArgs e)
+        {
+            //string employeeId = ((TextBox)this.FindName("LoginTextBox")).Text;
+            
         }
     }
 }
