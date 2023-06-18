@@ -94,7 +94,7 @@
                 <DataGridTemplateColumn Header="Commision (%)">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding CommisionPct}"/>
+                            <TextBox Text="{Binding CommissionPct}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
