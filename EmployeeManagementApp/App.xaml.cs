@@ -1,13 +1,7 @@
-﻿using Infrastructure;
-using Infrastructure.Repositories;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using Models;
+using Models.Repositories;
 using System.Windows;
 using ViewModels;
 

@@ -1,16 +1,9 @@
-﻿using Core;
-using Domain;
-using Infrastructure;
-using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using Models;
+using Models.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModels
 {
@@ -48,8 +41,7 @@ namespace ViewModels
 
             _salaries = new ObservableCollection<SalaryViewModel>();
             List<SalaryViewModel> salaryViewModels = SalaryViewModel
-                .ToListOfSalaryViewModel(employeeRepository
-                .GetAll());
+                .ToListOfSalaryViewModel(employeeRepository.GetAll());
             ObservableCollection<SalaryViewModel> salaries = new ObservableCollection<SalaryViewModel>(salaryViewModels);
             _salaries = salaries;
             _salaries.CollectionChanged += Salaries_CollectionChanged;

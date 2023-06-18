@@ -1,12 +1,6 @@
-﻿using Domain;
-using Oracle.ManagedDataAccess.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Oracle.ManagedDataAccess.Client;
 
-namespace Infrastructure
+namespace Models
 {
     //A class that abstracts Oracle's framework to simplify CRUD operations
     public class OracleSQLDataAccess : ISQLDataAccess
