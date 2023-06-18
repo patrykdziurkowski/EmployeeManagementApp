@@ -14,18 +14,18 @@
         <Button Content="Add Employee" Margin="50,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
         <DataGrid Name="EmployeesTable" AutoGenerateColumns="False" Margin="0,56,10,96">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTemplateColumn Header="Name">
+                <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
+                <DataGridTemplateColumn Header="FirstName">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Name}"/>
+                            <TextBox Text="{Binding FirstName}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Surname">
+                <DataGridTemplateColumn Header="LastName">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Surname}"/>
+                            <TextBox Text="{Binding LastName}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -36,10 +36,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Phone Number">
+                <DataGridTemplateColumn Header="PhoneNumber">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding PhoneNr}"/>
+                            <TextBox Text="{Binding PhoneNumber}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -53,21 +53,21 @@
                 <DataGridTemplateColumn Header="Department">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Department}"/>
+                            <TextBox Text="{Binding DepartmentId}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Manager">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Manager}"/>
+                            <TextBox Text="{Binding ManagerId}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Role">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="100" SelectedIndex="{Binding RoleId}">
+                            <ComboBox Width="100" SelectedIndex="{Binding JobId}">
                                 <ComboBoxItem>AD_PRES</ComboBoxItem>
                                 <ComboBoxItem>AD_VP</ComboBoxItem>
                                 <ComboBoxItem>AD_ASST</ComboBoxItem>
@@ -84,7 +84,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Hire Date">
+                <DataGridTemplateColumn Header="HireDate">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker SelectedDate="{Binding HireDate}" BorderThickness="0" />
@@ -94,7 +94,7 @@
                 <DataGridTemplateColumn Header="Commision (%)">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Commision}"/>
+                            <TextBox Text="{Binding CommisionPct}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
