@@ -12,9 +12,9 @@
         <Button Content = "Exit"
             HorizontalAlignment = "Left" Margin = "598,321,0,0"
             VerticalAlignment = "Top" Width = "100" Height="36" Click="button_Click" FontSize="14" FontFamily="Bahnschrift" Background="#FF903749" BorderBrush="Black" Foreground="White"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,124,0,0" TextWrapping="Wrap" Text="Database" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
+        <TextBox Name="LoginTextBox" HorizontalAlignment="Center" Margin="0,124,0,0" TextWrapping="Wrap" Text="Database" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
         <Button x:Name="loginButton" Content="Connect" Margin="0,176,0,0" VerticalAlignment="Top" Height="26" Width="72" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="Button_Click_1" Foreground="White"/>
-        <PasswordBox HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Width="126" Height="22" Password="password" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
+        <PasswordBox Name="LoginPasswordBox" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Width="126" Height="22" Password="password" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
         <Label Content="Log into" HorizontalAlignment="Left" Margin="253,46,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="88" Foreground="#FF2B2E4A" FontWeight="Bold"/>
         <Label Content=" Employees Database&#xA;" HorizontalAlignment="Left" Margin="341,46,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold"/>
 

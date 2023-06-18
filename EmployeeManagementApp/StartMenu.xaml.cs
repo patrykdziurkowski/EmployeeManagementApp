@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModels;
 
 namespace EmployeeManagementApp
 {
@@ -20,16 +21,23 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class StartMenu : Page
     {
+        private LoginViewModel _viewModel;
         public StartMenu()
         {
             InitializeComponent();
+            _viewModel = LoginViewModel.GetInstance();
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();                  //Exit from application
+            //Exit from application
+            System.Windows.Application.Current.Shutdown();                  
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
+            string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
+            _viewModel.Login(userName, password);
+
             this.NavigationService.Navigate(new MainMenu());
         }
     }
