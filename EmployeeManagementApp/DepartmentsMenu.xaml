@@ -22,15 +22,21 @@
             <Setter Property="Background" Value="#FFE2E4F7"/>
             <Setter Property="Padding" Value="4,0,0,0"/>
         </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="17"/>
+        </Style>
     </Page.Resources>
     <Grid Height="434.04">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="337*"/>
             <ColumnDefinition Width="63*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Return" Margin="40,345,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left" Grid.Column="1"/>
+        <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
         <Label Content="Manage Departments" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold" Margin="290,0,0,0"/>
-        <DataGrid Name="SalariesTable" AutoGenerateColumns="False" Margin="282,41,156,70">
+        <DataGrid Name="SalariesTable" AutoGenerateColumns="False" Margin="250,46,124,70" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" Drop="SalariesTable_Drop" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -39,5 +45,29 @@
                 <DataGridTextColumn Header="Department" Binding="{Binding Department}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Canvas Width="200" Background="LightBlue" Tag="Administration" AllowDrop="True" Drop="Canvas_Drop" Margin="26,46,448,335">
+            <TextBlock Text="Administration" Canvas.Left="45" Canvas.Top="15" HorizontalAlignment="Left" />
+        </Canvas>
+        <Canvas Width="200" Background="LightBlue" Tag="Marketing" AllowDrop="True" Drop="Canvas_Drop" Margin="26,134,448,246">
+            <TextBlock Text="Marketing" Canvas.Left="62" Canvas.Top="15" HorizontalAlignment="Left" />
+        </Canvas>
+        <Canvas Width="200" Background="LightBlue" Tag="Shipping" AllowDrop="True" Drop="Canvas_Drop" Margin="26,217,448,161">
+            <TextBlock Text="Shipping" Canvas.Left="67" Canvas.Top="16" HorizontalAlignment="Left" />
+        </Canvas>
+        <Canvas Width="200" Background="LightBlue" Tag="IT" AllowDrop="True" Drop="Canvas_Drop" Margin="26,308,448,73">
+            <TextBlock Text="IT" Canvas.Left="87" Canvas.Top="15" HorizontalAlignment="Left" />
+        </Canvas>
+        <Canvas Width="200" Background="LightBlue" Tag="Sales" AllowDrop="True" Drop="Canvas_Drop" Margin="571,46,29,335" Grid.ColumnSpan="2">
+            <TextBlock Text="Sales" Canvas.Left="81" Canvas.Top="15" HorizontalAlignment="Left" />
+        </Canvas>
+        <Canvas Width="200" Background="LightBlue" Tag="Executive" AllowDrop="True" Drop="Canvas_Drop" Margin="571,134,29,247" Grid.ColumnSpan="2">
+            <TextBlock Text="Executive" Canvas.Left="65" Canvas.Top="15" HorizontalAlignment="Left" />
+        </Canvas>
+        <Canvas Width="200" Background="LightBlue" Tag="Accounting" AllowDrop="True" Drop="Canvas_Drop" Margin="571,218,29,162" Grid.ColumnSpan="2">
+            <TextBlock Text="Accounting" Canvas.Left="57" Canvas.Top="15" HorizontalAlignment="Left" />
+        </Canvas>
+        <Canvas Width="200" Background="LightBlue" Tag="Contracting" AllowDrop="True" Drop="Canvas_Drop" Margin="571,308,29,73" Grid.ColumnSpan="2">
+            <TextBlock Text="Contracting" Canvas.Left="56" Canvas.Top="15" HorizontalAlignment="Left" />
+        </Canvas>
     </Grid>
 </Page>
