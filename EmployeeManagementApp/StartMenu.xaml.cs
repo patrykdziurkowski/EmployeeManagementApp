@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace EmployeeManagementApp
 {
     /// <summary>
-    /// Logika interakcji dla klasy StartMenu.xaml
+    /// Interaction logic for StartMenu.xaml
     /// </summary>
     public partial class StartMenu : Page
     {
