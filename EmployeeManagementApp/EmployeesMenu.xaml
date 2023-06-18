@@ -22,26 +22,7 @@
                 <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay}"/>
-                <DataGridTemplateColumn Header="Role">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox Width="100" SelectedIndex="{Binding JobId, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBoxItem>AD_PRES</ComboBoxItem>
-                                <ComboBoxItem>AD_VP</ComboBoxItem>
-                                <ComboBoxItem>AD_ASST</ComboBoxItem>
-                                <ComboBoxItem>AC_MGR</ComboBoxItem>
-                                <ComboBoxItem>AC_ACCOUNT</ComboBoxItem>
-                                <ComboBoxItem>SA_MAN</ComboBoxItem>
-                                <ComboBoxItem>SA_REP</ComboBoxItem>
-                                <ComboBoxItem>ST_MAN</ComboBoxItem>
-                                <ComboBoxItem>ST_CLERK</ComboBoxItem>
-                                <ComboBoxItem>IT_PROG</ComboBoxItem>
-                                <ComboBoxItem>MK_MAN</ComboBoxItem>
-                                <ComboBoxItem>MK_REP</ComboBoxItem>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="100" SelectedItemBinding="{Binding JobId, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Header="HireDate">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

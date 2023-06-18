@@ -26,8 +26,26 @@ namespace EmployeeManagementApp
         {
             InitializeComponent();
 
+            List<string> jobs = new()
+            {
+                "AD_PRES",
+                "AD_VP",
+                "AD_ASST",
+                "AC_MGR",
+                "AC_ACCOUNT",
+                "SA_MAN",
+                "SA_REP",
+                "ST_MAN",
+                "ST_CLERK",
+                "IT_PROG",
+                "MK_MAN",
+                "MK_REP"
+            };
+
             _viewModel = new();
             EmployeesTable.ItemsSource = _viewModel.Employees;
+            DataGridComboBoxColumn comboBox = (DataGridComboBoxColumn)this.FindName("JobsComboBox");
+            comboBox.ItemsSource = jobs;
         }
 
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
@@ -37,8 +55,7 @@ namespace EmployeeManagementApp
 
         private void Click_AddEmployee(object sender, RoutedEventArgs e)
         {
-            //string employeeId = ((TextBox)this.FindName("LoginTextBox")).Text;
-            
+            _viewModel.AddEmployee();
         }
     }
 }
