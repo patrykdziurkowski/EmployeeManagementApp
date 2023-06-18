@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace EmployeeManagementApp
 {
     /// <summary>
-    /// Logika interakcji dla klasy SalariesMenu.xaml
+    /// Interaction logic for SalariesMenu.xaml class
     /// </summary>
     public partial class SalariesMenu : Page
     {
         public SalariesMenu()
         {
             InitializeComponent();
+            
         }
 
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
