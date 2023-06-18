@@ -45,8 +45,9 @@ namespace Infrastructure.Repositories
 
         public bool Fire(int employeeId)
         {
+            string nonQuery = $"DELETE FROM employees WHERE employee_id = {employeeId}";
             int rowsAffected = _dataAccess
-                .ExecuteSQLNonQuery($"DELETE FROM employees WHERE employee_id = {employeeId}");
+                .ExecuteSQLNonQuery(nonQuery);
             return rowsAffected > 0;
         }
 

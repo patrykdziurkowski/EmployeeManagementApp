@@ -86,6 +86,14 @@ namespace ViewModels
 
         }
 
+        public void RemoveEmployee(int id)
+        {
+            _employeeRepository.Fire(id);
+            EmployeeViewModel employeeToRemove = Employees
+                .FirstOrDefault(employee => employee.EmployeeId == id);
+            Employees.Remove(employeeToRemove);
+        }
+
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

@@ -65,7 +65,13 @@ namespace EmployeeManagementApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Button clickedButton = (Button)e.Source;
+            if (clickedButton is not null)
+            {
+                EmployeeViewModel employee = (EmployeeViewModel)EmployeesTable.SelectedItem;
+                _viewModel.RemoveEmployee((int)employee.EmployeeId);
+            }
+            
         }
     }
 }
