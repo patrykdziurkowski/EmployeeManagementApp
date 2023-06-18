@@ -10,6 +10,8 @@ namespace ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
+        private static LoginViewModel _instance = null;
+
         private string _userName;
         public string UserName {
             get
@@ -38,15 +40,24 @@ namespace ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public LoginViewModel()
+        private LoginViewModel()
         {
 
         }
 
         public void Login(string userName, string password)
         {
-            UserName = userName;
-            Password = password;
+            _instance.UserName = userName;
+            _instance.Password = password;
+        }
+
+        public static LoginViewModel GetInstance()
+        {
+            if (_instance is null)
+            {
+                _instance = new LoginViewModel();
+            }
+            return _instance;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)

@@ -16,6 +16,7 @@ namespace ViewModels
 {
     public class EmployeesMenuViewModel : INotifyPropertyChanged
     {
+        private LoginViewModel _loginViewModel;
         private readonly ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
         { 
@@ -31,7 +32,11 @@ namespace ViewModels
 
         public EmployeesMenuViewModel()
         {
-            EmployeeRepository employeeRepository = new(new OracleSQLDataAccess());
+            _loginViewModel = LoginViewModel.GetInstance();
+            ConnectionStringProvider provider = new ConnectionStringProvider();
+            string connectionString = provider
+                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
+            EmployeeRepository employeeRepository = new(new OracleSQLDataAccess(connectionString));
 
             _employees = new ObservableCollection<EmployeeViewModel>();
             List<EmployeeViewModel> employeeViewModels = EmployeeViewModel

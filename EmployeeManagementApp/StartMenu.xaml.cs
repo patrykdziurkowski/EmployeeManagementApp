@@ -25,7 +25,7 @@ namespace EmployeeManagementApp
         public StartMenu()
         {
             InitializeComponent();
-            _viewModel = new LoginViewModel();
+            _viewModel = LoginViewModel.GetInstance();
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
