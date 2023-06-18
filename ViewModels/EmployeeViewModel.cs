@@ -1,4 +1,7 @@
-﻿using Domain;
+﻿using Core;
+using Domain;
+using Infrastructure;
+using Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -165,10 +168,51 @@ namespace ViewModels
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        private LoginViewModel _loginViewModel;
+        private EmployeeRepository _employeeRepository;
+
+
+        public EmployeeViewModel()
+        {
+            _loginViewModel = LoginViewModel.GetInstance();
+            ConnectionStringProvider provider = new ConnectionStringProvider();
+            string connectionString = provider
+                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
+            _employeeRepository = new(new OracleSQLDataAccess(connectionString));
+        }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+
+            if (EmployeeId is not null &&
+                FirstName is not null &&
+                LastName is not null &&
+                Email is not null &&
+                PhoneNumber is not null &&
+                HireDate is not null &&
+                JobId is not null &&
+                Salary is not null &&
+                DepartmentId is not null)
+            {
+                Employee employeeToUpdate = new Employee()
+                {
+                    EMPLOYEE_ID = EmployeeId,
+                    FIRST_NAME = FirstName,
+                    LAST_NAME = LastName,
+                    EMAIL = Email,
+                    PHONE_NUMBER = PhoneNumber,
+                    HIRE_DATE = HireDate,
+                    JOB_ID = JobId,
+                    SALARY = Salary,
+                    COMMISSION_PCT = CommissionPct,
+                    MANAGER_ID = ManagerId,
+                    DEPARTMENT_ID = DepartmentId
+                };
+
+                _employeeRepository.Update((int)EmployeeId, employeeToUpdate);
+            }
         }
 
         public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees)
