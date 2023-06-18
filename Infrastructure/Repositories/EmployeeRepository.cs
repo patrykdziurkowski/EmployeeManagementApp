@@ -1,5 +1,4 @@
-﻿using Core;
-using Domain;
+﻿using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -7,11 +7,33 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SalariesMenu">
-
+    <Page.Resources>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DDE6ED"/>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#FFE2E4F7"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="FontWeight"  Value="Bold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="#FFE2E4F7"/>
+            <Setter Property="Padding" Value="4,0,0,0"/>
+        </Style>
+    </Page.Resources>
     <Grid Height="434.04">
-        <Button Content="Return" Margin="0,337,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White"/>
+        <Button Content="Return" Margin="692,358,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left" RenderTransformOrigin="0.376,0.571"/>
         <Label Content="Salaries
-               " HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="95" Foreground="#FF903749" FontWeight="Bold"/>
-
+               " HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="96" Foreground="#FF903749" FontWeight="Bold"/>
+        <DataGrid Name="SalariesTable" AutoGenerateColumns="False" Margin="0,46,565,65">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role}"/>
+                <DataGridTextColumn Header="Salary" Binding="{Binding Salary}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

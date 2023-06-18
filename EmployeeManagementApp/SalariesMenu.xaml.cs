@@ -23,12 +23,26 @@ namespace EmployeeManagementApp
         public SalariesMenu()
         {
             InitializeComponent();
-            
+            List<SalariesTableObject> tableSalariesData = new List<SalariesTableObject>();
+
+            //Add objects
+            tableSalariesData.Add(new SalariesTableObject() { Id = 1, Name = "Jan", Surname = "Jowalski", Role = "AC_MGR", Salary = "5555" });
+
+            SalariesTable.ItemsSource = tableSalariesData;
         }
 
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenu());
         }
+    }
+
+    public class SalariesTableObject 
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Role { get; set; }
+        public string Salary { get; set; }
     }
 }
