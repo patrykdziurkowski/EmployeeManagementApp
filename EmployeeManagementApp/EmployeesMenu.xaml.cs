@@ -75,5 +75,10 @@ namespace EmployeeManagementApp
             }
             
         }
+
+        private void Click_Navigate_JobHistory(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new JobHistoryMenu());
+        }
     }
 }

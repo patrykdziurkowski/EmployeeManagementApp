@@ -110,5 +110,6 @@
                 
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Job History" Margin="156,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="Click_Navigate_JobHistory" Foreground="White" HorizontalAlignment="Left"/>
     </Grid>
 </Page>

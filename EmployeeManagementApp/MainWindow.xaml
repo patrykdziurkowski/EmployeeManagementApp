@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Employee Management App" Height="450" Width="800" ResizeMode="CanMinimize" ShowInTaskbar="True" Icon="/icon.png">
     <Grid Background="#FFE2E4F7">
-        <Frame x:Name="FrameNavigator" Source="StartMenu.xaml" Grid.ColumnSpan="4" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="FrameNavigator" Source="StartMenu.xaml" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
