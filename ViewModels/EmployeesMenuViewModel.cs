@@ -18,7 +18,7 @@ namespace ViewModels
 
         private readonly ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
-        { 
+        {
             get
             {
                 return _employees;
