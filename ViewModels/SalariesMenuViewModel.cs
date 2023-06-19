@@ -48,6 +48,59 @@ namespace ViewModels
         }
 
         ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        public double GetAverageSalary()
+        {
+            double sum = 0;
+            foreach (SalaryViewModel employee in Salaries)
+            {
+                sum += (double)employee.Salary;
+            }
+            return sum / Salaries.Count;
+        }
+
+        public double GetMaxSalary()
+        {
+            double maxSalary = 0;
+            foreach (SalaryViewModel employee in Salaries)
+            {
+                if (employee.Salary > maxSalary)
+                {
+                    maxSalary = (double)employee.Salary;
+                }
+            }
+
+            return maxSalary;
+        }
+
+        public double GetMinSalary()
+        {
+            double? minSalary = null;
+            foreach (SalaryViewModel employee in Salaries)
+            {
+                if ((employee.Salary < minSalary) || (minSalary is null))
+                {
+                    minSalary = (double)employee.Salary;
+                }
+            }
+
+            return (double)minSalary;
+        }
+
+        public double GetSumOfSalaries()
+        {
+            double sumOfSalaries = 0;
+
+            foreach (SalaryViewModel employee in Salaries)
+            {
+                sumOfSalaries += (double)employee.Salary;
+            }
+
+            return sumOfSalaries;
+        }
+
+        ////////////////////////////////////////////
         //  Events and Data Binding
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
