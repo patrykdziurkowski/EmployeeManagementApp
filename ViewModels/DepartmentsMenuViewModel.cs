@@ -98,12 +98,6 @@ namespace ViewModels
                 .FirstOrDefault(department => department.DepartmentId == employeeToUpdate.DepartmentId)
                 .Employees = employeesAfterFiltering;
 
-
-
-            var test = _departments
-                .FirstOrDefault(department => department.DepartmentId == employeeToUpdate.DepartmentId)
-                .Employees;
-
             employeeToUpdate.DepartmentId = (short?)targetDepartmentId;
             _departments
                 .FirstOrDefault(department => department.DepartmentId == targetDepartmentId)

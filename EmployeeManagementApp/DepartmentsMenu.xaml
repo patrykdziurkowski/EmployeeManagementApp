@@ -82,7 +82,7 @@
                                                 <Run Text="Id:"/>
                                                 <Run Text="{Binding DepartmentId, Mode=TwoWay}"/>
                                     </TextBlock>
-                                    <DataGrid Background="#903749" HorizontalScrollBarVisibility="Hidden" IsReadOnly="True" Width="280" Margin="9,30"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}">
+                                    <DataGrid Background="#903749" HorizontalScrollBarVisibility="Hidden" IsReadOnly="True" Width="280" Margin="9,30"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn MinWidth="50" Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}"/>
                                             <DataGridTextColumn MinWidth="100" Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
