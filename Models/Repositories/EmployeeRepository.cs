@@ -37,10 +37,12 @@ namespace Models.Repositories
         {
             string hireDate = employee.HIRE_DATE.Value.ToString("yyyy-MM-dd");
             string commissionPct = employee.COMMISSION_PCT.ToString().Replace(",", ".");
+            commissionPct = (commissionPct == String.Empty) ? "null" : commissionPct;
+            string managerId = (employee.MANAGER_ID is null) ? "null" : employee.MANAGER_ID.ToString();
 
             string nonQuery = $"INSERT INTO employees VALUES ({employee.EMPLOYEE_ID}, '{employee.FIRST_NAME}', " +
                 $"'{employee.LAST_NAME}', '{employee.EMAIL}', '{employee.PHONE_NUMBER}', '{hireDate}', '{employee.JOB_ID}', " +
-                $"{employee.SALARY}, {commissionPct}, {employee.MANAGER_ID}, {employee.DEPARTMENT_ID})";
+                $"{employee.SALARY}, {commissionPct}, {managerId}, {employee.DEPARTMENT_ID})";
             
             int rowsAffected = _dataAccess
                 .ExecuteSQLNonQuery(nonQuery);

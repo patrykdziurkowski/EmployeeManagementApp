@@ -69,23 +69,33 @@ namespace ViewModels
         public void AddEmployee()
         {
             _newEmployee = Employees.LastOrDefault();
-            Employee employeeToHire = new Employee()
+            if (_newEmployee.EmployeeId is not null &&
+                _newEmployee.FirstName is not null &&
+                _newEmployee.LastName is not null &&
+                _newEmployee.Email is not null &&
+                _newEmployee.PhoneNumber is not null &&
+                _newEmployee.HireDate is not null &&
+                _newEmployee.JobId is not null &&
+                _newEmployee.Salary is not null &&
+                _newEmployee.DepartmentId is not null)
             {
-                EMPLOYEE_ID = _newEmployee.EmployeeId,
-                FIRST_NAME = _newEmployee.FirstName,
-                LAST_NAME = _newEmployee.LastName,
-                EMAIL = _newEmployee.Email,
-                PHONE_NUMBER = _newEmployee.PhoneNumber,
-                HIRE_DATE = _newEmployee.HireDate,
-                JOB_ID = _newEmployee.JobId,
-                SALARY = _newEmployee.Salary,
-                COMMISSION_PCT = _newEmployee.CommissionPct,
-                MANAGER_ID = _newEmployee.ManagerId,
-                DEPARTMENT_ID = _newEmployee.DepartmentId
-            };
-            //TODO: validate params
-            _employeeRepository.Hire(employeeToHire);
+                Employee employeeToHire = new Employee()
+                {
+                    EMPLOYEE_ID = _newEmployee.EmployeeId,
+                    FIRST_NAME = _newEmployee.FirstName,
+                    LAST_NAME = _newEmployee.LastName,
+                    EMAIL = _newEmployee.Email,
+                    PHONE_NUMBER = _newEmployee.PhoneNumber,
+                    HIRE_DATE = _newEmployee.HireDate,
+                    JOB_ID = _newEmployee.JobId,
+                    SALARY = _newEmployee.Salary,
+                    COMMISSION_PCT = _newEmployee.CommissionPct,
+                    MANAGER_ID = _newEmployee.ManagerId,
+                    DEPARTMENT_ID = _newEmployee.DepartmentId
+                };
 
+                _employeeRepository.Hire(employeeToHire);
+            }
         }
 
         public void RemoveEmployee(int id)

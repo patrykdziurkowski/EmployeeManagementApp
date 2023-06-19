@@ -72,7 +72,7 @@
                         <DataTemplate>
                             <Grid Name="DepartmentsGrid" Margin="0,0,0,5">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition MinHeight="150" MaxHeight="500"/>
+                                    <RowDefinition MinHeight="100"/>
                                 </Grid.RowDefinitions>
 
                                 <Grid Tag="{Binding DepartmentId, Mode=TwoWay}" Background="#903749" Margin="10,10,10,10" AllowDrop="True" Drop="Canvas_Drop">

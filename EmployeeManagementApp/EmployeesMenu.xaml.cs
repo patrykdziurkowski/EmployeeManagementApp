@@ -40,7 +40,7 @@ namespace EmployeeManagementApp
                 "MK_REP"
             };
 
-            _viewModel = new();
+            _viewModel = new EmployeesMenuViewModel();
             EmployeesTable.ItemsSource = _viewModel.Employees;
             DataGridComboBoxColumn comboBox = (DataGridComboBoxColumn)this.FindName("JobsComboBox");
             comboBox.ItemsSource = jobs;
@@ -58,6 +58,8 @@ namespace EmployeeManagementApp
         private void Click_AddEmployee(object sender, RoutedEventArgs e)
         {
             _viewModel.AddEmployee();
+            _viewModel =  new EmployeesMenuViewModel();
+            EmployeesTable.ItemsSource = _viewModel.Employees;
         }
 
         private void Button_Add_Clicked(object sender, RoutedEventArgs e)

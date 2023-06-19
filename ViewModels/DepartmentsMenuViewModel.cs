@@ -82,10 +82,20 @@ namespace ViewModels
         ////////////////////////////////////////////
         public void UpdateEmployeesDepartments(EmployeeViewModel employeeToUpdate, int targetDepartmentId)
         {
-            _departments
-                .FirstOrDefault(department => department.DepartmentId == employeeToUpdate.DepartmentId)
-                .Employees
-                .Remove(employeeToUpdate);
+            foreach (DepartmentViewModel department in _departments)
+            {
+                ObservableCollection<EmployeeViewModel> employeesToFilter = department.Employees;
+
+                ObservableCollection<EmployeeViewModel> employeesToKeep = new();
+                foreach(EmployeeViewModel employee in department.Employees)
+                {
+                    if (employee.EmployeeId != employeeToUpdate.EmployeeId)
+                    {
+                        employeesToKeep.Add(employee);
+                    }
+                }
+                department.Employees = employeesToKeep;
+            }
 
             employeeToUpdate.DepartmentId = (short?)targetDepartmentId;
             Employees
