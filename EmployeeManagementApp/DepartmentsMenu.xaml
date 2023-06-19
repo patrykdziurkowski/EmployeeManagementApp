@@ -49,12 +49,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Height="434.04">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+
 
             <DataGrid Name="DepartmentsTable" Grid.Column="0" AutoGenerateColumns="False" Margin="25,50,25,75" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
                 <DataGrid.Columns>
@@ -82,8 +83,9 @@
                                                 <Run Text="Id:"/>
                                                 <Run Text="{Binding DepartmentId, Mode=TwoWay}"/>
                                     </TextBlock>
-                                    <DataGrid Background="#903749" HorizontalScrollBarVisibility="Hidden" IsReadOnly="True" Width="280" Margin="9,30"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
-                                        <DataGrid.Columns>
+
+                                        <DataGrid Background="#903749" HorizontalScrollBarVisibility="Hidden" IsReadOnly="True" Width="280" Margin="9,30"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
+                                            <DataGrid.Columns>
                                             <DataGridTextColumn MinWidth="50" Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}"/>
                                             <DataGridTextColumn MinWidth="100" Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
                                             <DataGridTextColumn MinWidth="125" Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
@@ -117,8 +119,9 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+            <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+            <Button Content="Departments Locations" Margin="0,369,0,0" VerticalAlignment="Top" Height="32" Width="132" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="GoToDepartmentsLocationMenu" Foreground="White" HorizontalAlignment="Center"/>
         </Grid>
-        <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
         <Label Content="Manage Departments" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold" Margin="290,0,0,0"/>
     </Grid>
 </Page>

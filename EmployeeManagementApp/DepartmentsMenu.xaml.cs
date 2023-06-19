@@ -34,7 +34,6 @@ namespace EmployeeManagementApp
 
             DepartmentsTable.ItemsSource = _viewModel.Employees;
             DepartmentsList.ItemsSource = _viewModel.Departments;
-            
         }
 
 
@@ -104,6 +103,11 @@ namespace EmployeeManagementApp
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenu());
+        }
+
+        private void GoToDepartmentsLocationMenu(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new DepartmentsLocationMenu());
         }
     }
 }
