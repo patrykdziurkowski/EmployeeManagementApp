@@ -78,6 +78,27 @@ namespace ViewModels
         }
 
         ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        public void UpdateEmployeesDepartments(EmployeeViewModel employeeToUpdate, int targetDepartmentId)
+        {
+            _departments
+                .FirstOrDefault(department => department.DepartmentId == employeeToUpdate.DepartmentId)
+                .Employees
+                .Remove(employeeToUpdate);
+
+            employeeToUpdate.DepartmentId = (short?)targetDepartmentId;
+            Employees
+                .FirstOrDefault(employee => employee.EmployeeId == employeeToUpdate.EmployeeId)
+                .DepartmentId = (short?)targetDepartmentId;
+
+            _departments
+                .FirstOrDefault(department => department.DepartmentId == targetDepartmentId)
+                .Employees
+                .Add(employeeToUpdate); 
+        }
+
+        ////////////////////////////////////////////
         //  Events and Data Binding
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;

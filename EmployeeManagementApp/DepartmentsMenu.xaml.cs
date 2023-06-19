@@ -76,7 +76,7 @@ namespace EmployeeManagementApp
 
                 if (droppedEmployee != null)
                 {
-                    droppedEmployee.DepartmentId = (short?)targetDepartmentId;
+                    _viewModel.UpdateEmployeesDepartments(droppedEmployee, (int)targetDepartmentId);
 
                     DepartmentsTable.Items.Refresh();
                 }
