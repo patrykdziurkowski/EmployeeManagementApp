@@ -34,5 +34,12 @@ namespace Models.Repositories
                 .ExecuteSQLQuery<Department>($"SELECT * FROM departments WHERE department_id = {departmentId}")
                 .FirstOrDefault();
         }
+
+        public IEnumerable<Employee> GetEmployeesForDepartment(int departmentId)
+        {
+            string query = $"SELECT * FROM employees WHERE department_id = {departmentId}";
+            return _dataAccess
+                .ExecuteSQLQuery<Employee>(query);
+        }
     }
 }

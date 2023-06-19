@@ -59,14 +59,12 @@ namespace ViewModels
                 .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
             OracleSQLDataAccess dataAccess = new(connectionString);
 
-            EmployeeRepository employeeRepository = new(dataAccess);
             DepartmentRepository departmentRepository = new(dataAccess);
+            EmployeeRepository employeeRepository = new(dataAccess);
 
-            
             List<DepartmentViewModel> departmentViewModels = DepartmentViewModel
                 .ToListOfDepartmentViewModel(departmentRepository.GetAll());
             ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
-
             List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
                 .ToListOfEmployeeViewModel(employeeRepository.GetAll());
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
@@ -75,8 +73,9 @@ namespace ViewModels
             _employees.CollectionChanged += Employees_CollectionChanged;
             _departments = departments;
             _departments.CollectionChanged += Departments_CollectionChanged;
-        }
 
+            
+        }
 
         ////////////////////////////////////////////
         //  Events and Data Binding
