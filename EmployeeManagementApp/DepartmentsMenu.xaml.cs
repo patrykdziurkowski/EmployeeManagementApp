@@ -16,13 +16,13 @@ namespace EmployeeManagementApp
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
+        private int _rowIndex = -1;
+        private object _draggedItem;
+        private Point _startPoint;
+
         public delegate Point GetPosition(IInputElement element);
-        int rowIndex = -1;
-        private object draggedItem;
-        private Point startPoint;
 
-
-        private DepartmentsMenuViewModel viewModel = new();
+        private DepartmentsMenuViewModel _viewModel = new();
 
 
         ////////////////////////////////////////////
@@ -32,44 +32,49 @@ namespace EmployeeManagementApp
         {
             InitializeComponent();
 
-            DepartmentsTable.ItemsSource = viewModel.Employees;
+            DepartmentsTable.ItemsSource = _viewModel.Employees;
         }
-        
+
 
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
+        //Occurs when the left mouse button is pressed while the mouse pointer is over this element.
         private void SalariesTable_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            startPoint = e.GetPosition(null);
-            draggedItem = FindDataGridRow(e.OriginalSource as DependencyObject)?.Item;
+            _startPoint = e.GetPosition(null);
+            _draggedItem = FindDataGridRow((DependencyObject)e.OriginalSource)?.Item;
         }
 
+        //Occurs when the mouse pointer moves while the mouse pointer is over this element.
         private void SalariesTable_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed && draggedItem != null)
+            bool leftClickIsPressed = e.LeftButton == MouseButtonState.Pressed;
+
+            if ((leftClickIsPressed) && (_draggedItem is not null))
             {
-                Point position = e.GetPosition(null);
-                if (Math.Abs(position.X - startPoint.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                    Math.Abs(position.Y - startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)
+                Point currentPosition = e.GetPosition(null);
+                if (Math.Abs(currentPosition.X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                    Math.Abs(currentPosition.Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)
                 {
-                    DragDrop.DoDragDrop(DepartmentsTable, draggedItem, DragDropEffects.Move);
-                    draggedItem = null;
+                    DragDrop.DoDragDrop(DepartmentsTable, _draggedItem, DragDropEffects.Move);
+                    _draggedItem = null;
                 }
             }
         }
+
         private void SalariesTable_Drop(object sender, DragEventArgs e)
         {
-            var targetCanvas = e.Source as Canvas;
+            Canvas targetCanvas = (Canvas)e.Source;
             if (targetCanvas != null)
             {
-                var targetDepartment = Convert.ToDouble(targetCanvas.Tag.ToString());
-                var droppedItem = e.Data.GetData(typeof(EmployeeViewModel)) as EmployeeViewModel;
+                double targetDepartmentId = Convert.ToDouble(targetCanvas.Tag.ToString());
+                EmployeeViewModel droppedEmployee = (EmployeeViewModel)e.Data.GetData(typeof(EmployeeViewModel));
 
-                if (droppedItem != null)
+                if (droppedEmployee != null)
                 {
-                    droppedItem.DepartmentId = (short?)targetDepartment;
+                    droppedEmployee.DepartmentId = (short?)targetDepartmentId;
                 }
             }
         }
@@ -79,13 +84,13 @@ namespace EmployeeManagementApp
             var targetCanvas = sender as Canvas;
             if (targetCanvas != null)
             {
-                var targetDepartment = Convert.ToDouble(targetCanvas.Tag.ToString());
-                
-                var droppedItem = e.Data.GetData(typeof(EmployeeViewModel)) as EmployeeViewModel;
+                double targetDepartmentId = Convert.ToDouble(targetCanvas.Tag.ToString());
 
-                if (droppedItem != null)
+                EmployeeViewModel droppedEmployee = (EmployeeViewModel)e.Data.GetData(typeof(EmployeeViewModel));
+
+                if (droppedEmployee != null)
                 {
-                    droppedItem.DepartmentId = (short?)targetDepartment;
+                    droppedEmployee.DepartmentId = (short?)targetDepartmentId;
 
                     DepartmentsTable.Items.Refresh();
                 }

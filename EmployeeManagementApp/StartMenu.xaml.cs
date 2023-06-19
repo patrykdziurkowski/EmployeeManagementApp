@@ -36,6 +36,7 @@ namespace EmployeeManagementApp
             string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
             string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
             _viewModel.Login(userName, password);
+
             this.NavigationService.Navigate(new MainMenu());
         }
 
