@@ -49,7 +49,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Height="434.04">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -117,8 +117,9 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+            <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+            <Button Content="Departments Locations" Margin="0,369,0,0" VerticalAlignment="Top" Height="32" Width="132" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="GoToDepartmentsLocationMenu" Foreground="White" HorizontalAlignment="Center"/>
         </Grid>
-        <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
         <Label Content="Manage Departments" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold" Margin="290,0,0,0"/>
     </Grid>
 </Page>
