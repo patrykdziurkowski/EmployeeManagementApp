@@ -34,6 +34,7 @@ namespace EmployeeManagementApp
 
             DepartmentsTable.ItemsSource = _viewModel.Employees;
             DepartmentsList.ItemsSource = _viewModel.Departments;
+            
         }
 
 
@@ -82,10 +83,10 @@ namespace EmployeeManagementApp
 
         private void Canvas_Drop(object sender, DragEventArgs e)
         {
-            Canvas targetCanvas = (Canvas)sender;
-            if (targetCanvas != null)
+            Grid targetDepartment = (Grid)sender;
+            if (targetDepartment != null)
             {
-                double targetDepartmentId = Convert.ToDouble(targetCanvas.Tag.ToString());
+                double targetDepartmentId = Convert.ToDouble(targetDepartment.Tag.ToString());
 
                 EmployeeViewModel droppedEmployee = (EmployeeViewModel)e.Data.GetData(typeof(EmployeeViewModel));
 
