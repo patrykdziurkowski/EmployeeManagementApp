@@ -40,6 +40,8 @@ namespace EmployeeManagementApp
             if (isLoggedIn == false)
             {
                 LoginFailedLabel.Content = "Login failed!";
+                LoginPasswordBox.Clear();
+                LoginTextBox.Clear();
             }
             else
             {
