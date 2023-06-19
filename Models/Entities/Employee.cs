@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace Models.Entities
 {
     /// <summary>
     /// The naming of these properties must match the naming inside of the database, including casing.

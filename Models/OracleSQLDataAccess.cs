@@ -1,24 +1,27 @@
-﻿using Domain;
-using Oracle.ManagedDataAccess.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Oracle.ManagedDataAccess.Client;
 
-namespace Infrastructure
+namespace Models
 {
     //A class that abstracts Oracle's framework to simplify CRUD operations
     public class OracleSQLDataAccess : ISQLDataAccess
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private readonly string _connectionString;
         private OracleConnection _connection;
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public OracleSQLDataAccess(string connectionString)
         {
             _connectionString = connectionString;
         }
-        
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         /// <summary>
         /// Executes a SELECT type Oracle SQL command that returns matching rows
         /// </summary>

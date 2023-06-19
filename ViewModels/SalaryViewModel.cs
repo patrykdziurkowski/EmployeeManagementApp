@@ -1,23 +1,15 @@
-﻿using Core;
-using Domain;
-using Infrastructure;
-using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+﻿using Models.Entities;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModels
 {
     public class SalaryViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private int? _employeeId;
-
         public int? EmployeeId
         {
             get
@@ -58,6 +50,7 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+        
         private string _jobId;
         public string JobId
         {
@@ -86,17 +79,17 @@ namespace ViewModels
             }
         }
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public SalaryViewModel()
         {
 
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public static List<SalaryViewModel> ToListOfSalaryViewModel(IEnumerable<Employee> salaries)
         {
             List<SalaryViewModel> result = new List<SalaryViewModel>();
@@ -116,6 +109,16 @@ namespace ViewModels
 
             return result;
         }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        } 
     }
 }
 

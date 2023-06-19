@@ -1,21 +1,14 @@
-﻿using Core;
-using Domain;
-using Infrastructure;
-using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+﻿using Models.Entities;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModels
 {
     public class DepartmentViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private int? _departmentId;
         public int? DepartmentId
         {
@@ -72,17 +65,18 @@ namespace ViewModels
         }
 
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public DepartmentViewModel()
         {
 
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public static List<DepartmentViewModel> ToListOfDepartmentViewModel(IEnumerable<Department> departments)
         {
             List<DepartmentViewModel> convertedDepartments = new List<DepartmentViewModel>();
@@ -101,6 +95,19 @@ namespace ViewModels
 
             return convertedDepartments;
         }
+
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        
+        public event PropertyChangedEventHandler? PropertyChanged;
+        
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
     }
 }
 

@@ -1,23 +1,21 @@
-﻿using Core;
-using Domain;
-using Infrastructure;
-using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using Models;
+using Models.Entities;
+using Models.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModels
 {
     public class EmployeesMenuViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
         private LoginViewModel _loginViewModel;
+
         private readonly ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
         { 
@@ -41,10 +39,12 @@ namespace ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
 
 
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public EmployeesMenuViewModel()
         {
             _loginViewModel = LoginViewModel.GetInstance();
@@ -63,7 +63,9 @@ namespace ViewModels
         }
 
 
-
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public void AddEmployee()
         {
             _newEmployee = Employees.LastOrDefault();
@@ -86,6 +88,18 @@ namespace ViewModels
 
         }
 
+        public void RemoveEmployee(int id)
+        {
+            _employeeRepository.Fire(id);
+            EmployeeViewModel employeeToRemove = Employees
+                .FirstOrDefault(employee => employee.EmployeeId == id);
+            Employees.Remove(employeeToRemove);
+        }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

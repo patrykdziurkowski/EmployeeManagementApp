@@ -1,16 +1,16 @@
-﻿using Domain;
-using System;
-using System.Collections.Generic;
+﻿using Models;
+using Models.Entities;
+using Models.Repositories;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModels
 {
     public class EmployeeViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private int? _employeeId;
         public int? EmployeeId {
             get
@@ -164,13 +164,25 @@ namespace ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        
+        private LoginViewModel _loginViewModel;
+        private EmployeeRepository _employeeRepository;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
+        public EmployeeViewModel()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            _loginViewModel = LoginViewModel.GetInstance();
+            ConnectionStringProvider provider = new ConnectionStringProvider();
+            string connectionString = provider
+                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
+            _employeeRepository = new(new OracleSQLDataAccess(connectionString));
         }
 
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees)
         {
             List<EmployeeViewModel> result = new List<EmployeeViewModel>();
@@ -196,5 +208,45 @@ namespace ViewModels
 
             return result;
         }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+
+            if (EmployeeId is not null &&
+                FirstName is not null &&
+                LastName is not null &&
+                Email is not null &&
+                PhoneNumber is not null &&
+                HireDate is not null &&
+                JobId is not null &&
+                Salary is not null &&
+                DepartmentId is not null)
+            {
+                Employee employeeToUpdate = new Employee()
+                {
+                    EMPLOYEE_ID = EmployeeId,
+                    FIRST_NAME = FirstName,
+                    LAST_NAME = LastName,
+                    EMAIL = Email,
+                    PHONE_NUMBER = PhoneNumber,
+                    HIRE_DATE = HireDate,
+                    JOB_ID = JobId,
+                    SALARY = Salary,
+                    COMMISSION_PCT = CommissionPct,
+                    MANAGER_ID = ManagerId,
+                    DEPARTMENT_ID = DepartmentId
+                };
+
+                _employeeRepository.Update((int)EmployeeId, employeeToUpdate);
+            }
+        }
+        
     }
 }

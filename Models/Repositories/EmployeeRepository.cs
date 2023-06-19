@@ -1,20 +1,25 @@
-﻿using Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Models.Entities;
 
-namespace Infrastructure.Repositories
+namespace Models.Repositories
 {
     public class EmployeeRepository
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private ISQLDataAccess _dataAccess;
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public EmployeeRepository(ISQLDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
 
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
         public IEnumerable<Employee> GetAll()
         {
             return _dataAccess
@@ -45,8 +50,9 @@ namespace Infrastructure.Repositories
 
         public bool Fire(int employeeId)
         {
+            string nonQuery = $"DELETE FROM employees WHERE employee_id = {employeeId}";
             int rowsAffected = _dataAccess
-                .ExecuteSQLNonQuery($"DELETE FROM employees WHERE employee_id = {employeeId}");
+                .ExecuteSQLNonQuery(nonQuery);
             return rowsAffected > 0;
         }
 
@@ -54,17 +60,19 @@ namespace Infrastructure.Repositories
         {
             string hireDate = newEmployeeData.HIRE_DATE.Value.ToString("yyyy-MM-dd");
             string commissionPct = newEmployeeData.COMMISSION_PCT.ToString().Replace(",", ".");
+            commissionPct = (commissionPct == String.Empty) ? "null": commissionPct;
+            string managerId = (newEmployeeData.MANAGER_ID is null) ? "null" : newEmployeeData.MANAGER_ID.ToString();
 
+            string nonQuery = $"UPDATE employees SET employee_id = {newEmployeeData.EMPLOYEE_ID}, first_name = " +
+                $"'{newEmployeeData.FIRST_NAME}', last_name = '{newEmployeeData.LAST_NAME}', email = '{newEmployeeData.EMAIL}', phone_number = " +
+                $"'{newEmployeeData.PHONE_NUMBER}', hire_date = '{hireDate}', job_id = '{newEmployeeData.JOB_ID}', salary = " +
+                $"{newEmployeeData.SALARY}, commission_pct = {commissionPct}, manager_id = {managerId}, " +
+                $"department_id = {newEmployeeData.DEPARTMENT_ID} WHERE employee_id = {targetEmployeeId}";
             int rowsAffected = _dataAccess
-                .ExecuteSQLNonQuery($"UPDATE employees SET employee_id = {newEmployeeData.EMPLOYEE_ID}, first_name = " +
-                $"{newEmployeeData.FIRST_NAME}, last_name = {newEmployeeData.LAST_NAME}, email = {newEmployeeData.EMAIL}, phone_number = " +
-                $"{newEmployeeData.PHONE_NUMBER}, hire_date = {hireDate}, job_id = {newEmployeeData.JOB_ID}, salary = " +
-                $"{newEmployeeData.SALARY}, commission_pct = {commissionPct}, manager_id = {newEmployeeData.MANAGER_ID}, " +
-                $"department_id = {newEmployeeData.DEPARTMENT_ID} WHERE employee_id = {targetEmployeeId}");
+                .ExecuteSQLNonQuery(nonQuery);
 
             return rowsAffected > 0;
         }
-
 
     }
 }

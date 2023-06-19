@@ -1,24 +1,19 @@
-﻿using Core;
-using Domain;
-using Infrastructure;
-using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using Models;
+using Models.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModels
 {
     public class DepartmentsMenuViewModel : INotifyPropertyChanged
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private LoginViewModel _loginViewModel;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         private ObservableCollection<DepartmentViewModel> _departments;
         public ObservableCollection<DepartmentViewModel> Departments
@@ -34,6 +29,7 @@ namespace ViewModels
             }
         }
 
+
         private ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
         {
@@ -48,6 +44,10 @@ namespace ViewModels
             }
         }
 
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public DepartmentsMenuViewModel()
         {
             _loginViewModel = LoginViewModel.GetInstance();
@@ -77,6 +77,11 @@ namespace ViewModels
             _departments.CollectionChanged += Departments_CollectionChanged;
         }
 
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
