@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Models;
+using Models.Repositories;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace ViewModels
@@ -9,6 +11,7 @@ namespace ViewModels
         //  Fields and properties
         ////////////////////////////////////////////
         private static LoginViewModel _instance = null;
+        private EmployeeRepository _employeeRepository;
 
         private string _userName;
         public string UserName {
@@ -43,16 +46,38 @@ namespace ViewModels
         ////////////////////////////////////////////
         private LoginViewModel()
         {
-
+            
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public void Login(string userName, string password)
+        public bool TryLogIn(string userName, string password)
         {
             _instance.UserName = userName;
             _instance.Password = password;
+
+
+            ConnectionStringProvider provider = new ConnectionStringProvider();
+            string connectionString = provider
+                .GetConnectionString(UserName, Password);
+
+            _employeeRepository = new(new OracleSQLDataAccess(connectionString));
+
+
+            bool isSuccessful;
+            try
+            {
+                _employeeRepository.GetAll();
+                isSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                //Unable to log in to the server
+                isSuccessful = false;
+            }
+
+            return isSuccessful;
         }
 
         public static LoginViewModel GetInstance()

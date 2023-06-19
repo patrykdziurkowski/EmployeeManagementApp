@@ -66,21 +66,6 @@ namespace EmployeeManagementApp
             }
         }
 
-        private void SalariesTable_Drop(object sender, DragEventArgs e)
-        {
-            Canvas targetCanvas = (Canvas)e.Source;
-            if (targetCanvas != null)
-            {
-                double targetDepartmentId = Convert.ToDouble(targetCanvas.Tag.ToString());
-                EmployeeViewModel droppedEmployee = (EmployeeViewModel)e.Data.GetData(typeof(EmployeeViewModel));
-
-                if (droppedEmployee != null)
-                {
-                    droppedEmployee.DepartmentId = (short?)targetDepartmentId;
-                }
-            }
-        }
-
         private void Canvas_Drop(object sender, DragEventArgs e)
         {
             Grid targetDepartment = (Grid)sender;
