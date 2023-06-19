@@ -23,12 +23,22 @@ namespace EmployeeManagementApp
         {
             InitializeComponent();
             _viewModel = LoginViewModel.GetInstance();
+
+            LoginTextBox.Focus();
         }
 
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
+        private void LogInto()
+        {
+            string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
+            string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
+            _viewModel.Login(userName, password);
+            this.NavigationService.Navigate(new MainMenu());
+        }
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
             //Exit from application
@@ -46,13 +56,10 @@ namespace EmployeeManagementApp
                 LogInto();
             }
         }
-    
-        private void LogInto()
+
+        private void LoginTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
-            string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
-            _viewModel.Login(userName, password);
-            this.NavigationService.Navigate(new MainMenu());
+            
         }
     }
 }
