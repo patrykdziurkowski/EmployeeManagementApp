@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using ViewModels;
 
 namespace EmployeeManagementApp
 {
@@ -15,6 +16,9 @@ namespace EmployeeManagementApp
         public MainMenu()
         {
             InitializeComponent();
+
+            LoginViewModel loginViewModel = LoginViewModel.GetInstance();
+            DataContext = loginViewModel;
         }
 
 
