@@ -46,10 +46,6 @@
         </Style>
     </Page.Resources>
     <Grid Height="434.04">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="337*"/>
-            <ColumnDefinition Width="63*"/>
-        </Grid.ColumnDefinitions>
         <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
         <Label Content="Manage Departments" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold" Margin="290,0,0,0"/>
         <DataGrid Name="DepartmentsTable" AutoGenerateColumns="False" Margin="250,46,124,70" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" Drop="SalariesTable_Drop" IsReadOnly="True">

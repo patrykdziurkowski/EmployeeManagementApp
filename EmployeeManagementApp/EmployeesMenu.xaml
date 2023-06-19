@@ -59,12 +59,22 @@
         <Style TargetType="{x:Type DataGrid}">
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
-        <Style TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="FontWeight"  Value="Bold" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
+        <Style TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="TextBlock.FontWeight" Value="Bold" />
             <Setter Property="Background" Value="#FFE2E4F7"/>
-            <Setter Property="Padding" Value="4,0,0,0"/>
+            <Setter Property="Foreground" Value="#bf3636"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding Mode=OneWay}" ></TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
         </Style>
     </Page.Resources>
     <Grid Height="434.04">
@@ -81,7 +91,7 @@
                 <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay}"/>
-                <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="100" SelectedItemBinding="{Binding JobId, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Header="HireDate">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
