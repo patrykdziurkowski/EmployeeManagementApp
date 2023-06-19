@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -38,7 +39,9 @@ namespace EmployeeManagementApp
         }
         public static string FormatStat(double myNumber)
         {
-            return string.Format("{0:0.00}$", myNumber);
+            NumberFormatInfo nfi = new System.Globalization.NumberFormatInfo();
+            nfi.NumberDecimalSeparator = ".";
+            return string.Format(nfi,"${0:0.00}", myNumber);
         }
     }
 }
