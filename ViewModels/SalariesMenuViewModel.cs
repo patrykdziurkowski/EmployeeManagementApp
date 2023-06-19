@@ -28,6 +28,11 @@ namespace ViewModels
             }
         }
 
+        public double AverageSalary => GetAverageSalary();
+        public double MaxSalary => GetMaxSalary();
+        public double MinSalary => GetMinSalary();
+        public double SumOfSalaries => GetSumOfSalaries();
+
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
