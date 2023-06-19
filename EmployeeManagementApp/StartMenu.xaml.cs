@@ -35,9 +35,17 @@ namespace EmployeeManagementApp
         {
             string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
             string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
-            _viewModel.Login(userName, password);
+            bool isLoggedIn = _viewModel.TryLogIn(userName, password);
 
-            this.NavigationService.Navigate(new MainMenu());
+            if (isLoggedIn == false)
+            {
+                LoginFailedLabel.Content = "Login failed!";
+            }
+            else
+            {
+                LoginFailedLabel.Content = string.Empty;
+                this.NavigationService.Navigate(new MainMenu());
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
