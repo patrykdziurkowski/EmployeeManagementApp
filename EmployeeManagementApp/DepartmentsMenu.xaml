@@ -46,40 +46,86 @@
         </Style>
     </Page.Resources>
     <Grid Height="434.04">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Height="434.04">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid Name="DepartmentsTable" Grid.Column="0" AutoGenerateColumns="False" Margin="25,50,25,75" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" Drop="SalariesTable_Drop" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
+                    <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <ScrollViewer Grid.Column="1" Margin="25,50,25,75" VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="DepartmentsList" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Name="DepartmentsGrid" Margin="0,0,0,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" MinHeight="150" />
+                                </Grid.RowDefinitions>
+
+                                <Canvas Tag="{Binding DepartmentId}" Background="#903749"  Margin="10, 10, 10, 10" AllowDrop="True" Drop="Canvas_Drop">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="{Binding DepartmentName}" Grid.Column="0" HorizontalAlignment="Left"/>
+                                            <TextBlock Grid.Column="2" HorizontalAlignment="Right">
+                                                <Run Text="Id:"/>
+                                                <Run Text="{Binding DepartmentId}"/>
+                                            </TextBlock>
+                                        </Grid>
+                                        
+                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Employees}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="50"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="3*"/>
+                                                            <ColumnDefinition Width="6*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Text="{Binding EmployeeId}" Grid.Column="0" HorizontalAlignment="Center"/>
+                                                        <TextBlock Text="{Binding FirstName}" Grid.Column="1" HorizontalAlignment="Center"/>
+                                                        <TextBlock Text="{Binding LastName}" Grid.Column="2" HorizontalAlignment="Center"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Canvas>
+
+
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
         <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
         <Label Content="Manage Departments" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold" Margin="290,0,0,0"/>
-        <DataGrid Name="DepartmentsTable" AutoGenerateColumns="False" Margin="250,46,124,70" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" Drop="SalariesTable_Drop" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
-                <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
-                <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Canvas Width="200" Background="LightBlue" Tag="10" AllowDrop="True" Drop="Canvas_Drop" Margin="26,46,448,335">
-            <TextBlock Text="Administration" Canvas.Left="45" Canvas.Top="15" HorizontalAlignment="Left" />
-        </Canvas>
-        <Canvas Width="200" Background="LightBlue" Tag="20" AllowDrop="True" Drop="Canvas_Drop" Margin="26,134,448,246">
-            <TextBlock Text="Marketing" Canvas.Left="62" Canvas.Top="15" HorizontalAlignment="Left" />
-        </Canvas>
-        <Canvas Width="200" Background="LightBlue" Tag="30" AllowDrop="True" Drop="Canvas_Drop" Margin="26,217,448,161">
-            <TextBlock Text="Shipping" Canvas.Left="67" Canvas.Top="16" HorizontalAlignment="Left" />
-        </Canvas>
-        <Canvas Width="200" Background="LightBlue" Tag="60" AllowDrop="True" Drop="Canvas_Drop" Margin="26,308,448,73">
-            <TextBlock Text="IT" Canvas.Left="87" Canvas.Top="15" HorizontalAlignment="Left" />
-        </Canvas>
-        <Canvas Width="200" Background="LightBlue" Tag="80" AllowDrop="True" Drop="Canvas_Drop" Margin="571,46,29,335" Grid.ColumnSpan="2">
-            <TextBlock Text="Sales" Canvas.Left="81" Canvas.Top="15" HorizontalAlignment="Left" />
-        </Canvas>
-        <Canvas Width="200" Background="LightBlue" Tag="90" AllowDrop="True" Drop="Canvas_Drop" Margin="571,134,29,247" Grid.ColumnSpan="2">
-            <TextBlock Text="Executive" Canvas.Left="65" Canvas.Top="15" HorizontalAlignment="Left" />
-        </Canvas>
-        <Canvas Width="200" Background="LightBlue" Tag="110" AllowDrop="True" Drop="Canvas_Drop" Margin="571,218,29,162" Grid.ColumnSpan="2">
-            <TextBlock Text="Accounting" Canvas.Left="57" Canvas.Top="15" HorizontalAlignment="Left" />
-        </Canvas>
-        <Canvas Width="200" Background="LightBlue" Tag="190" AllowDrop="True" Drop="Canvas_Drop" Margin="571,308,29,73" Grid.ColumnSpan="2">
-            <TextBlock Text="Contracting" Canvas.Left="56" Canvas.Top="15" HorizontalAlignment="Left" />
-        </Canvas>
     </Grid>
 </Page>

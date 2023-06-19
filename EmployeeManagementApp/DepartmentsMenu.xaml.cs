@@ -33,6 +33,7 @@ namespace EmployeeManagementApp
             InitializeComponent();
 
             DepartmentsTable.ItemsSource = _viewModel.Employees;
+            DepartmentsList.ItemsSource = _viewModel.Departments;
         }
 
 
@@ -81,7 +82,7 @@ namespace EmployeeManagementApp
 
         private void Canvas_Drop(object sender, DragEventArgs e)
         {
-            var targetCanvas = sender as Canvas;
+            Canvas targetCanvas = (Canvas)sender;
             if (targetCanvas != null)
             {
                 double targetDepartmentId = Convert.ToDouble(targetCanvas.Tag.ToString());

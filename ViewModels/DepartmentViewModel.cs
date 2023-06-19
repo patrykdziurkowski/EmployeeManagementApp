@@ -1,4 +1,8 @@
-﻿using Models.Entities;
+﻿using Models;
+using Models.Entities;
+using Models.Repositories;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -9,6 +13,23 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
+        private ObservableCollection<EmployeeViewModel> _employees;
+        public ObservableCollection<EmployeeViewModel> Employees
+        {
+            get
+            {
+                UpdateEmployeesCollection();
+                return _employees;
+            }
+            set
+            {
+                _employees = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private LoginViewModel _loginViewModel;
+
         private int? _departmentId;
         public int? DepartmentId
         {
@@ -70,13 +91,31 @@ namespace ViewModels
         ////////////////////////////////////////////
         public DepartmentViewModel()
         {
-
+            _loginViewModel = LoginViewModel.GetInstance();
+            _employees = new ObservableCollection<EmployeeViewModel>(); 
         }
 
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
+        private void UpdateEmployeesCollection()
+        {
+            ConnectionStringProvider provider = new ConnectionStringProvider();
+            string connectionString = provider
+                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
+            OracleSQLDataAccess dataAccess = new(connectionString);
+
+            DepartmentRepository departmentRepository = new(dataAccess);
+
+            List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
+                .ToListOfEmployeeViewModel(departmentRepository.GetEmployeesForDepartment((int)DepartmentId));
+            ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
+
+            _employees = employees;
+            _employees.CollectionChanged += Employees_CollectionChanged;
+        }
+
         public static List<DepartmentViewModel> ToListOfDepartmentViewModel(IEnumerable<Department> departments)
         {
             List<DepartmentViewModel> convertedDepartments = new List<DepartmentViewModel>();
@@ -96,6 +135,7 @@ namespace ViewModels
             return convertedDepartments;
         }
 
+        
 
         ////////////////////////////////////////////
         //  Events and Data Binding
@@ -108,6 +148,10 @@ namespace ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
+        }
     }
 }
 
