@@ -78,6 +78,40 @@ namespace ViewModels
         }
 
         ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        public void UpdateEmployeesDepartments(EmployeeViewModel employeeToUpdate, int targetDepartmentId)
+        {
+            ObservableCollection<EmployeeViewModel> employeesAfterFiltering = new();
+            ObservableCollection<EmployeeViewModel> employeesToFilter = _departments
+                .FirstOrDefault(department => department.DepartmentId == employeeToUpdate.DepartmentId)
+                .Employees;
+
+            foreach(EmployeeViewModel employee in employeesToFilter)
+            {
+                if (employee.EmployeeId != employeeToUpdate.EmployeeId)
+                {
+                    employeesAfterFiltering.Add(employee);
+                }
+            }
+            _departments
+                .FirstOrDefault(department => department.DepartmentId == employeeToUpdate.DepartmentId)
+                .Employees = employeesAfterFiltering;
+
+
+
+            var test = _departments
+                .FirstOrDefault(department => department.DepartmentId == employeeToUpdate.DepartmentId)
+                .Employees;
+
+            employeeToUpdate.DepartmentId = (short?)targetDepartmentId;
+            _departments
+                .FirstOrDefault(department => department.DepartmentId == targetDepartmentId)
+                .Employees
+                .Add(employeeToUpdate); 
+        }
+
+        ////////////////////////////////////////////
         //  Events and Data Binding
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
