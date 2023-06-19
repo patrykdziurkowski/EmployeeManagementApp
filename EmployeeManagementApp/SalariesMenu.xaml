@@ -8,6 +8,22 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SalariesMenu">
     <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E84545" TargetName="Border"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DDE6ED"/>
         <Style TargetType="{x:Type DataGrid}">

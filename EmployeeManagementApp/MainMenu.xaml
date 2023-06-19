@@ -26,11 +26,8 @@
                             VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver"
-                   Value="True">
-                                <Setter Property="Background"
-                    Value="#903749"
-                    TargetName="bg" />
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#903749" TargetName="bg" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

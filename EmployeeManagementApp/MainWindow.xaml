@@ -5,15 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmployeeManagementApp"
         mc:Ignorable="d"
-        Title="Employee Management App" Height="450" Width="800">
+        Title="Employee Management App" Height="450" Width="800" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid Background="#FFE2E4F7">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="48*"/>
-            <ColumnDefinition Width="232*"/>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="107*"/>
-        </Grid.ColumnDefinitions>
         <Frame x:Name="FrameNavigator" Source="StartMenu.xaml" Grid.ColumnSpan="5" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
