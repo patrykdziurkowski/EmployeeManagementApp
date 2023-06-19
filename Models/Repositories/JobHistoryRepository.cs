@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models.Repositories
 {
-    internal class JobHistoryRepository
+    public class JobHistoryRepository
     {
         ////////////////////////////////////////////
         //  Fields and properties

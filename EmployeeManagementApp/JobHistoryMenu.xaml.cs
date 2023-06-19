@@ -25,9 +25,9 @@ namespace EmployeeManagementApp
         {
             InitializeComponent();
 
-            SalariesMenuViewModel viewModel = new();
+            JobHistoryMenuViewModel viewModel = new();
             DataContext = viewModel;
-            JobHistoryTable.ItemsSource = viewModel.Salaries;
+            JobHistoryTable.ItemsSource = viewModel.JobHistory;
         }
 
         private void ReturnToEmployeeMenu(object sender, RoutedEventArgs e)
