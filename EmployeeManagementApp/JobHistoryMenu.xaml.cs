@@ -21,18 +21,25 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class JobHistoryMenu : Page
     {
-        public JobHistoryMenu()
+        private JobHistoryMenuViewModel _viewModel;
+        public JobHistoryMenu(JobHistoryMenuViewModel jobHistoryMenuViewModel)
         {
-            InitializeComponent();
+            _viewModel = jobHistoryMenuViewModel;
 
-            JobHistoryMenuViewModel viewModel = new();
-            DataContext = viewModel;
-            JobHistoryTable.ItemsSource = viewModel.JobHistory;
+            InitializeComponent();
         }
 
         private void ReturnToEmployeeMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel.InitializeData();
+
+            DataContext = _viewModel;
+            JobHistoryTable.ItemsSource = _viewModel.JobHistory;
         }
     }
 }

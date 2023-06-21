@@ -13,35 +13,48 @@ namespace EmployeeManagementApp
     public partial class SalariesMenu : Page
     {
         ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
+        private SalariesMenuViewModel _viewModel;
+
+        ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public SalariesMenu()
+        public SalariesMenu(
+            SalariesMenuViewModel salariesMenuViewModel)
         {
-            InitializeComponent();
+            _viewModel = salariesMenuViewModel;
 
-            SalariesMenuViewModel viewModel = new();
-            DataContext = viewModel;
-            SalariesTable.ItemsSource = viewModel.Salaries;
-            
-            ComboSalary.Text = FormatStat(viewModel.SumOfSalaries);
-            AvgSalary.Text = FormatStat(viewModel.AverageSalary);
-            HighestSalary.Text = FormatStat(viewModel.MaxSalary);
-            LowestSalary.Text = FormatStat(viewModel.MinSalary);
+            InitializeComponent();
         }
 
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new MainMenu());
-        }
         public static string FormatStat(double myNumber)
         {
             NumberFormatInfo nfi = new System.Globalization.NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";
             return string.Format(nfi,"${0:0.00}", myNumber);
+        }
+
+        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel.InitializeData();
+
+            DataContext = _viewModel;
+            SalariesTable.ItemsSource = _viewModel.Salaries;
+
+            ComboSalary.Text = FormatStat(_viewModel.SumOfSalaries);
+            AvgSalary.Text = FormatStat(_viewModel.AverageSalary);
+            HighestSalary.Text = FormatStat(_viewModel.MaxSalary);
+            LowestSalary.Text = FormatStat(_viewModel.MinSalary);
         }
     }
 }

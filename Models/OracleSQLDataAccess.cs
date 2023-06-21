@@ -8,15 +8,17 @@ namespace Models
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private readonly string _connectionString;
+        private ConnectionStringProvider _connectionStringProvider;
+        
+        private string _connectionString;
         private OracleConnection _connection;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public OracleSQLDataAccess(string connectionString)
+        public OracleSQLDataAccess(ConnectionStringProvider connectionStringProvider)
         {
-            _connectionString = connectionString;
+            _connectionStringProvider = connectionStringProvider;
         }
 
         ////////////////////////////////////////////
@@ -91,6 +93,7 @@ namespace Models
 
         private void Open()
         {
+            UpdateConnectionString();
             _connection = new OracleConnection(_connectionString);
             _connection.Open();
         }
@@ -99,6 +102,11 @@ namespace Models
         {
             _connection.Close();
             _connection.Dispose();
+        }
+
+        private void UpdateConnectionString()
+        {
+            _connectionString = _connectionStringProvider.GetConnectionString();
         }
     }
 }

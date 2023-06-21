@@ -18,35 +18,44 @@ namespace ViewModels
         //  Fields and properties
         ////////////////////////////////////////////
         private DepartmentLocationRepository _departmentLocationRepository;
-        private LoginViewModel _loginViewModel;
 
-        private readonly ObservableCollection<DepartmentLocationViewModel> _departmentLocation;
+        private ObservableCollection<DepartmentLocationViewModel> _departmentLocation;
         public ObservableCollection<DepartmentLocationViewModel> DepartmentLocation
         {
             get
             {
                 return _departmentLocation;
             }
+            set
+            {
+                _departmentLocation = value;
+                OnPropertyChanged();
+            }
         }
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentLocationMenuViewModel()
+        public DepartmentLocationMenuViewModel(DepartmentLocationRepository departmentLocationRepository)
         {
-            _loginViewModel = LoginViewModel.GetInstance();
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            _departmentLocationRepository = new(new OracleSQLDataAccess(connectionString));
+            _departmentLocationRepository = departmentLocationRepository;
 
             _departmentLocation = new ObservableCollection<DepartmentLocationViewModel>();
+        }
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        public void InitializeData()
+        {
             List<DepartmentLocationViewModel> departmentLocationViewModels = DepartmentLocationViewModel
                 .ToListOfDepartmentLocationViewModel(_departmentLocationRepository.GetAll());
             ObservableCollection<DepartmentLocationViewModel> departmentLocation = new ObservableCollection<DepartmentLocationViewModel>(departmentLocationViewModels);
 
-            _departmentLocation = departmentLocation;
-            _departmentLocation.CollectionChanged += DepartmentLocation_CollectionChanged;
+            DepartmentLocation = departmentLocation;
+            DepartmentLocation.CollectionChanged += DepartmentLocation_CollectionChanged;
         }
+
+
         ////////////////////////////////////////////
         //  Events and Data Binding
         ////////////////////////////////////////////

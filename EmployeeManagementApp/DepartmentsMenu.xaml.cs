@@ -22,18 +22,23 @@ namespace EmployeeManagementApp
 
         public delegate Point GetPosition(IInputElement element);
 
-        private DepartmentsMenuViewModel _viewModel = new();
+        private DepartmentsMenuViewModel _viewModel;
+        private DepartmentsLocationMenu _departmentsLocationMenu;
 
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentsMenu()
+        public DepartmentsMenu(
+            DepartmentsMenuViewModel departmentsMenuViewModel,
+            DepartmentsLocationMenu departmentsLocationMenu)
         {
+            _viewModel = departmentsMenuViewModel;
+            _departmentsLocationMenu = departmentsLocationMenu;
+
             InitializeComponent();
 
-            DepartmentsTable.ItemsSource = _viewModel.Employees;
-            DepartmentsList.ItemsSource = _viewModel.Departments;
+            
         }
 
 
@@ -77,8 +82,6 @@ namespace EmployeeManagementApp
                 if (droppedEmployee != null)
                 {
                     _viewModel.UpdateEmployeesDepartments(droppedEmployee, (int)targetDepartmentId);
-
-                    DepartmentsTable.Items.Refresh();
                 }
             }
         }
@@ -102,12 +105,19 @@ namespace EmployeeManagementApp
 
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainMenu());
+            NavigationService.GoBack();
         }
 
         private void GoToDepartmentsLocationMenu(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new DepartmentsLocationMenu());
+            NavigationService.Navigate(_departmentsLocationMenu);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel.InitializeData();
+            DepartmentsTable.ItemsSource = _viewModel.Employees;
+            DepartmentsList.ItemsSource = _viewModel.Departments;
         }
     }
 }

@@ -80,20 +80,12 @@ namespace ViewModels
             }
         }
 
-        
-        private LoginViewModel _loginViewModel;
-        private JobHistoryRepository _JobHistoryRepository;
-
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
         public JobHistoryViewModel()
         {
-            _loginViewModel = LoginViewModel.GetInstance();
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            _JobHistoryRepository = new(new OracleSQLDataAccess(connectionString));
+           
         }
 
         ////////////////////////////////////////////

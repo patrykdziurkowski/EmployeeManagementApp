@@ -21,18 +21,23 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class DepartmentsLocationMenu : Page
     {
-        public DepartmentsLocationMenu()
+        private DepartmentLocationMenuViewModel _viewModel;
+        public DepartmentsLocationMenu(DepartmentLocationMenuViewModel departmentLocationMenuViewModel)
         {
+            _viewModel = departmentLocationMenuViewModel;
             InitializeComponent();
-
-            DepartmentLocationMenuViewModel viewModel = new();
-            DataContext = viewModel;
-            DepartmentLocationTable.ItemsSource = viewModel.DepartmentLocation;
         }
 
         private void ReturnToDepartmentsMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel.InitializeData();
+            DataContext = _viewModel;
+            DepartmentLocationTable.ItemsSource = _viewModel.DepartmentLocation;
         }
     }
 }

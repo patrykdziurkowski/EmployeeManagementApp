@@ -164,32 +164,26 @@ namespace ViewModels
             }
         }
 
-        
-        private LoginViewModel _loginViewModel;
         private EmployeeRepository _employeeRepository;
-
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public EmployeeViewModel()
+        public EmployeeViewModel(EmployeeRepository employeeRepository)
         {
-            _loginViewModel = LoginViewModel.GetInstance();
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            _employeeRepository = new(new OracleSQLDataAccess(connectionString));
+            _employeeRepository = employeeRepository;
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees)
+        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees,
+            EmployeeRepository employeeRepository)
         {
             List<EmployeeViewModel> result = new List<EmployeeViewModel>();
 
             foreach (Employee employee in employees)
             {
-                EmployeeViewModel employeeViewModel = new()
+                EmployeeViewModel employeeViewModel = new(employeeRepository)
                 {
                     EmployeeId = employee.EMPLOYEE_ID,
                     FirstName = employee.FIRST_NAME,
@@ -209,16 +203,8 @@ namespace ViewModels
             return result;
         }
 
-        ////////////////////////////////////////////
-        //  Events and Data Binding
-        ////////////////////////////////////////////
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        public void UpdateEmployee()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
-
             if (EmployeeId is not null &&
                 FirstName is not null &&
                 LastName is not null &&
@@ -246,6 +232,17 @@ namespace ViewModels
 
                 _employeeRepository.Update((int)EmployeeId, employeeToUpdate);
             }
+        }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            UpdateEmployee();
         }
         
     }

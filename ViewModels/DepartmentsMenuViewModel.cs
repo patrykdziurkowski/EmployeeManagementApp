@@ -12,8 +12,8 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private LoginViewModel _loginViewModel;
-
+        private DepartmentRepository _departmentRepository;
+        private EmployeeRepository _employeeRepository;
 
         private ObservableCollection<DepartmentViewModel> _departments;
         public ObservableCollection<DepartmentViewModel> Departments
@@ -39,6 +39,7 @@ namespace ViewModels
             }
             set
             {
+               
                 _employees = value;
                 OnPropertyChanged();
             }
@@ -48,41 +49,48 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentsMenuViewModel()
+        public DepartmentsMenuViewModel(DepartmentRepository departmentRepository,
+            EmployeeRepository employeeRepository)
         {
-            _loginViewModel = LoginViewModel.GetInstance();
+            _departmentRepository = departmentRepository;
+            _employeeRepository = employeeRepository;
+
             _departments = new ObservableCollection<DepartmentViewModel>();
-            _employees = new ObservableCollection<EmployeeViewModel>();
-
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            OracleSQLDataAccess dataAccess = new(connectionString);
-
-            DepartmentRepository departmentRepository = new(dataAccess);
-            EmployeeRepository employeeRepository = new(dataAccess);
-
-            List<DepartmentViewModel> departmentViewModels = DepartmentViewModel
-                .ToListOfDepartmentViewModel(departmentRepository.GetAll());
-            ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
-            List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
-                .ToListOfEmployeeViewModel(employeeRepository.GetAll());
-            ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
-
-            _employees = employees;
-            _employees.CollectionChanged += Employees_CollectionChanged;
-            _departments = departments;
-            _departments.CollectionChanged += Departments_CollectionChanged;
-
-            
+            _employees = new ObservableCollection<EmployeeViewModel>(); 
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
+        public void InitializeData()
+        {
+            List<DepartmentViewModel> departmentViewModels = DepartmentViewModel
+                .ToListOfDepartmentViewModel(_departmentRepository.GetAll());
+            ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
+
+            List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
+                .ToListOfEmployeeViewModel(_employeeRepository.GetAll(), _employeeRepository);
+            ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
+
+            Employees = employees;
+            Departments = departments;
+
+            foreach(DepartmentViewModel department in Departments)
+            {
+                List<EmployeeViewModel> employeeDepartmentViewModels = EmployeeViewModel
+                    .ToListOfEmployeeViewModel(_departmentRepository.GetEmployeesForDepartment((int)department.DepartmentId), _employeeRepository);
+                department.Employees = new ObservableCollection<EmployeeViewModel>(employeeDepartmentViewModels);
+
+                department.Employees.CollectionChanged += Employees_CollectionChanged;
+            }
+
+            _employees.CollectionChanged += Employees_CollectionChanged;
+            _departments.CollectionChanged += Departments_CollectionChanged;
+        }
+
         public void UpdateEmployeesDepartments(EmployeeViewModel employeeToUpdate, int targetDepartmentId)
         {
-            foreach (DepartmentViewModel department in _departments)
+            foreach (DepartmentViewModel department in Departments)
             {
                 ObservableCollection<EmployeeViewModel> employeesToFilter = department.Employees;
 
@@ -98,14 +106,16 @@ namespace ViewModels
             }
 
             employeeToUpdate.DepartmentId = (short?)targetDepartmentId;
-            Employees
+
+             Employees
                 .FirstOrDefault(employee => employee.EmployeeId == employeeToUpdate.EmployeeId)
                 .DepartmentId = (short?)targetDepartmentId;
+            
 
-            _departments
+            Departments
                 .FirstOrDefault(department => department.DepartmentId == targetDepartmentId)
                 .Employees
-                .Add(employeeToUpdate); 
+                .Add(employeeToUpdate);
         }
 
         ////////////////////////////////////////////

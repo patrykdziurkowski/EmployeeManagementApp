@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:EmployeeManagementApp"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="DepartmentsLocationMenu">
+      Title="DepartmentsLocationMenu" Loaded="Page_Loaded">
 
     <Page.Resources>
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DDE6ED"/>

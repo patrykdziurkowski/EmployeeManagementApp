@@ -14,35 +14,45 @@ namespace ViewModels
         //  Fields and properties
         ////////////////////////////////////////////
         private JobHistoryRepository _jobHistoryRepository;
-        private LoginViewModel _loginViewModel;
 
-        private readonly ObservableCollection<JobHistoryViewModel> _jobHistory;
+        private ObservableCollection<JobHistoryViewModel> _jobHistory;
         public ObservableCollection<JobHistoryViewModel> JobHistory
         {
             get
             {
                 return _jobHistory;
             }
+            set
+            {
+                _jobHistory = value;
+                OnPropertyChanged();
+            }
         }
+        
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public JobHistoryMenuViewModel()
+        public JobHistoryMenuViewModel(JobHistoryRepository jobHistoryRepository)
         {
-            _loginViewModel = LoginViewModel.GetInstance();
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            _jobHistoryRepository = new(new OracleSQLDataAccess(connectionString));
+            _jobHistoryRepository = jobHistoryRepository;
 
             _jobHistory = new ObservableCollection<JobHistoryViewModel>();
+        }
+        
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        public void InitializeData()
+        {
             List<JobHistoryViewModel> jobHistoryViewModels = JobHistoryViewModel
-                .ToListOfJobHistoryViewModel(_jobHistoryRepository.GetAll());
+                            .ToListOfJobHistoryViewModel(_jobHistoryRepository.GetAll());
             ObservableCollection<JobHistoryViewModel> jobHistory = new ObservableCollection<JobHistoryViewModel>(jobHistoryViewModels);
 
-            _jobHistory = jobHistory;
-            _jobHistory.CollectionChanged += JobHistory_CollectionChanged;
+            JobHistory = jobHistory;
+            JobHistory.CollectionChanged += JobHistory_CollectionChanged;
         }
+
+
         ////////////////////////////////////////////
         //  Events and Data Binding
         ////////////////////////////////////////////

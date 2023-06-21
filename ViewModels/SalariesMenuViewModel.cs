@@ -12,7 +12,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private LoginViewModel _loginViewModel;
+        private EmployeeRepository _employeeRepository;
 
         private ObservableCollection<SalaryViewModel> _salaries;
         public ObservableCollection<SalaryViewModel> Salaries
@@ -36,25 +36,25 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public SalariesMenuViewModel()
+        public SalariesMenuViewModel(EmployeeRepository employeeRepository)
         {
-            _loginViewModel = LoginViewModel.GetInstance();
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            EmployeeRepository employeeRepository = new(new OracleSQLDataAccess(connectionString));
+            _employeeRepository = employeeRepository;
 
-            _salaries = new ObservableCollection<SalaryViewModel>();
-            List<SalaryViewModel> salaryViewModels = SalaryViewModel
-                .ToListOfSalaryViewModel(employeeRepository.GetAll());
-            ObservableCollection<SalaryViewModel> salaries = new ObservableCollection<SalaryViewModel>(salaryViewModels);
-            _salaries = salaries;
-            _salaries.CollectionChanged += Salaries_CollectionChanged;
+            _salaries = new ObservableCollection<SalaryViewModel>(); 
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
+        public void InitializeData()
+        {
+            List<SalaryViewModel> salaryViewModels = SalaryViewModel
+                .ToListOfSalaryViewModel(_employeeRepository.GetAll());
+            ObservableCollection<SalaryViewModel> salaries = new ObservableCollection<SalaryViewModel>(salaryViewModels);
+            _salaries = salaries;
+            _salaries.CollectionChanged += Salaries_CollectionChanged;
+        }
+        
         public double GetAverageSalary()
         {
             double sum = 0;
@@ -64,7 +64,6 @@ namespace ViewModels
             }
             return sum / Salaries.Count;
         }
-
         public double GetMaxSalary()
         {
             double maxSalary = 0;
@@ -78,7 +77,6 @@ namespace ViewModels
 
             return maxSalary;
         }
-
         public double GetMinSalary()
         {
             double? minSalary = null;
@@ -89,10 +87,10 @@ namespace ViewModels
                     minSalary = (double)employee.Salary;
                 }
             }
+            minSalary = (minSalary is null) ? 0 : minSalary;
 
             return (double)minSalary;
         }
-
         public double GetSumOfSalaries()
         {
             double sumOfSalaries = 0;

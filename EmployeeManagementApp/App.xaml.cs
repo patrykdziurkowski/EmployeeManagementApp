@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Models;
 using Models.Repositories;
 using System.Windows;
@@ -12,43 +11,53 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class App : Application
     {
-        public static IHost? AppHost { get; private set; }
+        private ServiceProvider _serviceProvider;
+
         public App()
         {
-            AppHost = Host.CreateDefaultBuilder()
-                .ConfigureServices((hostContext, services) =>
-                {
-                    services.AddSingleton<MainWindow>();
-
-                    services.AddTransient<StartMenu>();
-                    services.AddTransient<SalariesMenu>();
-                    services.AddTransient<DepartmentsMenu>();
-                    services.AddTransient<EmployeesMenu>();
-                    services.AddTransient<MainMenu>();
-
-                    services.AddTransient<ISQLDataAccess, OracleSQLDataAccess>();
-                    services.AddTransient<EmployeeRepository>();
-                    services.AddSingleton<LoginViewModel>();
-                })
-                .Build();
+            ServiceCollection services = new ServiceCollection();
+            ConfigureServices(services);
+            _serviceProvider = services.BuildServiceProvider();
         }
         
+        private void ConfigureServices(ServiceCollection services)
+        {
+            services.AddSingleton<UserCredentials>();
+            services.AddSingleton<ConnectionStringProvider>();
+            services.AddSingleton<ISQLDataAccess, OracleSQLDataAccess>();
+
+            services.AddTransient<EmployeeRepository>();
+            services.AddTransient<DepartmentRepository>();
+            services.AddTransient<DepartmentLocationRepository>();
+            services.AddTransient<JobHistoryRepository>();
+
+            services.AddSingleton<StartMenuViewModel>();
+            services.AddTransient<EmployeesMenuViewModel>();
+            services.AddTransient<SalariesMenuViewModel>();
+            services.AddTransient<DepartmentsMenuViewModel>();
+            services.AddTransient<DepartmentLocationMenuViewModel>();
+            services.AddTransient<JobHistoryMenuViewModel>();
+
+            services.AddTransient<DepartmentsLocationMenu>();
+            services.AddTransient<JobHistoryMenu>();
+
+            services.AddTransient<EmployeesMenu>();
+            services.AddTransient<SalariesMenu>();
+            services.AddTransient<DepartmentsMenu>();
+
+            services.AddTransient<MainMenu>();
+
+            services.AddTransient<StartMenu>();
+
+            services.AddSingleton<MainWindow>();
+        }
+
         protected override async void OnStartup(StartupEventArgs e)
         {
-
-            await AppHost!.StartAsync();
-
-            //Start the window
-            var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
 
             base.OnStartup(e);
-        }
-
-        protected override async void OnExit(ExitEventArgs e)
-        {
-            await AppHost!.StopAsync();
-            base.OnExit(e);
         }
     }
 }

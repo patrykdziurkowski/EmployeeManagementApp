@@ -11,12 +11,16 @@ namespace Models
         private readonly string _port;
         private readonly string _sid;
 
+        private UserCredentials _userCredentials;
+
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public ConnectionStringProvider()
+        public ConnectionStringProvider(UserCredentials userCredentials)
         {
+            _userCredentials = userCredentials;
+
             _host = ConfigurationManager.AppSettings["host"].ToString();
             _port = ConfigurationManager.AppSettings["port"].ToString();
             _sid = ConfigurationManager.AppSettings["sid"].ToString();
@@ -26,9 +30,9 @@ namespace Models
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public string GetConnectionString(string username, string password)
+        public string GetConnectionString()
         {
-            return $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={_host})(PORT={_port})))  (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {_sid}))); User Id = {username};Password = {password}";
+            return $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={_host})(PORT={_port})))  (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {_sid}))); User Id = {_userCredentials.UserName};Password = {_userCredentials.Password}";
         }
     }
 }

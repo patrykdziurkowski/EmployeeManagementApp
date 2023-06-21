@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:EmployeeManagementApp"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SalariesMenu">
+      Title="SalariesMenu" Loaded="Page_Loaded">
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Template">

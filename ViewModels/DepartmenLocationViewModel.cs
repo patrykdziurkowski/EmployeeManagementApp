@@ -121,20 +121,12 @@ namespace ViewModels
             }
         }
 
-
-        private LoginViewModel _loginViewModel;
-        private DepartmentLocationRepository _departmentLocationRepository;
-
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
         public DepartmentLocationViewModel()
         {
-            _loginViewModel = LoginViewModel.GetInstance();
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            _departmentLocationRepository = new(new OracleSQLDataAccess(connectionString));
+
         }
 
         ////////////////////////////////////////////

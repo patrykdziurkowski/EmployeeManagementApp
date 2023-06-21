@@ -27,9 +27,6 @@ namespace ViewModels
             }
         }
 
-        private LoginViewModel _loginViewModel;
-        private DepartmentRepository _departmentRepository;
-
         private int? _departmentId;
         public int? DepartmentId
         {
@@ -91,15 +88,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         public DepartmentViewModel()
         {
-            _loginViewModel = LoginViewModel.GetInstance();
             _employees = new ObservableCollection<EmployeeViewModel>();
-
-            ConnectionStringProvider provider = new ConnectionStringProvider();
-            string connectionString = provider
-                .GetConnectionString(_loginViewModel.UserName, _loginViewModel.Password);
-            OracleSQLDataAccess dataAccess = new(connectionString);
-
-            _departmentRepository = new(dataAccess);
         }
 
 
@@ -136,16 +125,6 @@ namespace ViewModels
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
-            if (name == "DepartmentId" && DepartmentId is not null)
-            {
-                List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
-               .ToListOfEmployeeViewModel(_departmentRepository.GetEmployeesForDepartment((int)DepartmentId));
-                ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
-
-                _employees = employees;
-                _employees.CollectionChanged += Employees_CollectionChanged;
-            }
         }
 
         private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

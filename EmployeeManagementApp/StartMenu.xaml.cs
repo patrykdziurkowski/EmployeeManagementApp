@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Models;
+using Models.Repositories;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ViewModels;
@@ -13,20 +15,22 @@ namespace EmployeeManagementApp
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private LoginViewModel _viewModel;
+        private StartMenuViewModel _startMenuViewModel;
+        private MainMenu _mainMenu;
 
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public StartMenu()
+        public StartMenu(StartMenuViewModel startMenuViewModel,
+            MainMenu mainMenu)
         {
             InitializeComponent();
-            _viewModel = LoginViewModel.GetInstance();
+            _startMenuViewModel = startMenuViewModel;
+            _mainMenu = mainMenu;
 
             LoginTextBox.Focus();
         }
-
 
         ////////////////////////////////////////////
         //  Methods
@@ -35,7 +39,7 @@ namespace EmployeeManagementApp
         {
             string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
             string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
-            bool isLoggedIn = _viewModel.TryLogIn(userName, password);
+            bool isLoggedIn = _startMenuViewModel.LogIn(userName, password);
 
             if (isLoggedIn == false)
             {
@@ -46,7 +50,7 @@ namespace EmployeeManagementApp
             else
             {
                 LoginFailedLabel.Content = string.Empty;
-                this.NavigationService.Navigate(new MainMenu());
+                this.NavigationService.Navigate(_mainMenu);
             }
         }
 
@@ -71,6 +75,11 @@ namespace EmployeeManagementApp
         private void LoginTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }

@@ -1,12 +1,8 @@
-﻿<Window x:Name="Employee_Management_App" x:Class="EmployeeManagementApp.MainWindow"
+﻿<NavigationWindow x:Name="Employee_Management_App" x:Class="EmployeeManagementApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmployeeManagementApp"
         mc:Ignorable="d"
-        Title="Employee Management App" Height="450" Width="800" ResizeMode="CanMinimize" ShowInTaskbar="True" Icon="/icon.png">
-    <Grid Background="#FFE2E4F7">
-        <Frame x:Name="FrameNavigator" Source="StartMenu.xaml" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>
-    </Grid>
-</Window>
+        Title="Employee Management App" Height="450" Width="800" ResizeMode="CanMinimize" ShowInTaskbar="True" Icon="/icon.png" ShowsNavigationUI="False"/>
