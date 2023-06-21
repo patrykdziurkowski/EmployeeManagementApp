@@ -21,8 +21,8 @@ namespace EmployeeManagementApp
     /// </summary>
     public partial class DepartmentsLocationMenu : Page
     {
-        private DepartmentLocationMenuViewModel _viewModel;
-        public DepartmentsLocationMenu(DepartmentLocationMenuViewModel departmentLocationMenuViewModel)
+        private DepartmentLocationsMenuViewModel _viewModel;
+        public DepartmentsLocationMenu(DepartmentLocationsMenuViewModel departmentLocationMenuViewModel)
         {
             _viewModel = departmentLocationMenuViewModel;
             InitializeComponent();

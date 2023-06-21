@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ViewModels
 {
-    public class DepartmentLocationMenuViewModel : INotifyPropertyChanged
+    public class DepartmentLocationsMenuViewModel : INotifyPropertyChanged
     {
         ////////////////////////////////////////////
         //  Fields and properties
@@ -35,7 +35,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentLocationMenuViewModel(DepartmentLocationRepository departmentLocationRepository)
+        public DepartmentLocationsMenuViewModel(DepartmentLocationRepository departmentLocationRepository)
         {
             _departmentLocationRepository = departmentLocationRepository;
 

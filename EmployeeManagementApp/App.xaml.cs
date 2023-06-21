@@ -35,7 +35,7 @@ namespace EmployeeManagementApp
             services.AddTransient<EmployeesMenuViewModel>();
             services.AddTransient<SalariesMenuViewModel>();
             services.AddTransient<DepartmentsMenuViewModel>();
-            services.AddTransient<DepartmentLocationMenuViewModel>();
+            services.AddTransient<DepartmentLocationsMenuViewModel>();
             services.AddTransient<JobHistoryMenuViewModel>();
 
             services.AddTransient<DepartmentsLocationMenu>();
