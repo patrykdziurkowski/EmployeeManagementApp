@@ -103,10 +103,10 @@ namespace ViewModels
             {
                 DepartmentViewModel DepartmentViewModel = new()
                 {
-                    DepartmentId = department.DEPARTMENT_ID,
-                    DepartmentName = department.DEPARTMENT_NAME,
-                    ManagerId = department.MANAGER_ID,
-                    LocationId = department.LOCATION_ID
+                    DepartmentId = department.DepartmentId,
+                    DepartmentName = department.DepartmentName,
+                    ManagerId = department.ManagerId,
+                    LocationId = department.LocationId
                 };
                 convertedDepartments.Add(DepartmentViewModel);
             }

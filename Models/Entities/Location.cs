@@ -12,11 +12,11 @@ namespace Models.Entities
     /// </summary>
     public class Location
     {
-        public Int16? LOCATION_ID { get; set; }
-        public string STREET_ADDRESS { get; set; }
-        public string POSTAL_CODE { get; set; }
-        public string CITY { get; set; }
-        public string STATE_PROVINCE { get; set; }
-        public string COUNTRY_ID { get; set; }
+        public Int16? LocationId { get; set; }
+        public string StreetAddress { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public string StateProvince { get; set; }
+        public string CountryId { get; set; }
     }
 }

@@ -12,10 +12,10 @@ namespace Models.Entities
     /// </summary>
     public class JobHistory
     {
-        public int? EMPLOYEE_ID { get; set; }
-        public DateTime? START_DATE { get; set; }
-        public DateTime? END_DATE { get; set; }
-        public string JOB_ID { get; set; }
-        public Int16? DEPARTMENT_ID { get; set; }
+        public int? EmployeeId { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string JobId { get; set; }
+        public Int16? DepartmentId { get; set; }
     }
 }

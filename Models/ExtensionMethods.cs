@@ -1,5 +1,8 @@
 ﻿using FastMember;
 using Oracle.ManagedDataAccess.Client;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
 
 namespace Models
 {
@@ -10,28 +13,45 @@ namespace Models
         /// </summary>
         /// <typeparam name="T">The type of database entity to be returned</typeparam>
         /// <returns>An instance of T object</returns>
-        public static T ConvertToObject<T>(this OracleDataReader reader) where T : class, new()
+        public static async Task<T> ConvertToObject<T>(this OracleDataReader reader) where T : class, new()
         {
-            Type type = typeof(T);
-            var accessor = TypeAccessor.Create(type);
-            var members = accessor.GetMembers();
-            var result = new T();
+            T result = new();
 
-            for (int field = 0; field < reader.FieldCount; field++)
+            TypeAccessor accessor = TypeAccessor.Create(typeof(T));
+            MemberSet fields = accessor.GetMembers();
+
+            ReadOnlyCollection<DbColumn> columns = await reader.GetColumnSchemaAsync();
+
+            foreach (Member field in fields)
             {
-                if (!reader.IsDBNull(field))
+                foreach (DbColumn column in columns)
                 {
-                    string fieldName = reader.GetName(field);
+                    bool foundDatabaseMatchForField = DoesColumnMatchField(column, field);
 
-                    bool foundMatchForGivenField = members.Any(m => string.Equals(m.Name, fieldName, StringComparison.OrdinalIgnoreCase));
-                    if (foundMatchForGivenField)
+                    if (foundDatabaseMatchForField)
                     {
-                        accessor[result, fieldName] = reader.GetValue(field);
+                        bool columnNotNull = !(await reader.IsDBNullAsync(column.ColumnName));
+                        if (columnNotNull)
+                        {
+                            accessor[result, field.Name] = reader.GetValue(column.ColumnName);
+                        }
+
+                        break;
                     }
                 }
             }
 
             return result;
+        }
+
+        private static bool DoesColumnMatchField(DbColumn column, Member field)
+        {
+            string columnNameNoUnderscores = column.ColumnName.Replace("_", "");
+
+            bool foundDatabaseMatchForField = string
+                .Equals(columnNameNoUnderscores, field.Name, StringComparison.OrdinalIgnoreCase);
+
+            return foundDatabaseMatchForField;
         }
     }
 }

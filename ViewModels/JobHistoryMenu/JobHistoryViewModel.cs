@@ -91,21 +91,21 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static List<JobHistoryViewModel> ToListOfJobHistoryViewModel(IEnumerable<JobHistory> JobHistories)
+        public static List<JobHistoryViewModel> ToListOfJobHistoryViewModel(IEnumerable<JobHistory> jobHistories)
         {
             List<JobHistoryViewModel> result = new List<JobHistoryViewModel>();
 
-            foreach (JobHistory JobHistory in JobHistories)
+            foreach (JobHistory jobHistory in jobHistories)
             {
-                JobHistoryViewModel JobHistoryViewModel = new()
+                JobHistoryViewModel jobHistoryViewModel = new()
                 {
-                    EmployeeId = JobHistory.EMPLOYEE_ID,
-                    StartDate = JobHistory.START_DATE,
-                    EndDate = JobHistory.END_DATE,
-                    JobId = JobHistory.JOB_ID,
-                    DepartmentId = JobHistory.DEPARTMENT_ID
+                    EmployeeId = jobHistory.EmployeeId,
+                    StartDate = jobHistory.StartDate,
+                    EndDate = jobHistory.EndDate,
+                    JobId = jobHistory.JobId,
+                    DepartmentId = jobHistory.DepartmentId
                 };
-                result.Add(JobHistoryViewModel);
+                result.Add(jobHistoryViewModel);
             }
 
             return result;

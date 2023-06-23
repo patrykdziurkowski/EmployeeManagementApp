@@ -39,7 +39,7 @@ namespace Models
             OracleDataReader reader = (OracleDataReader) await command.ExecuteReaderAsync();
             while (reader.Read())
             {
-                result.Add(reader.ConvertToObject<T>());
+                result.Add(await reader.ConvertToObject<T>());
             }
 
             Close();

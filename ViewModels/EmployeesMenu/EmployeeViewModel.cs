@@ -185,17 +185,17 @@ namespace ViewModels
             {
                 EmployeeViewModel employeeViewModel = new(employeeRepository)
                 {
-                    EmployeeId = employee.EMPLOYEE_ID,
-                    FirstName = employee.FIRST_NAME,
-                    LastName = employee.LAST_NAME,
-                    Email = employee.EMAIL,
-                    PhoneNumber = employee.PHONE_NUMBER,
-                    HireDate = employee.HIRE_DATE,
-                    JobId = employee.JOB_ID,
-                    Salary = employee.SALARY,
-                    CommissionPct = employee.COMMISSION_PCT,
-                    ManagerId = employee.MANAGER_ID,
-                    DepartmentId = employee.DEPARTMENT_ID
+                    EmployeeId = employee.EmployeeId,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    Email = employee.Email,
+                    PhoneNumber = employee.PhoneNumber,
+                    HireDate = employee.HireDate,
+                    JobId = employee.JobId,
+                    Salary = employee.Salary,
+                    CommissionPct = employee.CommissionPct,
+                    ManagerId = employee.ManagerId,
+                    DepartmentId = employee.DepartmentId
                 };
                 result.Add(employeeViewModel);
             }
@@ -217,17 +217,17 @@ namespace ViewModels
             {
                 Employee employeeToUpdate = new Employee()
                 {
-                    EMPLOYEE_ID = EmployeeId,
-                    FIRST_NAME = FirstName,
-                    LAST_NAME = LastName,
-                    EMAIL = Email,
-                    PHONE_NUMBER = PhoneNumber,
-                    HIRE_DATE = HireDate,
-                    JOB_ID = JobId,
-                    SALARY = Salary,
-                    COMMISSION_PCT = CommissionPct,
-                    MANAGER_ID = ManagerId,
-                    DEPARTMENT_ID = DepartmentId
+                    EmployeeId = this.EmployeeId,
+                    FirstName = this.FirstName,
+                    LastName = this.LastName,
+                    Email = this.Email,
+                    PhoneNumber = this.PhoneNumber,
+                    HireDate = this.HireDate,
+                    JobId = this.JobId,
+                    Salary = this.Salary,
+                    CommissionPct = this.CommissionPct,
+                    ManagerId = this.ManagerId,
+                    DepartmentId = this.DepartmentId
                 };
 
                 _employeeRepository.Update((int)EmployeeId, employeeToUpdate);

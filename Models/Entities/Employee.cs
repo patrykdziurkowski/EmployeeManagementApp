@@ -6,16 +6,16 @@
     /// </summary>
     public class Employee
     {
-        public int? EMPLOYEE_ID { get; set; }
-        public string FIRST_NAME { get; set; }
-        public string LAST_NAME { get; set; }
-        public string EMAIL { get; set; }
-        public string PHONE_NUMBER { get; set; }
-        public DateTime? HIRE_DATE { get; set; }
-        public string JOB_ID { get; set; }
-        public double? SALARY { get; set; }
-        public Single? COMMISSION_PCT { get; set; }
-        public int? MANAGER_ID { get; set; }
-        public Int16? DEPARTMENT_ID { get; set; }
+        public int? EmployeeId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime? HireDate { get; set; }
+        public string JobId { get; set; }
+        public double? Salary { get; set; }
+        public Single? CommissionPct { get; set; }
+        public int? ManagerId { get; set; }
+        public Int16? DepartmentId { get; set; }
     }
 }

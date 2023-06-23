@@ -85,17 +85,17 @@ namespace ViewModels
             {
                 Employee employeeToHire = new Employee()
                 {
-                    EMPLOYEE_ID = _newEmployee.EmployeeId,
-                    FIRST_NAME = _newEmployee.FirstName,
-                    LAST_NAME = _newEmployee.LastName,
-                    EMAIL = _newEmployee.Email,
-                    PHONE_NUMBER = _newEmployee.PhoneNumber,
-                    HIRE_DATE = _newEmployee.HireDate,
-                    JOB_ID = _newEmployee.JobId,
-                    SALARY = _newEmployee.Salary,
-                    COMMISSION_PCT = _newEmployee.CommissionPct,
-                    MANAGER_ID = _newEmployee.ManagerId,
-                    DEPARTMENT_ID = _newEmployee.DepartmentId
+                    EmployeeId = _newEmployee.EmployeeId,
+                    FirstName = _newEmployee.FirstName,
+                    LastName = _newEmployee.LastName,
+                    Email = _newEmployee.Email,
+                    PhoneNumber = _newEmployee.PhoneNumber,
+                    HireDate = _newEmployee.HireDate,
+                    JobId = _newEmployee.JobId,
+                    Salary = _newEmployee.Salary,
+                    CommissionPct = _newEmployee.CommissionPct,
+                    ManagerId = _newEmployee.ManagerId,
+                    DepartmentId = _newEmployee.DepartmentId
                 };
 
                 _employeeRepository.Hire(employeeToHire);

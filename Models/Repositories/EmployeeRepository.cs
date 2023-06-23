@@ -39,14 +39,14 @@ namespace Models.Repositories
 
         public async Task<bool> Hire(Employee employee)
         {
-            string hireDate = employee.HIRE_DATE.Value.ToString("yyyy-MM-dd");
-            string commissionPct = employee.COMMISSION_PCT.ToString().Replace(",", ".");
+            string hireDate = employee.HireDate.Value.ToString("yyyy-MM-dd");
+            string commissionPct = employee.CommissionPct.ToString().Replace(",", ".");
             commissionPct = (commissionPct == String.Empty) ? "null" : commissionPct;
-            string managerId = (employee.MANAGER_ID is null) ? "null" : employee.MANAGER_ID.ToString();
+            string managerId = (employee.ManagerId is null) ? "null" : employee.ManagerId.ToString();
 
-            string nonQuery = $"INSERT INTO employees VALUES ({employee.EMPLOYEE_ID}, '{employee.FIRST_NAME}', " +
-                $"'{employee.LAST_NAME}', '{employee.EMAIL}', '{employee.PHONE_NUMBER}', '{hireDate}', '{employee.JOB_ID}', " +
-                $"{employee.SALARY}, {commissionPct}, {managerId}, {employee.DEPARTMENT_ID})";
+            string nonQuery = $"INSERT INTO employees VALUES ({employee.EmployeeId}, '{employee.FirstName}', " +
+                $"'{employee.LastName}', '{employee.Email}', '{employee.PhoneNumber}', '{hireDate}', '{employee.JobId}', " +
+                $"{employee.Salary}, {commissionPct}, {managerId}, {employee.DepartmentId})";
             
             int rowsAffected = await _dataAccess
                 .ExecuteSQLNonQueryAsync(nonQuery);
@@ -64,16 +64,16 @@ namespace Models.Repositories
 
         public async Task<bool> Update(int targetEmployeeId, Employee newEmployeeData)
         {
-            string hireDate = newEmployeeData.HIRE_DATE.Value.ToString("yyyy-MM-dd");
-            string commissionPct = newEmployeeData.COMMISSION_PCT.ToString().Replace(",", ".");
+            string hireDate = newEmployeeData.HireDate.Value.ToString("yyyy-MM-dd");
+            string commissionPct = newEmployeeData.CommissionPct.ToString().Replace(",", ".");
             commissionPct = (commissionPct == String.Empty) ? "null": commissionPct;
-            string managerId = (newEmployeeData.MANAGER_ID is null) ? "null" : newEmployeeData.MANAGER_ID.ToString();
+            string managerId = (newEmployeeData.ManagerId is null) ? "null" : newEmployeeData.ManagerId.ToString();
 
-            string nonQuery = $"UPDATE employees SET employee_id = {newEmployeeData.EMPLOYEE_ID}, first_name = " +
-                $"'{newEmployeeData.FIRST_NAME}', last_name = '{newEmployeeData.LAST_NAME}', email = '{newEmployeeData.EMAIL}', phone_number = " +
-                $"'{newEmployeeData.PHONE_NUMBER}', hire_date = '{hireDate}', job_id = '{newEmployeeData.JOB_ID}', salary = " +
-                $"{newEmployeeData.SALARY}, commission_pct = {commissionPct}, manager_id = {managerId}, " +
-                $"department_id = {newEmployeeData.DEPARTMENT_ID} WHERE employee_id = {targetEmployeeId}";
+            string nonQuery = $"UPDATE employees SET employee_id = {newEmployeeData.EmployeeId}, first_name = " +
+                $"'{newEmployeeData.FirstName}', last_name = '{newEmployeeData.LastName}', email = '{newEmployeeData.Email}', phone_number = " +
+                $"'{newEmployeeData.PhoneNumber}', hire_date = '{hireDate}', job_id = '{newEmployeeData.JobId}', salary = " +
+                $"{newEmployeeData.Salary}, commission_pct = {commissionPct}, manager_id = {managerId}, " +
+                $"department_id = {newEmployeeData.DepartmentId} WHERE employee_id = {targetEmployeeId}";
             
             int rowsAffected = await _dataAccess
                 .ExecuteSQLNonQueryAsync(nonQuery);

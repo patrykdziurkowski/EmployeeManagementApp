@@ -12,8 +12,8 @@ namespace Models.Entities
     /// </summary>
     public class Country
     {
-        public string COUNTRY_ID { get; set; }
-        public string COUNTRY_NAME { get; set; }
-        public decimal? REGION_ID { get; set; }
+        public string CountryId { get; set; }
+        public string CountryName { get; set; }
+        public decimal? RegionId { get; set; }
     }
 }

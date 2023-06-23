@@ -12,9 +12,9 @@ namespace Models.Entities
     /// </summary>
     public class Department
     {
-        public Int16? DEPARTMENT_ID { get; set; }
-        public string DEPARTMENT_NAME { get; set; }
-        public int? MANAGER_ID { get; set; }
-        public Int16? LOCATION_ID { get; set; }
+        public Int16? DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+        public int? ManagerId { get; set; }
+        public Int16? LocationId { get; set; }
     }
 }

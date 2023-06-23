@@ -98,11 +98,11 @@ namespace ViewModels
             {
                 SalaryViewModel salaryViewModel = new()
                 {
-                    EmployeeId = employee.EMPLOYEE_ID,
-                    FirstName = employee.FIRST_NAME,
-                    LastName = employee.LAST_NAME,
-                    JobId = employee.JOB_ID,
-                    Salary = employee.SALARY,
+                    EmployeeId = employee.EmployeeId,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    JobId = employee.JobId,
+                    Salary = employee.Salary,
                 };
                 result.Add(salaryViewModel);
             }

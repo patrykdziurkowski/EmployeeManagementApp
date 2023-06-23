@@ -8,12 +8,12 @@ namespace Models.Entities
 {
     public class DepartmentLocation
     {
-        public Int16? DEPARTMENT_ID { get; set; }
-        public string DEPARTMENT_NAME { get; set; }
-        public string STREET_ADDRESS { get; set; }
-        public string CITY { get; set; }
-        public string STATE_PROVINCE { get; set; }
-        public string COUNTRY_NAME { get; set; }
-        public string REGION_NAME { get; set; }
+        public Int16? DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
+        public string StateProvince { get; set; }
+        public string CountryName { get; set; }
+        public string RegionName { get; set; }
     }
 }
