@@ -54,17 +54,16 @@ namespace ViewModels
             _employeeRepository = employeeRepository;
 
             _employees = new ObservableCollection<EmployeeViewModel>();
-            
         }
 
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public void InitializeData()
+        public async Task InitializeData()
         {
             List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
-                .ToListOfEmployeeViewModel(_employeeRepository.GetAll(), _employeeRepository);
+                .ToListOfEmployeeViewModel(await _employeeRepository.GetAll(), _employeeRepository);
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
 
             Employees = employees;
@@ -104,12 +103,16 @@ namespace ViewModels
         }
         
 
-        public void RemoveEmployee(int id)
+        public async void RemoveEmployee(int id)
         {
-            _employeeRepository.Fire(id);
-            EmployeeViewModel employeeToRemove = Employees
+            bool employeeWasRemovedFromDatabase = await _employeeRepository.Fire(id);
+
+            if (employeeWasRemovedFromDatabase)
+            {
+                EmployeeViewModel employeeToRemove = Employees
                 .FirstOrDefault(employee => employee.EmployeeId == id);
-            Employees.Remove(employeeToRemove);
+                Employees.Remove(employeeToRemove);
+            }
         }
 
         ////////////////////////////////////////////

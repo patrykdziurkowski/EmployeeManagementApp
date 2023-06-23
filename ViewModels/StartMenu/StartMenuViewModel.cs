@@ -28,14 +28,14 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool LogIn(string userName, string password)
+        public async Task<bool> LogIn(string userName, string password)
         {
             _userCredentials.UserName = userName;
             _userCredentials.Password = password;
 
             try
             {
-                _employeeRepository.GetAll();
+                await _employeeRepository.GetAll();
             }
             catch (Exception ex)
             {

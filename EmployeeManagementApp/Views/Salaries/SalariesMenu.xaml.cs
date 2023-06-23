@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -44,9 +45,9 @@ namespace EmployeeManagementApp
             NavigationService.GoBack();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.InitializeData();
+            await _viewModel.InitializeData();
 
             DataContext = _viewModel;
             SalariesTable.ItemsSource = _viewModel.Salaries;

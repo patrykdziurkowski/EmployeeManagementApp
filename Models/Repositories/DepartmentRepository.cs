@@ -22,24 +22,31 @@ namespace Models.Repositories
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public IEnumerable<Department> GetAll()
+        public async Task<IEnumerable<Department>> GetAll()
         {
-            return _dataAccess
-                .ExecuteSQLQuery<Department>("SELECT * FROM departments");
+            string query = "SELECT * FROM departments";
+
+            return await _dataAccess
+                .ExecuteSQLQueryAsync<Department>(query);
         }
 
-        public Department Get(int departmentId)
+        public async Task<Department> Get(int departmentId)
         {
-            return _dataAccess
-                .ExecuteSQLQuery<Department>($"SELECT * FROM departments WHERE department_id = {departmentId}")
+            string query = $"SELECT * FROM departments WHERE department_id = { departmentId}";
+
+            Department departmentWithGivenId = (await _dataAccess
+                .ExecuteSQLQueryAsync<Department>(query))
                 .FirstOrDefault();
+
+            return departmentWithGivenId;
         }
 
-        public IEnumerable<Employee> GetEmployeesForDepartment(int departmentId)
+        public async Task<IEnumerable<Employee>> GetEmployeesForDepartment(int departmentId)
         {
             string query = $"SELECT * FROM employees WHERE department_id = {departmentId}";
-            return _dataAccess
-                .ExecuteSQLQuery<Employee>(query);
+            
+            return await _dataAccess
+                .ExecuteSQLQueryAsync<Employee>(query);
         }
     }
 }

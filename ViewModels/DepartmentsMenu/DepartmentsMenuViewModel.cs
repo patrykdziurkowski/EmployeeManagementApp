@@ -62,14 +62,14 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public void InitializeData()
+        public async Task InitializeData()
         {
             List<DepartmentViewModel> departmentViewModels = DepartmentViewModel
-                .ToListOfDepartmentViewModel(_departmentRepository.GetAll());
+                .ToListOfDepartmentViewModel(await _departmentRepository.GetAll());
             ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
 
             List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
-                .ToListOfEmployeeViewModel(_employeeRepository.GetAll(), _employeeRepository);
+                .ToListOfEmployeeViewModel(await _employeeRepository.GetAll(), _employeeRepository);
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
 
             Employees = employees;
@@ -78,7 +78,7 @@ namespace ViewModels
             foreach(DepartmentViewModel department in Departments)
             {
                 List<EmployeeViewModel> employeeDepartmentViewModels = EmployeeViewModel
-                    .ToListOfEmployeeViewModel(_departmentRepository.GetEmployeesForDepartment((int)department.DepartmentId), _employeeRepository);
+                    .ToListOfEmployeeViewModel(await _departmentRepository.GetEmployeesForDepartment((int)department.DepartmentId), _employeeRepository);
                 department.Employees = new ObservableCollection<EmployeeViewModel>(employeeDepartmentViewModels);
 
                 department.Employees.CollectionChanged += Employees_CollectionChanged;

@@ -1,5 +1,6 @@
 ﻿using Models;
 using Models.Repositories;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -35,11 +36,11 @@ namespace EmployeeManagementApp
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        private void LogInto()
+        private async Task LogInto()
         {
             string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
             string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
-            bool isLoggedIn = _startMenuViewModel.LogIn(userName, password);
+            bool isLoggedIn = await _startMenuViewModel.LogIn(userName, password);
 
             if (isLoggedIn == false)
             {

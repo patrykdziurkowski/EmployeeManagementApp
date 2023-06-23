@@ -25,10 +25,10 @@ namespace Models.Repositories
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public IEnumerable<JobHistory> GetAll()
+        public async Task<IEnumerable<JobHistory>> GetAll()
         {
-            return _dataAccess
-                .ExecuteSQLQuery<JobHistory>("SELECT * FROM job_history");
+            return await _dataAccess
+                .ExecuteSQLQueryAsync<JobHistory>("SELECT * FROM job_history");
         }
     }
 }

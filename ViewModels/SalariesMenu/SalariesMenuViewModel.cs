@@ -46,10 +46,10 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public void InitializeData()
+        public async Task InitializeData()
         {
             List<SalaryViewModel> salaryViewModels = SalaryViewModel
-                .ToListOfSalaryViewModel(_employeeRepository.GetAll());
+                .ToListOfSalaryViewModel(await _employeeRepository.GetAll());
             ObservableCollection<SalaryViewModel> salaries = new ObservableCollection<SalaryViewModel>(salaryViewModels);
             _salaries = salaries;
             _salaries.CollectionChanged += Salaries_CollectionChanged;
@@ -60,7 +60,7 @@ namespace ViewModels
             double sum = 0;
             foreach (SalaryViewModel employee in Salaries)
             {
-                sum += (double)employee.Salary;
+                sum += (double) employee.Salary;
             }
             return sum / Salaries.Count;
         }
@@ -71,7 +71,7 @@ namespace ViewModels
             {
                 if (employee.Salary > maxSalary)
                 {
-                    maxSalary = (double)employee.Salary;
+                    maxSalary = (double) employee.Salary;
                 }
             }
 
@@ -84,7 +84,7 @@ namespace ViewModels
             {
                 if ((employee.Salary < minSalary) || (minSalary is null))
                 {
-                    minSalary = (double)employee.Salary;
+                    minSalary = (double) employee.Salary;
                 }
             }
             minSalary = (minSalary is null) ? 0 : minSalary;
@@ -97,7 +97,7 @@ namespace ViewModels
 
             foreach (SalaryViewModel employee in Salaries)
             {
-                sumOfSalaries += (double)employee.Salary;
+                sumOfSalaries += (double) employee.Salary;
             }
 
             return sumOfSalaries;

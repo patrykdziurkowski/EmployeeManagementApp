@@ -20,20 +20,24 @@ namespace Models.Repositories
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public IEnumerable<Employee> GetAll()
+        public async Task<IEnumerable<Employee>> GetAll()
         {
-            return _dataAccess
-                .ExecuteSQLQuery<Employee>("SELECT * FROM employees");
+            return await _dataAccess
+                .ExecuteSQLQueryAsync<Employee>("SELECT * FROM employees");
         }
 
-        public Employee Get(int employeeId)
+        public async Task<Employee> Get(int employeeId)
         {
-            return _dataAccess
-                .ExecuteSQLQuery<Employee>($"SELECT * FROM employees WHERE employee_id = {employeeId}")
+            string query = $"SELECT * FROM employees WHERE employee_id = {employeeId}";
+
+            Employee employeeWithGivenId = (await _dataAccess
+                .ExecuteSQLQueryAsync<Employee>(query))
                 .FirstOrDefault();
+
+            return employeeWithGivenId;
         }
 
-        public bool Hire(Employee employee)
+        public async Task<bool> Hire(Employee employee)
         {
             string hireDate = employee.HIRE_DATE.Value.ToString("yyyy-MM-dd");
             string commissionPct = employee.COMMISSION_PCT.ToString().Replace(",", ".");
@@ -44,21 +48,21 @@ namespace Models.Repositories
                 $"'{employee.LAST_NAME}', '{employee.EMAIL}', '{employee.PHONE_NUMBER}', '{hireDate}', '{employee.JOB_ID}', " +
                 $"{employee.SALARY}, {commissionPct}, {managerId}, {employee.DEPARTMENT_ID})";
             
-            int rowsAffected = _dataAccess
-                .ExecuteSQLNonQuery(nonQuery);
+            int rowsAffected = await _dataAccess
+                .ExecuteSQLNonQueryAsync(nonQuery);
 
             return rowsAffected > 0;
         }
 
-        public bool Fire(int employeeId)
+        public async Task<bool> Fire(int employeeId)
         {
             string nonQuery = $"DELETE FROM employees WHERE employee_id = {employeeId}";
-            int rowsAffected = _dataAccess
-                .ExecuteSQLNonQuery(nonQuery);
+            int rowsAffected = await _dataAccess
+                .ExecuteSQLNonQueryAsync(nonQuery);
             return rowsAffected > 0;
         }
 
-        public bool Update(int targetEmployeeId, Employee newEmployeeData)
+        public async Task<bool> Update(int targetEmployeeId, Employee newEmployeeData)
         {
             string hireDate = newEmployeeData.HIRE_DATE.Value.ToString("yyyy-MM-dd");
             string commissionPct = newEmployeeData.COMMISSION_PCT.ToString().Replace(",", ".");
@@ -70,8 +74,9 @@ namespace Models.Repositories
                 $"'{newEmployeeData.PHONE_NUMBER}', hire_date = '{hireDate}', job_id = '{newEmployeeData.JOB_ID}', salary = " +
                 $"{newEmployeeData.SALARY}, commission_pct = {commissionPct}, manager_id = {managerId}, " +
                 $"department_id = {newEmployeeData.DEPARTMENT_ID} WHERE employee_id = {targetEmployeeId}";
-            int rowsAffected = _dataAccess
-                .ExecuteSQLNonQuery(nonQuery);
+            
+            int rowsAffected = await _dataAccess
+                .ExecuteSQLNonQueryAsync(nonQuery);
 
             return rowsAffected > 0;
         }

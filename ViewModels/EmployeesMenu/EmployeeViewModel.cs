@@ -203,7 +203,7 @@ namespace ViewModels
             return result;
         }
 
-        public void UpdateEmployee()
+        public async Task UpdateEmployee()
         {
             if (EmployeeId is not null &&
                 FirstName is not null &&
@@ -239,7 +239,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected async Task OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             UpdateEmployee();

@@ -30,13 +30,13 @@ namespace Models
         /// <typeparam name="T">The type of database entity to be returned</typeparam>
         /// <param name="query">The query in string format</param>
         /// <returns>IEnumerable of given entity, can be empty.</returns>
-        public IEnumerable<T> ExecuteSQLQuery<T>(string query) where T : class, new()
+        public async Task<IEnumerable<T>> ExecuteSQLQueryAsync<T>(string query) where T : class, new()
         {
             List<T> result = new();
             Open();
 
             OracleCommand command = new(query, _connection);
-            OracleDataReader reader = command.ExecuteReader();
+            OracleDataReader reader = (OracleDataReader) await command.ExecuteReaderAsync();
             while (reader.Read())
             {
                 result.Add(reader.ConvertToObject<T>());
@@ -54,7 +54,7 @@ namespace Models
         ///     Multiple queries can be used in a transaction by delimiting them with a semi-colon: ";"
         /// </param>
         /// <returns>Number of affected rows</returns>
-        public int ExecuteSQLNonQuery(string nonQueries)
+        public async Task<int> ExecuteSQLNonQueryAsync(string nonQueries)
         {
             Open();
             OracleTransaction transaction = _connection.BeginTransaction();
@@ -62,7 +62,7 @@ namespace Models
             int affectedRows = 0;
             try
             {
-                affectedRows = ExecuteCommands(nonQueries);
+                affectedRows = await ExecuteCommandsAsync(nonQueries);
 
                 transaction.Commit();
             }
@@ -77,7 +77,7 @@ namespace Models
             return affectedRows;
         }
 
-        private int ExecuteCommands(string commands)
+        private async Task<int> ExecuteCommandsAsync(string commands)
         {
             string[] nonQueries = commands.Split(';');
 
@@ -85,7 +85,7 @@ namespace Models
             foreach (string nonQuery in nonQueries)
             {
                 OracleCommand command = new(nonQuery, _connection);
-                affectedRows += command.ExecuteNonQuery();
+                affectedRows += await command.ExecuteNonQueryAsync();
             }
 
             return affectedRows;

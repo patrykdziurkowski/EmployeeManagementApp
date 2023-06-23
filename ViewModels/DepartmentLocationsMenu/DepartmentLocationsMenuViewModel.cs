@@ -45,10 +45,10 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public void InitializeData()
+        public async Task InitializeData()
         {
             List<DepartmentLocationViewModel> departmentLocationViewModels = DepartmentLocationViewModel
-                .ToListOfDepartmentLocationViewModel(_departmentLocationRepository.GetAll());
+                .ToListOfDepartmentLocationViewModel(await _departmentLocationRepository.GetAll());
             ObservableCollection<DepartmentLocationViewModel> departmentLocation = new ObservableCollection<DepartmentLocationViewModel>(departmentLocationViewModels);
 
             DepartmentLocation = departmentLocation;
