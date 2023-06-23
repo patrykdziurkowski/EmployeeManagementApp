@@ -58,53 +58,30 @@ namespace ViewModels
         
         public double GetAverageSalary()
         {
-            double sum = 0;
-            foreach (SalaryViewModel employee in Salaries)
-            {
-                sum += (double) employee.Salary;
-            }
-            return sum / Salaries.Count;
+            double? averageSalary = Salaries.Average(employee => employee.Salary);
+
+            return (double)averageSalary;
         }
         public double GetMaxSalary()
         {
-            double maxSalary = 0;
-            foreach (SalaryViewModel employee in Salaries)
-            {
-                if (employee.Salary > maxSalary)
-                {
-                    maxSalary = (double) employee.Salary;
-                }
-            }
+            double? maxSalary = Salaries.Max(employee => employee.Salary);
 
-            return maxSalary;
+            return (double)maxSalary;
         }
         public double GetMinSalary()
         {
-            double? minSalary = null;
-            foreach (SalaryViewModel employee in Salaries)
-            {
-                if ((employee.Salary < minSalary) || (minSalary is null))
-                {
-                    minSalary = (double) employee.Salary;
-                }
-            }
-            minSalary = (minSalary is null) ? 0 : minSalary;
+            double? minSalary = Salaries.Min(employee => employee.Salary);
 
             return (double)minSalary;
         }
         public double GetSumOfSalaries()
         {
-            double sumOfSalaries = 0;
+            double? sumOfSalaries = Salaries.Sum(employee => employee.Salary);
 
-            foreach (SalaryViewModel employee in Salaries)
-            {
-                sumOfSalaries += (double) employee.Salary;
-            }
-
-            return sumOfSalaries;
+            return (double)sumOfSalaries;
         }
 
-        public string DoubleToStringMoney(double number)
+        private string DoubleToStringMoney(double number)
         {
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";
