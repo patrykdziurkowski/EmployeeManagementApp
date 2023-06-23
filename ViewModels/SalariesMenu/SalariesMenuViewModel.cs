@@ -3,6 +3,7 @@ using Models.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 namespace ViewModels
@@ -28,10 +29,10 @@ namespace ViewModels
             }
         }
 
-        public double AverageSalary => GetAverageSalary();
-        public double MaxSalary => GetMaxSalary();
-        public double MinSalary => GetMinSalary();
-        public double SumOfSalaries => GetSumOfSalaries();
+        public string AverageSalaryText => DoubleToStringMoney(GetAverageSalary());
+        public string MaxSalaryText => DoubleToStringMoney(GetMaxSalary());
+        public string MinSalaryText => DoubleToStringMoney(GetMinSalary());
+        public string SumOfSalariesText => DoubleToStringMoney(GetSumOfSalaries());
 
         ////////////////////////////////////////////
         //  Constructors
@@ -101,6 +102,13 @@ namespace ViewModels
             }
 
             return sumOfSalaries;
+        }
+
+        public string DoubleToStringMoney(double number)
+        {
+            NumberFormatInfo nfi = new NumberFormatInfo();
+            nfi.NumberDecimalSeparator = ".";
+            return string.Format(nfi, "${0:0.00}", number);
         }
 
         ////////////////////////////////////////////

@@ -33,29 +33,17 @@ namespace EmployeeManagementApp
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static string FormatStat(double myNumber)
-        {
-            NumberFormatInfo nfi = new System.Globalization.NumberFormatInfo();
-            nfi.NumberDecimalSeparator = ".";
-            return string.Format(nfi,"${0:0.00}", myNumber);
-        }
-
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await _viewModel.InitializeData();
+            _viewModel.InitializeData();
 
             DataContext = _viewModel;
             SalariesTable.ItemsSource = _viewModel.Salaries;
-
-            ComboSalary.Text = FormatStat(_viewModel.SumOfSalaries);
-            AvgSalary.Text = FormatStat(_viewModel.AverageSalary);
-            HighestSalary.Text = FormatStat(_viewModel.MaxSalary);
-            LowestSalary.Text = FormatStat(_viewModel.MinSalary);
         }
     }
 }

@@ -53,22 +53,22 @@
         <Canvas Background="#903749" Margin="451,51,192,253">
             <Label Foreground="White" FontSize="18" Content="Highest Salary" Canvas.Left="10" Canvas.Top="9" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift"/>
             <Canvas Background="white" Height="1" Width="70" HorizontalAlignment="Left" Canvas.Top="41" VerticalAlignment="Center" Canvas.Left="39" RenderTransformOrigin="0.5,0.5"/>
-            <TextBlock Name="HighestSalary" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="24" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Name="HighestSalary" Text="{Binding MaxSalaryText}" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="24" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
         <Canvas Background="#903749" Margin="613,51,30,253">
             <Label Foreground="White" FontSize="18" Content="Lowest Salary" Canvas.Left="8" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift" RenderTransformOrigin="0.432,0.507"/>
             <Canvas Background="white" Height="1" Width="70" HorizontalAlignment="Left" Canvas.Top="41" VerticalAlignment="Center" Canvas.Left="39" RenderTransformOrigin="0.5,0.5"/>
-            <TextBlock Name="LowestSalary" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="25" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Name="LowestSalary" Text="{Binding MinSalaryText}" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="25" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
         <Canvas Background="#903749" Margin="451,194,192,110">
             <Label Foreground="White" FontSize="18" Content="Average Salary" Canvas.Left="6" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Bahnschrift"/>
             <Canvas Background="white" Height="1" Width="70" HorizontalAlignment="Left" Canvas.Top="41" VerticalAlignment="Center" Canvas.Left="39" RenderTransformOrigin="0.5,0.5"/>
-            <TextBlock Name="AvgSalary" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="26" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Name="AvgSalary" Text="{Binding AverageSalaryText}" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="26" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
         <Canvas Background="#903749" Margin="613,194,30,110">
             <Label Foreground="White" FontSize="18" Content="Combined&#10;  Salaries" Canvas.Left="26" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift"/>
             <Canvas Background="white" Height="1" Width="70" HorizontalAlignment="Left" Canvas.Top="62" VerticalAlignment="Center" Canvas.Left="36" RenderTransformOrigin="0.5,0.5"/>
-            <TextBlock Name="ComboSalary" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="26" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Name="ComboSalary" Text="{Binding SumOfSalariesText}" FontSize="17" Foreground="White" TextAlignment="Center" Canvas.Left="26" TextWrapping="Wrap" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
     </Grid>
 </Page>
