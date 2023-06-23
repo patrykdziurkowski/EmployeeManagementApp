@@ -17,7 +17,6 @@ namespace EmployeeManagementApp
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private int _rowIndex = -1;
         private object _draggedItem;
         private Point _startPoint;
 
@@ -37,9 +36,7 @@ namespace EmployeeManagementApp
             _viewModel = departmentsMenuViewModel;
             _departmentsLocationMenu = departmentsLocationMenu;
 
-            InitializeComponent();
-
-            
+            InitializeComponent(); 
         }
 
 
