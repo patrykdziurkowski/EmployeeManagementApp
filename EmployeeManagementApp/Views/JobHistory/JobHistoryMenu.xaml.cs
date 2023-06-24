@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeeManagementApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,7 @@ namespace EmployeeManagementApp
             _viewModel = jobHistoryMenuViewModel;
 
             InitializeComponent();
+            OverlayContentControl.Content = new LoadingUserControl();
         }
 
         private void ReturnToEmployeeMenu(object sender, RoutedEventArgs e)
@@ -34,9 +36,11 @@ namespace EmployeeManagementApp
             NavigationService.GoBack();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.InitializeData();
+            OverlayContentControl.Visibility = Visibility.Visible;
+            await Task.Run(() => _viewModel.InitializeData());
+            OverlayContentControl.Visibility = Visibility.Hidden;
 
             DataContext = _viewModel;
             JobHistoryTable.ItemsSource = _viewModel.JobHistory;

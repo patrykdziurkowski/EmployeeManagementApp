@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using EmployeeManagementApp.Views;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -29,6 +31,7 @@ namespace EmployeeManagementApp
             _viewModel = viewModel;
 
             InitializeComponent();
+            OverlayContentControl.Content = new LoadingUserControl();
         }
 
 
@@ -66,9 +69,11 @@ namespace EmployeeManagementApp
             NavigationService.Navigate(_jobHistoryMenu);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.InitializeData();
+            OverlayContentControl.Visibility = Visibility.Visible;
+            await Task.Run(() => _viewModel.InitializeData());
+            OverlayContentControl.Visibility = Visibility.Hidden;
 
             List<string> jobs = new()
             {
@@ -90,6 +95,7 @@ namespace EmployeeManagementApp
             EmployeesTable.ItemsSource = _viewModel.Employees;
             DataGridComboBoxColumn comboBox = (DataGridComboBoxColumn)this.FindName("JobsComboBox");
             comboBox.ItemsSource = jobs;
+            
         }
     }
 }

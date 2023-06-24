@@ -78,6 +78,8 @@
         </Style>
     </Page.Resources>
     <Grid Height="434.04">
+        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
+
         <Button Content="Return" Margin="664,344,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
         <Label Content="Manage Employees" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
         <Button Content="Add Employee" Margin="50,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="Click_AddEmployee" Foreground="White" HorizontalAlignment="Left"/>

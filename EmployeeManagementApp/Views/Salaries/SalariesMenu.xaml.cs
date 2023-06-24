@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeeManagementApp.Views;
+using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,6 +28,7 @@ namespace EmployeeManagementApp
             _viewModel = salariesMenuViewModel;
 
             InitializeComponent();
+            OverlayContentControl.Content = new LoadingUserControl();
         }
 
 
@@ -38,9 +40,11 @@ namespace EmployeeManagementApp
             NavigationService.GoBack();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.InitializeData();
+            OverlayContentControl.Visibility = Visibility.Visible;
+            await Task.Run(() => _viewModel.InitializeData());
+            OverlayContentControl.Visibility = Visibility.Hidden;
 
             DataContext = _viewModel;
             SalariesTable.ItemsSource = _viewModel.Salaries;

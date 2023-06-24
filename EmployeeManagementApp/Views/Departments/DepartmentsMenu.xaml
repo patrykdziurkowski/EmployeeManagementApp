@@ -50,6 +50,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
         <Grid Height="434.04">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

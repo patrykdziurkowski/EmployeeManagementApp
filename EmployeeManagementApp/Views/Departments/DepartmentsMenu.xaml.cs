@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeeManagementApp.Views;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,7 +37,8 @@ namespace EmployeeManagementApp
             _viewModel = departmentsMenuViewModel;
             _departmentsLocationMenu = departmentsLocationMenu;
 
-            InitializeComponent(); 
+            InitializeComponent();
+            OverlayContentControl.Content = new LoadingUserControl();
         }
 
 
@@ -111,9 +113,12 @@ namespace EmployeeManagementApp
             NavigationService.Navigate(_departmentsLocationMenu);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.InitializeData();
+            OverlayContentControl.Visibility = Visibility.Visible;
+            await Task.Run(() => _viewModel.InitializeData());
+            OverlayContentControl.Visibility = Visibility.Hidden;
+
             DepartmentsTable.ItemsSource = _viewModel.Employees;
             DepartmentsList.ItemsSource = _viewModel.Departments;
         }

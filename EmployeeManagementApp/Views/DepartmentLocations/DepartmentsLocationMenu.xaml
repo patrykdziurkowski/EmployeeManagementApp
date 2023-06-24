@@ -47,6 +47,8 @@
         </Style>
     </Page.Resources>
     <Grid>
+        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
+        
         <Button Content="Return" Margin="0,377,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToDepartmentsMenu" Foreground="White"/>
         <Label Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="244" Foreground="#FF903749" FontWeight="Bold"/>
         <DataGrid x:Name="DepartmentLocationTable" Grid.Column="0" AutoGenerateColumns="False" Margin="5,46,5,95" ColumnWidth="*" SelectionMode="Extended" AllowDrop="False" IsReadOnly="True" HeadersVisibility="Column">

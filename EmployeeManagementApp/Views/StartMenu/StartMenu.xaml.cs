@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using EmployeeManagementApp.Views;
+using Models;
 using Models.Repositories;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,10 +27,12 @@ namespace EmployeeManagementApp
         public StartMenu(StartMenuViewModel startMenuViewModel,
             MainMenu mainMenu)
         {
-            InitializeComponent();
             _startMenuViewModel = startMenuViewModel;
             _mainMenu = mainMenu;
 
+            InitializeComponent();
+            OverlayContentControl.Content = new LoadingUserControl();
+            OverlayContentControl.Visibility = Visibility.Hidden;
             LoginTextBox.Focus();
         }
 
@@ -40,7 +43,10 @@ namespace EmployeeManagementApp
         {
             string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
             string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
-            bool isLoggedIn = await _startMenuViewModel.LogIn(userName, password);
+
+            OverlayContentControl.Visibility = Visibility.Visible;
+            bool isLoggedIn = await Task.Run(() => _startMenuViewModel.LogIn(userName, password));
+            OverlayContentControl.Visibility = Visibility.Hidden;
 
             if (isLoggedIn == false)
             {

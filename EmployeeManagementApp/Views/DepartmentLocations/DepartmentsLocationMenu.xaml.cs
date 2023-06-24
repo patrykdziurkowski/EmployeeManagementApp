@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeeManagementApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,9 @@ namespace EmployeeManagementApp
         public DepartmentsLocationMenu(DepartmentLocationsMenuViewModel departmentLocationMenuViewModel)
         {
             _viewModel = departmentLocationMenuViewModel;
+
             InitializeComponent();
+            OverlayContentControl.Content = new LoadingUserControl();
         }
 
         private void ReturnToDepartmentsMenu(object sender, RoutedEventArgs e)
@@ -33,9 +36,12 @@ namespace EmployeeManagementApp
             NavigationService.GoBack();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.InitializeData();
+            OverlayContentControl.Visibility = Visibility.Visible;
+            await Task.Run(() => _viewModel.InitializeData());
+            OverlayContentControl.Visibility = Visibility.Hidden;
+
             DataContext = _viewModel;
             DepartmentLocationTable.ItemsSource = _viewModel.DepartmentLocation;
         }
