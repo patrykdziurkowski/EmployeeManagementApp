@@ -48,14 +48,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
-            <DataGrid Grid.Column="0" Name="SalariesTable" HeadersVisibility="Column" AutoGenerateColumns="False" Margin="30 50 30 30" IsReadOnly="True">
+
+            <DataGrid Grid.Column="0" Name="SalariesTable" HeadersVisibility="Column" AutoGenerateColumns="False" Margin="30 50 30 30" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
-                    <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
-                    <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
-                    <DataGridTextColumn Header="Salary" Binding="{Binding Salary}"/>
+                    <DataGridTextColumn Width="Auto" Header="Id" Binding="{Binding EmployeeId}"/>
+                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Width="*" Header="Surname" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Width="*" Header="Role" Binding="{Binding JobId}"/>
+                    <DataGridTextColumn Width="Auto" Header="Salary" Binding="{Binding Salary}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
