@@ -13,7 +13,6 @@ namespace ViewModels
         private UserCredentials _userCredentials;
         private EmployeeRepository _employeeRepository;
 
-        
 
         ////////////////////////////////////////////
         //  Constructors
@@ -39,9 +38,16 @@ namespace ViewModels
             }
             catch (Exception ex)
             {
+                LogOut();
                 return false;
             }
             return true;
+        }
+
+        public void LogOut()
+        {
+            _userCredentials.UserName = null;
+            _userCredentials.Password = null;
         }
 
         ////////////////////////////////////////////

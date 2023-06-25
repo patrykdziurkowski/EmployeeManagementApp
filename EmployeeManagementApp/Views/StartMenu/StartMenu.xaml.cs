@@ -86,7 +86,7 @@ namespace EmployeeManagementApp
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            _startMenuViewModel.LogOut();
         }
     }
 }
