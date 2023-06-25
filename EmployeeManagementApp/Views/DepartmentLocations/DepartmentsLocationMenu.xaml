@@ -48,18 +48,17 @@
     </Page.Resources>
     <Grid>
         <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
-        
-        <Button Content="Return" Margin="0,377,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToDepartmentsMenu" Foreground="White"/>
-        <Label Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="244" Foreground="#FF903749" FontWeight="Bold"/>
-        <DataGrid x:Name="DepartmentLocationTable" Grid.Column="0" AutoGenerateColumns="False" Margin="5,46,5,95" ColumnWidth="*" SelectionMode="Extended" AllowDrop="False" IsReadOnly="True" HeadersVisibility="Column">
+
+        <Label Content="Department Locations" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" Margin="0 5" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
+        <DataGrid x:Name="DepartmentLocationTable" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="25 50 25 100" ColumnWidth="*" SelectionMode="Extended" AllowDrop="False" IsReadOnly="True" HeadersVisibility="Column">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="DepartmentId" Binding="{Binding DepartmentId}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding DepartmentName}"/>
-                <DataGridTextColumn Header="StateProvince" Binding="{Binding StateProvince}"/>
-                <DataGridTextColumn Header="City" Binding="{Binding City}"/>
-                <DataGridTextColumn Header="StreetAddress" Binding="{Binding StreetAddress}"/>
-                <DataGridTextColumn Header="RegionName" Binding="{Binding RegionName}"/>
-                <DataGridTextColumn Header="CountryName" Binding="{Binding CountryName}"/>
+                <DataGridTextColumn Width="Auto" Header="DepartmentId" Binding="{Binding DepartmentId}"/>
+                <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding DepartmentName}"/>
+                <DataGridTextColumn Width="Auto" Header="StateProvince" Binding="{Binding StateProvince}"/>
+                <DataGridTextColumn Width="Auto" Header="City" Binding="{Binding City}"/>
+                <DataGridTextColumn Width="*" Header="StreetAddress" Binding="{Binding StreetAddress}"/>
+                <DataGridTextColumn Width="Auto" Header="RegionName" Binding="{Binding RegionName}"/>
+                <DataGridTextColumn Width="*" Header="CountryName" Binding="{Binding CountryName}"/>
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
@@ -68,5 +67,6 @@
             </DataGrid.Resources>
         </DataGrid>
 
+        <Button Content="Return" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 30" Height="30" Width="80" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="#2B2E4A" FontWeight="Bold" Click="ReturnToDepartmentsMenu" Foreground="White"/>
     </Grid>
 </Page>
