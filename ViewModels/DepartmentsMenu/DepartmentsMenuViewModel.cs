@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace ViewModels
 {
-    public class DepartmentsMenuViewModel : INotifyPropertyChanged
+    public class DepartmentsMenuViewModel : INotifyPropertyChanged, IEmployeeUpdatable
     {
         ////////////////////////////////////////////
         //  Fields and properties
