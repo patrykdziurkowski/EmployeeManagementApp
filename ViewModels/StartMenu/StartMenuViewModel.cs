@@ -1,5 +1,6 @@
 ﻿using Models;
 using Models.Repositories;
+using Oracle.ManagedDataAccess.Client;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -36,7 +37,7 @@ namespace ViewModels
             {
                 await _employeeRepository.GetAll();
             }
-            catch (Exception ex)
+            catch (OracleException ex)
             {
                 LogOut();
                 return false;
