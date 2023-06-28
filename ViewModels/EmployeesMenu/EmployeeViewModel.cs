@@ -175,31 +175,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees)
-        {
-            List<EmployeeViewModel> result = new List<EmployeeViewModel>();
 
-            foreach (Employee employee in employees)
-            {
-                EmployeeViewModel employeeViewModel = new()
-                {
-                    EmployeeId = employee.EmployeeId,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    Email = employee.Email,
-                    PhoneNumber = employee.PhoneNumber,
-                    HireDate = employee.HireDate,
-                    JobId = employee.JobId,
-                    Salary = employee.Salary,
-                    CommissionPct = employee.CommissionPct,
-                    ManagerId = employee.ManagerId,
-                    DepartmentId = employee.DepartmentId
-                };
-                result.Add(employeeViewModel);
-            }
-
-            return result;
-        }
   
 
         ////////////////////////////////////////////

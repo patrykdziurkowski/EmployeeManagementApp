@@ -49,8 +49,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         public async Task InitializeData()
         {
-            List<SalaryViewModel> salaryViewModels = SalaryViewModel
-                .ToListOfSalaryViewModel(await _employeeRepository.GetAll());
+            List<SalaryViewModel> salaryViewModels = (await _employeeRepository.GetAll()).ToListOfSalaryViewModel();
             ObservableCollection<SalaryViewModel> salaries = new ObservableCollection<SalaryViewModel>(salaryViewModels);
             _salaries = salaries;
             _salaries.CollectionChanged += Salaries_CollectionChanged;

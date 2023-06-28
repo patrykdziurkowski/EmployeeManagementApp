@@ -90,25 +90,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static List<SalaryViewModel> ToListOfSalaryViewModel(IEnumerable<Employee> salaries)
-        {
-            List<SalaryViewModel> result = new List<SalaryViewModel>();
-
-            foreach (Employee employee in salaries)
-            {
-                SalaryViewModel salaryViewModel = new()
-                {
-                    EmployeeId = employee.EmployeeId,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    JobId = employee.JobId,
-                    Salary = employee.Salary,
-                };
-                result.Add(salaryViewModel);
-            }
-
-            return result;
-        }
+        
 
         ////////////////////////////////////////////
         //  Events and Data Binding

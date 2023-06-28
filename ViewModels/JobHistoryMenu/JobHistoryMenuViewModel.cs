@@ -44,8 +44,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         public async Task InitializeData()
         {
-            List<JobHistoryViewModel> jobHistoryViewModels = JobHistoryViewModel
-                            .ToListOfJobHistoryViewModel(await _jobHistoryRepository.GetAll());
+            List<JobHistoryViewModel> jobHistoryViewModels = (await _jobHistoryRepository.GetAll()).ToListOfJobHistoryViewModel();
             ObservableCollection<JobHistoryViewModel> jobHistory = new ObservableCollection<JobHistoryViewModel>(jobHistoryViewModels);
 
             JobHistory = jobHistory;

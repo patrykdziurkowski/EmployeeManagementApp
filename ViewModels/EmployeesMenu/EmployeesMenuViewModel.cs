@@ -62,8 +62,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         public async Task InitializeData()
         {
-            List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
-                .ToListOfEmployeeViewModel(await _employeeRepository.GetAll());
+            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAll()).ToListOfEmployeeViewModel();
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
 
             Employees = employees;

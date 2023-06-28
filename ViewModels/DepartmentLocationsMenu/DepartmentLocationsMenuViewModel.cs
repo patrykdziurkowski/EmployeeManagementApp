@@ -47,8 +47,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         public async Task InitializeData()
         {
-            List<DepartmentLocationViewModel> departmentLocationViewModels = DepartmentLocationViewModel
-                .ToListOfDepartmentLocationViewModel(await _departmentLocationRepository.GetAll());
+            List<DepartmentLocationViewModel> departmentLocationViewModels = (await _departmentLocationRepository.GetAll()).ToListOfDepartmentLocationViewModel();
             ObservableCollection<DepartmentLocationViewModel> departmentLocation = new ObservableCollection<DepartmentLocationViewModel>(departmentLocationViewModels);
 
             DepartmentLocation = departmentLocation;

@@ -95,24 +95,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static List<DepartmentViewModel> ToListOfDepartmentViewModel(IEnumerable<Department> departments)
-        {
-            List<DepartmentViewModel> convertedDepartments = new List<DepartmentViewModel>();
-
-            foreach (Department department in departments)
-            {
-                DepartmentViewModel DepartmentViewModel = new()
-                {
-                    DepartmentId = department.DepartmentId,
-                    DepartmentName = department.DepartmentName,
-                    ManagerId = department.ManagerId,
-                    LocationId = department.LocationId
-                };
-                convertedDepartments.Add(DepartmentViewModel);
-            }
-
-            return convertedDepartments;
-        }
+        
 
         
 

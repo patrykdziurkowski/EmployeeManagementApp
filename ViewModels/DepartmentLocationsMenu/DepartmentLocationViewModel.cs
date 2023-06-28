@@ -132,27 +132,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static List<DepartmentLocationViewModel> ToListOfDepartmentLocationViewModel(IEnumerable<DepartmentLocation> departmentLocations)
-        {
-            List<DepartmentLocationViewModel> result = new List<DepartmentLocationViewModel>();
-
-            foreach (DepartmentLocation departmentLocation in departmentLocations)
-            {
-                DepartmentLocationViewModel departmentLocationViewModel = new()
-                {
-                    DepartmentId = departmentLocation.DepartmentId,
-                    DepartmentName = departmentLocation.DepartmentName,
-                    StateProvince = departmentLocation.StateProvince,
-                    City = departmentLocation.City,
-                    StreetAddress = departmentLocation.StreetAddress,
-                    RegionName = departmentLocation.RegionName,
-                    CountryName = departmentLocation.CountryName
-                };
-                result.Add(departmentLocationViewModel);
-            }
-
-            return result;
-        }
+        
 
         ////////////////////////////////////////////
         //  Events and Data Binding
