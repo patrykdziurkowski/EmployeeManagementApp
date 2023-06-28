@@ -1,4 +1,6 @@
-﻿using Models;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Models;
 using Models.Entities;
 using Models.Repositories;
 using System.Collections.ObjectModel;
@@ -15,6 +17,7 @@ namespace ViewModels
         ////////////////////////////////////////////
         private DepartmentRepository _departmentRepository;
         private EmployeeRepository _employeeRepository;
+        private IValidator<EmployeeViewModel> _employeeValidator;
 
         private ObservableCollection<DepartmentViewModel> _departments;
         public ObservableCollection<DepartmentViewModel> Departments
@@ -51,10 +54,12 @@ namespace ViewModels
         //  Constructors
         ////////////////////////////////////////////
         public DepartmentsMenuViewModel(DepartmentRepository departmentRepository,
-            EmployeeRepository employeeRepository)
+            EmployeeRepository employeeRepository,
+            IValidator<EmployeeViewModel> employeeVaidator)
         {
             _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
+            _employeeValidator = employeeVaidator;
 
             _departments = new ObservableCollection<DepartmentViewModel>();
             _employees = new ObservableCollection<EmployeeViewModel>(); 
@@ -96,33 +101,29 @@ namespace ViewModels
         {
             EmployeeViewModel changedEmployee = (EmployeeViewModel)sender;
 
-            if (changedEmployee.EmployeeId is not null &&
-                changedEmployee.FirstName is not null &&
-                changedEmployee.LastName is not null &&
-                changedEmployee.Email is not null &&
-                changedEmployee.PhoneNumber is not null &&
-                changedEmployee.HireDate is not null &&
-                changedEmployee.JobId is not null &&
-                changedEmployee.Salary is not null &&
-                changedEmployee.DepartmentId is not null)
+            ValidationResult validationResult = _employeeValidator.Validate(changedEmployee);
+            if (!validationResult.IsValid)
             {
-                Employee employeeToUpdate = new Employee()
-                {
-                    EmployeeId = changedEmployee.EmployeeId,
-                    FirstName = changedEmployee.FirstName,
-                    LastName = changedEmployee.LastName,
-                    Email = changedEmployee.Email,
-                    PhoneNumber = changedEmployee.PhoneNumber,
-                    HireDate = changedEmployee.HireDate,
-                    JobId = changedEmployee.JobId,
-                    Salary = changedEmployee.Salary,
-                    CommissionPct = changedEmployee.CommissionPct,
-                    ManagerId = changedEmployee.ManagerId,
-                    DepartmentId = changedEmployee.DepartmentId
-                };
-
-                _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
+                return;
             }
+
+
+            Employee employeeToUpdate = new Employee()
+            {
+                EmployeeId = changedEmployee.EmployeeId,
+                FirstName = changedEmployee.FirstName,
+                LastName = changedEmployee.LastName,
+                Email = changedEmployee.Email,
+                PhoneNumber = changedEmployee.PhoneNumber,
+                HireDate = changedEmployee.HireDate,
+                JobId = changedEmployee.JobId,
+                Salary = changedEmployee.Salary,
+                CommissionPct = changedEmployee.CommissionPct,
+                ManagerId = changedEmployee.ManagerId,
+                DepartmentId = changedEmployee.DepartmentId
+            };
+
+            _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
         }
 
         public void UpdateEmployeesDepartments(EmployeeViewModel employeeToUpdate, int targetDepartmentId)
