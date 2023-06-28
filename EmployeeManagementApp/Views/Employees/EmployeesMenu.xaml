@@ -93,7 +93,7 @@
                 <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay}"/>
-                <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId}"/>
                 <DataGridTemplateColumn Header="HireDate">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

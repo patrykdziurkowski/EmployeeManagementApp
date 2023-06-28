@@ -75,27 +75,10 @@ namespace EmployeeManagementApp
             await Task.Run(() => _viewModel.InitializeData());
             OverlayContentControl.Visibility = Visibility.Hidden;
 
-            List<string> jobs = new()
-            {
-                "AD_PRES",
-                "AD_VP",
-                "AD_ASST",
-                "AC_MGR",
-                "AC_ACCOUNT",
-                "SA_MAN",
-                "SA_REP",
-                "ST_MAN",
-                "ST_CLERK",
-                "IT_PROG",
-                "MK_MAN",
-                "MK_REP"
-            };
 
-
+            DataContext = _viewModel;
             EmployeesTable.ItemsSource = _viewModel.Employees;
-            DataGridComboBoxColumn comboBox = (DataGridComboBoxColumn)this.FindName("JobsComboBox");
-            comboBox.ItemsSource = jobs;
-            
+            JobsComboBox.ItemsSource = _viewModel.Jobs;
         }
     }
 }

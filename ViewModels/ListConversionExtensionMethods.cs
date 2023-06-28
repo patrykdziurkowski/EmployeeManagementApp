@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModels.EmployeesMenu;
 
 namespace ViewModels
 {
@@ -91,6 +92,25 @@ namespace ViewModels
                     DepartmentId = jobHistory.DepartmentId
                 };
                 result.Add(jobHistoryViewModel);
+            }
+
+            return result;
+        }
+
+        public static List<JobViewModel> ToListOfJobViewModel(this IEnumerable<Job> jobs)
+        {
+            List<JobViewModel> result = new();
+
+            foreach (Job job in jobs)
+            {
+                JobViewModel jobViewModel = new()
+                {
+                    JobId = job.JobId,
+                    JobTitle = job.JobTitle,
+                    MaxSalary = job.MaxSalary,
+                    MinSalary = job.MinSalary
+                };
+                result.Add(jobViewModel);
             }
 
             return result;

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ViewModels.EmployeesMenu;
 using ViewModels.Validators;
 
 namespace ViewModels
@@ -17,7 +18,9 @@ namespace ViewModels
         //  Fields and properties
         ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
+        private JobRepository _jobRepository;
         private IValidator<EmployeeViewModel> _employeeValidator;
+
 
         private ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
@@ -32,6 +35,7 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+
 
         private EmployeeViewModel _newEmployee; 
         public EmployeeViewModel NewEmployee
@@ -48,18 +52,34 @@ namespace ViewModels
         }
 
 
+        private ObservableCollection<string> _jobs;
+        public ObservableCollection<string> Jobs
+        {
+            get
+            {
+                return _jobs;
+            }
+            set
+            {
+                _jobs = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
         public EmployeesMenuViewModel(EmployeeRepository employeeRepository,
+            JobRepository jobRepository,
             IValidator<EmployeeViewModel> employeeValidator)
         {
+            _jobRepository = jobRepository;
             _employeeRepository = employeeRepository;
             _employeeValidator = employeeValidator;
 
             _employees = new ObservableCollection<EmployeeViewModel>();
+            _jobs = new ObservableCollection<string>();
         }
 
 
@@ -70,14 +90,19 @@ namespace ViewModels
         {
             List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAll()).ToListOfEmployeeViewModel();
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
-
             Employees = employees;
             Employees.CollectionChanged += Employees_CollectionChanged;
-            
+
+            List<JobViewModel> jobViewModels = (await _jobRepository.GetAll()).ToListOfJobViewModel();
+            ObservableCollection<string> jobs = new ObservableCollection<string>(jobViewModels.Select(job => job.JobId));
+            Jobs = jobs;
+            Jobs.CollectionChanged += Jobs_CollectionChanged;
+
             foreach (EmployeeViewModel employee in Employees)
             {
                 employee.PropertyChanged += UpdateEmployee;
             }
+
         }
 
         public void AddEmployee()
@@ -164,6 +189,9 @@ namespace ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
         }
 
-
+        private void Jobs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Jobs"));
+        }
     }
 }

@@ -30,6 +30,7 @@ namespace EmployeeManagementApp
             services.AddSingleton<ConnectionStringProvider>();
             services.AddSingleton<ISQLDataAccess, OracleSQLDataAccess>();
 
+            services.AddTransient<JobRepository>();
             services.AddTransient<EmployeeRepository>();
             services.AddTransient<DepartmentRepository>();
             services.AddTransient<DepartmentLocationRepository>();
