@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Entities;
 using Models.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -69,7 +70,7 @@ namespace ViewModels
             ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
 
             List<EmployeeViewModel> employeeViewModels = EmployeeViewModel
-                .ToListOfEmployeeViewModel(await _employeeRepository.GetAll(), _employeeRepository);
+                .ToListOfEmployeeViewModel(await _employeeRepository.GetAll());
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
 
             Employees = employees;
@@ -78,7 +79,7 @@ namespace ViewModels
             foreach(DepartmentViewModel department in Departments)
             {
                 List<EmployeeViewModel> employeeDepartmentViewModels = EmployeeViewModel
-                    .ToListOfEmployeeViewModel(await _departmentRepository.GetEmployeesForDepartment((int)department.DepartmentId), _employeeRepository);
+                    .ToListOfEmployeeViewModel(await _departmentRepository.GetEmployeesForDepartment((int)department.DepartmentId));
                 department.Employees = new ObservableCollection<EmployeeViewModel>(employeeDepartmentViewModels);
 
                 department.Employees.CollectionChanged += Employees_CollectionChanged;
@@ -86,6 +87,45 @@ namespace ViewModels
 
             _employees.CollectionChanged += Employees_CollectionChanged;
             _departments.CollectionChanged += Departments_CollectionChanged;
+
+            foreach (EmployeeViewModel employee in Employees)
+            {
+                employee.PropertyChanged += UpdateEmployee;
+            }
+        }
+
+
+        public async void UpdateEmployee(object sender, PropertyChangedEventArgs e)
+        {
+            EmployeeViewModel changedEmployee = (EmployeeViewModel)sender;
+
+            if (changedEmployee.EmployeeId is not null &&
+                changedEmployee.FirstName is not null &&
+                changedEmployee.LastName is not null &&
+                changedEmployee.Email is not null &&
+                changedEmployee.PhoneNumber is not null &&
+                changedEmployee.HireDate is not null &&
+                changedEmployee.JobId is not null &&
+                changedEmployee.Salary is not null &&
+                changedEmployee.DepartmentId is not null)
+            {
+                Employee employeeToUpdate = new Employee()
+                {
+                    EmployeeId = changedEmployee.EmployeeId,
+                    FirstName = changedEmployee.FirstName,
+                    LastName = changedEmployee.LastName,
+                    Email = changedEmployee.Email,
+                    PhoneNumber = changedEmployee.PhoneNumber,
+                    HireDate = changedEmployee.HireDate,
+                    JobId = changedEmployee.JobId,
+                    Salary = changedEmployee.Salary,
+                    CommissionPct = changedEmployee.CommissionPct,
+                    ManagerId = changedEmployee.ManagerId,
+                    DepartmentId = changedEmployee.DepartmentId
+                };
+
+                _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
+            }
         }
 
         public void UpdateEmployeesDepartments(EmployeeViewModel employeeToUpdate, int targetDepartmentId)

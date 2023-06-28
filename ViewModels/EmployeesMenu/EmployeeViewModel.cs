@@ -164,26 +164,24 @@ namespace ViewModels
             }
         }
 
-        private EmployeeRepository _employeeRepository;
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public EmployeeViewModel(EmployeeRepository employeeRepository)
+        public EmployeeViewModel()
         {
-            _employeeRepository = employeeRepository;
+
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees,
-            EmployeeRepository employeeRepository)
+        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(IEnumerable<Employee> employees)
         {
             List<EmployeeViewModel> result = new List<EmployeeViewModel>();
 
             foreach (Employee employee in employees)
             {
-                EmployeeViewModel employeeViewModel = new(employeeRepository)
+                EmployeeViewModel employeeViewModel = new()
                 {
                     EmployeeId = employee.EmployeeId,
                     FirstName = employee.FirstName,
@@ -202,37 +200,7 @@ namespace ViewModels
 
             return result;
         }
-
-        public async Task UpdateEmployee()
-        {
-            if (EmployeeId is not null &&
-                FirstName is not null &&
-                LastName is not null &&
-                Email is not null &&
-                PhoneNumber is not null &&
-                HireDate is not null &&
-                JobId is not null &&
-                Salary is not null &&
-                DepartmentId is not null)
-            {
-                Employee employeeToUpdate = new Employee()
-                {
-                    EmployeeId = this.EmployeeId,
-                    FirstName = this.FirstName,
-                    LastName = this.LastName,
-                    Email = this.Email,
-                    PhoneNumber = this.PhoneNumber,
-                    HireDate = this.HireDate,
-                    JobId = this.JobId,
-                    Salary = this.Salary,
-                    CommissionPct = this.CommissionPct,
-                    ManagerId = this.ManagerId,
-                    DepartmentId = this.DepartmentId
-                };
-
-                _employeeRepository.Update((int)EmployeeId, employeeToUpdate);
-            }
-        }
+  
 
         ////////////////////////////////////////////
         //  Events and Data Binding
@@ -242,7 +210,6 @@ namespace ViewModels
         protected async Task OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            UpdateEmployee();
         }
         
     }
