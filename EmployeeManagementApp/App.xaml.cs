@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using Models;
 using Models.Repositories;
 using System.Windows;
 using ViewModels;
+using ViewModels.Validators;
 
 namespace EmployeeManagementApp
 {
@@ -22,6 +24,8 @@ namespace EmployeeManagementApp
         
         private void ConfigureServices(ServiceCollection services)
         {
+            services.AddTransient<IValidator<EmployeeViewModel>, EmployeeValidator>();
+
             services.AddSingleton<UserCredentials>();
             services.AddSingleton<ConnectionStringProvider>();
             services.AddSingleton<ISQLDataAccess, OracleSQLDataAccess>();

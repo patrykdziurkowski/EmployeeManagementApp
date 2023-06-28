@@ -1,10 +1,13 @@
-﻿using Models;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Models;
 using Models.Entities;
 using Models.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ViewModels.Validators;
 
 namespace ViewModels
 {
@@ -14,6 +17,7 @@ namespace ViewModels
         //  Fields and properties
         ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
+        private IValidator<EmployeeViewModel> _employeeValidator;
 
         private ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
@@ -49,9 +53,11 @@ namespace ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public EmployeesMenuViewModel(EmployeeRepository employeeRepository)
+        public EmployeesMenuViewModel(EmployeeRepository employeeRepository,
+            IValidator<EmployeeViewModel> employeeValidator)
         {
             _employeeRepository = employeeRepository;
+            _employeeValidator = employeeValidator;
 
             _employees = new ObservableCollection<EmployeeViewModel>();
         }
@@ -77,66 +83,59 @@ namespace ViewModels
         public void AddEmployee()
         {
             _newEmployee = Employees.LastOrDefault();
-            if (_newEmployee.EmployeeId is not null &&
-                _newEmployee.FirstName is not null &&
-                _newEmployee.LastName is not null &&
-                _newEmployee.Email is not null &&
-                _newEmployee.PhoneNumber is not null &&
-                _newEmployee.HireDate is not null &&
-                _newEmployee.JobId is not null &&
-                _newEmployee.Salary is not null &&
-                _newEmployee.DepartmentId is not null)
-            {
-                Employee employeeToHire = new Employee()
-                {
-                    EmployeeId = _newEmployee.EmployeeId,
-                    FirstName = _newEmployee.FirstName,
-                    LastName = _newEmployee.LastName,
-                    Email = _newEmployee.Email,
-                    PhoneNumber = _newEmployee.PhoneNumber,
-                    HireDate = _newEmployee.HireDate,
-                    JobId = _newEmployee.JobId,
-                    Salary = _newEmployee.Salary,
-                    CommissionPct = _newEmployee.CommissionPct,
-                    ManagerId = _newEmployee.ManagerId,
-                    DepartmentId = _newEmployee.DepartmentId
-                };
 
-                _employeeRepository.Hire(employeeToHire);
+            ValidationResult validationResult = _employeeValidator.Validate(_newEmployee);
+            if (!validationResult.IsValid)
+            {
+                Employees.Remove(_newEmployee);
+                _newEmployee = null;
+
+                return;
             }
+
+            Employee employeeToHire = new()
+            {
+                EmployeeId = _newEmployee.EmployeeId,
+                FirstName = _newEmployee.FirstName,
+                LastName = _newEmployee.LastName,
+                Email = _newEmployee.Email,
+                PhoneNumber = _newEmployee.PhoneNumber,
+                HireDate = _newEmployee.HireDate,
+                JobId = _newEmployee.JobId,
+                Salary = _newEmployee.Salary,
+                CommissionPct = _newEmployee.CommissionPct,
+                ManagerId = _newEmployee.ManagerId,
+                DepartmentId = _newEmployee.DepartmentId
+            };
+            _employeeRepository.Hire(employeeToHire);
         }
 
         public async void UpdateEmployee(object sender, PropertyChangedEventArgs e)
         {
             EmployeeViewModel changedEmployee = (EmployeeViewModel) sender;
 
-            if (changedEmployee.EmployeeId is not null &&
-                changedEmployee.FirstName is not null &&
-                changedEmployee.LastName is not null &&
-                changedEmployee.Email is not null &&
-                changedEmployee.PhoneNumber is not null &&
-                changedEmployee.HireDate is not null &&
-                changedEmployee.JobId is not null &&
-                changedEmployee.Salary is not null &&
-                changedEmployee.DepartmentId is not null)
+            ValidationResult validationResult = _employeeValidator.Validate(changedEmployee);
+            if (!validationResult.IsValid)
             {
-                Employee employeeToUpdate = new Employee()
-                {
-                    EmployeeId = changedEmployee.EmployeeId,
-                    FirstName = changedEmployee.FirstName,
-                    LastName = changedEmployee.LastName,
-                    Email = changedEmployee.Email,
-                    PhoneNumber = changedEmployee.PhoneNumber,
-                    HireDate = changedEmployee.HireDate,
-                    JobId = changedEmployee.JobId,
-                    Salary = changedEmployee.Salary,
-                    CommissionPct = changedEmployee.CommissionPct,
-                    ManagerId = changedEmployee.ManagerId,
-                    DepartmentId = changedEmployee.DepartmentId
-                };
-
-                _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
+                return;
             }
+
+
+            Employee employeeToUpdate = new Employee()
+            {
+                EmployeeId = changedEmployee.EmployeeId,
+                FirstName = changedEmployee.FirstName,
+                LastName = changedEmployee.LastName,
+                Email = changedEmployee.Email,
+                PhoneNumber = changedEmployee.PhoneNumber,
+                HireDate = changedEmployee.HireDate,
+                JobId = changedEmployee.JobId,
+                Salary = changedEmployee.Salary,
+                CommissionPct = changedEmployee.CommissionPct,
+                ManagerId = changedEmployee.ManagerId,
+                DepartmentId = changedEmployee.DepartmentId
+            };
+            _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
         }
 
         public async Task RemoveEmployee(int id)
