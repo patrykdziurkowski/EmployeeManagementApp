@@ -140,7 +140,7 @@ namespace ViewModels
             }
         }
 
-        public async void RemoveEmployee(int id)
+        public async Task RemoveEmployee(int id)
         {
             bool employeeWasRemovedFromDatabase = await _employeeRepository.Fire(id);
 
