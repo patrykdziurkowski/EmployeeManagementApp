@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace ViewModels
 {
-    public class EmployeeViewModel : INotifyPropertyChanged
+    public class EmployeeViewModel : INotifyPropertyChanged, INotifyPropertyChanging
     {
         ////////////////////////////////////////////
         //  Fields and properties
@@ -103,6 +103,7 @@ namespace ViewModels
             }
             set
             {
+                OnPropertyChanging();
                 _jobId = value;
                 OnPropertyChanged();
             }
@@ -182,10 +183,15 @@ namespace ViewModels
         //  Events and Data Binding
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangingEventHandler? PropertyChanging;
 
         protected async Task OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        protected async Task OnPropertyChanging([CallerMemberName] string name = null)
+        {
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
         }
         
     }

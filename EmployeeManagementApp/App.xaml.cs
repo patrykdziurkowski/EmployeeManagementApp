@@ -25,6 +25,7 @@ namespace EmployeeManagementApp
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddTransient<IValidator<EmployeeViewModel>, EmployeeValidator>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
             services.AddSingleton<UserCredentials>();
             services.AddSingleton<ConnectionStringProvider>();

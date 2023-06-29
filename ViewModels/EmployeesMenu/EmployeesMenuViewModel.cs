@@ -19,8 +19,11 @@ namespace ViewModels
         ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
         private JobRepository _jobRepository;
+        private JobHistoryRepository _jobHistoryRepository;
         private IValidator<EmployeeViewModel> _employeeValidator;
+        private IDateTimeProvider _dateTimeProvider;
 
+        private Job _updatedEmployeePreviousJob;
 
         private ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
@@ -72,11 +75,15 @@ namespace ViewModels
         ////////////////////////////////////////////
         public EmployeesMenuViewModel(EmployeeRepository employeeRepository,
             JobRepository jobRepository,
-            IValidator<EmployeeViewModel> employeeValidator)
+            JobHistoryRepository jobHistoryRepository,
+            IValidator<EmployeeViewModel> employeeValidator,
+            IDateTimeProvider dateTimeProvider)
         {
+            _jobHistoryRepository = jobHistoryRepository;
             _jobRepository = jobRepository;
             _employeeRepository = employeeRepository;
             _employeeValidator = employeeValidator;
+            _dateTimeProvider = dateTimeProvider;
 
             _employees = new ObservableCollection<EmployeeViewModel>();
             _jobs = new ObservableCollection<string>();
@@ -100,6 +107,7 @@ namespace ViewModels
 
             foreach (EmployeeViewModel employee in Employees)
             {
+                employee.PropertyChanging += GetPreviousJob;
                 employee.PropertyChanged += UpdateEmployee;
             }
 
@@ -135,6 +143,13 @@ namespace ViewModels
             _employeeRepository.Hire(employeeToHire);
         }
 
+        public async void GetPreviousJob(object sender, PropertyChangingEventArgs e)
+        {
+            EmployeeViewModel employeeBeforeChange = (EmployeeViewModel) sender;
+            _updatedEmployeePreviousJob = (await _jobRepository.GetAll())
+                .FirstOrDefault(job => job.JobId == employeeBeforeChange.JobId);
+        }
+
         public async void UpdateEmployee(object sender, PropertyChangedEventArgs e)
         {
             EmployeeViewModel changedEmployee = (EmployeeViewModel) sender;
@@ -144,7 +159,6 @@ namespace ViewModels
             {
                 return;
             }
-
 
             Employee employeeToUpdate = new Employee()
             {
@@ -160,7 +174,37 @@ namespace ViewModels
                 ManagerId = changedEmployee.ManagerId,
                 DepartmentId = changedEmployee.DepartmentId
             };
+
+            if (_updatedEmployeePreviousJob.JobId != employeeToUpdate.JobId)
+            {
+                await CreateJobHistoryEntry(employeeToUpdate);
+            }
+
             _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
+        }
+
+        private async Task CreateJobHistoryEntry(Employee employeeToUpdate)
+        {
+            DateTime? updatedJobStartDate = (await _jobHistoryRepository.GetAll())
+                                .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId)
+                                .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
+                                .Max();
+
+            if (updatedJobStartDate is null)
+            {
+                updatedJobStartDate = employeeToUpdate.HireDate;
+            }
+
+            JobHistory jobHistoryEntry = new()
+            {
+                EmployeeId = employeeToUpdate.EmployeeId,
+                StartDate = updatedJobStartDate,
+                EndDate = _dateTimeProvider.GetNow(),
+                JobId = _updatedEmployeePreviousJob.JobId,
+                DepartmentId = employeeToUpdate.DepartmentId
+            };
+
+            _jobHistoryRepository.Insert(jobHistoryEntry);
         }
 
         public async Task RemoveEmployee(int id)
