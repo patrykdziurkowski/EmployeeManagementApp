@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.ViewModels;
 using Presentation.Views;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -82,6 +83,8 @@ namespace Presentation
                 if (droppedEmployee != null)
                 {
                     _viewModel.UpdateEmployeesDepartments(droppedEmployee, (int)targetDepartmentId);
+
+                    DepartmentsTable.ItemsSource = _viewModel.Employees.OrderBy(employee => employee.DepartmentId);
                 }
             }
         }
@@ -119,7 +122,7 @@ namespace Presentation
             await Task.Run(() => _viewModel.InitializeData());
             OverlayContentControl.Visibility = Visibility.Hidden;
 
-            DepartmentsTable.ItemsSource = _viewModel.Employees;
+            DepartmentsTable.ItemsSource = _viewModel.Employees.OrderBy(employee => employee.DepartmentId);
             DepartmentsList.ItemsSource = _viewModel.Departments;
         }
     }

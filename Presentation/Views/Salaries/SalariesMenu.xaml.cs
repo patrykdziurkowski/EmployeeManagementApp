@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ViewModels;
 using Presentation.Views;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,7 +46,7 @@ namespace Presentation
             OverlayContentControl.Visibility = Visibility.Hidden;
 
             DataContext = _viewModel;
-            SalariesTable.ItemsSource = _viewModel.Salaries;
+            SalariesTable.ItemsSource = _viewModel.Salaries.OrderByDescending(employee => employee.Salary);
         }
     }
 }
