@@ -1,0 +1,112 @@
+﻿<Page x:Class="Presentation.SalariesMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SalariesMenu" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E84545" TargetName="Border"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DDE6ED"/>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#FFE2E4F7"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="FontWeight"  Value="Bold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="#FFE2E4F7"/>
+            <Setter Property="Padding" Value="4,0,0,0"/>
+        </Style>
+    </Page.Resources>
+    <Grid Height="434.04">
+        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
+        
+        <Button Content="Return" Margin="692,355,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left" RenderTransformOrigin="0.376,0.571"/>
+        <Label Content="SALARIES" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="116" Foreground="#FF903749" FontWeight="Bold"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid Grid.Column="0" Name="SalariesTable" HeadersVisibility="Column" AutoGenerateColumns="False" Margin="30 50 30 30" IsReadOnly="True" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="Auto" Header="Id" Binding="{Binding EmployeeId}"/>
+                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Width="*" Header="Surname" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Width="*" Header="Role" Binding="{Binding JobId}"/>
+                    <DataGridTextColumn Width="Auto" Header="Salary" Binding="{Binding Salary}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid Grid.Column="1" Margin="30 50 30 30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Margin="10" BorderBrush="#903749" BorderThickness="2" CornerRadius="15">
+                    <Grid>
+                        <Grid Background="White" Width="{Binding Path=ActualWidth,ElementName=SalaryBlockHeader1}" Height="20" Margin="10 -10" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <TextBlock Name="SalaryBlockHeader1" Text="Highest Salary" Foreground="#903749" HorizontalAlignment="Left" FontSize="14"/>
+                        </Grid>
+
+                        <TextBlock Text="{Binding MaxSalaryText}" FontSize="18" Foreground="#2B2E4A" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="0" Margin="10" BorderBrush="#903749" BorderThickness="2" CornerRadius="15">
+                    <Grid>
+                        <Grid Background="White" Width="{Binding Path=ActualWidth,ElementName=SalaryBlockHeader2}" Height="20" Margin="10 -10" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <TextBlock Name="SalaryBlockHeader2" Text="Lowest Salary" Foreground="#903749" HorizontalAlignment="Left" FontSize="14"/>
+                        </Grid>
+
+                        <TextBlock Text="{Binding MinSalaryText}" FontSize="18" Foreground="#2B2E4A" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="0" Grid.Row="1" Margin="10" BorderBrush="#903749" BorderThickness="2" CornerRadius="15">
+                    <Grid>
+                        <Grid Background="White" Width="{Binding Path=ActualWidth,ElementName=SalaryBlockHeader3}" Height="20" Margin="10 -10" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <TextBlock Name="SalaryBlockHeader3" Text="Average Salary" Foreground="#903749" HorizontalAlignment="Left" FontSize="14"/>
+                        </Grid>
+
+                        <TextBlock Text="{Binding AverageSalaryText}" FontSize="18" Foreground="#2B2E4A" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="1" Margin="10" BorderBrush="#903749" BorderThickness="2" CornerRadius="15">
+                    <Grid>
+                        <Grid Background="White" Width="{Binding Path=ActualWidth,ElementName=SalaryBlockHeader4}" Height="20" Margin="10 -10" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <TextBlock Name="SalaryBlockHeader4" Text="Sum of Salaries" Foreground="#903749" HorizontalAlignment="Left" FontSize="14"/>
+                        </Grid>
+
+                        <TextBlock Text="{Binding SumOfSalariesText}" FontSize="18" Foreground="#2B2E4A" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

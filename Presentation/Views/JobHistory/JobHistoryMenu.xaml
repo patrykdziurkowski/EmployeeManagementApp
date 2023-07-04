@@ -1,0 +1,72 @@
+﻿<Page x:Class="Presentation.JobHistoryMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="JobHistoryMenu" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E84545" TargetName="Border"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DDE6ED"/>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#FFE2E4F7"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="FontWeight"  Value="Bold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="#FFE2E4F7"/>
+            <Setter Property="Padding" Value="4,0,0,0"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
+        
+        <Label Content="Job History" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="132" Foreground="#FF903749" FontWeight="Bold"/>
+        <DataGrid Name="JobHistoryTable" AutoGenerateColumns="False" HeadersVisibility="Column" HorizontalAlignment="Center" Margin="180 50 180 75" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="Auto" Header="EmployeeId" Binding="{Binding EmployeeId}"/>
+                <DataGridTemplateColumn Width="*" Header="StartDate">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding StartDate}" Focusable="False" IsHitTestVisible="False" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*" Header="EndDate">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding EndDate}" Focusable="False" IsHitTestVisible="False" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="*" Header="Role" Binding="{Binding JobId}"/>
+                <DataGridTextColumn Width="Auto" Header="Department" Binding="{Binding DepartmentId}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Return" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="25" Height="30" Width="80" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToEmployeeMenu" Foreground="White"/>
+    </Grid>
+</Page>

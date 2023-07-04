@@ -1,0 +1,238 @@
+﻿using FluentValidation;
+using FluentValidation.Results;
+using DataAccess.Repositories;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using DataAccess.Models;
+
+namespace BusinessLogic.ViewModels
+{
+    public class EmployeesMenuViewModel : INotifyPropertyChanged, IEmployeeUpdatable
+    {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
+        private EmployeeRepository _employeeRepository;
+        private JobRepository _jobRepository;
+        private JobHistoryRepository _jobHistoryRepository;
+        private IValidator<EmployeeViewModel> _employeeValidator;
+        private IDateTimeProvider _dateTimeProvider;
+
+        private Job _updatedEmployeePreviousJob;
+
+        private ObservableCollection<EmployeeViewModel> _employees;
+        public ObservableCollection<EmployeeViewModel> Employees
+        {
+            get
+            {
+                return _employees;
+            }
+            set
+            {
+                _employees = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private EmployeeViewModel _newEmployee; 
+        public EmployeeViewModel NewEmployee
+        {
+            get
+            {
+                return _newEmployee;
+            }
+            set
+            {
+                _newEmployee = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private ObservableCollection<string> _jobs;
+        public ObservableCollection<string> Jobs
+        {
+            get
+            {
+                return _jobs;
+            }
+            set
+            {
+                _jobs = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
+        public EmployeesMenuViewModel(EmployeeRepository employeeRepository,
+            JobRepository jobRepository,
+            JobHistoryRepository jobHistoryRepository,
+            IValidator<EmployeeViewModel> employeeValidator,
+            IDateTimeProvider dateTimeProvider)
+        {
+            _jobHistoryRepository = jobHistoryRepository;
+            _jobRepository = jobRepository;
+            _employeeRepository = employeeRepository;
+            _employeeValidator = employeeValidator;
+            _dateTimeProvider = dateTimeProvider;
+
+            _employees = new ObservableCollection<EmployeeViewModel>();
+            _jobs = new ObservableCollection<string>();
+        }
+
+
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        public async Task InitializeData()
+        {
+            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAll()).ToListOfEmployeeViewModel();
+            ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
+            Employees = employees;
+            Employees.CollectionChanged += Employees_CollectionChanged;
+
+            List<JobViewModel> jobViewModels = (await _jobRepository.GetAll()).ToListOfJobViewModel();
+            ObservableCollection<string> jobs = new ObservableCollection<string>(jobViewModels.Select(job => job.JobId));
+            Jobs = jobs;
+            Jobs.CollectionChanged += Jobs_CollectionChanged;
+
+            foreach (EmployeeViewModel employee in Employees)
+            {
+                employee.PropertyChanging += GetPreviousJob;
+                employee.PropertyChanged += UpdateEmployee;
+            }
+
+        }
+
+        public void AddEmployee()
+        {
+            _newEmployee = Employees.LastOrDefault();
+
+            ValidationResult validationResult = _employeeValidator.Validate(_newEmployee);
+            if (!validationResult.IsValid)
+            {
+                Employees.Remove(_newEmployee);
+                _newEmployee = null;
+
+                return;
+            }
+
+            Employee employeeToHire = new()
+            {
+                EmployeeId = _newEmployee.EmployeeId,
+                FirstName = _newEmployee.FirstName,
+                LastName = _newEmployee.LastName,
+                Email = _newEmployee.Email,
+                PhoneNumber = _newEmployee.PhoneNumber,
+                HireDate = _newEmployee.HireDate,
+                JobId = _newEmployee.JobId,
+                Salary = _newEmployee.Salary,
+                CommissionPct = _newEmployee.CommissionPct,
+                ManagerId = _newEmployee.ManagerId,
+                DepartmentId = _newEmployee.DepartmentId
+            };
+            _employeeRepository.Hire(employeeToHire);
+        }
+
+        public async void GetPreviousJob(object sender, PropertyChangingEventArgs e)
+        {
+            EmployeeViewModel employeeBeforeChange = (EmployeeViewModel) sender;
+            _updatedEmployeePreviousJob = (await _jobRepository.GetAll())
+                .FirstOrDefault(job => job.JobId == employeeBeforeChange.JobId);
+        }
+
+        public async void UpdateEmployee(object sender, PropertyChangedEventArgs e)
+        {
+            EmployeeViewModel changedEmployee = (EmployeeViewModel) sender;
+
+            ValidationResult validationResult = _employeeValidator.Validate(changedEmployee);
+            if (!validationResult.IsValid)
+            {
+                return;
+            }
+
+            Employee employeeToUpdate = new Employee()
+            {
+                EmployeeId = changedEmployee.EmployeeId,
+                FirstName = changedEmployee.FirstName,
+                LastName = changedEmployee.LastName,
+                Email = changedEmployee.Email,
+                PhoneNumber = changedEmployee.PhoneNumber,
+                HireDate = changedEmployee.HireDate,
+                JobId = changedEmployee.JobId,
+                Salary = changedEmployee.Salary,
+                CommissionPct = changedEmployee.CommissionPct,
+                ManagerId = changedEmployee.ManagerId,
+                DepartmentId = changedEmployee.DepartmentId
+            };
+
+            if (_updatedEmployeePreviousJob.JobId != employeeToUpdate.JobId)
+            {
+                await CreateJobHistoryEntry(employeeToUpdate);
+            }
+
+            _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
+        }
+
+        private async Task CreateJobHistoryEntry(Employee employeeToUpdate)
+        {
+            DateTime? updatedJobStartDate = (await _jobHistoryRepository.GetAll())
+                                .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId)
+                                .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
+                                .Max();
+
+            if (updatedJobStartDate is null)
+            {
+                updatedJobStartDate = employeeToUpdate.HireDate;
+            }
+
+            JobHistory jobHistoryEntry = new()
+            {
+                EmployeeId = employeeToUpdate.EmployeeId,
+                StartDate = updatedJobStartDate,
+                EndDate = _dateTimeProvider.GetNow(),
+                JobId = _updatedEmployeePreviousJob.JobId,
+                DepartmentId = employeeToUpdate.DepartmentId
+            };
+
+            _jobHistoryRepository.Insert(jobHistoryEntry);
+        }
+
+        public async Task RemoveEmployee(int id)
+        {
+            bool employeeWasRemovedFromDatabase = await _employeeRepository.Fire(id);
+
+            if (employeeWasRemovedFromDatabase)
+            {
+                EmployeeViewModel employeeToRemove = Employees
+                .FirstOrDefault(employee => employee.EmployeeId == id);
+                Employees.Remove(employeeToRemove);
+            }
+        }
+
+        ////////////////////////////////////////////
+        //  Events and Data Binding
+        ////////////////////////////////////////////
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
+        }
+
+        private void Jobs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Jobs"));
+        }
+    }
+}
