@@ -8,6 +8,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
+        private IDateTimeProvider _dateTimeProvider;
+        
         private int? _employeeId;
         public int? EmployeeId {
             get
@@ -177,7 +179,16 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public EmployeeViewModel()
         {
+            _dateTimeProvider = new DateTimeProvider();
 
+            HireDate = _dateTimeProvider.GetNow();
+        }
+
+        public EmployeeViewModel(IDateTimeProvider dateTimeProvider)
+        {
+            _dateTimeProvider = dateTimeProvider;
+
+            HireDate = _dateTimeProvider.GetNow();
         }
 
         ////////////////////////////////////////////
