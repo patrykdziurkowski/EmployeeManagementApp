@@ -85,7 +85,7 @@
         <Button Content="Add Employee" Margin="50,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="Click_AddEmployee" Foreground="White" HorizontalAlignment="Left"/>
         <DataGrid Name="EmployeesTable" HeadersVisibility="Column" AutoGenerateColumns="False" Margin="0,56,10,96">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" SortDirection="Descending"/>
                 <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=TwoWay}"/>
