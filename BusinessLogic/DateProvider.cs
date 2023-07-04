@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    public class DateTimeProvider : IDateTimeProvider
+    public class DateProvider : IDateProvider
     {
-        public DateTime GetNow() => DateTime.Now;
+        public DateOnly GetNow() => DateOnly.FromDateTime(DateTime.Now);
     }
 }

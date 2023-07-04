@@ -21,8 +21,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private DateTime? _startDate;
-        public DateTime? StartDate
+        private DateOnly? _startDate;
+        public DateOnly? StartDate
         {
             get
             {
@@ -35,8 +35,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private DateTime? _endDate;
-        public DateTime? EndDate
+        private DateOnly? _endDate;
+        public DateOnly? EndDate
         {
             get
             {

@@ -18,7 +18,7 @@ namespace BusinessLogic.ViewModels
         private JobRepository _jobRepository;
         private JobHistoryRepository _jobHistoryRepository;
         private IValidator<EmployeeViewModel> _employeeValidator;
-        private IDateTimeProvider _dateTimeProvider;
+        private IDateProvider _dateProvider;
 
         private Job _updatedEmployeePreviousJob;
 
@@ -74,13 +74,13 @@ namespace BusinessLogic.ViewModels
             JobRepository jobRepository,
             JobHistoryRepository jobHistoryRepository,
             IValidator<EmployeeViewModel> employeeValidator,
-            IDateTimeProvider dateTimeProvider)
+            IDateProvider dateProvider)
         {
             _jobHistoryRepository = jobHistoryRepository;
             _jobRepository = jobRepository;
             _employeeRepository = employeeRepository;
             _employeeValidator = employeeValidator;
-            _dateTimeProvider = dateTimeProvider;
+            _dateProvider = dateProvider;
 
             _employees = new ObservableCollection<EmployeeViewModel>();
             _jobs = new ObservableCollection<string>();
@@ -130,7 +130,7 @@ namespace BusinessLogic.ViewModels
                 LastName = _newEmployee.LastName,
                 Email = _newEmployee.Email,
                 PhoneNumber = _newEmployee.PhoneNumber,
-                HireDate = _newEmployee.HireDate,
+                HireDate = _newEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
                 JobId = _newEmployee.JobId,
                 Salary = _newEmployee.Salary,
                 CommissionPct = _newEmployee.CommissionPct,
@@ -164,7 +164,7 @@ namespace BusinessLogic.ViewModels
                 LastName = changedEmployee.LastName,
                 Email = changedEmployee.Email,
                 PhoneNumber = changedEmployee.PhoneNumber,
-                HireDate = changedEmployee.HireDate,
+                HireDate = changedEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
                 JobId = changedEmployee.JobId,
                 Salary = changedEmployee.Salary,
                 CommissionPct = changedEmployee.CommissionPct,
@@ -182,21 +182,22 @@ namespace BusinessLogic.ViewModels
 
         private async Task CreateJobHistoryEntry(Employee employeeToUpdate)
         {
-            DateTime? updatedJobStartDate = (await _jobHistoryRepository.GetAll())
+            DateTime? lastJobStartdate = (await _jobHistoryRepository.GetAll())
                                 .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId)
                                 .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
                                 .Max();
+            DateOnly? updatedJobStartDate = DateOnly.FromDateTime(lastJobStartdate.Value);
 
             if (updatedJobStartDate is null)
             {
-                updatedJobStartDate = employeeToUpdate.HireDate;
+                updatedJobStartDate = DateOnly.FromDateTime(employeeToUpdate.HireDate.Value);
             }
 
             JobHistory jobHistoryEntry = new()
             {
                 EmployeeId = employeeToUpdate.EmployeeId,
-                StartDate = updatedJobStartDate,
-                EndDate = _dateTimeProvider.GetNow(),
+                StartDate = lastJobStartdate,
+                EndDate = _dateProvider.GetNow().ToDateTime(TimeOnly.MinValue),
                 JobId = _updatedEmployeePreviousJob.JobId,
                 DepartmentId = employeeToUpdate.DepartmentId
             };

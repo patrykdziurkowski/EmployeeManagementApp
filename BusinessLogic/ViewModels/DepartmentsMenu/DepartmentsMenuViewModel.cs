@@ -114,7 +114,7 @@ namespace BusinessLogic.ViewModels
                 LastName = changedEmployee.LastName,
                 Email = changedEmployee.Email,
                 PhoneNumber = changedEmployee.PhoneNumber,
-                HireDate = changedEmployee.HireDate,
+                HireDate = changedEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
                 JobId = changedEmployee.JobId,
                 Salary = changedEmployee.Salary,
                 CommissionPct = changedEmployee.CommissionPct,
