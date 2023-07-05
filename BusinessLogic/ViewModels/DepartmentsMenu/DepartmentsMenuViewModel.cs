@@ -6,6 +6,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using DataAccess.Models;
+using System.Windows.Input;
+using BusinessLogic.Commands;
 
 namespace BusinessLogic.ViewModels
 {
@@ -16,7 +18,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         private DepartmentRepository _departmentRepository;
         private EmployeeRepository _employeeRepository;
-        private IValidator<EmployeeViewModel> _employeeValidator;
 
         private ObservableCollection<DepartmentViewModel> _departments;
         public ObservableCollection<DepartmentViewModel> Departments
@@ -49,19 +50,35 @@ namespace BusinessLogic.ViewModels
         }
 
 
+        private EmployeeViewModel _updatedEmployee;
+        public EmployeeViewModel UpdatedEmployee
+        {
+            get
+            {
+                return _updatedEmployee;
+            }
+
+            set
+            {
+                _updatedEmployee = value;
+            }
+        }
+
+        public ICommand UpdateDepartmentCommand { get; }
+
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
         public DepartmentsMenuViewModel(DepartmentRepository departmentRepository,
-            EmployeeRepository employeeRepository,
-            IValidator<EmployeeViewModel> employeeVaidator)
+            EmployeeRepository employeeRepository)
         {
             _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
-            _employeeValidator = employeeVaidator;
 
             _departments = new ObservableCollection<DepartmentViewModel>();
-            _employees = new ObservableCollection<EmployeeViewModel>(); 
+            _employees = new ObservableCollection<EmployeeViewModel>();
+
+            UpdateDepartmentCommand = new UpdateDepartmentCommand(this, _employeeRepository);
         }
 
         ////////////////////////////////////////////
@@ -98,61 +115,12 @@ namespace BusinessLogic.ViewModels
 
         public async void EmployeeUpdated(object sender, PropertyChangedEventArgs e)
         {
-            EmployeeViewModel changedEmployee = (EmployeeViewModel)sender;
+            UpdatedEmployee = (EmployeeViewModel)sender;
 
-            ValidationResult validationResult = _employeeValidator.Validate(changedEmployee);
-            if (!validationResult.IsValid)
+            if (UpdateDepartmentCommand.CanExecute(null))
             {
-                return;
+                UpdateDepartmentCommand.Execute(null);
             }
-
-
-            Employee employeeToUpdate = new Employee()
-            {
-                EmployeeId = changedEmployee.EmployeeId,
-                FirstName = changedEmployee.FirstName,
-                LastName = changedEmployee.LastName,
-                Email = changedEmployee.Email,
-                PhoneNumber = changedEmployee.PhoneNumber,
-                HireDate = changedEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
-                JobId = changedEmployee.JobId,
-                Salary = changedEmployee.Salary,
-                CommissionPct = changedEmployee.CommissionPct,
-                ManagerId = changedEmployee.ManagerId,
-                DepartmentId = changedEmployee.DepartmentId
-            };
-
-            _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
-        }
-
-        public void UpdateEmployeesDepartments(EmployeeViewModel employeeToUpdate, int targetDepartmentId)
-        {
-            foreach (DepartmentViewModel department in Departments)
-            {
-                ObservableCollection<EmployeeViewModel> employeesToFilter = department.Employees;
-
-                ObservableCollection<EmployeeViewModel> employeesToKeep = new();
-                foreach(EmployeeViewModel employee in department.Employees)
-                {
-                    if (employee.EmployeeId != employeeToUpdate.EmployeeId)
-                    {
-                        employeesToKeep.Add(employee);
-                    }
-                }
-                department.Employees = employeesToKeep;
-            }
-
-            employeeToUpdate.DepartmentId = (short?)targetDepartmentId;
-
-             Employees
-                .FirstOrDefault(employee => employee.EmployeeId == employeeToUpdate.EmployeeId)
-                .DepartmentId = (short?)targetDepartmentId;
-            
-
-            Departments
-                .FirstOrDefault(department => department.DepartmentId == targetDepartmentId)
-                .Employees
-                .Add(employeeToUpdate);
         }
 
         ////////////////////////////////////////////
