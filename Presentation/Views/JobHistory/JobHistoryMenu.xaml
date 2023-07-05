@@ -47,23 +47,11 @@
         <Label Content="Job History" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="132" Foreground="#FF903749" FontWeight="Bold"/>
         <DataGrid Name="JobHistoryTable" AutoGenerateColumns="False" HeadersVisibility="Column" HorizontalAlignment="Center" Margin="180 50 180 75" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto" Header="EmployeeId" Binding="{Binding EmployeeId}"/>
-                <DataGridTemplateColumn Width="*" Header="StartDate">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <DatePicker SelectedDate="{Binding StartDate}" Focusable="False" IsHitTestVisible="False" BorderThickness="0" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="*" Header="EndDate">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <DatePicker SelectedDate="{Binding EndDate}" Focusable="False" IsHitTestVisible="False" BorderThickness="0" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Width="*" Header="Role" Binding="{Binding JobId}"/>
-                <DataGridTextColumn Width="Auto" Header="Department" Binding="{Binding DepartmentId}"/>
+                <DataGridTextColumn Binding="{Binding EmployeeId}" Width="Auto" Header="EmployeeId"/>
+                <DataGridTextColumn Binding="{Binding StartDate}" Width="*" Header="StartDate"/>
+                <DataGridTextColumn Binding="{Binding EndDate}" Width="*" Header="EndDate"/>
+                <DataGridTextColumn Binding="{Binding JobId}" Width="*" Header="Role"/>
+                <DataGridTextColumn Binding="{Binding DepartmentId}" Width="Auto" Header="Department"/>
             </DataGrid.Columns>
         </DataGrid>
 
