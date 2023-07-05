@@ -69,6 +69,7 @@ namespace BusinessLogic.ViewModels
         }
 
         public ICommand DeleteEmployeeCommand { get; }
+        public ICommand CreateEmployeeCommand { get; }
 
         ////////////////////////////////////////////
         //  Constructors
@@ -89,6 +90,7 @@ namespace BusinessLogic.ViewModels
             _jobs = new ObservableCollection<string>();
 
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
+            CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, _employeeValidator);
         }
 
 
@@ -113,36 +115,6 @@ namespace BusinessLogic.ViewModels
                 employee.PropertyChanged += UpdateEmployee;
             }
 
-        }
-
-        public void AddEmployee()
-        {
-            _newEmployee = Employees.LastOrDefault();
-
-            ValidationResult validationResult = _employeeValidator.Validate(_newEmployee);
-            if (!validationResult.IsValid)
-            {
-                Employees.Remove(_newEmployee);
-                _newEmployee = null;
-
-                return;
-            }
-
-            Employee employeeToHire = new()
-            {
-                EmployeeId = _newEmployee.EmployeeId,
-                FirstName = _newEmployee.FirstName,
-                LastName = _newEmployee.LastName,
-                Email = _newEmployee.Email,
-                PhoneNumber = _newEmployee.PhoneNumber,
-                HireDate = _newEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
-                JobId = _newEmployee.JobId,
-                Salary = _newEmployee.Salary,
-                CommissionPct = _newEmployee.CommissionPct,
-                ManagerId = _newEmployee.ManagerId,
-                DepartmentId = _newEmployee.DepartmentId
-            };
-            _employeeRepository.Hire(employeeToHire);
         }
 
         public async void GetPreviousJob(object sender, PropertyChangingEventArgs e)

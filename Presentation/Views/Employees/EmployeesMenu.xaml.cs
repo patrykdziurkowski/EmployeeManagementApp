@@ -42,11 +42,6 @@ namespace Presentation
             NavigationService.GoBack();
         }
 
-        private void Click_AddEmployee(object sender, RoutedEventArgs e)
-        {
-            _viewModel.AddEmployee();
-        }
-
         private void Click_Navigate_JobHistory(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(_jobHistoryMenu);
