@@ -8,6 +8,6 @@ namespace BusinessLogic
     {
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
 
-        public void UpdateEmployee(object sender, PropertyChangedEventArgs e);
+        public void EmployeeUpdated(object sender, PropertyChangedEventArgs e);
     }
 }

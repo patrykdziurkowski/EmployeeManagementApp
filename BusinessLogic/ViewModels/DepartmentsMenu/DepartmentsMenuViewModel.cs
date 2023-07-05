@@ -91,12 +91,12 @@ namespace BusinessLogic.ViewModels
 
             foreach (EmployeeViewModel employee in Employees)
             {
-                employee.PropertyChanged += UpdateEmployee;
+                employee.PropertyChanged += EmployeeUpdated;
             }
         }
 
 
-        public async void UpdateEmployee(object sender, PropertyChangedEventArgs e)
+        public async void EmployeeUpdated(object sender, PropertyChangedEventArgs e)
         {
             EmployeeViewModel changedEmployee = (EmployeeViewModel)sender;
 

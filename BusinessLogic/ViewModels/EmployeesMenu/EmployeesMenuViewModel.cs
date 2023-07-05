@@ -18,11 +18,34 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
         private JobRepository _jobRepository;
-        private JobHistoryRepository _jobHistoryRepository;
-        private IValidator<EmployeeViewModel> _employeeValidator;
-        private IDateProvider _dateProvider;
+
+        public bool IsUpdatedEmployeeJobChanged => UpdatedEmployeePreviousJob.JobId != UpdatedEmployee.JobId; 
 
         private Job _updatedEmployeePreviousJob;
+        public Job UpdatedEmployeePreviousJob
+        {
+            get
+            {
+                return _updatedEmployeePreviousJob;
+            }
+            set
+            {
+                _updatedEmployeePreviousJob = value;
+            }
+        }
+
+        private EmployeeViewModel _updatedEmployee;
+        public EmployeeViewModel UpdatedEmployee
+        {
+            get
+            {
+                return _updatedEmployee;
+            }
+            set
+            {
+                _updatedEmployee = value;
+            }
+        }
 
         private ObservableCollection<EmployeeViewModel> _employees;
         public ObservableCollection<EmployeeViewModel> Employees
@@ -68,8 +91,10 @@ namespace BusinessLogic.ViewModels
             }
         }
 
+
         public ICommand DeleteEmployeeCommand { get; }
         public ICommand CreateEmployeeCommand { get; }
+        public ICommand UpdateEmployeeCommand { get; }
 
         ////////////////////////////////////////////
         //  Constructors
@@ -80,17 +105,15 @@ namespace BusinessLogic.ViewModels
             IValidator<EmployeeViewModel> employeeValidator,
             IDateProvider dateProvider)
         {
-            _jobHistoryRepository = jobHistoryRepository;
             _jobRepository = jobRepository;
             _employeeRepository = employeeRepository;
-            _employeeValidator = employeeValidator;
-            _dateProvider = dateProvider;
 
             _employees = new ObservableCollection<EmployeeViewModel>();
             _jobs = new ObservableCollection<string>();
 
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
-            CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, _employeeValidator);
+            CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, employeeValidator);
+            UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, employeeValidator, dateProvider, jobHistoryRepository);
         }
 
 
@@ -111,76 +134,31 @@ namespace BusinessLogic.ViewModels
 
             foreach (EmployeeViewModel employee in Employees)
             {
-                employee.PropertyChanging += GetPreviousJob;
-                employee.PropertyChanged += UpdateEmployee;
+                employee.PropertyChanging += EmployeeUpdating;
+                employee.PropertyChanged += EmployeeUpdated;
             }
 
         }
 
-        public async void GetPreviousJob(object sender, PropertyChangingEventArgs e)
+        public async void EmployeeUpdating(object sender, PropertyChangingEventArgs e)
         {
             EmployeeViewModel employeeBeforeChange = (EmployeeViewModel) sender;
-            _updatedEmployeePreviousJob = (await _jobRepository.GetAll())
+            UpdatedEmployeePreviousJob = (await _jobRepository.GetAll())
                 .FirstOrDefault(job => job.JobId == employeeBeforeChange.JobId);
         }
 
-        public async void UpdateEmployee(object sender, PropertyChangedEventArgs e)
+        public async void EmployeeUpdated(object sender, PropertyChangedEventArgs e)
         {
             EmployeeViewModel changedEmployee = (EmployeeViewModel) sender;
+            UpdatedEmployee = changedEmployee;
 
-            ValidationResult validationResult = _employeeValidator.Validate(changedEmployee);
-            if (!validationResult.IsValid)
+            if (UpdateEmployeeCommand.CanExecute(null))
             {
-                return;
+                UpdateEmployeeCommand.Execute(null);
             }
-
-            Employee employeeToUpdate = new Employee()
-            {
-                EmployeeId = changedEmployee.EmployeeId,
-                FirstName = changedEmployee.FirstName,
-                LastName = changedEmployee.LastName,
-                Email = changedEmployee.Email,
-                PhoneNumber = changedEmployee.PhoneNumber,
-                HireDate = changedEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
-                JobId = changedEmployee.JobId,
-                Salary = changedEmployee.Salary,
-                CommissionPct = changedEmployee.CommissionPct,
-                ManagerId = changedEmployee.ManagerId,
-                DepartmentId = changedEmployee.DepartmentId
-            };
-
-            if (_updatedEmployeePreviousJob.JobId != employeeToUpdate.JobId)
-            {
-                await CreateJobHistoryEntry(employeeToUpdate);
-            }
-
-            _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
+            
         }
 
-        private async Task CreateJobHistoryEntry(Employee employeeToUpdate)
-        {
-            DateTime? lastJobStartdate = (await _jobHistoryRepository.GetAll())
-                                .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId)
-                                .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
-                                .Max();
-            DateOnly? updatedJobStartDate = DateOnly.FromDateTime(lastJobStartdate.Value);
-
-            if (updatedJobStartDate is null)
-            {
-                updatedJobStartDate = DateOnly.FromDateTime(employeeToUpdate.HireDate.Value);
-            }
-
-            JobHistory jobHistoryEntry = new()
-            {
-                EmployeeId = employeeToUpdate.EmployeeId,
-                StartDate = lastJobStartdate,
-                EndDate = _dateProvider.GetNow().ToDateTime(TimeOnly.MinValue),
-                JobId = _updatedEmployeePreviousJob.JobId,
-                DepartmentId = employeeToUpdate.DepartmentId
-            };
-
-            _jobHistoryRepository.Insert(jobHistoryEntry);
-        }
 
         ////////////////////////////////////////////
         //  Events and Data Binding
