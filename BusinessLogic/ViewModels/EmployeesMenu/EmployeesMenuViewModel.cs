@@ -6,6 +6,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using DataAccess.Models;
+using System.Windows.Input;
+using BusinessLogic.Commands;
 
 namespace BusinessLogic.ViewModels
 {
@@ -66,6 +68,7 @@ namespace BusinessLogic.ViewModels
             }
         }
 
+        public ICommand DeleteEmployeeCommand { get; }
 
         ////////////////////////////////////////////
         //  Constructors
@@ -84,6 +87,8 @@ namespace BusinessLogic.ViewModels
 
             _employees = new ObservableCollection<EmployeeViewModel>();
             _jobs = new ObservableCollection<string>();
+
+            DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
         }
 
 
@@ -203,18 +208,6 @@ namespace BusinessLogic.ViewModels
             };
 
             _jobHistoryRepository.Insert(jobHistoryEntry);
-        }
-
-        public async Task RemoveEmployee(int id)
-        {
-            bool employeeWasRemovedFromDatabase = await _employeeRepository.Fire(id);
-
-            if (employeeWasRemovedFromDatabase)
-            {
-                EmployeeViewModel employeeToRemove = Employees
-                .FirstOrDefault(employee => employee.EmployeeId == id);
-                Employees.Remove(employeeToRemove);
-            }
         }
 
         ////////////////////////////////////////////

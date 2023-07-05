@@ -47,22 +47,6 @@ namespace Presentation
             _viewModel.AddEmployee();
         }
 
-        private void Button_Add_Clicked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Button clickedButton = (Button)e.Source;
-            if (clickedButton is not null)
-            {
-                EmployeeViewModel employee = (EmployeeViewModel)EmployeesTable.SelectedItem;
-                _viewModel.RemoveEmployee((int)employee.EmployeeId);
-            }
-            
-        }
-
         private void Click_Navigate_JobHistory(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(_jobHistoryMenu);
