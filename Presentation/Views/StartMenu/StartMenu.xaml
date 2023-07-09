@@ -3,10 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Presentation"
+      xmlns:local="clr-namespace:Presentation" xmlns:viewmodels="clr-namespace:BusinessLogic.ViewModels;assembly=BusinessLogic" d:DataContext="{d:DesignInstance Type=viewmodels:StartMenuViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StartMenu">
+      Title="StartMenu"
+      Loaded="Page_Loaded">
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Template">
@@ -56,7 +57,7 @@
         </Grid.RowDefinitions>
 
         <ContentControl Name="OverlayContentControl" Panel.ZIndex="50" Grid.RowSpan="3"/>
-        
+
         <Grid Name="HeaderLabel" Grid.Row="0" Width="Auto" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -67,7 +68,15 @@
             <Label Grid.Column="1" Content="Employees Database" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
         </Grid>
         <StackPanel Name="LoginForm" Grid.Row="1">
-            <Label Name="LoginFailedLabel" Content="" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="10" Height="25" Width="100" Foreground="#FF0000"/>
+            <ListBox Height="25"  Margin="0 20 0 0" Name="errorMessagesList" HorizontalContentAlignment="Center" Foreground="Red" Background="Transparent" BorderThickness="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <TextBox Name="LoginTextBox" Style="{StaticResource MyWaterMarkStyle}" Tag="Username" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545" KeyDown="LoginTextBox_KeyDown"/>
             <PasswordBox Name="LoginPasswordBox" Padding="4,3,0,0"  HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545" KeyDown="LoginPasswordBox_KeyDown"/>
             <Button x:Name="loginButton" Content="Connect" Margin="10" VerticalAlignment="Top" Height="26" Width="72" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="#2B2E4A" FontWeight="Bold" Click="Button_Click_1" Foreground="White"/>

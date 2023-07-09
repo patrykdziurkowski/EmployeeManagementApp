@@ -15,7 +15,7 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private StartMenuViewModel _startMenuViewModel;
+        private StartMenuViewModel _viewModel;
         private MainMenu _mainMenu;
 
 
@@ -25,13 +25,14 @@ namespace Presentation
         public StartMenu(StartMenuViewModel startMenuViewModel,
             MainMenu mainMenu)
         {
-            _startMenuViewModel = startMenuViewModel;
+            _viewModel = startMenuViewModel;
             _mainMenu = mainMenu;
 
             InitializeComponent();
             OverlayContentControl.Content = new LoadingUserControl();
             OverlayContentControl.Visibility = Visibility.Hidden;
             LoginTextBox.Focus();
+            errorMessagesList.ItemsSource = _viewModel.LoginErrorMessages;
         }
 
         ////////////////////////////////////////////
@@ -39,24 +40,27 @@ namespace Presentation
         ////////////////////////////////////////////
         private async Task LogInto()
         {
-            string userName = ((TextBox)this.FindName("LoginTextBox")).Text;
-            string password = ((PasswordBox)this.FindName("LoginPasswordBox")).Password;
-
             OverlayContentControl.Visibility = Visibility.Visible;
-            bool isLoggedIn = await Task.Run(() => _startMenuViewModel.LogIn(userName, password));
+            _viewModel.UserCredentials.Password = LoginPasswordBox.Password;
+            _viewModel.UserCredentials.UserName = LoginTextBox.Text;
+
+            bool isLoggedIn = await Task.Run(() =>
+            {
+                if (_viewModel.LoginCommand.CanExecute(null))
+                {
+                    _viewModel.LoginCommand.Execute(null);
+                    return _viewModel.IsLoginSuccessful;
+                }
+
+                return false;
+            });
             OverlayContentControl.Visibility = Visibility.Hidden;
 
-            if (isLoggedIn == false)
+            if (isLoggedIn)
             {
-                LoginFailedLabel.Content = "Login failed!";
-                LoginPasswordBox.Clear();
-                LoginTextBox.Clear();
-            }
-            else
-            {
-                LoginFailedLabel.Content = string.Empty;
                 this.NavigationService.Navigate(_mainMenu);
             }
+            
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -84,7 +88,9 @@ namespace Presentation
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _startMenuViewModel.LogOut();
+            _viewModel.UserCredentials.Clear();
+            LoginTextBox.Text = string.Empty;
+            LoginPasswordBox.Password = string.Empty;
         }
     }
 }

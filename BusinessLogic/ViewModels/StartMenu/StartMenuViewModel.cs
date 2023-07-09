@@ -1,8 +1,11 @@
-﻿using DataAccess;
+﻿using BusinessLogic.Commands;
+using DataAccess;
 using DataAccess.Repositories;
 using Oracle.ManagedDataAccess.Client;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace BusinessLogic.ViewModels
 {
@@ -11,9 +14,14 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private UserCredentials _userCredentials;
-        private EmployeeRepository _employeeRepository;
+        public UserCredentials UserCredentials;
 
+        public bool IsLoginSuccessful { get; set; } 
+        public bool AreCredentialsFilledOut => !string.IsNullOrEmpty(UserCredentials.UserName) && !string.IsNullOrEmpty(UserCredentials.Password);
+        public ObservableCollection<string> LoginErrorMessages { get; }
+
+
+        public ICommand LoginCommand { get; }
 
         ////////////////////////////////////////////
         //  Constructors
@@ -21,35 +29,17 @@ namespace BusinessLogic.ViewModels
         public StartMenuViewModel(UserCredentials userCredentials,
             EmployeeRepository employeeRepository)
         {
-            _userCredentials = userCredentials;
-            _employeeRepository = employeeRepository;
+            UserCredentials = userCredentials;
+
+            LoginErrorMessages = new AsyncObservableCollection<string>();
+            IsLoginSuccessful = false;
+            LoginCommand = new LoginCommand(this, employeeRepository);
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task<bool> LogIn(string userName, string password)
-        {
-            _userCredentials.UserName = userName;
-            _userCredentials.Password = password;
 
-            try
-            {
-                await _employeeRepository.GetAll();
-            }
-            catch (OracleException ex)
-            {
-                LogOut();
-                return false;
-            }
-            return true;
-        }
-
-        public void LogOut()
-        {
-            _userCredentials.UserName = null;
-            _userCredentials.Password = null;
-        }
 
         ////////////////////////////////////////////
         //  Events and Data Binding
