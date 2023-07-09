@@ -44,7 +44,7 @@ namespace BusinessLogic.Commands
         {
             EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
 
-            Employee employeeToUpdate = new Employee()
+            Employee employeeToUpdate = new()
             {
                 EmployeeId = changedEmployee.EmployeeId,
                 FirstName = changedEmployee.FirstName,
@@ -61,7 +61,7 @@ namespace BusinessLogic.Commands
 
             _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
             
-            UpdateDepartmentEmployee(changedEmployee);
+            MoveEmployeeToTheirDepartment(changedEmployee);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace BusinessLogic.Commands
         /// </summary>
         /// <param name="changedEmployee">Employee that was updated</param>
         /// <returns></returns>
-        private async Task UpdateDepartmentEmployee(EmployeeViewModel changedEmployee)
+        private async Task MoveEmployeeToTheirDepartment(EmployeeViewModel changedEmployee)
         {
             foreach (DepartmentViewModel department in _viewModel.Departments)
             {
