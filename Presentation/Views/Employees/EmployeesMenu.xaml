@@ -8,6 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EmployeesMenu" Loaded="Page_Loaded">
     <Page.Resources>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -126,7 +127,7 @@
                 <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Width="25" Content="X" Tag="{Binding}" Click="EmployeeDeleteOpen_Click"/>
+                            <Button Width="25" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
