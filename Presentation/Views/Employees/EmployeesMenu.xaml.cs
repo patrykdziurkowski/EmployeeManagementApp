@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ViewModels;
 using Presentation.Views;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,16 +38,6 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
-
-        private void Click_Navigate_JobHistory(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(_jobHistoryMenu);
-        }
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             OverlayContentControl.Visibility = Visibility.Visible;
@@ -57,6 +48,33 @@ namespace Presentation
             DataContext = _viewModel;
             EmployeesTable.ItemsSource = _viewModel.Employees;
             JobsComboBox.ItemsSource = _viewModel.Jobs;
+        }
+
+        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Click_Navigate_JobHistory(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(_jobHistoryMenu);
+        }
+
+        private void EmployeeDeleteCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteEmployeeConfirmation.Visibility = Visibility.Hidden;
+        }
+
+        private void EmployeeDeleteOpen_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteEmployeeConfirmation.Visibility = Visibility.Visible;
+            Button senderButton = (Button)sender;
+            _viewModel.EmployeeToFire = (EmployeeViewModel)senderButton.Tag;
+        }
+
+        private void EmployeeDeleteProceed_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteEmployeeConfirmation.Visibility = Visibility.Hidden;
         }
     }
 }

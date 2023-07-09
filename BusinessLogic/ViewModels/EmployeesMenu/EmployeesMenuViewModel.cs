@@ -47,22 +47,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private ObservableCollection<EmployeeViewModel> _employees;
-        public ObservableCollection<EmployeeViewModel> Employees
-        {
-            get
-            {
-                return _employees;
-            }
-            set
-            {
-                _employees = value;
-                OnPropertyChanged();
-            }
-        }
 
-
-        private EmployeeViewModel _newEmployee; 
+        private EmployeeViewModel _newEmployee;
         public EmployeeViewModel NewEmployee
         {
             get
@@ -76,6 +62,35 @@ namespace BusinessLogic.ViewModels
             }
         }
 
+
+        private EmployeeViewModel _employeeToFire;
+        public EmployeeViewModel EmployeeToFire
+        {
+            get
+            {
+                return _employeeToFire;
+            }
+            set
+            {
+               _employeeToFire = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private ObservableCollection<EmployeeViewModel> _employees;
+        public ObservableCollection<EmployeeViewModel> Employees
+        {
+            get
+            {
+                return _employees;
+            }
+            set
+            {
+                _employees = value;
+                OnPropertyChanged();
+            }
+        }
 
         private ObservableCollection<string> _jobs;
         public ObservableCollection<string> Jobs

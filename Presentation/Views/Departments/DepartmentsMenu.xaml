@@ -95,7 +95,7 @@
                                             </DataGrid.Columns>
                                             <DataGrid.Resources>
                                                 <Style TargetType="DataGridCell">
-                                                    <Setter Property="Background" Value="#FFE2E4F7"/>
+                                                    <Setter Property="Background" Value="#E2E4F7"/>
                                                     <Setter Property="Foreground" Value="#2B2E4A"/>
                                                     <Setter Property="BorderThickness" Value="0"/>
                                                     <Setter Property="VerticalAlignment" Value="Center"/>
