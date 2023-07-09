@@ -122,5 +122,25 @@ namespace Presentation
             DepartmentsTable.ItemsSource = _viewModel.Employees.OrderBy(employee => employee.DepartmentId);
             DepartmentsList.ItemsSource = _viewModel.Departments;
         }
+
+        /// <summary>
+        /// The purpose of handling this event this way is to re-raise the scroll event to stop
+        /// the DataGrid from interrupting scrolling which should be done by the ScrollViewer instead
+        /// </summary>
+        private void DataGrid_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
+            e.Handled = true;
+            MouseWheelEventArgs eventArgs = new(e.MouseDevice, e.Timestamp, e.Delta);
+            eventArgs.RoutedEvent = MouseWheelEvent;
+            eventArgs.Source = sender;
+
+            UIElement parent = (UIElement)((Control)sender).Parent;
+            parent?.RaiseEvent(eventArgs);
+        }
     }
 }

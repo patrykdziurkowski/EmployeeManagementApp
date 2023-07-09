@@ -68,11 +68,11 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <ScrollViewer Grid.Column="1" Margin="25,50,25,75" Padding="5" VerticalScrollBarVisibility="Auto">
-                <ItemsControl Name="DepartmentsList" >
+            <ScrollViewer Name="DepartmentsScrollViewer" Grid.Column="1" Margin="25,50,25,75" Padding="5" VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="DepartmentsList">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid Name="DepartmentsGrid" Margin="0,0,0,5">
+                            <Grid Name="DepartmentsGrid" Margin="0 0 0 5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition MinHeight="100"/>
                                 </Grid.RowDefinitions>
@@ -87,7 +87,7 @@
                                             </TextBlock>
                                         </Grid>
 
-                                        <DataGrid HorizontalScrollBarVisibility="Hidden" Background="White" IsReadOnly="True" Width="280" Margin="9, 10"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
+                                        <DataGrid PreviewMouseWheel="DataGrid_OnPreviewMouseWheel" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" Background="White" IsReadOnly="True" Width="280" Margin="9, 10"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn MinWidth="50" Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}"/>
                                                 <DataGridTextColumn MinWidth="100" Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
