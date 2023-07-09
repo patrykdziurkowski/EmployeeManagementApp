@@ -78,7 +78,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Border BorderBrush="#903749" BorderThickness="2" CornerRadius="15" Margin="0,20">
-                                    <Grid Tag="{Binding DepartmentId, Mode=TwoWay}" Margin="10" AllowDrop="True" Drop="Canvas_Drop">
+                                    <Grid Tag="{Binding DepartmentId, Mode=TwoWay}" Margin="10" AllowDrop="True" Drop="EmployeeIntoDepartment_Dropped">
                                         <Grid Background="White" Margin="10, -22"  Width="{Binding Path=ActualWidth,ElementName=DepartmentHeader}" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
                                             <TextBlock Name="DepartmentHeader" Foreground="#903749" HorizontalAlignment="Left" FontSize="14">
                                                 <Run Text="{Binding DepartmentName, Mode=TwoWay}"/>
@@ -123,8 +123,8 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
-            <Button Content="Departments Locations" Margin="0,369,0,0" VerticalAlignment="Top" Height="32" Width="132" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="GoToDepartmentsLocationMenu" Foreground="White" HorizontalAlignment="Center"/>
+            <Button Content="Return" Margin="362,369,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToPreviousPage_Clicked" Foreground="White" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+            <Button Content="Departments Locations" Margin="0,369,0,0" VerticalAlignment="Top" Height="32" Width="132" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="GoToDepartmentsLocationMenu_Clicked" Foreground="White" HorizontalAlignment="Center"/>
         </Grid>
         <Label Content="Manage Departments" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="220" Foreground="#FF903749" FontWeight="Bold" Margin="290,0,0,0"/>
     </Grid>

@@ -20,7 +20,7 @@ namespace Presentation
         //  Fields and properties
         ////////////////////////////////////////////
         private object _draggedItem;
-        private Point _startPoint;
+        private Point _startingPoint;
 
         public delegate Point GetPosition(IInputElement element);
 
@@ -50,8 +50,8 @@ namespace Presentation
         //Occurs when the left mouse button is pressed while the mouse pointer is over this element.
         private void SalariesTable_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _startPoint = e.GetPosition(null);
-            _draggedItem = FindDataGridRow((DependencyObject)e.OriginalSource)?.Item;
+            _startingPoint = e.GetPosition(null);
+            _draggedItem = FindVisualParent<DataGridRow>((DependencyObject)e.OriginalSource)?.Item;
         }
 
         //Occurs when the mouse pointer moves while the mouse pointer is over this element.
@@ -62,8 +62,8 @@ namespace Presentation
             if ((leftClickIsPressed) && (_draggedItem is not null))
             {
                 Point currentPosition = e.GetPosition(null);
-                if (Math.Abs(currentPosition.X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                    Math.Abs(currentPosition.Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)
+                if (Math.Abs(currentPosition.X - _startingPoint.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                    Math.Abs(currentPosition.Y - _startingPoint.Y) > SystemParameters.MinimumVerticalDragDistance)
                 {
                     DragDrop.DoDragDrop(DepartmentsTable, _draggedItem, DragDropEffects.Move);
                     _draggedItem = null;
@@ -71,7 +71,7 @@ namespace Presentation
             }
         }
 
-        private void Canvas_Drop(object sender, DragEventArgs e)
+        private void EmployeeIntoDepartment_Dropped(object sender, DragEventArgs e)
         {
             Grid targetDepartment = (Grid)sender;
             if (targetDepartment != null)
@@ -102,18 +102,13 @@ namespace Presentation
             return null;
         }
 
-        private static DataGridRow FindDataGridRow(DependencyObject obj)
-        {
-            return FindVisualParent<DataGridRow>(obj);
-        }
 
-
-        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
+        private void ReturnToPreviousPage_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
-        private void GoToDepartmentsLocationMenu(object sender, RoutedEventArgs e)
+        private void GoToDepartmentsLocationMenu_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(_departmentsLocationMenu);
         }

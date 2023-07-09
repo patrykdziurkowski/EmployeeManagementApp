@@ -101,14 +101,14 @@
                     <TextBlock Text="{Binding DepartmentId}" Margin="5 0"></TextBlock>
                     <TextBlock Text="{Binding Salary}"></TextBlock>
                 </StackPanel>
-                <Button Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}" CommandParameter="{Binding EmployeeId}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50 20" Content="Proceed" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Foreground="White" Click="EmployeeDeleteProceed_Click"/>
-                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="50 20" Content="Cancel" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Foreground="White" Click="EmployeeDeleteCancel_Click"/>
+                <Button Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}" CommandParameter="{Binding EmployeeId}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50 20" Content="Proceed" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Foreground="White" Click="EmployeeDeleteProceed_Clicked"/>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="50 20" Content="Cancel" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Foreground="White" Click="EmployeeDeleteCancel_Clicked"/>
                 </Grid>
             </Border>
                 
         </Grid>
 
-        <Button Content="Return" Margin="664,344,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToMainMenu" Foreground="White" HorizontalAlignment="Left"/>
+        <Button Content="Return" Margin="664,344,0,0" VerticalAlignment="Top" Height="32" Width="76" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToPreviousPage_Clicked" Foreground="White" HorizontalAlignment="Left"/>
         <Label Content="Manage Employees" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
         <Button Content="Add Employee" Command="{Binding CreateEmployeeCommand}" Margin="50,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left"/>
         <DataGrid Name="EmployeesTable" HeadersVisibility="Column" AutoGenerateColumns="False" Margin="0,56,10,96">
@@ -127,13 +127,13 @@
                 <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Width="25" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Click"/>
+                            <Button Width="25" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Clicked"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Job History" Margin="156,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="Click_Navigate_JobHistory" Foreground="White" HorizontalAlignment="Left"/>
+        <Button Content="Job History" Margin="156,344,0,0" VerticalAlignment="Top" Height="32" Width="88" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="GoToJobHistoryMenu_Clicked" Foreground="White" HorizontalAlignment="Left"/>
     </Grid>
 </Page>

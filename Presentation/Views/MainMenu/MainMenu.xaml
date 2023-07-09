@@ -56,7 +56,7 @@
 
                 <Label Grid.Column="0" Content="You are" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
                 <Label Grid.Column="1"  Content="logged in" HorizontalAlignment="Left"  VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF2B2E4A" FontWeight="Bold"/>
-                <Button Grid.Column="2" Content="Log out" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 5" Width="100" Height="30" Background="#FF903749" BorderBrush="#2B2E4A" FontWeight="Bold" FontFamily="Bahnschrift SemiLight" Click="Button_Click_1" Foreground="White"/>
+                <Button Grid.Column="2" Content="Log out" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 5" Width="100" Height="30" Background="#FF903749" BorderBrush="#2B2E4A" FontWeight="Bold" FontFamily="Bahnschrift SemiLight" Click="ReturnToPreviousPage_Clicked" Foreground="White"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label Content="{Binding UserName}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="200 0 50 0" FontFamily="Bahnschrift" FontSize="18" Foreground="#2B2E4A"/>
@@ -73,9 +73,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0" Content="MANAGE EMPLOYEES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 25 5 5" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" FontWeight="Bold" Click="Button_Click_2" Foreground="White" FontSize="24"/>
-            <Button Grid.Column="0" Grid.Row="1" Content="MANAGE DEPARTMENTS" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 5 5 25" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" FontWeight="Bold" Click="Button_Click_3" Foreground="White" FontSize="24"/>
-            <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="SALARIES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5 25 50 25" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" Click="Button_Click_4" Foreground="White" FontSize="48" FontWeight="Bold"/>
+            <Button Grid.Column="0" Grid.Row="0" Content="MANAGE EMPLOYEES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 25 5 5" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" FontWeight="Bold" Click="GoToEmployeesMenu_Clicked" Foreground="White" FontSize="24"/>
+            <Button Grid.Column="0" Grid.Row="1" Content="MANAGE DEPARTMENTS" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 5 5 25" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" FontWeight="Bold" Click="GoToDepartmentsMenu_Clicked" Foreground="White" FontSize="24"/>
+            <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="SALARIES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5 25 50 25" FontFamily="Bahnschrift SemiLight" Background="#FF53354A" BorderBrush="Black" Click="GoToSalariesMenu_Clicked" Foreground="White" FontSize="48" FontWeight="Bold"/>
             
         </Grid>
     </Grid>

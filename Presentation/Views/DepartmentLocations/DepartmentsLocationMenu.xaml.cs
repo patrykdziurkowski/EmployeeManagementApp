@@ -12,7 +12,14 @@ namespace Presentation
     /// </summary>
     public partial class DepartmentsLocationMenu : Page
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private DepartmentLocationsMenuViewModel _viewModel;
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public DepartmentsLocationMenu(DepartmentLocationsMenuViewModel departmentLocationMenuViewModel)
         {
             _viewModel = departmentLocationMenuViewModel;
@@ -21,7 +28,10 @@ namespace Presentation
             OverlayContentControl.Content = new LoadingUserControl();
         }
 
-        private void ReturnToDepartmentsMenu(object sender, RoutedEventArgs e)
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        private void ReturnToPreviousPage_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }

@@ -39,23 +39,23 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ReturnToPreviousPage_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void GoToEmployeesMenu_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(_employeesMenu);
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void GoToDepartmentsMenu_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(_departmentsMenu);
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void GoToSalariesMenu_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(_salariesMenu);
         }

@@ -12,7 +12,15 @@ namespace Presentation
     /// </summary>
     public partial class JobHistoryMenu : Page
     {
+        ////////////////////////////////////////////
+        //  Fields and properties
+        ////////////////////////////////////////////
         private JobHistoryMenuViewModel _viewModel;
+
+
+        ////////////////////////////////////////////
+        //  Constructors
+        ////////////////////////////////////////////
         public JobHistoryMenu(JobHistoryMenuViewModel jobHistoryMenuViewModel)
         {
             _viewModel = jobHistoryMenuViewModel;
@@ -21,7 +29,10 @@ namespace Presentation
             OverlayContentControl.Content = new LoadingUserControl();
         }
 
-        private void ReturnToEmployeeMenu(object sender, RoutedEventArgs e)
+        ////////////////////////////////////////////
+        //  Methods
+        ////////////////////////////////////////////
+        private void ReturnToPreviousPage_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }

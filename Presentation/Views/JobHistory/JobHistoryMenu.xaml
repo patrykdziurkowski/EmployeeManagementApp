@@ -55,6 +55,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Return" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="25" Height="30" Width="80" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToEmployeeMenu" Foreground="White"/>
+        <Button Content="Return" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="25" Height="30" Width="80" FontFamily="Bahnschrift SemiLight" Background="#FF903749" BorderBrush="Black" FontWeight="Bold" Click="ReturnToPreviousPage_Clicked" Foreground="White"/>
     </Grid>
 </Page>

@@ -18,6 +18,7 @@ namespace Presentation
         ////////////////////////////////////////////
         private SalariesMenuViewModel _viewModel;
 
+
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
@@ -34,7 +35,7 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
+        private void ReturnToPreviousPage_Clicked(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }

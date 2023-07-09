@@ -22,10 +22,10 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public StartMenu(StartMenuViewModel startMenuViewModel,
+        public StartMenu(StartMenuViewModel viewModel,
             MainMenu mainMenu)
         {
-            _viewModel = startMenuViewModel;
+            _viewModel = viewModel;
             _mainMenu = mainMenu;
 
             InitializeComponent();
@@ -63,12 +63,11 @@ namespace Presentation
             
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void ExitApplication_Clicked(object sender, RoutedEventArgs e)
         {
-            //Exit from application
             System.Windows.Application.Current.Shutdown();                  
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void LoginButton_Clicked(object sender, RoutedEventArgs e)
         {
             LogInto();
         }
@@ -79,11 +78,6 @@ namespace Presentation
             {
                 LogInto();
             }
-        }
-
-        private void LoginTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
