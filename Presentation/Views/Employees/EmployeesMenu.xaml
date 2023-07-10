@@ -9,7 +9,7 @@
       Title="EmployeesMenu" Loaded="Page_Loaded">
     <Page.Resources>
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        
+
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DDE6ED"/>
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
         <Style TargetType="{x:Type DataGrid}">
@@ -63,8 +63,39 @@
                         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="50 20" Content="Cancel" Height="32" Width="76" Click="EmployeeDeleteCancel_Clicked"/>
                     </Grid>
                 </Border>
-
             </Grid>
+
+            <Grid Name="UpdateEmployeeFailedConfirmation" Background="#DDFFFFFF">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLastUpdateFailAcknowledged}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" Grid.Row="1" BorderBrush="#2B2E4A" BorderThickness="2" CornerRadius="15" Margin="0,20">
+                    <Grid>
+                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Updating an employee failed."></Label>
+
+                        <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 20" Content="Understood" Height="32" Width="76" Click="EmployeeUpdateFailCancel_Clicked"/>
+                    </Grid>
+                </Border>
+            </Grid>
+           
         </Grid>
        
 

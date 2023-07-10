@@ -19,7 +19,40 @@ namespace BusinessLogic.ViewModels
         private EmployeeRepository _employeeRepository;
         private JobRepository _jobRepository;
 
-        public bool IsUpdatedEmployeeJobChanged => UpdatedEmployeePreviousJob.JobId != UpdatedEmployee.JobId; 
+
+        private bool _isLastEmployeeUpdateSuccessful;
+        public bool IsLastEmployeeUpdateSuccessful
+        {
+            get
+            {
+                return _isLastEmployeeUpdateSuccessful;
+            }
+
+            set
+            {
+                _isLastEmployeeUpdateSuccessful = value;
+                IsLastUpdateFailAcknowledged = _isLastEmployeeUpdateSuccessful;
+
+                OnPropertyChanged();
+            }
+        }
+        
+        private bool _isLastUpdateFailAcknowledged;
+        public bool IsLastUpdateFailAcknowledged
+        {
+            get
+            {
+                return _isLastUpdateFailAcknowledged;
+            }
+
+            set
+            {
+                _isLastUpdateFailAcknowledged = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        public bool IsUpdatedEmployeeJobChanged => UpdatedEmployeePreviousJob.JobId != UpdatedEmployee.JobId;
 
         private Job _updatedEmployeePreviousJob;
         public Job UpdatedEmployeePreviousJob
@@ -125,6 +158,8 @@ namespace BusinessLogic.ViewModels
 
             _employees = new ObservableCollection<EmployeeViewModel>();
             _jobs = new ObservableCollection<string>();
+
+            IsLastEmployeeUpdateSuccessful = true;
 
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
             CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, employeeValidator);

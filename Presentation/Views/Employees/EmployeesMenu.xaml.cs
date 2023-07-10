@@ -76,6 +76,13 @@ namespace Presentation
             DeleteEmployeeConfirmation.Visibility = Visibility.Hidden;
         }
 
+        private void EmployeeUpdateFailCancel_Clicked(object sender, RoutedEventArgs e)
+        {
+            _viewModel.IsLastUpdateFailAcknowledged = true;
+
+            NavigationService.Refresh();
+        }
+
         /// <summary>
         /// The purpose of this event handler is to reduce the amount of clicks needed to edit a cell
         /// by immediately beginning the editing
