@@ -14,6 +14,7 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
+            <Setter Property="BorderBrush" Value="#2B2E4A"/>
 
             <Setter Property="Template">
                 <Setter.Value>

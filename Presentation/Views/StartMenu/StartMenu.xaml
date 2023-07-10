@@ -65,10 +65,10 @@
             </ListBox>
             <TextBox Name="LoginTextBox" Tag="Username" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
             <PasswordBox Name="LoginPasswordBox" Padding="4,3,0,0"  HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545" KeyDown="LoginPasswordBox_KeyDown"/>
-            <Button x:Name="loginButton" Content="Connect" Margin="10" Height="26" Width="72" BorderBrush="#2B2E4A" Click="LoginButton_Clicked"/>
+            <Button x:Name="loginButton" Content="Connect" Margin="10" Height="26" Width="72" Click="LoginButton_Clicked"/>
         </StackPanel>
         <Grid Name="Footer" Grid.Row="2">
-            <Button Content="Exit" HorizontalAlignment="Right" Margin="25" VerticalAlignment="Center" Width="80" Height="30" Click="ExitApplication_Clicked" FontSize="14" FontFamily="Bahnschrift" Background="#FF903749" BorderBrush="#2B2E4A" Foreground="White"/>
+            <Button Content="Exit" HorizontalAlignment="Right" Margin="25" VerticalAlignment="Center" Width="80" Height="30" Click="ExitApplication_Clicked"/>
         </Grid>
     </Grid>
 </Page>
