@@ -19,7 +19,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="Background" Value="#FFE2E4F7"/>
-            <Setter Property="Padding" Value="4,0,0,0"/>
+            <Setter Property="Padding" Value="4 0 0 0"/>
         </Style>
         <Style TargetType="DataGridCell">
             <Setter Property="TextBlock.TextAlignment" Value="Center" />

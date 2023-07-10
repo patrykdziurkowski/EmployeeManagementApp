@@ -19,14 +19,13 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="Background" Value="#FFE2E4F7"/>
-            <Setter Property="Padding" Value="4,0,0,0"/>
+            <Setter Property="Padding" Value="4 0 0 0"/>
         </Style>
     </Page.Resources>
     <Grid Height="434.04">
         <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
         
-        <Button Content="Return" Margin="692,355,0,0" VerticalAlignment="Top" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked" HorizontalAlignment="Left" RenderTransformOrigin="0.376,0.571"/>
-        <Label Content="SALARIES" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="116" Foreground="#FF903749" FontWeight="Bold"/>
+        <Label Content="Salaries" HorizontalAlignment="Center" Margin="0 10 0 0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -92,5 +91,6 @@
                 </Border>
             </Grid>
         </Grid>
+        <Button Content="Return" Margin="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked" />
     </Grid>
 </Page>
