@@ -111,7 +111,7 @@
                 <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Width="25" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Clicked"/>
+                            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Clicked"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
