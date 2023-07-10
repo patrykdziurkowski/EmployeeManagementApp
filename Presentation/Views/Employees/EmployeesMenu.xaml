@@ -79,7 +79,7 @@
             <Label Grid.Row="0" Content="Manage Employees" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
 
             <!-- Employees table -->
-            <DataGrid Grid.Row="1" Name="EmployeesTable" HeadersVisibility="Column" AutoGenerateColumns="False">
+            <DataGrid Grid.Row="1" Name="EmployeesTable" SelectionUnit="Cell" DataGridCell.Selected="DataGridCell_Selected"  HeadersVisibility="Column" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" SortDirection="Ascending"/>
                     <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
@@ -93,7 +93,7 @@
                     <DataGridTextColumn Header="HireDate" Binding="{Binding HireDate, Mode=OneWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Commission (%)" Binding="{Binding CommissionPct, Mode=TwoWay}"/>
                     <!-- Delete button -->
-                    <DataGridTemplateColumn Header="Delete">
+                    <DataGridTemplateColumn Header="Delete" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Clicked"/>

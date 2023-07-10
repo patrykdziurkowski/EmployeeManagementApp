@@ -75,5 +75,18 @@ namespace Presentation
         {
             DeleteEmployeeConfirmation.Visibility = Visibility.Hidden;
         }
+
+        /// <summary>
+        /// The purpose of this event handler is to reduce the amount of clicks needed to edit a cell
+        /// by immediately beginning the editing
+        /// </summary>
+        private void DataGridCell_Selected(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource.GetType() == typeof(DataGridCell))
+            {
+                DataGrid table = (DataGrid)sender;
+                table.BeginEdit(e);
+            }
+        }
     }
 }
