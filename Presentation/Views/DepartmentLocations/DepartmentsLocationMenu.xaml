@@ -31,12 +31,16 @@
         </Style>
     </Page.Resources>
     <Grid>
+        <!-- Overlays -->
         <Grid Name="PageOverlays" Panel.ZIndex="50">
             <ContentControl Name="OverlayContentControl"/>
         </Grid>
 
         <Grid Name="PageBody">
+            <!-- Header -->
             <Label Content="Department Locations" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" Margin="0 5" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
+
+            <!-- Table -->
             <DataGrid x:Name="DepartmentLocationTable" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="25 50 25 100" ColumnWidth="*" SelectionMode="Extended" AllowDrop="False" IsReadOnly="True" HeadersVisibility="Column">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="Auto" Header="DepartmentId" Binding="{Binding DepartmentId}"/>
@@ -54,6 +58,7 @@
                 </DataGrid.Resources>
             </DataGrid>
 
+            <!-- Footer -->
             <Button Content="Return" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 30" Height="30" Width="80" Click="ReturnToPreviousPage_Clicked"/>
         </Grid>
     </Grid>

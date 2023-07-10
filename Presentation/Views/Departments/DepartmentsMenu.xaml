@@ -31,6 +31,7 @@
     </Page.Resources>
     
     <Grid>
+        <!-- Overlays -->
         <Grid Name="PageOverlays" Panel.ZIndex="50">
             <ContentControl Name="OverlayContentControl"/>
         </Grid>
@@ -51,8 +52,10 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <!-- Header -->
                 <Label Grid.Row="0" Content="Manage Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="24" Foreground="#FF903749" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
+                <!-- Employees table -->
                 <DataGrid Grid.Row="1" Name="DepartmentsTable" AutoGenerateColumns="False" Margin="20" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
@@ -62,8 +65,8 @@
                         <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Grid.Row="2" Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="132" Click="GoToDepartmentsLocationMenu_Clicked"/>
 
+                <!-- Departments -->
                 <ScrollViewer Name="DepartmentsScrollViewer" Grid.Column="1" Grid.Row="1" Margin="20" Padding="5" VerticalScrollBarVisibility="Auto">
                     <ItemsControl Name="DepartmentsList">
                         <ItemsControl.ItemTemplate>
@@ -73,6 +76,7 @@
                                         <RowDefinition MinHeight="100"/>
                                     </Grid.RowDefinitions>
 
+                                    <!-- Department entry -->
                                     <Border BorderBrush="#903749" BorderThickness="2" CornerRadius="15" Margin="0 20">
                                         <Grid Tag="{Binding DepartmentId, Mode=TwoWay}" Margin="10" AllowDrop="True" Drop="EmployeeIntoDepartment_Dropped">
                                             <Grid Background="White" Margin="10 -22"  Width="{Binding Path=ActualWidth,ElementName=DepartmentHeader}" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -83,6 +87,7 @@
                                                 </TextBlock>
                                             </Grid>
 
+                                            <!-- Employee entry -->
                                             <DataGrid PreviewMouseWheel="DataGrid_OnPreviewMouseWheel" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" Background="White" IsReadOnly="True" Width="280" Margin="9 10"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn MinWidth="50" Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}"/>
@@ -120,6 +125,8 @@
                     </ItemsControl>
                 </ScrollViewer>
 
+                <!-- Footer -->
+                <Button Grid.Row="2" Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="132" Click="GoToDepartmentsLocationMenu_Clicked"/>
                 <Button Content="Return" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked"/>
             </Grid>
         </Grid>

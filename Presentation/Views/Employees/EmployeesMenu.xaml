@@ -35,6 +35,7 @@
     </Page.Resources>
     
     <Grid>
+        <!-- Overlays -->
         <Grid Name="PageOverlays" Panel.ZIndex="50">
             <ContentControl Name="OverlayContentControl"/>
             <Grid DataContext="{Binding EmployeeToFire}" Name="DeleteEmployeeConfirmation" Background="#DDFFFFFF" Visibility="Hidden">
@@ -74,7 +75,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Header -->
             <Label Grid.Row="0" Content="Manage Employees" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
+
+            <!-- Employees table -->
             <DataGrid Grid.Row="1" Name="EmployeesTable" HeadersVisibility="Column" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" SortDirection="Ascending"/>
@@ -88,6 +92,7 @@
                     <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId}"/>
                     <DataGridTextColumn Header="HireDate" Binding="{Binding HireDate, Mode=OneWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Commission (%)" Binding="{Binding CommissionPct, Mode=TwoWay}"/>
+                    <!-- Delete button -->
                     <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -99,6 +104,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
+            <!-- Footer -->
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Button Content="Add Employee" Command="{Binding CreateEmployeeCommand}" Margin="20" VerticalAlignment="Center" Height="32" Width="88" HorizontalAlignment="Left"/>
                 <Button Content="Job History" Margin="0" VerticalAlignment="Center" Height="32" Width="88" Click="GoToJobHistoryMenu_Clicked" HorizontalAlignment="Left"/>

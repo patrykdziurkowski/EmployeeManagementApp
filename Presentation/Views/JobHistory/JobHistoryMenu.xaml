@@ -27,12 +27,16 @@
     </Page.Resources>
     
     <Grid>
+        <!-- Overlays -->
         <Grid Name="PageOverlays" Panel.ZIndex="50">
             <ContentControl Name="OverlayContentControl"/>
         </Grid>
 
         <Grid Name="PageBody">
+            <!-- Header -->
             <Label Content="Job History" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="132" Foreground="#FF903749" FontWeight="Bold"/>
+
+            <!-- Job history table -->
             <DataGrid Name="JobHistoryTable" AutoGenerateColumns="False" HeadersVisibility="Column" HorizontalAlignment="Center" Margin="180 50 180 75" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding EmployeeId}" Width="Auto" Header="EmployeeId"/>
@@ -43,6 +47,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
+            <!-- Return button -->
             <Button Content="Return" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="25" Height="30" Width="80" Click="ReturnToPreviousPage_Clicked"/>
         </Grid>
     </Grid>

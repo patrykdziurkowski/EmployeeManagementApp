@@ -13,6 +13,7 @@
     </Page.Resources>
 
     <Grid>
+        <!-- Overlays -->
         <Grid Name="PageOverlays" Panel.ZIndex="50">
             <ContentControl Name="OverlayContentControl"/>
         </Grid>
@@ -24,6 +25,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Header -->
             <Grid Name="HeaderLabel" Grid.Row="0" Width="Auto" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -33,6 +35,8 @@
                 <Label Grid.Column="0" Content="Log into" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF2B2E4A" FontWeight="Bold"/>
                 <Label Grid.Column="1" Content="Employees Database" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
             </Grid>
+            
+            <!-- Login inputs -->
             <StackPanel Name="LoginForm" Grid.Row="1">
                 <ListBox Height="25"  Margin="0 20 0 0" Name="errorMessagesList" HorizontalContentAlignment="Center" Foreground="Red" Background="Transparent" BorderThickness="0">
                     <ListBox.ItemTemplate>
@@ -47,6 +51,8 @@
                 <PasswordBox Name="LoginPasswordBox" Padding="4 3 0 0"  HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545" KeyDown="LoginPasswordBox_KeyDown"/>
                 <Button x:Name="loginButton" Content="Connect" Margin="10" Height="26" Width="72" Click="LoginButton_Clicked"/>
             </StackPanel>
+
+            <!-- Footer -->
             <Grid Name="Footer" Grid.Row="2">
                 <Button Content="Exit" HorizontalAlignment="Right" Margin="25" VerticalAlignment="Center" Width="80" Height="30" Click="ExitApplication_Clicked"/>
             </Grid>
