@@ -9,36 +9,7 @@
       Title="EmployeesMenu" Loaded="Page_Loaded">
     <Page.Resources>
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="AllowDrop" Value="true"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="TextAlignment" Value="Right"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                                        Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DDE6ED"/>
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
         <Style TargetType="{x:Type DataGrid}">
@@ -62,71 +33,77 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
         </Style>
     </Page.Resources>
+    
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
-        <Grid DataContext="{Binding EmployeeToFire}" Name="DeleteEmployeeConfirmation" Panel.ZIndex="40" Background="#DDFFFFFF" Visibility="Hidden">
+        <Grid Name="PageOverlays" Panel.ZIndex="50">
+            <ContentControl Name="OverlayContentControl"/>
+            <Grid DataContext="{Binding EmployeeToFire}" Name="DeleteEmployeeConfirmation" Background="#DDFFFFFF" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" Grid.Row="1" BorderBrush="#2B2E4A" BorderThickness="2" CornerRadius="15" Margin="0,20">
+                    <Grid>
+                        <Label HorizontalAlignment="Center" Content="Are you sure you wish to fire the following employee:"></Label>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Text="{Binding FirstName}"></TextBlock>
+                            <TextBlock Text="{Binding LastName}" Margin="5 0"></TextBlock>
+                            <TextBlock Text="{Binding DepartmentId}" Margin="5 0"></TextBlock>
+                            <TextBlock Text="{Binding Salary}"></TextBlock>
+                        </StackPanel>
+                        <Button Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}" CommandParameter="{Binding EmployeeId}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50 20" Content="Proceed" Height="32" Width="76" Click="EmployeeDeleteProceed_Clicked"/>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="50 20" Content="Cancel" Height="32" Width="76" Click="EmployeeDeleteCancel_Clicked"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Grid>
+       
+
+        <Grid Name="PageBody">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#2B2E4A" BorderThickness="2" CornerRadius="15" Margin="0,20">
-                <Grid>
-                <Label HorizontalAlignment="Center" Content="Are you sure you wish to fire the following employee:"></Label>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="{Binding FirstName}"></TextBlock>
-                    <TextBlock Text="{Binding LastName}" Margin="5 0"></TextBlock>
-                    <TextBlock Text="{Binding DepartmentId}" Margin="5 0"></TextBlock>
-                    <TextBlock Text="{Binding Salary}"></TextBlock>
-                </StackPanel>
-                <Button Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}" CommandParameter="{Binding EmployeeId}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50 20" Content="Proceed" Height="32" Width="76" Click="EmployeeDeleteProceed_Clicked"/>
-                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="50 20" Content="Cancel" Height="32" Width="76" Click="EmployeeDeleteCancel_Clicked"/>
-                </Grid>
-            </Border>
+            <Label Grid.Row="0" Content="Manage Employees" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
+            <DataGrid Grid.Row="1" Name="EmployeesTable" HeadersVisibility="Column" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" SortDirection="Ascending"/>
+                    <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="PhoneNumber" Binding="{Binding PhoneNumber, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay}"/>
+                    <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId}"/>
+                    <DataGridTextColumn Header="HireDate" Binding="{Binding HireDate, Mode=OneWay}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Commission (%)" Binding="{Binding CommissionPct, Mode=TwoWay}"/>
+                    <DataGridTemplateColumn Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Clicked"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Button Content="Add Employee" Command="{Binding CreateEmployeeCommand}" Margin="20" VerticalAlignment="Center" Height="32" Width="88" HorizontalAlignment="Left"/>
+                <Button Content="Job History" Margin="0" VerticalAlignment="Center" Height="32" Width="88" Click="GoToJobHistoryMenu_Clicked" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <Button Grid.Row="2" Content="Return" Margin="25" VerticalAlignment="Center" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked" HorizontalAlignment="Right"/>
         </Grid>
-
-        <Label Grid.Row="0" Content="Manage Employees" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
-        <DataGrid Grid.Row="1" Name="EmployeesTable" HeadersVisibility="Column" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" SortDirection="Ascending"/>
-                <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="PhoneNumber" Binding="{Binding PhoneNumber, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay}"/>
-                <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId}"/>
-                <DataGridTextColumn Header="HireDate" Binding="{Binding HireDate, Mode=OneWay}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Commission (%)" Binding="{Binding CommissionPct, Mode=TwoWay}"/>
-                <DataGridTemplateColumn Header="Delete">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="X" Tag="{Binding}" Visibility="{Binding EmployeeId, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Hidden}"  Click="EmployeeDeleteOpen_Clicked"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Add Employee" Command="{Binding CreateEmployeeCommand}" Margin="20" VerticalAlignment="Center" Height="32" Width="88" HorizontalAlignment="Left"/>
-            <Button Content="Job History" Margin="0" VerticalAlignment="Center" Height="32" Width="88" Click="GoToJobHistoryMenu_Clicked" HorizontalAlignment="Left"/>
-        </StackPanel>
-        <Button Grid.Row="2" Content="Return" Margin="25" VerticalAlignment="Center" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked" HorizontalAlignment="Right"/>
     </Grid>
 </Page>

@@ -29,93 +29,99 @@
             <Setter Property="FontSize" Value="17"/>
         </Style>
     </Page.Resources>
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Grid Name="PageOverlays" Panel.ZIndex="50">
+            <ContentControl Name="OverlayContentControl"/>
+        </Grid>
 
-        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
-        <Grid>
+        <Grid Name="PageBody">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="Manage Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="24" Foreground="#FF903749" FontWeight="Bold" Grid.ColumnSpan="2"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <DataGrid Grid.Row="1" Name="DepartmentsTable" AutoGenerateColumns="False" Margin="20" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
-                    <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
-                    <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
-                    <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Grid.Row="2" Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="132" Click="GoToDepartmentsLocationMenu_Clicked"/>
+                <Label Grid.Row="0" Content="Manage Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="24" Foreground="#FF903749" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
-            <ScrollViewer Name="DepartmentsScrollViewer" Grid.Column="1" Grid.Row="1" Margin="20" Padding="5" VerticalScrollBarVisibility="Auto">
-                <ItemsControl Name="DepartmentsList">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Name="DepartmentsGrid" Margin="0 0 0 5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition MinHeight="100"/>
-                                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="1" Name="DepartmentsTable" AutoGenerateColumns="False" Margin="20" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
+                        <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Grid.Row="2" Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="132" Click="GoToDepartmentsLocationMenu_Clicked"/>
 
-                                <Border BorderBrush="#903749" BorderThickness="2" CornerRadius="15" Margin="0 20">
-                                    <Grid Tag="{Binding DepartmentId, Mode=TwoWay}" Margin="10" AllowDrop="True" Drop="EmployeeIntoDepartment_Dropped">
-                                        <Grid Background="White" Margin="10 -22"  Width="{Binding Path=ActualWidth,ElementName=DepartmentHeader}" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                            <TextBlock Name="DepartmentHeader" Foreground="#903749" HorizontalAlignment="Left" FontSize="14">
-                                                <Run Text="{Binding DepartmentName, Mode=TwoWay}"/>
-                                                <Run Text="| Id:"/>
-                                                <Run Text="{Binding DepartmentId, Mode=TwoWay}"/>
-                                            </TextBlock>
+                <ScrollViewer Name="DepartmentsScrollViewer" Grid.Column="1" Grid.Row="1" Margin="20" Padding="5" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Name="DepartmentsList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Name="DepartmentsGrid" Margin="0 0 0 5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition MinHeight="100"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border BorderBrush="#903749" BorderThickness="2" CornerRadius="15" Margin="0 20">
+                                        <Grid Tag="{Binding DepartmentId, Mode=TwoWay}" Margin="10" AllowDrop="True" Drop="EmployeeIntoDepartment_Dropped">
+                                            <Grid Background="White" Margin="10 -22"  Width="{Binding Path=ActualWidth,ElementName=DepartmentHeader}" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                                <TextBlock Name="DepartmentHeader" Foreground="#903749" HorizontalAlignment="Left" FontSize="14">
+                                                    <Run Text="{Binding DepartmentName, Mode=TwoWay}"/>
+                                                    <Run Text="| Id:"/>
+                                                    <Run Text="{Binding DepartmentId, Mode=TwoWay}"/>
+                                                </TextBlock>
+                                            </Grid>
+
+                                            <DataGrid PreviewMouseWheel="DataGrid_OnPreviewMouseWheel" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" Background="White" IsReadOnly="True" Width="280" Margin="9 10"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn MinWidth="50" Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}"/>
+                                                    <DataGridTextColumn MinWidth="100" Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
+                                                    <DataGridTextColumn MinWidth="125" Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
+                                                </DataGrid.Columns>
+                                                <DataGrid.Resources>
+                                                    <Style TargetType="DataGridCell">
+                                                        <Setter Property="Background" Value="#E2E4F7"/>
+                                                        <Setter Property="Foreground" Value="#2B2E4A"/>
+                                                        <Setter Property="BorderThickness" Value="0"/>
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    </Style>
+                                                    <Style TargetType="DataGrid">
+                                                        <Setter Property="HorizontalGridLinesBrush" Value="#FFE2E4F7"/>
+                                                        <Setter Property="VerticalGridLinesBrush" Value="#FFE2E4F7"/>
+                                                        <Setter Property="BorderThickness" Value="0"/>
+                                                    </Style>
+                                                    <Style TargetType="DataGridRow">
+                                                        <Setter Property="Margin" Value="4"/>
+                                                        <Setter Property="MinWidth" Value="60"/>
+                                                        <Setter Property="MinHeight" Value="30"/>
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                        <Setter Property="Background" Value="#FFE2E4F7"/>
+                                                    </Style>
+                                                </DataGrid.Resources>
+                                            </DataGrid>
                                         </Grid>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
 
-                                        <DataGrid PreviewMouseWheel="DataGrid_OnPreviewMouseWheel" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" Background="White" IsReadOnly="True" Width="280" Margin="9 10"  AutoGenerateColumns="False" HeadersVisibility="None" ItemsSource="{Binding Employees, Mode=TwoWay}" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove">
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn MinWidth="50" Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}"/>
-                                                <DataGridTextColumn MinWidth="100" Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
-                                                <DataGridTextColumn MinWidth="125" Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
-                                            </DataGrid.Columns>
-                                            <DataGrid.Resources>
-                                                <Style TargetType="DataGridCell">
-                                                    <Setter Property="Background" Value="#E2E4F7"/>
-                                                    <Setter Property="Foreground" Value="#2B2E4A"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                </Style>
-                                                <Style TargetType="DataGrid">
-                                                    <Setter Property="HorizontalGridLinesBrush" Value="#FFE2E4F7"/>
-                                                    <Setter Property="VerticalGridLinesBrush" Value="#FFE2E4F7"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                </Style>
-                                                <Style TargetType="DataGridRow">
-                                                    <Setter Property="Margin" Value="4"/>
-                                                    <Setter Property="MinWidth" Value="60"/>
-                                                    <Setter Property="MinHeight" Value="30"/>
-                                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                    <Setter Property="Background" Value="#FFE2E4F7"/>
-                                                </Style>
-                                            </DataGrid.Resources>
-                                        </DataGrid>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-
-            <Button Content="Return" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked"/>
+                <Button Content="Return" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

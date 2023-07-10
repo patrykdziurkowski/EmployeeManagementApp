@@ -31,26 +31,30 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
+        <Grid Name="PageOverlays" Panel.ZIndex="50">
+            <ContentControl Name="OverlayContentControl"/>
+        </Grid>
 
-        <Label Content="Department Locations" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" Margin="0 5" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
-        <DataGrid x:Name="DepartmentLocationTable" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="25 50 25 100" ColumnWidth="*" SelectionMode="Extended" AllowDrop="False" IsReadOnly="True" HeadersVisibility="Column">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto" Header="DepartmentId" Binding="{Binding DepartmentId}"/>
-                <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding DepartmentName}"/>
-                <DataGridTextColumn Width="Auto" Header="StateProvince" Binding="{Binding StateProvince}"/>
-                <DataGridTextColumn Width="Auto" Header="City" Binding="{Binding City}"/>
-                <DataGridTextColumn Width="*" Header="StreetAddress" Binding="{Binding StreetAddress}"/>
-                <DataGridTextColumn Width="Auto" Header="RegionName" Binding="{Binding RegionName}"/>
-                <DataGridTextColumn Width="*" Header="CountryName" Binding="{Binding CountryName}"/>
-            </DataGrid.Columns>
-            <DataGrid.Resources>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
-                </Style>
-            </DataGrid.Resources>
-        </DataGrid>
+        <Grid Name="PageBody">
+            <Label Content="Department Locations" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" Margin="0 5" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
+            <DataGrid x:Name="DepartmentLocationTable" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="25 50 25 100" ColumnWidth="*" SelectionMode="Extended" AllowDrop="False" IsReadOnly="True" HeadersVisibility="Column">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="Auto" Header="DepartmentId" Binding="{Binding DepartmentId}"/>
+                    <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding DepartmentName}"/>
+                    <DataGridTextColumn Width="Auto" Header="StateProvince" Binding="{Binding StateProvince}"/>
+                    <DataGridTextColumn Width="Auto" Header="City" Binding="{Binding City}"/>
+                    <DataGridTextColumn Width="*" Header="StreetAddress" Binding="{Binding StreetAddress}"/>
+                    <DataGridTextColumn Width="Auto" Header="RegionName" Binding="{Binding RegionName}"/>
+                    <DataGridTextColumn Width="*" Header="CountryName" Binding="{Binding CountryName}"/>
+                </DataGrid.Columns>
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
 
-        <Button Content="Return" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 30" Height="30" Width="80" Click="ReturnToPreviousPage_Clicked"/>
+            <Button Content="Return" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 30" Height="30" Width="80" Click="ReturnToPreviousPage_Clicked"/>
+        </Grid>
     </Grid>
 </Page>

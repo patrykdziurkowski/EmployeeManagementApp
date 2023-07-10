@@ -10,48 +10,55 @@
     <Page.Resources>
 
     </Page.Resources>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
-        </Grid.RowDefinitions>
+        <Grid Name="PageOverlays" Panel.ZIndex="50">
+            
+        </Grid>
+        
+        <Grid Name="PageBody">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
 
-        <Grid Name="HeaderGrid" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0">
+            <Grid Name="HeaderGrid" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="You are" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
-                <Label Grid.Column="1"  Content="logged in" HorizontalAlignment="Left"  VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF2B2E4A" FontWeight="Bold"/>
-                <Button Grid.Column="2" Content="Log out" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 5" Width="100" Height="30" Click="ReturnToPreviousPage_Clicked"/>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Label Content="{Binding UserName}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="200 0 50 0" FontFamily="Bahnschrift" FontSize="18" Foreground="#2B2E4A"/>
-                <Rectangle Stroke="#FF71314F" Margin="200 0 50 0" StrokeThickness="2" Height="2" VerticalAlignment="Bottom"/>
-            </Grid>
-        </Grid>
-        <Grid Name="TileGrid" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0" Content="MANAGE EMPLOYEES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 25 5 5" Click="GoToEmployeesMenu_Clicked" FontSize="24"/>
-            <Button Grid.Column="0" Grid.Row="1" Content="MANAGE DEPARTMENTS" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 5 5 25" Click="GoToDepartmentsMenu_Clicked" FontSize="24"/>
-            <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="SALARIES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5 25 50 25" Click="GoToSalariesMenu_Clicked" FontSize="48"/>
+                    <Label Grid.Column="0" Content="You are" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
+                    <Label Grid.Column="1"  Content="logged in" HorizontalAlignment="Left"  VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF2B2E4A" FontWeight="Bold"/>
+                    <Button Grid.Column="2" Content="Log out" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 5" Width="100" Height="30" Click="ReturnToPreviousPage_Clicked"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label Content="{Binding UserName}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="200 0 50 0" FontFamily="Bahnschrift" FontSize="18" Foreground="#2B2E4A"/>
+                    <Rectangle Stroke="#FF71314F" Margin="200 0 50 0" StrokeThickness="2" Height="2" VerticalAlignment="Bottom"/>
+                </Grid>
+            </Grid>
+            <Grid Name="TileGrid" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Grid.Row="0" Content="MANAGE EMPLOYEES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 25 5 5" Click="GoToEmployeesMenu_Clicked" FontSize="24"/>
+                <Button Grid.Column="0" Grid.Row="1" Content="MANAGE DEPARTMENTS" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50 5 5 25" Click="GoToDepartmentsMenu_Clicked" FontSize="24"/>
+                <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="SALARIES" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5 25 50 25" Click="GoToSalariesMenu_Clicked" FontSize="48"/>
             
+            </Grid>
         </Grid>
     </Grid>
 </Page>

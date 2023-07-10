@@ -25,20 +25,25 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
         </Style>
     </Page.Resources>
+    
     <Grid>
-        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50"/>
-        
-        <Label Content="Job History" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="132" Foreground="#FF903749" FontWeight="Bold"/>
-        <DataGrid Name="JobHistoryTable" AutoGenerateColumns="False" HeadersVisibility="Column" HorizontalAlignment="Center" Margin="180 50 180 75" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding EmployeeId}" Width="Auto" Header="EmployeeId"/>
-                <DataGridTextColumn Binding="{Binding StartDate}" Width="*" Header="StartDate"/>
-                <DataGridTextColumn Binding="{Binding EndDate}" Width="*" Header="EndDate"/>
-                <DataGridTextColumn Binding="{Binding JobId}" Width="*" Header="Role"/>
-                <DataGridTextColumn Binding="{Binding DepartmentId}" Width="Auto" Header="Department"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Name="PageOverlays" Panel.ZIndex="50">
+            <ContentControl Name="OverlayContentControl"/>
+        </Grid>
 
-        <Button Content="Return" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="25" Height="30" Width="80" Click="ReturnToPreviousPage_Clicked"/>
+        <Grid Name="PageBody">
+            <Label Content="Job History" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="132" Foreground="#FF903749" FontWeight="Bold"/>
+            <DataGrid Name="JobHistoryTable" AutoGenerateColumns="False" HeadersVisibility="Column" HorizontalAlignment="Center" Margin="180 50 180 75" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding EmployeeId}" Width="Auto" Header="EmployeeId"/>
+                    <DataGridTextColumn Binding="{Binding StartDate}" Width="*" Header="StartDate"/>
+                    <DataGridTextColumn Binding="{Binding EndDate}" Width="*" Header="EndDate"/>
+                    <DataGridTextColumn Binding="{Binding JobId}" Width="*" Header="Role"/>
+                    <DataGridTextColumn Binding="{Binding DepartmentId}" Width="Auto" Header="Department"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button Content="Return" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="25" Height="30" Width="80" Click="ReturnToPreviousPage_Clicked"/>
+        </Grid>
     </Grid>
 </Page>

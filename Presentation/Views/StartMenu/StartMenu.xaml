@@ -9,66 +9,47 @@
       Title="StartMenu"
       Loaded="Page_Loaded">
     <Page.Resources>
-        <!--
-        <Style x:Key="MyWaterMarkStyle" TargetType="{x:Type TextBox}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <Border Background="#FFD4D8FF" BorderBrush="Black" BorderThickness="1"/>
-                            <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
-                            <Label Margin="1,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
-                               Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Text" Value=""/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
-                            </MultiTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-           -->
+
     </Page.Resources>
-   
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <ContentControl Name="OverlayContentControl" Panel.ZIndex="50" Grid.RowSpan="3"/>
-
-        <Grid Name="HeaderLabel" Grid.Row="0" Width="Auto" HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Label Grid.Column="0" Content="Log into" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF2B2E4A" FontWeight="Bold"/>
-            <Label Grid.Column="1" Content="Employees Database" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
+        <Grid Name="PageOverlays" Panel.ZIndex="50">
+            <ContentControl Name="OverlayContentControl"/>
         </Grid>
-        <StackPanel Name="LoginForm" Grid.Row="1">
-            <ListBox Height="25"  Margin="0 20 0 0" Name="errorMessagesList" HorizontalContentAlignment="Center" Foreground="Red" Background="Transparent" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <TextBox Name="LoginTextBox" Tag="Username" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
-            <PasswordBox Name="LoginPasswordBox" Padding="4 3 0 0"  HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545" KeyDown="LoginPasswordBox_KeyDown"/>
-            <Button x:Name="loginButton" Content="Connect" Margin="10" Height="26" Width="72" Click="LoginButton_Clicked"/>
-        </StackPanel>
-        <Grid Name="Footer" Grid.Row="2">
-            <Button Content="Exit" HorizontalAlignment="Right" Margin="25" VerticalAlignment="Center" Width="80" Height="30" Click="ExitApplication_Clicked"/>
+
+        <Grid Name="PageBody">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Name="HeaderLabel" Grid.Row="0" Width="Auto" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Log into" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF2B2E4A" FontWeight="Bold"/>
+                <Label Grid.Column="1" Content="Employees Database" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" FontFamily="Bahnschrift" FontSize="22" Foreground="#FF903749" FontWeight="Bold"/>
+            </Grid>
+            <StackPanel Name="LoginForm" Grid.Row="1">
+                <ListBox Height="25"  Margin="0 20 0 0" Name="errorMessagesList" HorizontalContentAlignment="Center" Foreground="Red" Background="Transparent" BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBox Name="LoginTextBox" Tag="Username" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545"/>
+                <PasswordBox Name="LoginPasswordBox" Padding="4 3 0 0"  HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="126" Height="22" FontFamily="Bahnschrift" Background="#FFD4D8FF" BorderBrush="#FF53354A" SelectionBrush="#FFE84545" SelectionTextBrush="#FFE84545" KeyDown="LoginPasswordBox_KeyDown"/>
+                <Button x:Name="loginButton" Content="Connect" Margin="10" Height="26" Width="72" Click="LoginButton_Clicked"/>
+            </StackPanel>
+            <Grid Name="Footer" Grid.Row="2">
+                <Button Content="Exit" HorizontalAlignment="Right" Margin="25" VerticalAlignment="Center" Width="80" Height="30" Click="ExitApplication_Clicked"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>
