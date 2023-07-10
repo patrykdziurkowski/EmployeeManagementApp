@@ -40,27 +40,26 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <Label Content="Manage Departments" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" FontSize="24" Foreground="#FF903749" FontWeight="Bold" Margin="5" Grid.ColumnSpan="2"/>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <DataGrid Grid.Row="0" Name="DepartmentsTable" AutoGenerateColumns="False" Margin="25 50 25 10" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
-                        <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
-                        <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
-                        <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Button Grid.Row="1" Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="132" Click="GoToDepartmentsLocationMenu_Clicked"/>
-            </Grid>
+            <Label Grid.Row="0" Content="Manage Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="24" Foreground="#FF903749" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
-            <ScrollViewer Name="DepartmentsScrollViewer" Grid.Column="1" Margin="25 50 25 75" Padding="5" VerticalScrollBarVisibility="Auto">
+            <DataGrid Grid.Row="1" Name="DepartmentsTable" AutoGenerateColumns="False" Margin="20" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Surname" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Role" Binding="{Binding JobId}"/>
+                    <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="2" Content="Departments Locations" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="132" Click="GoToDepartmentsLocationMenu_Clicked"/>
+
+            <ScrollViewer Name="DepartmentsScrollViewer" Grid.Column="1" Grid.Row="1" Margin="20" Padding="5" VerticalScrollBarVisibility="Auto">
                 <ItemsControl Name="DepartmentsList">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -116,7 +115,7 @@
                 </ItemsControl>
             </ScrollViewer>
 
+            <Button Content="Return" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked"/>
         </Grid>
-        <Button Content="Return" Margin="0 20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked"/>
     </Grid>
 </Page>
