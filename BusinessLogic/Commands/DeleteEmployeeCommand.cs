@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ViewModels;
 using DataAccess.Repositories;
+using FluentResults;
 using System.Windows.Input;
 
 namespace BusinessLogic.Commands
@@ -40,8 +41,8 @@ namespace BusinessLogic.Commands
             }
             int employeeToDeleteId = (int)parameter;
 
-            bool employeeWasRemovedFromDatabase = await _employeeRepository.Fire(employeeToDeleteId);
-            if (employeeWasRemovedFromDatabase)
+            Result deletionResult = await _employeeRepository.Fire(employeeToDeleteId);
+            if (deletionResult.IsSuccess)
             {
                 EmployeeViewModel employeeToRemove = _viewModel.Employees
                 .FirstOrDefault(employee => employee.EmployeeId == employeeToDeleteId);

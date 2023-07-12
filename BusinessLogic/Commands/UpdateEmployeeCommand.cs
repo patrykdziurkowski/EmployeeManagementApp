@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.ViewModels;
 using DataAccess.Models;
 using DataAccess.Repositories;
+using FluentResults;
 using FluentValidation;
 using FluentValidation.Results;
 using System.Windows.Input;
@@ -72,8 +73,8 @@ namespace BusinessLogic.Commands
                 await CreateJobHistoryEntry(employeeToUpdate);
             }
 
-            bool isEmployeeUpdateSuccessful = await _employeeRepository.Update(changedEmployee.EmployeeId.Value, employeeToUpdate);
-            _viewModel.IsLastEmployeeUpdateSuccessful = isEmployeeUpdateSuccessful;
+            Result updateResult = await _employeeRepository.Update(changedEmployee.EmployeeId.Value, employeeToUpdate);
+            _viewModel.IsLastEmployeeUpdateSuccessful = updateResult.IsSuccess;
         }
 
 

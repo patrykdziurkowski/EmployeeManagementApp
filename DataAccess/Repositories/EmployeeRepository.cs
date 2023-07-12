@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using FluentResults;
 
 namespace DataAccess.Repositories
 {
@@ -37,7 +38,7 @@ namespace DataAccess.Repositories
             return employeeWithGivenId;
         }
 
-        public async Task<bool> Hire(Employee employee)
+        public async Task<Result> Hire(Employee employee)
         {
             string hireDate = employee.HireDate.Value.ToString("yyyy-MM-dd");
             string commissionPct = employee.CommissionPct.ToString().Replace(",", ".");
@@ -48,21 +49,22 @@ namespace DataAccess.Repositories
                 $"'{employee.LastName}', '{employee.Email}', '{employee.PhoneNumber}', '{hireDate}', '{employee.JobId}', " +
                 $"{employee.Salary}, {commissionPct}, {managerId}, {employee.DepartmentId})";
             
-            int rowsAffected = await _dataAccess
+            Result insertionResult = await _dataAccess
                 .ExecuteSQLNonQueryAsync(nonQuery);
 
-            return rowsAffected > 0;
+            return insertionResult;
         }
 
-        public async Task<bool> Fire(int employeeId)
+        public async Task<Result> Fire(int employeeId)
         {
             string nonQuery = $"DELETE FROM employees WHERE employee_id = {employeeId}";
-            int rowsAffected = await _dataAccess
+            Result deletionResult = await _dataAccess
                 .ExecuteSQLNonQueryAsync(nonQuery);
-            return rowsAffected > 0;
+
+            return deletionResult;
         }
 
-        public async Task<bool> Update(int targetEmployeeId, Employee newEmployeeData)
+        public async Task<Result> Update(int targetEmployeeId, Employee newEmployeeData)
         {
             string hireDate = newEmployeeData.HireDate.Value.ToString("yyyy-MM-dd");
             string commissionPct = newEmployeeData.CommissionPct.ToString().Replace(",", ".");
@@ -76,10 +78,10 @@ namespace DataAccess.Repositories
                 $"{newEmployeeData.Salary}, commission_pct = {commissionPct}, manager_id = {managerId}, " +
                 $"department_id = {departmentId} WHERE employee_id = {targetEmployeeId}";
             
-            int rowsAffected = await _dataAccess
+            Result updateResult = await _dataAccess
                 .ExecuteSQLNonQueryAsync(nonQuery);
 
-            return rowsAffected > 0;
+            return updateResult;
         }
     }
 }

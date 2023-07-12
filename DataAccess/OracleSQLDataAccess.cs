@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using FluentResults;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DataAccess
 {
@@ -54,27 +55,29 @@ namespace DataAccess
         ///     Multiple queries can be used in a transaction by delimiting them with a semi-colon: ";"
         /// </param>
         /// <returns>Number of affected rows</returns>
-        public async Task<int> ExecuteSQLNonQueryAsync(string nonQueries)
+        public async Task<Result> ExecuteSQLNonQueryAsync(string nonQueries)
         {
             Open();
             OracleTransaction transaction = _connection.BeginTransaction();
 
-            int affectedRows = 0;
             try
             {
-                affectedRows = await ExecuteCommandsAsync(nonQueries);
+                await ExecuteCommandsAsync(nonQueries);
 
                 transaction.Commit();
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
+
+                return Result.Fail(ex.Message);
             }
             finally
             {
                 Close();
             }
-            return affectedRows;
+
+            return Result.Ok();
         }
 
         private async Task<int> ExecuteCommandsAsync(string commands)
