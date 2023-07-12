@@ -244,10 +244,14 @@ namespace BusinessLogic.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
 
-            foreach (EmployeeViewModel employee in e.NewItems)
+            if (e.NewItems is not null)
             {
-                employee.EmployeeId = GenerateUniqueEmployeeId();
+                foreach (EmployeeViewModel employee in e.NewItems)
+                {
+                    employee.EmployeeId = GenerateUniqueEmployeeId();
+                }
             }
+            
         }
 
         private void Jobs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
