@@ -214,7 +214,7 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        public async void EmployeeUpdated(object? sender, PropertyChangedEventArgs e)
+        public void EmployeeUpdated(object? sender, PropertyChangedEventArgs e)
         {
             if (sender is not null)
             {

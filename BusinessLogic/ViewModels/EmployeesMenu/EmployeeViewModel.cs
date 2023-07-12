@@ -203,11 +203,11 @@ namespace BusinessLogic.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         public event PropertyChangingEventHandler? PropertyChanging;
 
-        protected async Task OnPropertyChanged([CallerMemberName] string? name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        protected async Task OnPropertyChanging([CallerMemberName] string? name = null)
+        protected void OnPropertyChanging([CallerMemberName] string? name = null)
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
         }

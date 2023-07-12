@@ -59,8 +59,8 @@ namespace BusinessLogic.Commands
                 DepartmentId = changedEmployee.DepartmentId
             };
 
-            _employeeRepository.Update(employeeToUpdate);
-            
+
+            await _employeeRepository.Update(employeeToUpdate);
             MoveEmployeeToTheirDepartment(changedEmployee);
         }
 
@@ -69,7 +69,7 @@ namespace BusinessLogic.Commands
         /// </summary>
         /// <param name="changedEmployee">Employee that was updated</param>
         /// <returns></returns>
-        private async Task MoveEmployeeToTheirDepartment(EmployeeViewModel changedEmployee)
+        private void MoveEmployeeToTheirDepartment(EmployeeViewModel changedEmployee)
         {
             foreach (DepartmentViewModel department in _viewModel.Departments)
             {

@@ -67,16 +67,16 @@ namespace Presentation
         {
             System.Windows.Application.Current.Shutdown();                  
         }
-        private void LoginButton_Clicked(object sender, RoutedEventArgs e)
+        private async void LoginButton_Clicked(object sender, RoutedEventArgs e)
         {
-            LogInto();
+            await LogInto();
         }
 
-        private void LoginPasswordBox_KeyDown(object sender, KeyEventArgs e)
+        private async void LoginPasswordBox_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
             {
-                LogInto();
+                await LogInto();
             }
         }
 

@@ -59,7 +59,7 @@ namespace Presentation
             services.AddSingleton<MainWindow>();
         }
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
