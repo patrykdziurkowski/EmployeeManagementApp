@@ -47,6 +47,8 @@ namespace Presentation
             DataContext = _viewModel;
             EmployeesTable.ItemsSource = _viewModel.Employees;
             JobsComboBox.ItemsSource = _viewModel.Jobs;
+
+
         }
 
         private void ReturnToPreviousPage_Clicked(object sender, RoutedEventArgs e)
@@ -95,5 +97,6 @@ namespace Presentation
                 table.BeginEdit(e);
             }
         }
+        
     }
 }

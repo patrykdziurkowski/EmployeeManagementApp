@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.ViewModels;
 using DataAccess.Models;
 using DataAccess.Repositories;
+using FluentResults;
 using FluentValidation;
 using FluentValidation.Results;
 using System;
@@ -45,15 +46,15 @@ namespace BusinessLogic.Commands
             ValidationResult validationResult = _employeeValidator.Validate(_viewModel.NewEmployee);
             if (!validationResult.IsValid)
             {
-                _viewModel.Employees.Remove(_viewModel.NewEmployee);
-                _viewModel.NewEmployee = null;
+                _viewModel.IsLastCommandSuccessful = false;
+                _viewModel.CommandFailMessage = validationResult.Errors.FirstOrDefault().ErrorMessage;
 
                 return false;
             }
             return true;
         }
 
-        public void Execute(object? parameter)
+        public async void Execute(object? parameter)
         {
             Employee employeeToHire = new()
             {
@@ -69,7 +70,13 @@ namespace BusinessLogic.Commands
                 ManagerId = _viewModel.NewEmployee.ManagerId,
                 DepartmentId = _viewModel.NewEmployee.DepartmentId
             };
-            _employeeRepository.Hire(employeeToHire);
+            Result hireResult = await _employeeRepository.Hire(employeeToHire);
+
+            _viewModel.IsLastCommandSuccessful = hireResult.IsSuccess;
+            if (hireResult.IsFailed)
+            {
+                _viewModel.CommandFailMessage = hireResult.Reasons.FirstOrDefault().Message;
+            }
         }
     }
 }
