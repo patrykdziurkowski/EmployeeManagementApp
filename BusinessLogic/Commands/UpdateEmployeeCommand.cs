@@ -45,6 +45,8 @@ namespace BusinessLogic.Commands
             ValidationResult validationResult = _employeeValidator.Validate(_viewModel.UpdatedEmployee);
             if (!validationResult.IsValid)
             {
+                _viewModel.IsLastCommandSuccessful = false;
+                _viewModel.CommandFailMessage = validationResult.Errors.FirstOrDefault().ErrorMessage;
                 return false;
             }
             return true;
