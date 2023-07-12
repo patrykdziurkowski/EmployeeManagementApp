@@ -28,12 +28,12 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object parameter = null)
+        public bool CanExecute(object? parameter)
         {
             return true;
         }
 
-        public async void Execute(object parameter = null)
+        public async void Execute(object? parameter)
         {
             if (parameter is null)
             {
@@ -47,13 +47,13 @@ namespace BusinessLogic.Commands
             if (deletionResult.IsSuccess)
             {
                 EmployeeViewModel employeeToRemove = _viewModel.Employees
-                .FirstOrDefault(employee => employee.EmployeeId == employeeToDeleteId);
+                .First(employee => employee.EmployeeId == employeeToDeleteId);
                 
                 _viewModel.Employees.Remove(employeeToRemove);
             }
             else
             {
-                _viewModel.CommandFailMessage = deletionResult.Reasons.FirstOrDefault().Message;
+                _viewModel.CommandFailMessage = deletionResult.Reasons.First().Message;
             }
         }
     }

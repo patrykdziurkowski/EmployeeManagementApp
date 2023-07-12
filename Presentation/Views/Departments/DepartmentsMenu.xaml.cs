@@ -83,7 +83,7 @@ namespace Presentation
                 if (droppedEmployee != null)
                 {
                     EmployeeViewModel employeeToUpdate = _viewModel.Employees
-                        .FirstOrDefault(employee => employee.EmployeeId == droppedEmployee.EmployeeId);
+                        .First(employee => employee.EmployeeId == droppedEmployee.EmployeeId);
                     employeeToUpdate.DepartmentId = targetDepartmentId;
 
                     DepartmentsTable.ItemsSource = _viewModel.Employees.OrderBy(employee => employee.DepartmentId);

@@ -40,19 +40,19 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object parameter = null)
+        public bool CanExecute(object? parameter)
         {
             ValidationResult validationResult = _employeeValidator.Validate(_viewModel.UpdatedEmployee);
             if (!validationResult.IsValid)
             {
                 _viewModel.IsLastCommandSuccessful = false;
-                _viewModel.CommandFailMessage = validationResult.Errors.FirstOrDefault().ErrorMessage;
+                _viewModel.CommandFailMessage = validationResult.Errors.First().ErrorMessage;
                 return false;
             }
             return true;
         }
 
-        public async void Execute(object parameter = null)
+        public async void Execute(object? parameter)
         {
             EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
             Employee employeeToUpdate = new()
@@ -83,7 +83,7 @@ namespace BusinessLogic.Commands
             _viewModel.IsLastCommandSuccessful = updateResult.IsSuccess;
             if (updateResult.IsFailed)
             {
-                _viewModel.CommandFailMessage = updateResult.Reasons.FirstOrDefault().Message;
+                _viewModel.CommandFailMessage = updateResult.Reasons.First().Message;
             }
         }
 
@@ -114,7 +114,7 @@ namespace BusinessLogic.Commands
             Result insertionResult = await _jobHistoryRepository.Insert(jobHistoryEntry);
             if (insertionResult.IsFailed)
             {
-                _viewModel.CommandFailMessage = insertionResult.Reasons.FirstOrDefault().Message;
+                _viewModel.CommandFailMessage = insertionResult.Reasons.First().Message;
                 _viewModel.IsLastCommandSuccessful = false;
             }
 

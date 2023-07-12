@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
+#nullable disable
     /// <summary>
     /// The naming of these properties must match the naming inside of the database, including casing.
     /// Property types are strictly defined to match the types in the database.

@@ -35,12 +35,12 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object parameter = null)
+        public bool CanExecute(object? parameter)
         {
             return true;
         }
 
-        public async void Execute(object parameter = null)
+        public async void Execute(object? parameter)
         {
             EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
 
@@ -73,9 +73,13 @@ namespace BusinessLogic.Commands
         {
             foreach (DepartmentViewModel department in _viewModel.Departments)
             {
-                EmployeeViewModel employeeToRemove = department.Employees
+                EmployeeViewModel? employeeToRemove = department.Employees
                     .FirstOrDefault(employee => employee.EmployeeId == changedEmployee.EmployeeId);
-                department.Employees.Remove(employeeToRemove);
+                if (employeeToRemove is not null)
+                {
+                    department.Employees.Remove(employeeToRemove);
+                }
+                
 
                 if (department.DepartmentId == changedEmployee.DepartmentId)
                 {

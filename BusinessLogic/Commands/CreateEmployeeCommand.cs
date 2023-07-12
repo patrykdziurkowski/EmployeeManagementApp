@@ -39,22 +39,22 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object parameter = null)
+        public bool CanExecute(object? parameter)
         {
-            _viewModel.NewEmployee = _viewModel.Employees.LastOrDefault();
+            _viewModel.NewEmployee = _viewModel.Employees.Last();
 
             ValidationResult validationResult = _employeeValidator.Validate(_viewModel.NewEmployee);
             if (!validationResult.IsValid)
             {
                 _viewModel.IsLastCommandSuccessful = false;
-                _viewModel.CommandFailMessage = validationResult.Errors.FirstOrDefault().ErrorMessage;
+                _viewModel.CommandFailMessage = validationResult.Errors.First().ErrorMessage;
 
                 return false;
             }
             return true;
         }
 
-        public async void Execute(object parameter = null)
+        public async void Execute(object? parameter)
         {
             Employee employeeToHire = new()
             {
@@ -75,7 +75,7 @@ namespace BusinessLogic.Commands
             _viewModel.IsLastCommandSuccessful = hireResult.IsSuccess;
             if (hireResult.IsFailed)
             {
-                _viewModel.CommandFailMessage = hireResult.Reasons.FirstOrDefault().Message;
+                _viewModel.CommandFailMessage = hireResult.Reasons.First().Message;
             }
         }
     }

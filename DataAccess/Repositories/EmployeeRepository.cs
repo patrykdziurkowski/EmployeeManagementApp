@@ -33,7 +33,7 @@ namespace DataAccess.Repositories
 
             Employee employeeWithGivenId = (await _dataAccess
                 .ExecuteSQLQueryAsync<Employee>(query))
-                .FirstOrDefault();
+                .First();
 
             return employeeWithGivenId;
         }

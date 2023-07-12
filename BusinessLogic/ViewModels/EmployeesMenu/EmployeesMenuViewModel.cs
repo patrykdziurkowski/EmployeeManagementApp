@@ -208,7 +208,7 @@ namespace BusinessLogic.ViewModels
         {
             EmployeeViewModel employeeBeforeChange = (EmployeeViewModel) sender;
             UpdatedEmployeePreviousJob = (await _jobRepository.GetAll())
-                .FirstOrDefault(job => job.JobId == employeeBeforeChange.JobId);
+                .First(job => job.JobId == employeeBeforeChange.JobId);
         }
 
         public async void EmployeeUpdated(object sender, PropertyChangedEventArgs e)

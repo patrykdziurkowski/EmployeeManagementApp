@@ -36,7 +36,7 @@ namespace DataAccess.Repositories
 
             Department departmentWithGivenId = (await _dataAccess
                 .ExecuteSQLQueryAsync<Department>(query))
-                .FirstOrDefault();
+                .First();
 
             return departmentWithGivenId;
         }

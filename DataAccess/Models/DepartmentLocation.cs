@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
+#nullable disable
     public class DepartmentLocation
     {
         public short DepartmentId { get; set; }
