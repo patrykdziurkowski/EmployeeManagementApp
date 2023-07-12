@@ -13,8 +13,10 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
+#nullable disable
         public string JobId { get; set; }
         public string JobTitle { get; set; }
+#nullable enable
         public int? MinSalary { get; set; }
         public int? MaxSalary { get; set; }
 
@@ -37,7 +39,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected async Task OnPropertyChanged([CallerMemberName] string name = null)
+        protected async Task OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

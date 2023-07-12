@@ -50,8 +50,8 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        private EmployeeViewModel _updatedEmployee;
-        public EmployeeViewModel UpdatedEmployee
+        private EmployeeViewModel? _updatedEmployee;
+        public EmployeeViewModel? UpdatedEmployee
         {
             get
             {
@@ -113,13 +113,16 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        public async void EmployeeUpdated(object sender, PropertyChangedEventArgs e)
+        public async void EmployeeUpdated(object? sender, PropertyChangedEventArgs e)
         {
-            UpdatedEmployee = (EmployeeViewModel)sender;
-
-            if (UpdateDepartmentCommand.CanExecute(null))
+            if (sender is not null)
             {
-                UpdateDepartmentCommand.Execute(null);
+                UpdatedEmployee = (EmployeeViewModel)sender;
+
+                if (UpdateDepartmentCommand.CanExecute(null))
+                {
+                    UpdateDepartmentCommand.Execute(null);
+                }
             }
         }
 
@@ -132,12 +135,12 @@ namespace BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void Departments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Departments_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Departments"));
         }
 
-        private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
         }

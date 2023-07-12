@@ -8,6 +8,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
+#nullable disable
         private int _employeeId;
         public int EmployeeId {
             get
@@ -20,7 +21,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
         private DateOnly? _startDate;
         public DateOnly? StartDate
         {
@@ -48,7 +49,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable disable
         private string _jobId;
         public string JobId
         {
@@ -62,7 +63,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
         private short? _departmentId;
         public short? DepartmentId
         {
@@ -95,7 +96,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

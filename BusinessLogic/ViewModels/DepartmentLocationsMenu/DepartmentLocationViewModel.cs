@@ -8,7 +8,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-
+#nullable disable
         private short _departmentId;
         public short DepartmentId
         {
@@ -37,7 +37,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
 
         private string? _stateProvince;
         public string? StateProvince
@@ -53,7 +53,7 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-
+#nullable disable
         private string _city;
         public string City
         {
@@ -67,7 +67,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
 
         private string? _streetAddress;
         public string? StreetAddress
@@ -131,7 +131,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

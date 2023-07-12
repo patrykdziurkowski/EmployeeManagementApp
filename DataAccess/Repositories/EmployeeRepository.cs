@@ -41,9 +41,20 @@ namespace DataAccess.Repositories
         public async Task<Result> Hire(Employee employee)
         {
             string hireDate = employee.HireDate.ToString("yyyy-MM-dd");
-            string commissionPct = employee.CommissionPct.ToString().Replace(",", ".");
-            commissionPct = (commissionPct == String.Empty) ? "null" : commissionPct;
-            string managerId = (employee.ManagerId is null) ? "null" : employee.ManagerId.ToString();
+
+            string? commissionPct = null;
+            if (employee.CommissionPct is not null)
+            {
+                commissionPct = employee.CommissionPct.ToString()!.Replace(",", ".");
+            }
+
+            string? managerId = null;
+            if (employee.ManagerId is not null)
+            {
+                managerId = employee.ManagerId.ToString();
+            }
+
+
 
             string nonQuery = $"INSERT INTO employees VALUES ({employee.EmployeeId}, '{employee.FirstName}', " +
                 $"'{employee.LastName}', '{employee.Email}', '{employee.PhoneNumber}', '{hireDate}', '{employee.JobId}', " +
@@ -67,10 +78,24 @@ namespace DataAccess.Repositories
         public async Task<Result> Update(Employee newEmployeeData)
         {
             string hireDate = newEmployeeData.HireDate.ToString("yyyy-MM-dd");
-            string commissionPct = newEmployeeData.CommissionPct.ToString().Replace(",", ".");
-            commissionPct = (commissionPct == String.Empty) ? "null": commissionPct;
-            string managerId = (newEmployeeData.ManagerId is null) ? "null" : newEmployeeData.ManagerId.ToString();
-            string departmentId = (newEmployeeData.DepartmentId is null) ? "null" : newEmployeeData.DepartmentId.ToString();
+
+            string? commissionPct = null;
+            if (newEmployeeData.CommissionPct is not null)
+            {
+                commissionPct = newEmployeeData.CommissionPct.ToString()!.Replace(",", ".");
+            }
+
+            string? managerId = null;
+            if (newEmployeeData.ManagerId is not null)
+            {
+                managerId = newEmployeeData.ManagerId.ToString();
+            }
+
+            string? departmentId = null;
+            if (newEmployeeData.DepartmentId is not null)
+            {
+                departmentId = newEmployeeData.DepartmentId.ToString();
+            }
 
             string nonQuery = $"UPDATE employees SET employee_id = {newEmployeeData.EmployeeId}, first_name = " +
                 $"'{newEmployeeData.FirstName}', last_name = '{newEmployeeData.LastName}', email = '{newEmployeeData.Email}', phone_number = " +

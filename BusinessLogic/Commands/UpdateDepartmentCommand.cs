@@ -42,7 +42,7 @@ namespace BusinessLogic.Commands
 
         public async void Execute(object? parameter)
         {
-            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
+            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee!;
 
             Employee employeeToUpdate = new()
             {

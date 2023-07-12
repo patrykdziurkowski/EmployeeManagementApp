@@ -9,7 +9,7 @@ namespace BusinessLogic.ViewModels
         //  Fields and properties
         ////////////////////////////////////////////
         private IDateProvider _dateProvider;
-        
+#nullable disable
         private int _employeeId;
         public int EmployeeId {
             get
@@ -23,7 +23,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
         private string? _firstName;
         public string? FirstName
         {
@@ -38,7 +38,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable disable
         private string _lastName;
         public string LastName
         {
@@ -68,7 +68,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
         private string? _phoneNumber;
         public string? PhoneNumber
         {
@@ -83,7 +83,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable disable
         private DateOnly _hireDate;
         public DateOnly HireDate
         {
@@ -113,7 +113,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
         private double? _salary;
         public double? Salary
         {
@@ -203,11 +203,11 @@ namespace BusinessLogic.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         public event PropertyChangingEventHandler? PropertyChanging;
 
-        protected async Task OnPropertyChanged([CallerMemberName] string name = null)
+        protected async Task OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        protected async Task OnPropertyChanging([CallerMemberName] string name = null)
+        protected async Task OnPropertyChanging([CallerMemberName] string? name = null)
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
         }

@@ -8,6 +8,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
+#nullable disable
         private int _employeeId;
         public int EmployeeId
         {
@@ -21,7 +22,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
         private string? _firstName;
         public string? FirstName
         {
@@ -35,7 +36,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable disable
         private string _lastName;
         public string LastName
         {
@@ -63,7 +64,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
+#nullable enable
         private double? _salary;
         public double? Salary
         {
@@ -96,7 +97,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         } 

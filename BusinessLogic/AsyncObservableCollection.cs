@@ -15,7 +15,7 @@ namespace BusinessLogic
     /// <typeparam name="T">The data type that this collection holds</typeparam>
     public class AsyncObservableCollection<T> : ObservableCollection<T>
     {
-        private SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
+        private SynchronizationContext _synchronizationContext = SynchronizationContext.Current!;
 
         public AsyncObservableCollection()
         {
@@ -42,10 +42,10 @@ namespace BusinessLogic
             }
         }
 
-        private void RaiseCollectionChanged(object param)
+        private void RaiseCollectionChanged(object? param)
         {
             // We are in the creator thread, call the base implementation directly
-            base.OnCollectionChanged((NotifyCollectionChangedEventArgs)param);
+            base.OnCollectionChanged((NotifyCollectionChangedEventArgs)param!);
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -62,10 +62,10 @@ namespace BusinessLogic
             }
         }
 
-        private void RaisePropertyChanged(object param)
+        private void RaisePropertyChanged(object? param)
         {
             // We are in the creator thread, call the base implementation directly
-            base.OnPropertyChanged((PropertyChangedEventArgs)param);
+            base.OnPropertyChanged((PropertyChangedEventArgs)param!);
         }
     }
 }

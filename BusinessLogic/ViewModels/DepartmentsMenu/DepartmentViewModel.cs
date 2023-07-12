@@ -24,6 +24,7 @@ namespace BusinessLogic.ViewModels
             }
         }
 
+#nullable disable
         private short _departmentId;
         public short DepartmentId
         {
@@ -50,7 +51,7 @@ namespace BusinessLogic.ViewModels
                 _departmentName = value;
             }
         }
-
+#nullable enable
         private int? _managerId;
         public int? ManagerId
         {
@@ -102,7 +103,7 @@ namespace BusinessLogic.ViewModels
         
         public event PropertyChangedEventHandler? PropertyChanged;
         
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

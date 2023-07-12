@@ -59,12 +59,12 @@ namespace BusinessLogic.ViewModels
         //  Events and Data Binding
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void DepartmentLocation_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void DepartmentLocation_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DepartmentLocation"));
         }

@@ -19,7 +19,7 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private object _draggedItem;
+        private object? _draggedItem;
         private Point _startingPoint;
 
         public delegate Point GetPosition(IInputElement element);
@@ -91,7 +91,7 @@ namespace Presentation
             }
         }
 
-        private static T FindVisualParent<T>(DependencyObject obj) where T : DependencyObject
+        private static T? FindVisualParent<T>(DependencyObject obj) where T : DependencyObject
         {
             while (obj != null)
             {

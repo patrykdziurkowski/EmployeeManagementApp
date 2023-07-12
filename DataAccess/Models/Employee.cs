@@ -7,13 +7,19 @@
     /// </summary>
     public class Employee
     {
+#nullable disable
         public int EmployeeId { get; set; }
+#nullable enable
         public string? FirstName { get; set; }
+#nullable disable
         public string LastName { get; set; }
         public string Email { get; set; }
+#nullable enable
         public string? PhoneNumber { get; set; }
+#nullable disable  
         public DateTime HireDate { get; set; }
         public string JobId { get; set; }
+#nullable enable
         public double? Salary { get; set; }
         public Single? CommissionPct { get; set; }
         public int? ManagerId { get; set; }

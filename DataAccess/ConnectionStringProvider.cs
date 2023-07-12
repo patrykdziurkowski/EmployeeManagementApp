@@ -21,9 +21,9 @@ namespace DataAccess
         {
             _userCredentials = userCredentials;
 
-            _host = ConfigurationManager.AppSettings["host"].ToString();
-            _port = ConfigurationManager.AppSettings["port"].ToString();
-            _sid = ConfigurationManager.AppSettings["sid"].ToString();
+            _host = ConfigurationManager.AppSettings["host"]!.ToString();
+            _port = ConfigurationManager.AppSettings["port"]!.ToString();
+            _sid = ConfigurationManager.AppSettings["sid"]!.ToString();
         }
 
 

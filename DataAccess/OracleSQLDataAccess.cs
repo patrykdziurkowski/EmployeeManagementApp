@@ -11,8 +11,8 @@ namespace DataAccess
         ////////////////////////////////////////////
         private ConnectionStringProvider _connectionStringProvider;
         
-        private string _connectionString;
-        private OracleConnection _connection;
+        private string? _connectionString;
+        private OracleConnection? _connection;
 
         ////////////////////////////////////////////
         //  Constructors
@@ -58,7 +58,7 @@ namespace DataAccess
         public async Task<Result> ExecuteSQLNonQueryAsync(string nonQueries)
         {
             Open();
-            OracleTransaction transaction = _connection.BeginTransaction();
+            OracleTransaction transaction = _connection!.BeginTransaction();
 
             try
             {
@@ -103,7 +103,7 @@ namespace DataAccess
 
         private void Close()
         {
-            _connection.Close();
+            _connection!.Close();
             _connection.Dispose();
         }
 

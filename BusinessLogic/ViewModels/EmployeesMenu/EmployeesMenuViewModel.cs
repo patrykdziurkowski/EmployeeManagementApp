@@ -52,8 +52,8 @@ namespace BusinessLogic.ViewModels
             }
         }
         
-        private string _commandFailMessage;
-        public string CommandFailMessage
+        private string? _commandFailMessage;
+        public string? CommandFailMessage
         {
             get
             {
@@ -66,10 +66,10 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        public bool IsUpdatedEmployeeJobChanged => UpdatedEmployeePreviousJob.JobId != UpdatedEmployee.JobId;
+        public bool IsUpdatedEmployeeJobChanged => UpdatedEmployeePreviousJob?.JobId != UpdatedEmployee?.JobId;
 
-        private Job _updatedEmployeePreviousJob;
-        public Job UpdatedEmployeePreviousJob
+        private Job? _updatedEmployeePreviousJob;
+        public Job? UpdatedEmployeePreviousJob
         {
             get
             {
@@ -81,8 +81,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private EmployeeViewModel _updatedEmployee;
-        public EmployeeViewModel UpdatedEmployee
+        private EmployeeViewModel? _updatedEmployee;
+        public EmployeeViewModel? UpdatedEmployee
         {
             get
             {
@@ -95,8 +95,8 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        private EmployeeViewModel _newEmployee;
-        public EmployeeViewModel NewEmployee
+        private EmployeeViewModel? _newEmployee;
+        public EmployeeViewModel? NewEmployee
         {
             get
             {
@@ -110,8 +110,8 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        private EmployeeViewModel _employeeToFire;
-        public EmployeeViewModel EmployeeToFire
+        private EmployeeViewModel? _employeeToFire;
+        public EmployeeViewModel? EmployeeToFire
         {
             get
             {
@@ -204,22 +204,28 @@ namespace BusinessLogic.ViewModels
 
         }
 
-        public async void EmployeeUpdating(object sender, PropertyChangingEventArgs e)
+        public async void EmployeeUpdating(object? sender, PropertyChangingEventArgs e)
         {
-            EmployeeViewModel employeeBeforeChange = (EmployeeViewModel) sender;
-            UpdatedEmployeePreviousJob = (await _jobRepository.GetAll())
-                .First(job => job.JobId == employeeBeforeChange.JobId);
+            if (sender is not null)
+            {
+                EmployeeViewModel employeeBeforeChange = (EmployeeViewModel)sender;
+                UpdatedEmployeePreviousJob = (await _jobRepository.GetAll())
+                    .First(job => job.JobId == employeeBeforeChange.JobId);
+            }
         }
 
-        public async void EmployeeUpdated(object sender, PropertyChangedEventArgs e)
+        public async void EmployeeUpdated(object? sender, PropertyChangedEventArgs e)
         {
-            UpdatedEmployee = (EmployeeViewModel) sender;
-
-            if (UpdateEmployeeCommand.CanExecute(null))
+            if (sender is not null)
             {
-                UpdateEmployeeCommand.Execute(null);
+                UpdatedEmployee = (EmployeeViewModel)sender;
+
+                if (UpdateEmployeeCommand.CanExecute(null))
+                {
+                    UpdateEmployeeCommand.Execute(null);
+                }
             }
-            
+
         }
 
         private int GenerateUniqueEmployeeId()
@@ -234,12 +240,12 @@ namespace BusinessLogic.ViewModels
         //  Events and Data Binding
         ////////////////////////////////////////////
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
 
@@ -253,7 +259,7 @@ namespace BusinessLogic.ViewModels
             
         }
 
-        private void Jobs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Jobs_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Jobs"));
         }

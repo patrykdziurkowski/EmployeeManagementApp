@@ -58,7 +58,7 @@ namespace BusinessLogic.Commands
         {
             Employee employeeToHire = new()
             {
-                EmployeeId = _viewModel.NewEmployee.EmployeeId,
+                EmployeeId = _viewModel.NewEmployee!.EmployeeId,
                 FirstName = _viewModel.NewEmployee.FirstName,
                 LastName = _viewModel.NewEmployee.LastName,
                 Email = _viewModel.NewEmployee.Email,

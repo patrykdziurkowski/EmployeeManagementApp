@@ -42,7 +42,7 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         public bool CanExecute(object? parameter)
         {
-            ValidationResult validationResult = _employeeValidator.Validate(_viewModel.UpdatedEmployee);
+            ValidationResult validationResult = _employeeValidator.Validate(_viewModel.UpdatedEmployee!);
             if (!validationResult.IsValid)
             {
                 _viewModel.IsLastCommandSuccessful = false;
@@ -54,7 +54,7 @@ namespace BusinessLogic.Commands
 
         public async void Execute(object? parameter)
         {
-            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
+            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee!;
             Employee employeeToUpdate = new()
             {
                 EmployeeId = changedEmployee.EmployeeId,
@@ -107,7 +107,7 @@ namespace BusinessLogic.Commands
                 EmployeeId = employeeToUpdate.EmployeeId,
                 StartDate = (DateTime)previousJobStartDateTime,
                 EndDate = _dateProvider.GetNow().ToDateTime(TimeOnly.MinValue),
-                JobId = _viewModel.UpdatedEmployeePreviousJob.JobId,
+                JobId = _viewModel.UpdatedEmployeePreviousJob!.JobId,
                 DepartmentId = employeeToUpdate.DepartmentId
             };
 
