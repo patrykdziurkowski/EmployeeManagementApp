@@ -223,6 +223,13 @@ namespace BusinessLogic.ViewModels
             
         }
 
+        private int GenerateUniqueEmployeeId()
+        {
+            IEnumerable<int?> employeeIds = Employees.Select(employee => employee.EmployeeId);
+
+            return (int)(employeeIds.Max() + 1);
+        }
+
 
         ////////////////////////////////////////////
         //  Events and Data Binding
@@ -236,6 +243,11 @@ namespace BusinessLogic.ViewModels
         private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
+
+            foreach (EmployeeViewModel employee in e.NewItems)
+            {
+                employee.EmployeeId = GenerateUniqueEmployeeId();
+            }
         }
 
         private void Jobs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
