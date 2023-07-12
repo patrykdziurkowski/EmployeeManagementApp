@@ -59,7 +59,7 @@ namespace BusinessLogic.Commands
                 DepartmentId = changedEmployee.DepartmentId
             };
 
-            _employeeRepository.Update((int)changedEmployee.EmployeeId, employeeToUpdate);
+            _employeeRepository.Update(employeeToUpdate);
             
             MoveEmployeeToTheirDepartment(changedEmployee);
         }

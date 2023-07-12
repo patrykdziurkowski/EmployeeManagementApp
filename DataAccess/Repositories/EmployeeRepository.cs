@@ -64,7 +64,7 @@ namespace DataAccess.Repositories
             return deletionResult;
         }
 
-        public async Task<Result> Update(int targetEmployeeId, Employee newEmployeeData)
+        public async Task<Result> Update(Employee newEmployeeData)
         {
             string hireDate = newEmployeeData.HireDate.Value.ToString("yyyy-MM-dd");
             string commissionPct = newEmployeeData.CommissionPct.ToString().Replace(",", ".");
@@ -76,7 +76,7 @@ namespace DataAccess.Repositories
                 $"'{newEmployeeData.FirstName}', last_name = '{newEmployeeData.LastName}', email = '{newEmployeeData.Email}', phone_number = " +
                 $"'{newEmployeeData.PhoneNumber}', hire_date = '{hireDate}', job_id = '{newEmployeeData.JobId}', salary = " +
                 $"{newEmployeeData.Salary}, commission_pct = {commissionPct}, manager_id = {managerId}, " +
-                $"department_id = {departmentId} WHERE employee_id = {targetEmployeeId}";
+                $"department_id = {departmentId} WHERE employee_id = {newEmployeeData.EmployeeId}";
             
             Result updateResult = await _dataAccess
                 .ExecuteSQLNonQueryAsync(nonQuery);

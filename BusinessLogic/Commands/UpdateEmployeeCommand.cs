@@ -75,7 +75,7 @@ namespace BusinessLogic.Commands
                 await CreateJobHistoryEntry(employeeToUpdate);
             }
 
-            Result updateResult = await _employeeRepository.Update(changedEmployee.EmployeeId.Value, employeeToUpdate);
+            Result updateResult = await _employeeRepository.Update(employeeToUpdate);
             _viewModel.IsLastCommandSuccessful = updateResult.IsSuccess;
             if (updateResult.IsFailed)
             {
