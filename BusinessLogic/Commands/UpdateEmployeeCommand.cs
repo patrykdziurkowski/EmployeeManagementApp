@@ -72,7 +72,11 @@ namespace BusinessLogic.Commands
 
             if (_viewModel.IsUpdatedEmployeeJobChanged)
             {
-                await CreateJobHistoryEntry(employeeToUpdate);
+                Result jobHistoryEntryCreationResult = await CreateJobHistoryEntry(employeeToUpdate);
+                if (jobHistoryEntryCreationResult.IsFailed)
+                {
+                    return;
+                }
             }
 
             Result updateResult = await _employeeRepository.Update(employeeToUpdate);
@@ -84,7 +88,7 @@ namespace BusinessLogic.Commands
         }
 
 
-        private async Task CreateJobHistoryEntry(Employee employeeToUpdate)
+        private async Task<Result> CreateJobHistoryEntry(Employee employeeToUpdate)
         {
             DateTime? previousJobStartDateTime = (await _jobHistoryRepository.GetAll())
                                 .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId)
@@ -107,7 +111,14 @@ namespace BusinessLogic.Commands
                 DepartmentId = employeeToUpdate.DepartmentId
             };
 
-            _jobHistoryRepository.Insert(jobHistoryEntry);
+            Result insertionResult = await _jobHistoryRepository.Insert(jobHistoryEntry);
+            if (insertionResult.IsFailed)
+            {
+                _viewModel.CommandFailMessage = insertionResult.Reasons.FirstOrDefault().Message;
+                _viewModel.IsLastCommandSuccessful = false;
+            }
+
+            return insertionResult;
         }
     }
 }
