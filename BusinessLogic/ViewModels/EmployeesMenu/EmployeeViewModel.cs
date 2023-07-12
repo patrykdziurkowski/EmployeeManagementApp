@@ -24,8 +24,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _firstName;
-        public string FirstName
+        private string? _firstName;
+        public string? FirstName
         {
             get
             {
@@ -69,8 +69,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _phoneNumber;
-        public string PhoneNumber
+        private string? _phoneNumber;
+        public string? PhoneNumber
         {
             get
             {
@@ -84,8 +84,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private DateOnly? _hireDate;
-        public DateOnly? HireDate
+        private DateOnly _hireDate;
+        public DateOnly HireDate
         {
             get
             {
@@ -159,8 +159,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private Int16? _departmentId;
-        public Int16? DepartmentId
+        private short? _departmentId;
+        public short? DepartmentId
         {
             get
             {

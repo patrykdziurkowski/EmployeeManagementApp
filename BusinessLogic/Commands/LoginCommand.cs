@@ -34,13 +34,13 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter = null)
         {
             _viewModel.IsLoginSuccessful = false;
             return _viewModel.AreCredentialsFilledOut;
         }
 
-        public async void Execute(object? parameter)
+        public async void Execute(object parameter = null)
         {
             _viewModel.LoginErrorMessages.Clear();
             _viewModel.IsLoginSuccessful = true;

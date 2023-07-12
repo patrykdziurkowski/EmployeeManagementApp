@@ -39,7 +39,7 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter = null)
         {
             _viewModel.NewEmployee = _viewModel.Employees.LastOrDefault();
 
@@ -54,7 +54,7 @@ namespace BusinessLogic.Commands
             return true;
         }
 
-        public async void Execute(object? parameter)
+        public async void Execute(object parameter = null)
         {
             Employee employeeToHire = new()
             {
@@ -63,7 +63,7 @@ namespace BusinessLogic.Commands
                 LastName = _viewModel.NewEmployee.LastName,
                 Email = _viewModel.NewEmployee.Email,
                 PhoneNumber = _viewModel.NewEmployee.PhoneNumber,
-                HireDate = _viewModel.NewEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
+                HireDate = _viewModel.NewEmployee.HireDate.ToDateTime(TimeOnly.MinValue),
                 JobId = _viewModel.NewEmployee.JobId,
                 Salary = _viewModel.NewEmployee.Salary,
                 CommissionPct = _viewModel.NewEmployee.CommissionPct,

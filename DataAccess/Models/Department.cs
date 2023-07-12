@@ -12,9 +12,9 @@ namespace DataAccess.Models
     /// </summary>
     public class Department
     {
-        public Int16 DepartmentId { get; set; }
+        public short DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public int? ManagerId { get; set; }
-        public Int16? LocationId { get; set; }
+        public short? LocationId { get; set; }
     }
 }

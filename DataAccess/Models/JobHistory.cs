@@ -16,6 +16,6 @@ namespace DataAccess.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string JobId { get; set; }
-        public Int16? DepartmentId { get; set; }
+        public short? DepartmentId { get; set; }
     }
 }

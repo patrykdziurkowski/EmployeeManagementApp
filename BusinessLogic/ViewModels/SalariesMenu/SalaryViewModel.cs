@@ -22,8 +22,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _firstName;
-        public string FirstName
+        private string? _firstName;
+        public string? FirstName
         {
             get
             {

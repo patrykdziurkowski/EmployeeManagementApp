@@ -35,12 +35,12 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter = null)
         {
             return true;
         }
 
-        public async void Execute(object? parameter)
+        public async void Execute(object parameter = null)
         {
             EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
 
@@ -51,7 +51,7 @@ namespace BusinessLogic.Commands
                 LastName = changedEmployee.LastName,
                 Email = changedEmployee.Email,
                 PhoneNumber = changedEmployee.PhoneNumber,
-                HireDate = changedEmployee.HireDate.Value.ToDateTime(TimeOnly.MinValue),
+                HireDate = changedEmployee.HireDate.ToDateTime(TimeOnly.MinValue),
                 JobId = changedEmployee.JobId,
                 Salary = changedEmployee.Salary,
                 CommissionPct = changedEmployee.CommissionPct,

@@ -28,12 +28,12 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter = null)
         {
             return true;
         }
 
-        public async void Execute(object? parameter)
+        public async void Execute(object parameter = null)
         {
             if (parameter is null)
             {

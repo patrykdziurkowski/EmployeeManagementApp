@@ -24,8 +24,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private Int16 _departmentId;
-        public Int16 DepartmentId
+        private short _departmentId;
+        public short DepartmentId
         {
             get
             {

@@ -76,7 +76,7 @@ namespace Presentation
             Grid targetDepartment = (Grid)sender;
             if (targetDepartment != null)
             {
-                Int16 targetDepartmentId = Convert.ToInt16(targetDepartment.Tag.ToString());
+                short targetDepartmentId = (short)targetDepartment.Tag;
 
                 EmployeeViewModel droppedEmployee = (EmployeeViewModel)e.Data.GetData(typeof(EmployeeViewModel));
 
