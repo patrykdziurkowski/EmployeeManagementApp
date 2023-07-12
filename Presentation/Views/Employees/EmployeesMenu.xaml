@@ -112,7 +112,7 @@
             <!-- Employees table -->
             <DataGrid Grid.Row="1" Name="EmployeesTable" SelectionUnit="Cell" DataGridCell.Selected="DataGridCell_Selected"  HeadersVisibility="Column" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" SortDirection="Ascending"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
                     <DataGridTextColumn Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=TwoWay}"/>
