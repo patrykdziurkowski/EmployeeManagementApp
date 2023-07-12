@@ -213,8 +213,7 @@ namespace BusinessLogic.ViewModels
 
         public async void EmployeeUpdated(object sender, PropertyChangedEventArgs e)
         {
-            EmployeeViewModel changedEmployee = (EmployeeViewModel) sender;
-            UpdatedEmployee = changedEmployee;
+            UpdatedEmployee = (EmployeeViewModel) sender;
 
             if (UpdateEmployeeCommand.CanExecute(null))
             {
