@@ -9,8 +9,8 @@ namespace BusinessLogic.ViewModels
         //  Fields and properties
         ////////////////////////////////////////////
 
-        private Int16? _departmentId;
-        public Int16? DepartmentId
+        private Int16 _departmentId;
+        public Int16 DepartmentId
         {
             get
             {
@@ -23,8 +23,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _departmentName;
 
+        private string _departmentName;
         public string DepartmentName
         {
             get
@@ -38,8 +38,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _stateProvince;
 
+        private string _stateProvince;
         public string StateProvince
         {
             get
@@ -53,8 +53,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _city;
 
+        private string _city;
         public string City
         {
             get
@@ -68,8 +68,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _streetAddress;
 
+        private string _streetAddress;
         public string StreetAddress
         {
             get
@@ -83,8 +83,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _regionName;
 
+        private string _regionName;
         public string RegionName
         {
             get
@@ -98,8 +98,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private string _countryName;
 
+        private string _countryName;
         public string CountryName
         {
             get

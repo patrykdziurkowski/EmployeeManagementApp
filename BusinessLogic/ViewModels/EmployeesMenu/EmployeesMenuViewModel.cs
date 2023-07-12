@@ -224,9 +224,9 @@ namespace BusinessLogic.ViewModels
 
         private int GenerateUniqueEmployeeId()
         {
-            IEnumerable<int?> employeeIds = Employees.Select(employee => employee.EmployeeId);
+            IEnumerable<int> employeeIds = Employees.Select(employee => employee.EmployeeId);
 
-            return (int)(employeeIds.Max() + 1);
+            return (employeeIds.Max() + 1);
         }
 
 

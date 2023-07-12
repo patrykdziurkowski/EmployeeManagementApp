@@ -14,6 +14,6 @@ namespace DataAccess.Models
     {
         public string CountryId { get; set; }
         public string CountryName { get; set; }
-        public decimal? RegionId { get; set; }
+        public int RegionId { get; set; }
     }
 }

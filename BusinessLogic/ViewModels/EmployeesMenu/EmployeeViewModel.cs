@@ -10,8 +10,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         private IDateProvider _dateProvider;
         
-        private int? _employeeId;
-        public int? EmployeeId {
+        private int _employeeId;
+        public int EmployeeId {
             get
             {
                 return _employeeId;

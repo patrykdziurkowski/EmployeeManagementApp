@@ -40,7 +40,7 @@ namespace DataAccess.Repositories
 
         public async Task<Result> Hire(Employee employee)
         {
-            string hireDate = employee.HireDate.Value.ToString("yyyy-MM-dd");
+            string hireDate = employee.HireDate.ToString("yyyy-MM-dd");
             string commissionPct = employee.CommissionPct.ToString().Replace(",", ".");
             commissionPct = (commissionPct == String.Empty) ? "null" : commissionPct;
             string managerId = (employee.ManagerId is null) ? "null" : employee.ManagerId.ToString();
@@ -66,7 +66,7 @@ namespace DataAccess.Repositories
 
         public async Task<Result> Update(Employee newEmployeeData)
         {
-            string hireDate = newEmployeeData.HireDate.Value.ToString("yyyy-MM-dd");
+            string hireDate = newEmployeeData.HireDate.ToString("yyyy-MM-dd");
             string commissionPct = newEmployeeData.CommissionPct.ToString().Replace(",", ".");
             commissionPct = (commissionPct == String.Empty) ? "null": commissionPct;
             string managerId = (newEmployeeData.ManagerId is null) ? "null" : newEmployeeData.ManagerId.ToString();

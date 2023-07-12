@@ -8,7 +8,7 @@ namespace DataAccess.Models
 {
     public class DepartmentLocation
     {
-        public Int16? DepartmentId { get; set; }
+        public Int16 DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public string StreetAddress { get; set; }
         public string City { get; set; }

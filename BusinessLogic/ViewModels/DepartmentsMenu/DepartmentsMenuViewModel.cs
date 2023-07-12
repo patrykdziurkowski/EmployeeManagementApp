@@ -97,7 +97,7 @@ namespace BusinessLogic.ViewModels
 
             foreach(DepartmentViewModel department in Departments)
             {
-                List<EmployeeViewModel> employeeDepartmentViewModels = (await _departmentRepository.GetEmployeesForDepartment((int)department.DepartmentId)).ToListOfEmployeeViewModel();
+                List<EmployeeViewModel> employeeDepartmentViewModels = (await _departmentRepository.GetEmployeesForDepartment(department.DepartmentId)).ToListOfEmployeeViewModel();
                 department.Employees = new ObservableCollection<EmployeeViewModel>(employeeDepartmentViewModels);
 
                 department.Employees.CollectionChanged += Employees_CollectionChanged;

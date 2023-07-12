@@ -12,9 +12,9 @@ namespace DataAccess.Models
     /// </summary>
     public class JobHistory
     {
-        public int? EmployeeId { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public int EmployeeId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string JobId { get; set; }
         public Int16? DepartmentId { get; set; }
     }

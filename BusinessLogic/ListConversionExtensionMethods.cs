@@ -18,7 +18,7 @@ namespace BusinessLogic
                     LastName = employee.LastName,
                     Email = employee.Email,
                     PhoneNumber = employee.PhoneNumber,
-                    HireDate = DateOnly.FromDateTime(employee.HireDate.Value),
+                    HireDate = DateOnly.FromDateTime(employee.HireDate),
                     JobId = employee.JobId,
                     Salary = employee.Salary,
                     CommissionPct = employee.CommissionPct,
@@ -81,8 +81,8 @@ namespace BusinessLogic
                 JobHistoryViewModel jobHistoryViewModel = new()
                 {
                     EmployeeId = jobHistory.EmployeeId,
-                    StartDate = DateOnly.FromDateTime(jobHistory.StartDate.Value),
-                    EndDate = DateOnly.FromDateTime(jobHistory.EndDate.Value),
+                    StartDate = DateOnly.FromDateTime(jobHistory.StartDate),
+                    EndDate = DateOnly.FromDateTime(jobHistory.EndDate),
                     JobId = jobHistory.JobId,
                     DepartmentId = jobHistory.DepartmentId
                 };

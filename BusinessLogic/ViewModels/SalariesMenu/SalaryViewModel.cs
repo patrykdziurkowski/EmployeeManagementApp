@@ -8,8 +8,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private int? _employeeId;
-        public int? EmployeeId
+        private int _employeeId;
+        public int EmployeeId
         {
             get
             {

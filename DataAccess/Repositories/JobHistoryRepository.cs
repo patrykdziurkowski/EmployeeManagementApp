@@ -29,8 +29,8 @@ namespace DataAccess.Repositories
 
         public async Task<Result> Insert(JobHistory jobHistory)
         {
-            string startDate = jobHistory.StartDate.Value.ToString("yyyy-MM-dd");
-            string endDate = jobHistory.EndDate.Value.ToString("yyyy-MM-dd");
+            string startDate = jobHistory.StartDate.ToString("yyyy-MM-dd");
+            string endDate = jobHistory.EndDate.ToString("yyyy-MM-dd");
             string nonQuery = $"INSERT INTO job_history VALUES ({jobHistory.EmployeeId}, '{startDate}'," +
                 $"'{endDate}', '{jobHistory.JobId}', {jobHistory.DepartmentId})";
 

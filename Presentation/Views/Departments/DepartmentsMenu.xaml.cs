@@ -76,7 +76,7 @@ namespace Presentation
             Grid targetDepartment = (Grid)sender;
             if (targetDepartment != null)
             {
-                double targetDepartmentId = Convert.ToDouble(targetDepartment.Tag.ToString());
+                Int16 targetDepartmentId = Convert.ToInt16(targetDepartment.Tag.ToString());
 
                 EmployeeViewModel droppedEmployee = (EmployeeViewModel)e.Data.GetData(typeof(EmployeeViewModel));
 
@@ -84,7 +84,7 @@ namespace Presentation
                 {
                     EmployeeViewModel employeeToUpdate = _viewModel.Employees
                         .FirstOrDefault(employee => employee.EmployeeId == droppedEmployee.EmployeeId);
-                    employeeToUpdate.DepartmentId = (short?)targetDepartmentId;
+                    employeeToUpdate.DepartmentId = targetDepartmentId;
 
                     DepartmentsTable.ItemsSource = _viewModel.Employees.OrderBy(employee => employee.DepartmentId);
                 }

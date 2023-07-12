@@ -97,7 +97,7 @@ namespace BusinessLogic.Commands
 
             if (previousJobStartDateTime is null)
             {
-                previousJobStartDateTime = employeeToUpdate.HireDate.Value;
+                previousJobStartDateTime = employeeToUpdate.HireDate;
             }
             DateOnly? previousJobStartDate = DateOnly.FromDateTime(previousJobStartDateTime.Value);
 
@@ -105,7 +105,7 @@ namespace BusinessLogic.Commands
             JobHistory jobHistoryEntry = new()
             {
                 EmployeeId = employeeToUpdate.EmployeeId,
-                StartDate = previousJobStartDateTime,
+                StartDate = (DateTime)previousJobStartDateTime,
                 EndDate = _dateProvider.GetNow().ToDateTime(TimeOnly.MinValue),
                 JobId = _viewModel.UpdatedEmployeePreviousJob.JobId,
                 DepartmentId = employeeToUpdate.DepartmentId
