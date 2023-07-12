@@ -74,7 +74,11 @@ namespace BusinessLogic.Commands
             }
 
             Result updateResult = await _employeeRepository.Update(changedEmployee.EmployeeId.Value, employeeToUpdate);
-            _viewModel.IsLastEmployeeUpdateSuccessful = updateResult.IsSuccess;
+            _viewModel.IsLastCommandSuccessful = updateResult.IsSuccess;
+            if (updateResult.IsFailed)
+            {
+                _viewModel.CommandFailMessage = updateResult.Reasons.FirstOrDefault().Message;
+            }
         }
 
 

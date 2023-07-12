@@ -65,12 +65,12 @@
                 </Border>
             </Grid>
 
-            <Grid Name="UpdateEmployeeFailedConfirmation" Background="#DDFFFFFF">
+            <Grid Name="EmployeeCommandFailedConfirmation" Background="#DDFFFFFF">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsLastUpdateFailAcknowledged}" Value="False">
+                            <DataTrigger Binding="{Binding IsLastCommandFailAcknowledged}" Value="False">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -89,9 +89,10 @@
 
                 <Border Grid.Column="1" Grid.Row="1" BorderBrush="#2B2E4A" BorderThickness="2" CornerRadius="15" Margin="0,20">
                     <Grid>
-                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Updating an employee failed."></Label>
+                        <TextBlock Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Operation failed!"></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding CommandFailMessage}"></TextBlock>
 
-                        <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 20" Content="Understood" Height="32" Width="76" Click="EmployeeUpdateFailCancel_Clicked"/>
+                        <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 20" Content="Understood" Height="32" Width="76" Click="EmployeeCommandFailCancel_Clicked"/>
                     </Grid>
                 </Border>
             </Grid>

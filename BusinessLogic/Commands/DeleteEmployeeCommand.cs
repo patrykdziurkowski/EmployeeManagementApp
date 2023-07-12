@@ -42,12 +42,18 @@ namespace BusinessLogic.Commands
             int employeeToDeleteId = (int)parameter;
 
             Result deletionResult = await _employeeRepository.Fire(employeeToDeleteId);
+            _viewModel.IsLastCommandSuccessful = deletionResult.IsSuccess;
+            
             if (deletionResult.IsSuccess)
             {
                 EmployeeViewModel employeeToRemove = _viewModel.Employees
                 .FirstOrDefault(employee => employee.EmployeeId == employeeToDeleteId);
                 
                 _viewModel.Employees.Remove(employeeToRemove);
+            }
+            else
+            {
+                _viewModel.CommandFailMessage = deletionResult.Reasons.FirstOrDefault().Message;
             }
         }
     }

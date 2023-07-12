@@ -76,9 +76,9 @@ namespace Presentation
             DeleteEmployeeConfirmation.Visibility = Visibility.Hidden;
         }
 
-        private void EmployeeUpdateFailCancel_Clicked(object sender, RoutedEventArgs e)
+        private void EmployeeCommandFailCancel_Clicked(object sender, RoutedEventArgs e)
         {
-            _viewModel.IsLastUpdateFailAcknowledged = true;
+            _viewModel.IsLastCommandFailAcknowledged = true;
 
             NavigationService.Refresh();
         }
