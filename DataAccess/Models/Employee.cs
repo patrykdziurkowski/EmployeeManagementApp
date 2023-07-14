@@ -21,7 +21,7 @@
         public string JobId { get; set; }
 #nullable enable
         public double? Salary { get; set; }
-        public Single? CommissionPct { get; set; }
+        public float? CommissionPct { get; set; }
         public int? ManagerId { get; set; }
         public short? DepartmentId { get; set; }
     }

@@ -129,8 +129,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private Single? _commissionPct;
-        public Single? CommissionPct
+        private float? _commissionPct;
+        public float? CommissionPct
         {
             get
             {
