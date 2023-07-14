@@ -21,13 +21,13 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task<IEnumerable<Employee>> GetAll()
+        public virtual async Task<IEnumerable<Employee>> GetAll()
         {
             return await _dataAccess
                 .ExecuteSQLQueryAsync<Employee>("SELECT * FROM employees");
         }
 
-        public async Task<Result<Employee>> Get(int employeeId)
+        public virtual async Task<Result<Employee>> Get(int employeeId)
         {
             string query = $"SELECT * FROM employees WHERE employee_id = {employeeId}";
 
@@ -70,7 +70,7 @@ namespace DataAccess.Repositories
             return insertionResult;
         }
 
-        public async Task<Result> Fire(int employeeId)
+        public virtual async Task<Result> Fire(int employeeId)
         {
             string nonQuery = $"DELETE FROM employees WHERE employee_id = {employeeId}";
             Result deletionResult = await _dataAccess
@@ -79,7 +79,7 @@ namespace DataAccess.Repositories
             return deletionResult;
         }
 
-        public async Task<Result> Update(Employee newEmployeeData)
+        public virtual async Task<Result> Update(Employee newEmployeeData)
         {
             string hireDate = newEmployeeData.HireDate.ToString("yyyy-MM-dd");
 
