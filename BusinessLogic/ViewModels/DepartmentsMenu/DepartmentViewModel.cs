@@ -35,7 +35,7 @@ namespace BusinessLogic.ViewModels
             set
             {
                 _departmentId = value;
-                OnPropertyChanged("DepartmentId");
+                OnPropertyChanged();
             }
         }
 
