@@ -75,6 +75,9 @@ namespace BusinessLogic.Commands
                 Result jobHistoryEntryCreationResult = await CreateJobHistoryEntry(employeeToUpdate);
                 if (jobHistoryEntryCreationResult.IsFailed)
                 {
+                    _viewModel.IsLastCommandSuccessful = false;
+                    _viewModel.CommandFailMessage = jobHistoryEntryCreationResult.Reasons.First().Message;
+
                     return;
                 }
             }
