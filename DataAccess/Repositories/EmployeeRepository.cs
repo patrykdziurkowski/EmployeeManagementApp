@@ -42,16 +42,16 @@ namespace DataAccess.Repositories
         {
             string hireDate = employee.HireDate.ToString("yyyy-MM-dd");
 
-            string? commissionPct = null;
+            string commissionPct = "null";
             if (employee.CommissionPct is not null)
             {
                 commissionPct = employee.CommissionPct.ToString()!.Replace(",", ".");
             }
 
-            string? managerId = null;
+            string managerId = "null";
             if (employee.ManagerId is not null)
             {
-                managerId = employee.ManagerId.ToString();
+                managerId = employee.ManagerId.ToString()!;
             }
 
 
@@ -79,22 +79,22 @@ namespace DataAccess.Repositories
         {
             string hireDate = newEmployeeData.HireDate.ToString("yyyy-MM-dd");
 
-            string? commissionPct = null;
+            string commissionPct = "null";
             if (newEmployeeData.CommissionPct is not null)
             {
                 commissionPct = newEmployeeData.CommissionPct.ToString()!.Replace(",", ".");
             }
 
-            string? managerId = null;
+            string managerId = "null";
             if (newEmployeeData.ManagerId is not null)
             {
-                managerId = newEmployeeData.ManagerId.ToString();
+                managerId = newEmployeeData.ManagerId.ToString()!;
             }
 
-            string? departmentId = null;
+            string departmentId = "null";
             if (newEmployeeData.DepartmentId is not null)
             {
-                departmentId = newEmployeeData.DepartmentId.ToString();
+                departmentId = newEmployeeData.DepartmentId.ToString()!;
             }
 
             string nonQuery = $"UPDATE employees SET employee_id = {newEmployeeData.EmployeeId}, first_name = " +
