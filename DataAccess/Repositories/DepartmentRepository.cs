@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using FluentResults;
 
 namespace DataAccess.Repositories
 {
@@ -30,15 +31,20 @@ namespace DataAccess.Repositories
                 .ExecuteSQLQueryAsync<Department>(query);
         }
 
-        public async Task<Department> Get(int departmentId)
+        public async Task<Result<Department>> Get(int departmentId)
         {
             string query = $"SELECT * FROM departments WHERE department_id = { departmentId}";
 
-            Department departmentWithGivenId = (await _dataAccess
+            Department? departmentWithGivenId = (await _dataAccess
                 .ExecuteSQLQueryAsync<Department>(query))
-                .First();
+                .FirstOrDefault();
 
-            return departmentWithGivenId;
+            if (departmentWithGivenId is null)
+            {
+                return Result.Fail($"No user with id {departmentId} was found");
+            }
+
+            return Result.Ok(departmentWithGivenId);
         }
 
         public async Task<IEnumerable<Employee>> GetEmployeesForDepartment(int departmentId)
