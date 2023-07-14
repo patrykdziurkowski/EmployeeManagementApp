@@ -56,7 +56,7 @@
                 <Label Grid.Row="0" Content="Manage Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="24" Foreground="#FF903749" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
                 <!-- Employees table -->
-                <DataGrid Grid.Row="1" Name="DepartmentsTable" AutoGenerateColumns="False" Margin="20" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
+                <DataGrid Grid.Row="1" Name="DepartmentsTable" Cursor="Hand" AutoGenerateColumns="False" Margin="20" ColumnWidth="*" SelectionMode="Extended" AllowDrop="True" PreviewMouseLeftButtonDown="SalariesTable_PreviewMouseLeftButtonDown" PreviewMouseMove="SalariesTable_PreviewMouseMove" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
                         <DataGridTextColumn Header="Name" Binding="{Binding FirstName}"/>
@@ -71,7 +71,7 @@
                     <ItemsControl Name="DepartmentsList">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Name="DepartmentsGrid" Margin="0 0 0 5">
+                                <Grid Name="DepartmentsGrid" Margin="0 0 0 5" Cursor="Hand">
                                     <Grid.RowDefinitions>
                                         <RowDefinition MinHeight="100"/>
                                     </Grid.RowDefinitions>
