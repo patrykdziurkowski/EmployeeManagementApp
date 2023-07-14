@@ -42,7 +42,7 @@ namespace DataAccess.Repositories
             return Result.Ok(employeeWithGivenId);
         }
 
-        public async Task<Result> Hire(Employee employee)
+        public virtual async Task<Result> Hire(Employee employee)
         {
             string hireDate = employee.HireDate.ToString("yyyy-MM-dd");
 

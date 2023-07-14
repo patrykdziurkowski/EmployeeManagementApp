@@ -3,7 +3,9 @@ using BusinessLogic.Commands;
 using BusinessLogic.Validators;
 using BusinessLogic.ViewModels;
 using DataAccess;
+using DataAccess.Models;
 using DataAccess.Repositories;
+using FluentResults;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
@@ -78,7 +80,6 @@ namespace Tests
         {
             //Arrange
             EmployeeViewModel invalidNewEmployee = new();
-
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
 
             //Act
@@ -86,6 +87,87 @@ namespace Tests
 
             //Assert
             Assert.False(canExecute);
+        }
+
+        [Fact]
+        public async Task CanExecute_GivenInvalidNewEmployee_SetsFailMessageAndFailureIndicator()
+        {
+            //Arrange
+            EmployeeViewModel invalidNewEmployee = new();
+            _mockViewModel.Object.Employees.Add(invalidNewEmployee);
+
+            _mockViewModel.Object.CommandFailMessage = null;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+
+            //Act
+            bool canExecute = _subject.CanExecute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
+        }
+
+        [Fact]
+        public async Task Execute_GivenSuccessfulDatabaseCreation_SetsSuccessIndicator()
+        {
+            //Arrange
+            EmployeeViewModel validNewEmployee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_CLERK"
+            };
+            _mockViewModel.Object.Employees.Add(validNewEmployee);
+            _mockViewModel.Object.CommandFailMessage = null;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+
+
+            _mockEmployeeRepository
+                .Setup(x => x.Hire(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Ok()));
+
+            //Act
+            _subject.CanExecute(null);
+            _subject.Execute(null);
+
+            //Assert
+            Assert.True(_mockViewModel.Object.IsLastCommandSuccessful);
+        }
+
+        [Fact]
+        public async Task Execute_GivenUnsuccessfulDatabaseCreation_SetsFailureIndicatorAndMessage()
+        {
+            //Arrange
+            EmployeeViewModel validNewEmployee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_CLERK"
+            };
+            _mockViewModel.Object.Employees.Add(validNewEmployee);
+            _mockViewModel.Object.CommandFailMessage = null;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+
+
+            _mockEmployeeRepository
+                .Setup(x => x.Hire(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Fail("")));
+
+            //Act
+            _subject.CanExecute(null);
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
         }
     }
 #pragma warning restore CS1998
