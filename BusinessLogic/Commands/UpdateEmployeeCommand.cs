@@ -90,26 +90,26 @@ namespace BusinessLogic.Commands
 
         private async Task<Result> CreateJobHistoryEntry(Employee employeeToUpdate)
         {
-            DateTime? previousJobStartDateTime = (await _jobHistoryRepository.GetAll())
-                                .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId)
-                                .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
-                                .Max();
+            IEnumerable<JobHistory> employeeToUpdatePastJobs = (await _jobHistoryRepository.GetAll())
+                                                                    .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId);
 
-            if (previousJobStartDateTime is null)
+            DateTime previousJobStartDateTime = employeeToUpdate.HireDate;
+            if (employeeToUpdatePastJobs.Any())
             {
-                previousJobStartDateTime = employeeToUpdate.HireDate;
+                previousJobStartDateTime = employeeToUpdatePastJobs
+                                                    .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
+                                                    .Max();
             }
-            DateOnly? previousJobStartDate = DateOnly.FromDateTime(previousJobStartDateTime.Value);
-
 
             JobHistory jobHistoryEntry = new()
             {
                 EmployeeId = employeeToUpdate.EmployeeId,
-                StartDate = (DateTime)previousJobStartDateTime,
+                StartDate = previousJobStartDateTime,
                 EndDate = _dateProvider.GetNow().ToDateTime(TimeOnly.MinValue),
                 JobId = _viewModel.UpdatedEmployeePreviousJob!.JobId,
                 DepartmentId = employeeToUpdate.DepartmentId
             };
+
 
             Result insertionResult = await _jobHistoryRepository.Insert(jobHistoryEntry);
             if (insertionResult.IsFailed)
