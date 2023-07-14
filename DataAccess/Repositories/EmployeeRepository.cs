@@ -27,15 +27,19 @@ namespace DataAccess.Repositories
                 .ExecuteSQLQueryAsync<Employee>("SELECT * FROM employees");
         }
 
-        public async Task<Employee> Get(int employeeId)
+        public async Task<Result<Employee>> Get(int employeeId)
         {
             string query = $"SELECT * FROM employees WHERE employee_id = {employeeId}";
 
-            Employee employeeWithGivenId = (await _dataAccess
+            Employee? employeeWithGivenId = (await _dataAccess
                 .ExecuteSQLQueryAsync<Employee>(query))
-                .First();
+                .FirstOrDefault();
+            if (employeeWithGivenId is null)
+            {
+                return Result.Fail($"No user with id {employeeId} was found");
+            }
 
-            return employeeWithGivenId;
+            return Result.Ok(employeeWithGivenId);
         }
 
         public async Task<Result> Hire(Employee employee)
