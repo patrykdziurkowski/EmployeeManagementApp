@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.ViewModels;
 using DataAccess.Models;
 using DataAccess.Repositories;
+using FluentResults;
 using FluentValidation;
 using FluentValidation.Results;
 using System;
@@ -60,7 +61,14 @@ namespace BusinessLogic.Commands
             };
 
 
-            await _employeeRepository.Update(employeeToUpdate);
+            Result updateResult = await _employeeRepository.Update(employeeToUpdate);
+            if (updateResult.IsFailed)
+            {
+                _viewModel.IsLastCommandSuccessful = false;
+                _viewModel.CommandFailMessage = updateResult.Errors.First().Message;
+
+                return;
+            }
             MoveEmployeeToTheirDepartment(changedEmployee);
         }
 

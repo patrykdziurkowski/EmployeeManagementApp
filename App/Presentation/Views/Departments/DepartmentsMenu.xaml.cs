@@ -40,6 +40,7 @@ namespace Presentation
 
             InitializeComponent();
             OverlayContentControl.Content = new LoadingUserControl();
+            DataContext = _viewModel;
         }
 
 
@@ -141,6 +142,13 @@ namespace Presentation
 
             UIElement parent = (UIElement)((Control)sender).Parent;
             parent?.RaiseEvent(eventArgs);
+        }
+
+        private void CommandFailCancel_Clicked(object sender, RoutedEventArgs e)
+        {
+            _viewModel.IsLastCommandFailAcknowledged = true;
+
+            NavigationService.Refresh();
         }
     }
 }

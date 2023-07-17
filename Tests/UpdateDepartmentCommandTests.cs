@@ -98,6 +98,108 @@ namespace Tests
             Assert.Contains(employee, nextDepartment.Employees);
             Assert.DoesNotContain(employee, previousDepartment.Employees);
         }
+
+        [Fact]
+        public async Task Execute_GivenUnsuccessfulDatabaseUpdate_DoesntMoveEmployeeBetweenDepartments()
+        {
+            //Arrange
+            short previousDepartmentId = 110;
+            short nextDepartmentId = 20;
+
+            DepartmentViewModel previousDepartment = new()
+            {
+                DepartmentId = previousDepartmentId
+            };
+            DepartmentViewModel nextDepartment = new()
+            {
+                DepartmentId = nextDepartmentId
+            };
+            _mockViewModel.Object.Departments.Add(previousDepartment);
+            _mockViewModel.Object.Departments.Add(nextDepartment);
+
+
+            EmployeeViewModel employee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_CLERK",
+                DepartmentId = previousDepartmentId
+            };
+
+            _mockViewModel.Object.Departments
+                .First(department => department.DepartmentId == 110)
+                .Employees.Add(employee);
+
+            _mockEmployeeRepository
+                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Fail("")));
+
+            //Act
+            employee.DepartmentId = nextDepartmentId;
+            _mockViewModel.Object.UpdatedEmployee = employee;
+
+            _subject.Execute(null);
+
+            //Assert
+            Assert.DoesNotContain(employee, nextDepartment.Employees);
+            Assert.Contains(employee, previousDepartment.Employees);
+        }
+
+        [Fact]
+        public async Task Execute_GivenUnsuccessfulDatabaseUpdate_SetsFailIndicatorAndMessage()
+        {
+            //Arrange
+            short previousDepartmentId = 110;
+            short nextDepartmentId = 20;
+
+            DepartmentViewModel previousDepartment = new()
+            {
+                DepartmentId = previousDepartmentId
+            };
+            DepartmentViewModel nextDepartment = new()
+            {
+                DepartmentId = nextDepartmentId
+            };
+            _mockViewModel.Object.Departments.Add(previousDepartment);
+            _mockViewModel.Object.Departments.Add(nextDepartment);
+
+
+            EmployeeViewModel employee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_CLERK",
+                DepartmentId = previousDepartmentId
+            };
+
+            _mockViewModel.Object.Departments
+                .First(department => department.DepartmentId == 110)
+                .Employees.Add(employee);
+
+            _mockEmployeeRepository
+                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Fail("")));
+
+            //Act
+            employee.DepartmentId = nextDepartmentId;
+            _mockViewModel.Object.UpdatedEmployee = employee;
+
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
+        }
+
+
     }
 #pragma warning restore CS1998
 }

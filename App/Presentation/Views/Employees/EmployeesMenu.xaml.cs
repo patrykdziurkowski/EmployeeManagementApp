@@ -97,6 +97,5 @@ namespace Presentation
                 table.BeginEdit(e);
             }
         }
-        
     }
 }

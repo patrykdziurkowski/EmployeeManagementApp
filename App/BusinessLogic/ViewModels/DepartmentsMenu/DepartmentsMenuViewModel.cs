@@ -49,6 +49,51 @@ namespace BusinessLogic.ViewModels
             }
         }
 
+        private bool _isLastCommandSuccessful;
+        public bool IsLastCommandSuccessful
+        {
+            get
+            {
+                return _isLastCommandSuccessful;
+            }
+
+            set
+            {
+                _isLastCommandSuccessful = value;
+                IsLastCommandFailAcknowledged = _isLastCommandSuccessful;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isLastCommandFailAcknowledged;
+        public bool IsLastCommandFailAcknowledged
+        {
+            get
+            {
+                return _isLastCommandFailAcknowledged;
+            }
+
+            set
+            {
+                _isLastCommandFailAcknowledged = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string? _commandFailMessage;
+        public string? CommandFailMessage
+        {
+            get
+            {
+                return _commandFailMessage;
+            }
+            set
+            {
+                _commandFailMessage = value;
+                OnPropertyChanged();
+            }
+        }
 
         private EmployeeViewModel? _updatedEmployee;
         public EmployeeViewModel? UpdatedEmployee
@@ -77,6 +122,8 @@ namespace BusinessLogic.ViewModels
 
             _departments = new ObservableCollection<DepartmentViewModel>();
             _employees = new ObservableCollection<EmployeeViewModel>();
+
+            IsLastCommandSuccessful = true;
 
             UpdateDepartmentCommand = new UpdateDepartmentCommand(this, _employeeRepository);
         }
