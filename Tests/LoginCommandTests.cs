@@ -3,9 +3,11 @@ using BusinessLogic.ViewModels;
 using DataAccess;
 using DataAccess.Repositories;
 using Moq;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -117,7 +119,52 @@ namespace Tests
         }
 
 
+        [Fact]
+        public async Task Execute_GivenSuccessfulLogin_ClearsErrorMessagesAndSetsLoginIndicatorToTrue()
+        {
+            //Arrange
 
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.True(_mockViewModel.Object.IsLoginSuccessful);
+            Assert.Empty(_mockViewModel.Object.LoginErrorMessages);
+        }
+
+        [Fact]
+        public async Task Execute_GivenUnsuccessfulLogin_SetsErrorMessagesAndLoginIndicatorToFalseAndClearsCredentials()
+        {
+            //Arrange
+            _mockEmployeeRepository
+                .Setup(x => x.GetAll())
+                .Callback(() =>
+                {
+                    ConstructorInfo? constructorInfo = typeof(OracleException).GetConstructor(
+                        BindingFlags.NonPublic | BindingFlags.Instance,
+                        null,
+                        new Type[] { typeof(int), typeof(string), typeof(string), typeof(string), typeof(int) },
+                        null);
+
+                    if (constructorInfo is null)
+                    {
+                        Assert.Fail("Given constructor for OracleException was not found!");
+                    }
+
+                    OracleException oracleException = (OracleException)constructorInfo
+                        .Invoke(new object[] { 1234, "", "", "", -1 });
+                    throw oracleException;
+                });
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLoginSuccessful);
+            Assert.NotEmpty(_mockViewModel.Object.LoginErrorMessages);
+            Assert.Null(_mockUserCredentials.Object.UserName);
+            Assert.Null(_mockUserCredentials.Object.Password);
+        }
     }
 #pragma warning restore CS1998
 }
