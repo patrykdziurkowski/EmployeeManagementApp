@@ -21,13 +21,13 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task<IEnumerable<JobHistory>> GetAll()
+        public virtual async Task<IEnumerable<JobHistory>> GetAll()
         {
             return await _dataAccess
                 .ExecuteSQLQueryAsync<JobHistory>("SELECT * FROM job_history");
         }
 
-        public async Task<Result> Insert(JobHistory jobHistory)
+        public virtual async Task<Result> Insert(JobHistory jobHistory)
         {
             string startDate = jobHistory.StartDate.ToString("yyyy-MM-dd");
             string endDate = jobHistory.EndDate.ToString("yyyy-MM-dd");

@@ -107,6 +107,143 @@ namespace Tests
             Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
         }
 
+        [Fact]
+        public async Task Execute_GivenSuccessfulDatabaseUpdateAndNoJobChange_SetsSuccessIndicator()
+        {
+            //Arrange
+            EmployeeViewModel validEmployee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_CLERK"
+            };
+            _mockViewModel.Object.UpdatedEmployee = validEmployee;
+            _mockViewModel.Object.IsLastCommandSuccessful = false;
+            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
+            {
+                JobId = validEmployee.JobId
+            };
+
+            _mockEmployeeRepository
+                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Ok()));
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.True(_mockViewModel.Object.IsLastCommandSuccessful);
+        }
+
+        [Fact]
+        public async Task Execute_GivenUnsuccessfulDatabaseUpdateAndNoJobChange_SetsFailureIndicatorAndMessage()
+        {
+            //Arrange
+            EmployeeViewModel validEmployee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_CLERK"
+            };
+            _mockViewModel.Object.UpdatedEmployee = validEmployee;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+            _mockViewModel.Object.CommandFailMessage = null;
+            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
+            {
+                JobId = validEmployee.JobId
+            };
+
+            _mockEmployeeRepository
+                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Fail("")));
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
+        }
+
+        [Fact]
+        public async Task Execute_GivenJobChangeAndSuccessfulDatabaseJobEntryCreation_SetsSuccessIndicator()
+        {
+            //Arrange
+            EmployeeViewModel validEmployee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_MGR"
+            };
+            _mockViewModel.Object.UpdatedEmployee = validEmployee;
+            _mockViewModel.Object.IsLastCommandSuccessful = false;
+            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
+            {
+                JobId = "ST_CLERK"
+            };
+
+            _mockEmployeeRepository
+                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Ok()));
+            _mockJobHistoryRepository
+                .Setup(x => x.Insert(It.IsAny<JobHistory>()))
+                .Returns(Task.FromResult(Result.Ok()));
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.True(_mockViewModel.Object.IsLastCommandSuccessful);
+        }
+
+        [Fact]
+        public async Task Execute_GivenJobChangeAndUnsuccessfulDatabaseJobEntryCreation_SetsFailMessageAndIndicator()
+        {
+            //Arrange
+            EmployeeViewModel validEmployee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_MGR"
+            };
+            _mockViewModel.Object.UpdatedEmployee = validEmployee;
+            _mockViewModel.Object.IsLastCommandSuccessful = false;
+            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
+            {
+                JobId = "ST_CLERK"
+            };
+
+            _mockEmployeeRepository
+                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Ok()));
+            _mockJobHistoryRepository
+                .Setup(x => x.Insert(It.IsAny<JobHistory>()))
+                .Returns(Task.FromResult(Result.Fail("")));
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
+        }
+
 
     }
 #pragma warning restore CS1998
