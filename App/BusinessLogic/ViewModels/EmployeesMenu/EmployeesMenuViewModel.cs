@@ -108,6 +108,20 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
+        
+        private bool _newEmployeeAlreadyExists;
+        public bool NewEmployeeAlreadyExists
+        {
+            get
+            {
+                return _newEmployeeAlreadyExists;
+            }
+            set
+            {
+                _newEmployeeAlreadyExists = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         private EmployeeViewModel? _employeeToFire;
@@ -173,6 +187,7 @@ namespace BusinessLogic.ViewModels
             _employees = new ObservableCollection<EmployeeViewModel>();
             _jobs = new ObservableCollection<string>();
 
+            NewEmployeeAlreadyExists = false;
             IsLastCommandSuccessful = true;
 
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);

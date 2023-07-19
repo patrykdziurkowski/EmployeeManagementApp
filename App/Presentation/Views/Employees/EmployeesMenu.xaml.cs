@@ -97,5 +97,33 @@ namespace Presentation
                 table.BeginEdit(e);
             }
         }
+
+        private void EmployeesTable_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            if (sender is not DataGrid)
+            {
+                return;
+            }
+            if (_viewModel.NewEmployeeAlreadyExists)
+            {
+                _viewModel.Employees.Remove((EmployeeViewModel)e.NewItem);
+            }
+
+            
+        }
+
+        private void EmployeesTable_InitializingNewItem(object sender, InitializingNewItemEventArgs e)
+        {
+            if (sender is not DataGrid)
+            {
+                return;
+            }
+            if (_viewModel.NewEmployeeAlreadyExists)
+            {
+                _viewModel.Employees.Remove((EmployeeViewModel)e.NewItem);
+                return;
+            }
+            _viewModel.NewEmployeeAlreadyExists = true;
+        }
     }
 }

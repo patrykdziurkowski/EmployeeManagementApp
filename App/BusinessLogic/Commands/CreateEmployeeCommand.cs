@@ -76,7 +76,9 @@ namespace BusinessLogic.Commands
             if (hireResult.IsFailed)
             {
                 _viewModel.CommandFailMessage = hireResult.Reasons.First().Message;
+                return;
             }
+            _viewModel.NewEmployeeAlreadyExists = false;
         }
     }
 }

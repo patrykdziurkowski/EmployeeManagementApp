@@ -111,7 +111,7 @@
             <Label Grid.Row="0" Content="Manage Employees" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
 
             <!-- Employees table -->
-            <DataGrid Grid.Row="1" Name="EmployeesTable" SelectionUnit="Cell" DataGridCell.Selected="DataGridCell_Selected"  HeadersVisibility="Column" AutoGenerateColumns="False">
+            <DataGrid Grid.Row="1" Name="EmployeesTable" SelectionUnit="Cell" DataGridCell.Selected="DataGridCell_Selected"  HeadersVisibility="Column" AutoGenerateColumns="False" AddingNewItem="EmployeesTable_AddingNewItem" InitializingNewItem="EmployeesTable_InitializingNewItem">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
