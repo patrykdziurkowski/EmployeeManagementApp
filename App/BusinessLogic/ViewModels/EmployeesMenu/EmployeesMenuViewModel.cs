@@ -201,6 +201,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public async Task InitializeDataAsync()
         {
+            NewEmployeeAlreadyExists = false;
+
             List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
             Employees = employees;
