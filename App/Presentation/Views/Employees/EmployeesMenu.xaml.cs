@@ -107,9 +107,7 @@ namespace Presentation
             if (_viewModel.NewEmployeeAlreadyExists)
             {
                 _viewModel.Employees.Remove((EmployeeViewModel)e.NewItem);
-            }
-
-            
+            }  
         }
 
         private void EmployeesTable_InitializingNewItem(object sender, InitializingNewItemEventArgs e)

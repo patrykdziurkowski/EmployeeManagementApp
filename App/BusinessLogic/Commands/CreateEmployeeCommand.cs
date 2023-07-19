@@ -73,6 +73,7 @@ namespace BusinessLogic.Commands
             Result hireResult = await _employeeRepository.HireAsync(employeeToHire);
 
             _viewModel.IsLastCommandSuccessful = hireResult.IsSuccess;
+            _viewModel.NewEmployee = null;
             if (hireResult.IsFailed)
             {
                 _viewModel.CommandFailMessage = hireResult.Reasons.First().Message;
