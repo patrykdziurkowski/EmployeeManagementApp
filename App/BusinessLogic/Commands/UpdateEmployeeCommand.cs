@@ -115,11 +115,6 @@ namespace BusinessLogic.Commands
 
 
             Result insertionResult = await _jobHistoryRepository.InsertAsync(jobHistoryEntry);
-            if (insertionResult.IsFailed)
-            {
-                _viewModel.CommandFailMessage = insertionResult.Reasons.First().Message;
-                _viewModel.IsLastCommandSuccessful = false;
-            }
 
             return insertionResult;
         }
