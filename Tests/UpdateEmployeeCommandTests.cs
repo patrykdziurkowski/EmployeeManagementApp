@@ -244,7 +244,54 @@ namespace Tests
             Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
         }
 
+        [Fact]
+        public async Task Execute_GivenTwoJobChangesInOneDay_SetsFailMessageAndIndicator()
+        {
+            //Arrange
+            EmployeeViewModel validEmployee = new()
+            {
+                EmployeeId = 100,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "JSMITH",
+                PhoneNumber = "111 111 1111",
+                HireDate = DateOnly.MaxValue,
+                JobId = "ST_MGR"
+            };
+            _mockViewModel.Object.UpdatedEmployee = validEmployee;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
+            {
+                JobId = "ST_CLERK"
+            };
 
+            IEnumerable<JobHistory> employeesPastJobs = new List<JobHistory>()
+            {
+                new JobHistory()
+                {
+                    EmployeeId = 100,
+                    StartDate = new DateTime(2006, 2, 13),
+                    EndDate = new DateTime(2008, 4, 27)
+                }
+            };
+            _mockDateProvider
+                .Setup(x => x.GetNow())
+                .Returns(new DateOnly(2008, 4, 27));
+            _mockEmployeeRepository
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Ok()));
+            _mockJobHistoryRepository
+                .Setup(x => x.GetAllAsync())
+                .Returns(Task.FromResult(employeesPastJobs));
+                
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
+        }
     }
 #pragma warning restore CS1998
 }

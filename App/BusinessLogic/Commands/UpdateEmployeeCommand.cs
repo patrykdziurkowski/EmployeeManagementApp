@@ -113,6 +113,10 @@ namespace BusinessLogic.Commands
                 DepartmentId = employeeToUpdate.DepartmentId
             };
 
+            if (jobHistoryEntry.StartDate.Date == jobHistoryEntry.EndDate.Date)
+            {
+                return Result.Fail("Cannot change an employee's job twice in one day");
+            }
 
             Result insertionResult = await _jobHistoryRepository.InsertAsync(jobHistoryEntry);
 
