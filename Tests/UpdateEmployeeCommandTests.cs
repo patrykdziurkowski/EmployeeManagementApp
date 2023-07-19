@@ -129,7 +129,7 @@ namespace Tests
             };
 
             _mockEmployeeRepository
-                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Ok()));
 
             //Act
@@ -162,7 +162,7 @@ namespace Tests
             };
 
             _mockEmployeeRepository
-                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Fail("")));
 
             //Act
@@ -195,10 +195,10 @@ namespace Tests
             };
 
             _mockEmployeeRepository
-                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Ok()));
             _mockJobHistoryRepository
-                .Setup(x => x.Insert(It.IsAny<JobHistory>()))
+                .Setup(x => x.InsertAsync(It.IsAny<JobHistory>()))
                 .Returns(Task.FromResult(Result.Ok()));
 
             //Act
@@ -230,10 +230,10 @@ namespace Tests
             };
 
             _mockEmployeeRepository
-                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Ok()));
             _mockJobHistoryRepository
-                .Setup(x => x.Insert(It.IsAny<JobHistory>()))
+                .Setup(x => x.InsertAsync(It.IsAny<JobHistory>()))
                 .Returns(Task.FromResult(Result.Fail("")));
 
             //Act

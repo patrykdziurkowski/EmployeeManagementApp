@@ -131,12 +131,12 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeData()
+        public async Task InitializeDataAsync()
         {
-            List<DepartmentViewModel> departmentViewModels = (await _departmentRepository.GetAll()).ToListOfDepartmentViewModel();
+            List<DepartmentViewModel> departmentViewModels = (await _departmentRepository.GetAllAsync()).ToListOfDepartmentViewModel();
             ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
 
-            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAll()).ToListOfEmployeeViewModel();
+            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
 
             Employees = employees;
@@ -144,7 +144,7 @@ namespace BusinessLogic.ViewModels
 
             foreach(DepartmentViewModel department in Departments)
             {
-                List<EmployeeViewModel> employeeDepartmentViewModels = (await _departmentRepository.GetEmployeesForDepartment(department.DepartmentId)).ToListOfEmployeeViewModel();
+                List<EmployeeViewModel> employeeDepartmentViewModels = (await _departmentRepository.GetEmployeesForDepartmentAsync(department.DepartmentId)).ToListOfEmployeeViewModel();
                 department.Employees = new ObservableCollection<EmployeeViewModel>(employeeDepartmentViewModels);
 
                 department.Employees.CollectionChanged += Employees_CollectionChanged;

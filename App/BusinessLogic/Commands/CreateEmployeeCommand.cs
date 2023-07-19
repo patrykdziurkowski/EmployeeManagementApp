@@ -70,7 +70,7 @@ namespace BusinessLogic.Commands
                 ManagerId = _viewModel.NewEmployee.ManagerId,
                 DepartmentId = _viewModel.NewEmployee.DepartmentId
             };
-            Result hireResult = await _employeeRepository.Hire(employeeToHire);
+            Result hireResult = await _employeeRepository.HireAsync(employeeToHire);
 
             _viewModel.IsLastCommandSuccessful = hireResult.IsSuccess;
             if (hireResult.IsFailed)

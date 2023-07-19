@@ -40,7 +40,7 @@ namespace Presentation
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             OverlayContentControl.Visibility = Visibility.Visible;
-            await Task.Run(() => _viewModel.InitializeData());
+            await Task.Run(() => _viewModel.InitializeDataAsync());
             OverlayContentControl.Visibility = Visibility.Hidden;
 
 

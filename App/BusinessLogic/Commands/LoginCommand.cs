@@ -47,7 +47,7 @@ namespace BusinessLogic.Commands
 
             try
             {
-                await _employeeRepository.GetAll();
+                await _employeeRepository.GetAllAsync();
             }
             catch (OracleException ex)
             {

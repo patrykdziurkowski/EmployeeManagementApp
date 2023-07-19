@@ -40,9 +40,9 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeData()
+        public async Task InitializeDataAsync()
         {
-            List<JobHistoryViewModel> jobHistoryViewModels = (await _jobHistoryRepository.GetAll()).ToListOfJobHistoryViewModel();
+            List<JobHistoryViewModel> jobHistoryViewModels = (await _jobHistoryRepository.GetAllAsync()).ToListOfJobHistoryViewModel();
             ObservableCollection<JobHistoryViewModel> jobHistory = new ObservableCollection<JobHistoryViewModel>(jobHistoryViewModels);
 
             JobHistory = jobHistory;

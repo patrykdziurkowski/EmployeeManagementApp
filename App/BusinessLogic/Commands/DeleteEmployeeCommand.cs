@@ -41,7 +41,7 @@ namespace BusinessLogic.Commands
             }
             int employeeToDeleteId = (int)parameter;
 
-            Result deletionResult = await _employeeRepository.Fire(employeeToDeleteId);
+            Result deletionResult = await _employeeRepository.FireAsync(employeeToDeleteId);
             _viewModel.IsLastCommandSuccessful = deletionResult.IsSuccess;
             
             if (deletionResult.IsSuccess)

@@ -47,9 +47,9 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeData()
+        public async Task InitializeDataAsync()
         {
-            List<SalaryViewModel> salaryViewModels = (await _employeeRepository.GetAll()).ToListOfSalaryViewModel();
+            List<SalaryViewModel> salaryViewModels = (await _employeeRepository.GetAllAsync()).ToListOfSalaryViewModel();
             ObservableCollection<SalaryViewModel> salaries = new ObservableCollection<SalaryViewModel>(salaryViewModels);
             _salaries = salaries;
             _salaries.CollectionChanged += Salaries_CollectionChanged;

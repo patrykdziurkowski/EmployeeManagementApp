@@ -85,7 +85,7 @@ namespace Tests
                 .Employees.Add(employee);
 
             _mockEmployeeRepository
-                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Ok()));
 
             //Act
@@ -135,7 +135,7 @@ namespace Tests
                 .Employees.Add(employee);
 
             _mockEmployeeRepository
-                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Fail("")));
 
             //Act
@@ -185,7 +185,7 @@ namespace Tests
                 .Employees.Add(employee);
 
             _mockEmployeeRepository
-                .Setup(x => x.Update(It.IsAny<Employee>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Fail("")));
 
             //Act

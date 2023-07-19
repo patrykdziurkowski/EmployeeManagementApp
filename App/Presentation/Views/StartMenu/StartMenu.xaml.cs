@@ -38,7 +38,7 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        private async Task LogInto()
+        private async Task LogIntoAsync()
         {
             OverlayContentControl.Visibility = Visibility.Visible;
             _viewModel.UserCredentials.Password = LoginPasswordBox.Password;
@@ -69,14 +69,14 @@ namespace Presentation
         }
         private async void LoginButton_Clicked(object sender, RoutedEventArgs e)
         {
-            await LogInto();
+            await LogIntoAsync();
         }
 
         private async void LoginPasswordBox_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
             {
-                await LogInto();
+                await LogIntoAsync();
             }
         }
 

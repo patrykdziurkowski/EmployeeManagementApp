@@ -13,7 +13,7 @@ namespace DataAccess
         /// </summary>
         /// <typeparam name="T">The type of database entity to be returned</typeparam>
         /// <returns>An instance of T object</returns>
-        public static async Task<T> ConvertToObject<T>(this OracleDataReader reader) where T : class, new()
+        public static async Task<T> ConvertToObjectAsync<T>(this OracleDataReader reader) where T : class, new()
         {
             T result = new();
 

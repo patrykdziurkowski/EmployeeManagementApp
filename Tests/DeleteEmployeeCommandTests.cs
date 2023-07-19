@@ -66,7 +66,7 @@ namespace Tests
             _mockViewModel.Object.Employees.Add(validNewEmployee);
 
             _mockEmployeeRepository
-                .Setup(x => x.Fire(employeeToDeleteId))
+                .Setup(x => x.FireAsync(employeeToDeleteId))
                 .Returns(Task.FromResult(Result.Ok()));
 
             //Act
@@ -95,7 +95,7 @@ namespace Tests
             _mockViewModel.Object.Employees.Add(validNewEmployee);
 
             _mockEmployeeRepository
-                .Setup(x => x.Fire(employeeToDeleteId))
+                .Setup(x => x.FireAsync(employeeToDeleteId))
                 .Returns(Task.FromResult(Result.Fail("")));
 
             //Act

@@ -72,7 +72,7 @@ namespace BusinessLogic.Commands
 
             if (_viewModel.IsUpdatedEmployeeJobChanged)
             {
-                Result jobHistoryEntryCreationResult = await CreateJobHistoryEntry(employeeToUpdate);
+                Result jobHistoryEntryCreationResult = await CreateJobHistoryEntryAsync(employeeToUpdate);
                 if (jobHistoryEntryCreationResult.IsFailed)
                 {
                     _viewModel.IsLastCommandSuccessful = false;
@@ -82,7 +82,7 @@ namespace BusinessLogic.Commands
                 }
             }
 
-            Result updateResult = await _employeeRepository.Update(employeeToUpdate);
+            Result updateResult = await _employeeRepository.UpdateAsync(employeeToUpdate);
             _viewModel.IsLastCommandSuccessful = updateResult.IsSuccess;
             if (updateResult.IsFailed)
             {
@@ -91,9 +91,9 @@ namespace BusinessLogic.Commands
         }
 
 
-        private async Task<Result> CreateJobHistoryEntry(Employee employeeToUpdate)
+        private async Task<Result> CreateJobHistoryEntryAsync(Employee employeeToUpdate)
         {
-            IEnumerable<JobHistory> employeeToUpdatePastJobs = (await _jobHistoryRepository.GetAll())
+            IEnumerable<JobHistory> employeeToUpdatePastJobs = (await _jobHistoryRepository.GetAllAsync())
                                                                     .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId);
 
             DateTime previousJobStartDateTime = employeeToUpdate.HireDate;
@@ -114,7 +114,7 @@ namespace BusinessLogic.Commands
             };
 
 
-            Result insertionResult = await _jobHistoryRepository.Insert(jobHistoryEntry);
+            Result insertionResult = await _jobHistoryRepository.InsertAsync(jobHistoryEntry);
             if (insertionResult.IsFailed)
             {
                 _viewModel.CommandFailMessage = insertionResult.Reasons.First().Message;

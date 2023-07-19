@@ -184,14 +184,14 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeData()
+        public async Task InitializeDataAsync()
         {
-            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAll()).ToListOfEmployeeViewModel();
+            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
             ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
             Employees = employees;
             Employees.CollectionChanged += Employees_CollectionChanged;
 
-            List<JobViewModel> jobViewModels = (await _jobRepository.GetAll()).ToListOfJobViewModel();
+            List<JobViewModel> jobViewModels = (await _jobRepository.GetAllAsync()).ToListOfJobViewModel();
             ObservableCollection<string> jobs = new ObservableCollection<string>(jobViewModels.Select(job => job.JobId));
             Jobs = jobs;
             Jobs.CollectionChanged += Jobs_CollectionChanged;
@@ -209,7 +209,7 @@ namespace BusinessLogic.ViewModels
             if (sender is not null)
             {
                 EmployeeViewModel employeeBeforeChange = (EmployeeViewModel)sender;
-                UpdatedEmployeePreviousJob = (await _jobRepository.GetAll())
+                UpdatedEmployeePreviousJob = (await _jobRepository.GetAllAsync())
                     .First(job => job.JobId == employeeBeforeChange.JobId);
             }
         }

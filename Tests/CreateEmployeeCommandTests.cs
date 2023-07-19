@@ -127,7 +127,7 @@ namespace Tests
 
 
             _mockEmployeeRepository
-                .Setup(x => x.Hire(It.IsAny<Employee>()))
+                .Setup(x => x.HireAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Ok()));
 
             //Act
@@ -158,7 +158,7 @@ namespace Tests
 
 
             _mockEmployeeRepository
-                .Setup(x => x.Hire(It.IsAny<Employee>()))
+                .Setup(x => x.HireAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Fail("")));
 
             //Act

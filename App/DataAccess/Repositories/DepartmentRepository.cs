@@ -23,7 +23,7 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task<IEnumerable<Department>> GetAll()
+        public async Task<IEnumerable<Department>> GetAllAsync()
         {
             string query = "SELECT * FROM departments";
 
@@ -31,7 +31,7 @@ namespace DataAccess.Repositories
                 .ExecuteSQLQueryAsync<Department>(query);
         }
 
-        public async Task<Result<Department>> Get(int departmentId)
+        public async Task<Result<Department>> GetAsync(int departmentId)
         {
             string query = $"SELECT * FROM departments WHERE department_id = { departmentId}";
 
@@ -47,7 +47,7 @@ namespace DataAccess.Repositories
             return Result.Ok(departmentWithGivenId);
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeesForDepartment(int departmentId)
+        public async Task<IEnumerable<Employee>> GetEmployeesForDepartmentAsync(int departmentId)
         {
             string query = $"SELECT * FROM employees WHERE department_id = {departmentId}";
             

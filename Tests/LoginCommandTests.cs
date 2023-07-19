@@ -137,7 +137,7 @@ namespace Tests
         {
             //Arrange
             _mockEmployeeRepository
-                .Setup(x => x.GetAll())
+                .Setup(x => x.GetAllAsync())
                 .Callback(() =>
                 {
                     ConstructorInfo? constructorInfo = typeof(OracleException).GetConstructor(

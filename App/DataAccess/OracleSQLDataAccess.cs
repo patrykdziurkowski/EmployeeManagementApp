@@ -40,7 +40,7 @@ namespace DataAccess
             OracleDataReader reader = (OracleDataReader) await command.ExecuteReaderAsync();
             while (reader.Read())
             {
-                result.Add(await reader.ConvertToObject<T>());
+                result.Add(await reader.ConvertToObjectAsync<T>());
             }
 
             Close();

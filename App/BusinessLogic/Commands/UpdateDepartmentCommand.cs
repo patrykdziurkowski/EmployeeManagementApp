@@ -61,7 +61,7 @@ namespace BusinessLogic.Commands
             };
 
 
-            Result updateResult = await _employeeRepository.Update(employeeToUpdate);
+            Result updateResult = await _employeeRepository.UpdateAsync(employeeToUpdate);
             if (updateResult.IsFailed)
             {
                 _viewModel.IsLastCommandSuccessful = false;
