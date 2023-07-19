@@ -45,9 +45,7 @@ namespace Presentation
 
 
             DataContext = _viewModel;
-            EmployeesTable.ItemsSource = _viewModel.Employees;
             JobsComboBox.ItemsSource = _viewModel.Jobs;
-
 
         }
 

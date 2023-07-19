@@ -111,7 +111,7 @@
             <Label Grid.Row="0" Content="Manage Employees" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="22" Height="46" Width="204" Foreground="#FF903749" FontWeight="Bold"/>
 
             <!-- Employees table -->
-            <DataGrid Grid.Row="1" Name="EmployeesTable" SelectionUnit="Cell" DataGridCell.Selected="DataGridCell_Selected"  HeadersVisibility="Column" AutoGenerateColumns="False" AddingNewItem="EmployeesTable_AddingNewItem" InitializingNewItem="EmployeesTable_InitializingNewItem">
+            <DataGrid Grid.Row="1" ItemsSource="{Binding Employees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="EmployeesTable" SelectionUnit="Cell" DataGridCell.Selected="DataGridCell_Selected"  HeadersVisibility="Column" AutoGenerateColumns="False" AddingNewItem="EmployeesTable_AddingNewItem" InitializingNewItem="EmployeesTable_InitializingNewItem">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
@@ -121,7 +121,7 @@
                     <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay}"/>
                     <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay}"/>
                     <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay}"/>
-                    <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId}"/>
+                    <DataGridComboBoxColumn Header="Job" x:Name="JobsComboBox" Width="80" SelectedItemBinding="{Binding JobId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="HireDate" Binding="{Binding HireDate, Mode=OneWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Commission (%)" Binding="{Binding CommissionPct, Mode=TwoWay}"/>
                     <!-- Delete button -->
