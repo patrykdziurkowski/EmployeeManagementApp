@@ -96,29 +96,29 @@ namespace BusinessLogic.Commands
             IEnumerable<JobHistory> employeeToUpdatePastJobs = (await _jobHistoryRepository.GetAllAsync())
                                                                     .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId);
 
-            DateTime previousJobStartDateTime = employeeToUpdate.HireDate;
+            DateTime previousJobStart = employeeToUpdate.HireDate;
             if (employeeToUpdatePastJobs.Any())
             {
-                previousJobStartDateTime = employeeToUpdatePastJobs
+                previousJobStart = employeeToUpdatePastJobs
                                                     .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
                                                     .Max();
             }
 
-            JobHistory jobHistoryEntry = new()
+            JobHistory previousJobEntry = new()
             {
                 EmployeeId = employeeToUpdate.EmployeeId,
-                StartDate = previousJobStartDateTime,
+                StartDate = previousJobStart,
                 EndDate = _dateProvider.GetNow().ToDateTime(TimeOnly.MinValue),
                 JobId = _viewModel.UpdatedEmployeePreviousJob!.JobId,
                 DepartmentId = employeeToUpdate.DepartmentId
             };
 
-            if (jobHistoryEntry.StartDate.Date == jobHistoryEntry.EndDate.Date)
+            if (previousJobEntry.StartDate.Date == previousJobEntry.EndDate.Date)
             {
                 return Result.Fail("Cannot change an employee's job twice in one day");
             }
 
-            Result insertionResult = await _jobHistoryRepository.InsertAsync(jobHistoryEntry);
+            Result insertionResult = await _jobHistoryRepository.InsertAsync(previousJobEntry);
 
             return insertionResult;
         }

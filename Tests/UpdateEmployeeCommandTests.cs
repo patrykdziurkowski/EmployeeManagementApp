@@ -255,7 +255,7 @@ namespace Tests
                 LastName = "Smith",
                 Email = "JSMITH",
                 PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
+                HireDate = new DateOnly(2006, 2, 13),
                 JobId = "ST_MGR"
             };
             _mockViewModel.Object.UpdatedEmployee = validEmployee;
@@ -269,8 +269,8 @@ namespace Tests
             {
                 new JobHistory()
                 {
-                    EmployeeId = 100,
-                    StartDate = new DateTime(2006, 2, 13),
+                    EmployeeId = validEmployee.EmployeeId,
+                    StartDate = validEmployee.HireDate.ToDateTime(TimeOnly.MinValue),
                     EndDate = new DateTime(2008, 4, 27)
                 }
             };
