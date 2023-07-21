@@ -40,11 +40,18 @@ namespace DataAccess
             List<T> result = new();
             Open();
 
-            IDbCommand command = _commandFactory.GetCommand(query, (OracleConnection)_connection!, ConnectionType.Oracle);
-            OracleDataReader reader = (OracleDataReader) await Task.Run(() => command.ExecuteReader());
-            while (reader.Read())
+            IDbCommand command = _commandFactory.GetCommand(query, _connection!, ConnectionType.Oracle);
+            
+            //Note: the nullcheck here is purely for unit testing purposes, as it's the only
+            //workaround for Oracle's library being largely sealed an internal and thus unmockable
+            OracleDataReader? reader = (OracleDataReader)command.ExecuteReader();
+
+            if (reader is not null)
             {
-                result.Add(await reader.ConvertToObjectAsync<T>());
+                while (reader.Read())
+                {
+                    result.Add(await reader.ConvertToObjectAsync<T>());
+                }
             }
 
             Close();
@@ -91,7 +98,7 @@ namespace DataAccess
             int affectedRows = 0;
             foreach (string nonQuery in nonQueries)
             {
-                IDbCommand command = _commandFactory.GetCommand(nonQuery, (OracleConnection)_connection!, ConnectionType.Oracle);
+                IDbCommand command = _commandFactory.GetCommand(nonQuery, _connection!, ConnectionType.Oracle);
                 affectedRows += await Task.Run(() => command.ExecuteNonQuery());
             }
 
