@@ -33,6 +33,7 @@ namespace Presentation
             services.AddSingleton<ConnectionStringProvider>();
             services.AddSingleton<ISQLDataAccess, OracleSQLDataAccess>();
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddSingleton<ICommandFactory, CommandFactory>();
 
             services.AddTransient<JobRepository>();
             services.AddTransient<EmployeeRepository>();

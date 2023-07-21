@@ -1,6 +1,7 @@
 ﻿using DataAccess.Interfaces;
 using FluentResults;
 using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace DataAccess
 {
@@ -11,15 +12,18 @@ namespace DataAccess
         //  Fields and properties
         ////////////////////////////////////////////
         private IConnectionFactory _connectionFactory;
+        private ICommandFactory _commandFactory;
         
-        private OracleConnection? _connection;
+        private IDbConnection? _connection;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public OracleSQLDataAccess(IConnectionFactory connectionFactory)
+        public OracleSQLDataAccess(IConnectionFactory connectionFactory,
+            ICommandFactory commandFactory)
         {
             _connectionFactory = connectionFactory;
+            _commandFactory = commandFactory;
         }
 
         ////////////////////////////////////////////
@@ -36,8 +40,8 @@ namespace DataAccess
             List<T> result = new();
             Open();
 
-            OracleCommand command = new(query, _connection);
-            OracleDataReader reader = (OracleDataReader) await command.ExecuteReaderAsync();
+            IDbCommand command = _commandFactory.GetCommand(query, (OracleConnection)_connection!, ConnectionType.Oracle);
+            OracleDataReader reader = (OracleDataReader) await Task.Run(() => command.ExecuteReader());
             while (reader.Read())
             {
                 result.Add(await reader.ConvertToObjectAsync<T>());
@@ -58,7 +62,7 @@ namespace DataAccess
         public async Task<Result> ExecuteSQLNonQueryAsync(string nonQueries)
         {
             Open();
-            OracleTransaction transaction = _connection!.BeginTransaction();
+            IDbTransaction transaction = _connection!.BeginTransaction();
 
             try
             {
@@ -87,8 +91,8 @@ namespace DataAccess
             int affectedRows = 0;
             foreach (string nonQuery in nonQueries)
             {
-                OracleCommand command = new(nonQuery, _connection);
-                affectedRows += await command.ExecuteNonQueryAsync();
+                IDbCommand command = _commandFactory.GetCommand(nonQuery, (OracleConnection)_connection!, ConnectionType.Oracle);
+                affectedRows += await Task.Run(() => command.ExecuteNonQuery());
             }
 
             return affectedRows;
@@ -96,7 +100,7 @@ namespace DataAccess
 
         private void Open()
         {
-            _connection = (OracleConnection)_connectionFactory.GetConnection(ConnectionType.Oracle);
+            _connection = _connectionFactory.GetConnection(ConnectionType.Oracle);
             _connection.Open();
         }
 
