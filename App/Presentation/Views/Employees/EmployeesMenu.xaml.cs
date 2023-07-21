@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ViewModels;
 using Presentation.Views;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,8 +46,6 @@ namespace Presentation
 
 
             DataContext = _viewModel;
-            JobsComboBox.ItemsSource = _viewModel.Jobs;
-
         }
 
         private void ReturnToPreviousPage_Clicked(object sender, RoutedEventArgs e)
@@ -120,6 +119,25 @@ namespace Presentation
                 return;
             }
             _viewModel.NewEmployeeAlreadyExists = true;
+        }
+
+        private void JobsComboBox_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            if (comboBox is null)
+            {
+                return;
+            }
+
+            if (comboBox.IsFocused)
+            {
+                comboBox.IsDropDownOpen = false;
+            }
+            else
+            {
+                comboBox.IsDropDownOpen = true;
+            }
+            
         }
     }
 }
