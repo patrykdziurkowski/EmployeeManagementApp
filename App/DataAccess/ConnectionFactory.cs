@@ -2,6 +2,7 @@
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace DataAccess
         }
 
 
-        public DbConnection GetConnection(ConnectionType connectionType)
+        public IDbConnection GetConnection(ConnectionType connectionType)
         {
             string connectionString = _connectionStringProvider.GetConnectionString();
             if (connectionType == ConnectionType.Oracle)

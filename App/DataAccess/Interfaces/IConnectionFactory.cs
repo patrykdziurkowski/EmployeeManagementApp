@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace DataAccess.Interfaces
 {
     public interface IConnectionFactory
     {
-        DbConnection GetConnection(ConnectionType connectionType);
+        IDbConnection GetConnection(ConnectionType connectionType);
     }
 }
