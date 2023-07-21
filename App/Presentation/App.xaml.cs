@@ -2,6 +2,7 @@
 using BusinessLogic.Validators;
 using BusinessLogic.ViewModels;
 using DataAccess;
+using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ namespace Presentation
             services.AddSingleton<UserCredentials>();
             services.AddSingleton<ConnectionStringProvider>();
             services.AddSingleton<ISQLDataAccess, OracleSQLDataAccess>();
+            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
 
             services.AddTransient<JobRepository>();
             services.AddTransient<EmployeeRepository>();

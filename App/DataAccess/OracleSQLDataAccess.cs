@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using DataAccess.Interfaces;
+using FluentResults;
 using Oracle.ManagedDataAccess.Client;
 
 namespace DataAccess
@@ -9,17 +10,16 @@ namespace DataAccess
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ConnectionStringProvider _connectionStringProvider;
+        private IConnectionFactory _connectionFactory;
         
-        private string? _connectionString;
         private OracleConnection? _connection;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public OracleSQLDataAccess(ConnectionStringProvider connectionStringProvider)
+        public OracleSQLDataAccess(IConnectionFactory connectionFactory)
         {
-            _connectionStringProvider = connectionStringProvider;
+            _connectionFactory = connectionFactory;
         }
 
         ////////////////////////////////////////////
@@ -96,8 +96,7 @@ namespace DataAccess
 
         private void Open()
         {
-            UpdateConnectionString();
-            _connection = new OracleConnection(_connectionString);
+            _connection = (OracleConnection)_connectionFactory.GetConnection(ConnectionType.Oracle);
             _connection.Open();
         }
 
@@ -105,11 +104,6 @@ namespace DataAccess
         {
             _connection!.Close();
             _connection.Dispose();
-        }
-
-        private void UpdateConnectionString()
-        {
-            _connectionString = _connectionStringProvider.GetConnectionString();
         }
     }
 }
