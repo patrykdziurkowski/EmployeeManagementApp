@@ -32,7 +32,7 @@ namespace DataAccess
                 return new OracleConnection(connectionString);
             }
 
-            throw new NotImplementedException($"Connection of type ${Enum.GetName(typeof(ConnectionType), connectionType)} is not implemented");
+            throw new NotImplementedException($"Connection of type ConnectionType.{Enum.GetName(typeof(ConnectionType), connectionType)} is not implemented");
         }
     }
 }
