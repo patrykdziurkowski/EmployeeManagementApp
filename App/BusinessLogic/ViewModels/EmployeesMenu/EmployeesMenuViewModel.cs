@@ -249,7 +249,12 @@ namespace BusinessLogic.ViewModels
         {
             IEnumerable<int> employeeIds = Employees.Select(employee => employee.EmployeeId);
 
-            return (employeeIds.Max() + 1);
+            if (employeeIds.Any())
+            {
+                return (employeeIds.Max() + 1);
+            }
+
+            return 1;
         }
 
 
