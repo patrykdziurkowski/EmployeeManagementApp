@@ -25,7 +25,7 @@ namespace Tests
 
         public LoginCommandTests()
         {
-            Mock<ISQLDataAccess> dataAccess = new();
+            Mock<ISqlDataAccess> dataAccess = new();
 
             _mockEmployeeRepository = new(dataAccess.Object);
             _mockUserCredentials = new();

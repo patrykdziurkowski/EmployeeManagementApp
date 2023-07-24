@@ -25,7 +25,7 @@ namespace Tests
 
         public UpdateDepartmentCommandTests()
         {
-            Mock<ISQLDataAccess> dataAccess = new();
+            Mock<ISqlDataAccess> dataAccess = new();
 
             _mockEmployeeRepository = new Mock<EmployeeRepository>(dataAccess.Object);
             _mockDepartmentRepository = new Mock<DepartmentRepository>(dataAccess.Object);

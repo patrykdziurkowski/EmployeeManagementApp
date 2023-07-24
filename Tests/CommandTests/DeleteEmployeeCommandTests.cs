@@ -32,7 +32,7 @@ namespace Tests
         {
             _employeeValidator = new();
 
-            Mock<ISQLDataAccess> mockDataAccess = new();
+            Mock<ISqlDataAccess> mockDataAccess = new();
             _mockJobHistoryRepository = new(mockDataAccess.Object);
             _mockJobRepository = new(mockDataAccess.Object);
             _mockEmployeeRepository = new(mockDataAccess.Object);

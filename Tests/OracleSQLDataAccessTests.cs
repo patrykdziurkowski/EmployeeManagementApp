@@ -16,9 +16,9 @@ using Xunit;
 namespace Tests
 {
 #pragma warning disable CS1998
-    public class OracleSQLDataAccessTests
+    public class OracleSqlDataAccessTests
     {
-        private OracleSQLDataAccess _subject;
+        private OracleSqlDataAccess _subject;
 
         private Mock<IConnectionFactory> _mockConnectionFactory;
         private Mock<ICommandFactory> _mockCommandFactory;
@@ -28,7 +28,7 @@ namespace Tests
 
         private Mock<IDbTransaction> _mockTransaction;
 
-        public OracleSQLDataAccessTests()
+        public OracleSqlDataAccessTests()
         {
             _mockConnection = new();
             _mockCommand = new();
@@ -56,12 +56,12 @@ namespace Tests
 
 
         [Fact]
-        public async Task ExecuteSQLQueryAsync_OpensClosesAndDisposesOfConnection()
+        public async Task ExecuteSqlQueryAsync_OpensClosesAndDisposesOfConnection()
         {
             //Arrange
 
             //Act
-            await _subject.ExecuteSQLQueryAsync<Employee>("");
+            await _subject.ExecuteSqlQueryAsync<Employee>("");
 
             //Assert
             _mockConnection
@@ -73,12 +73,12 @@ namespace Tests
         }
 
         [Fact]
-        public async Task ExecuteSQLNonQueryAsync_OpensClosesAndDisposesOfConnection()
+        public async Task ExecuteSqlNonQueryAsync_OpensClosesAndDisposesOfConnection()
         {
             //Arrange
 
             //Act
-            await _subject.ExecuteSQLNonQueryAsync("");
+            await _subject.ExecuteSqlNonQueryAsync("");
 
             //Assert
             _mockConnection
@@ -90,12 +90,12 @@ namespace Tests
         }
 
         [Fact]
-        public async Task ExecuteSQLNonQueryAsync_GivenNoExceptions_CommitsTransaction()
+        public async Task ExecuteSqlNonQueryAsync_GivenNoExceptions_CommitsTransaction()
         {
             //Arrange
 
             //Act
-            await _subject.ExecuteSQLNonQueryAsync("");
+            await _subject.ExecuteSqlNonQueryAsync("");
 
             //Assert
             _mockTransaction
@@ -103,7 +103,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task ExecuteSQLNonQueryAsync_GivenException_RollsbackTransaction()
+        public async Task ExecuteSqlNonQueryAsync_GivenException_RollsbackTransaction()
         {
             //Arrange
             _mockCommand
@@ -111,7 +111,7 @@ namespace Tests
                 .Throws<Exception>();
 
             //Act
-            await _subject.ExecuteSQLNonQueryAsync("");
+            await _subject.ExecuteSqlNonQueryAsync("");
 
             //Assert
             _mockTransaction
@@ -119,12 +119,12 @@ namespace Tests
         }
 
         [Fact]
-        public async Task ExecuteSQLNonQueryAsync_GivenMultipleCommands_ExecutesMultipleNonQueries()
+        public async Task ExecuteSqlNonQueryAsync_GivenMultipleCommands_ExecutesMultipleNonQueries()
         {
             //Arrange
 
             //Act
-            await _subject.ExecuteSQLNonQueryAsync("command1;command2;command3");
+            await _subject.ExecuteSqlNonQueryAsync("command1;command2;command3");
 
             //Assert
             _mockCommand

@@ -7,12 +7,12 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ISQLDataAccess _dataAccess;
+        private ISqlDataAccess _dataAccess;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public JobRepository(ISQLDataAccess dataAccess)
+        public JobRepository(ISqlDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
@@ -23,7 +23,7 @@ namespace DataAccess.Repositories
         public async Task<IEnumerable<Job>> GetAllAsync()
         {
             return await _dataAccess
-                .ExecuteSQLQueryAsync<Job>("SELECT * FROM jobs");
+                .ExecuteSqlQueryAsync<Job>("SELECT * FROM jobs");
         }
     }
 }

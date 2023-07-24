@@ -6,7 +6,7 @@ using System.Data;
 namespace DataAccess
 {
     //A class that abstracts Oracle's framework to simplify CRUD operations
-    public class OracleSQLDataAccess : ISQLDataAccess
+    public class OracleSqlDataAccess : ISqlDataAccess
     {
         ////////////////////////////////////////////
         //  Fields and properties
@@ -19,7 +19,7 @@ namespace DataAccess
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public OracleSQLDataAccess(IConnectionFactory connectionFactory,
+        public OracleSqlDataAccess(IConnectionFactory connectionFactory,
             ICommandFactory commandFactory)
         {
             _connectionFactory = connectionFactory;
@@ -35,7 +35,7 @@ namespace DataAccess
         /// <typeparam name="T">The type of database entity to be returned</typeparam>
         /// <param name="query">The query in string format</param>
         /// <returns>IEnumerable of given entity, can be empty.</returns>
-        public async Task<IEnumerable<T>> ExecuteSQLQueryAsync<T>(string query) where T : class, new()
+        public async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(string query) where T : class, new()
         {
             List<T> result = new();
             Open();
@@ -66,7 +66,7 @@ namespace DataAccess
         ///     Multiple queries can be used in a transaction by delimiting them with a semi-colon: ";"
         /// </param>
         /// <returns>Number of affected rows</returns>
-        public async Task<Result> ExecuteSQLNonQueryAsync(string nonQueries)
+        public async Task<Result> ExecuteSqlNonQueryAsync(string nonQueries)
         {
             Open();
             IDbTransaction transaction = _connection!.BeginTransaction();

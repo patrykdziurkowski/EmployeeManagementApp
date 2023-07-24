@@ -31,7 +31,7 @@ namespace Presentation
 
             services.AddSingleton<UserCredentials>();
             services.AddSingleton<ConnectionStringProvider>();
-            services.AddSingleton<ISQLDataAccess, OracleSQLDataAccess>();
+            services.AddSingleton<ISqlDataAccess, OracleSqlDataAccess>();
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
             services.AddSingleton<ICommandFactory, CommandFactory>();
 

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public interface ISQLDataAccess
+    public interface ISqlDataAccess
     {
-        Task<IEnumerable<T>> ExecuteSQLQueryAsync<T>(string query) where T : class, new();
-        Task<Result> ExecuteSQLNonQueryAsync(string nonQuery);
+        Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(string query) where T : class, new();
+        Task<Result> ExecuteSqlNonQueryAsync(string nonQuery);
     }
 }

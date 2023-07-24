@@ -8,12 +8,12 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ISQLDataAccess _dataAccess;
+        private ISqlDataAccess _dataAccess;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public EmployeeRepository(ISQLDataAccess dataAccess)
+        public EmployeeRepository(ISqlDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
         public virtual async Task<IEnumerable<Employee>> GetAllAsync()
         {
             return await _dataAccess
-                .ExecuteSQLQueryAsync<Employee>("SELECT * FROM employees");
+                .ExecuteSqlQueryAsync<Employee>("SELECT * FROM employees");
         }
 
         public virtual async Task<Result<Employee>> GetAsync(int employeeId)
@@ -32,7 +32,7 @@ namespace DataAccess.Repositories
             string query = $"SELECT * FROM employees WHERE employee_id = {employeeId}";
 
             Employee? employeeWithGivenId = (await _dataAccess
-                .ExecuteSQLQueryAsync<Employee>(query))
+                .ExecuteSqlQueryAsync<Employee>(query))
                 .FirstOrDefault();
             if (employeeWithGivenId is null)
             {
@@ -65,7 +65,7 @@ namespace DataAccess.Repositories
                 $"{employee.Salary}, {commissionPct}, {managerId}, {employee.DepartmentId})";
             
             Result insertionResult = await _dataAccess
-                .ExecuteSQLNonQueryAsync(nonQuery);
+                .ExecuteSqlNonQueryAsync(nonQuery);
 
             return insertionResult;
         }
@@ -74,7 +74,7 @@ namespace DataAccess.Repositories
         {
             string nonQuery = $"DELETE FROM employees WHERE employee_id = {employeeId}";
             Result deletionResult = await _dataAccess
-                .ExecuteSQLNonQueryAsync(nonQuery);
+                .ExecuteSqlNonQueryAsync(nonQuery);
 
             return deletionResult;
         }
@@ -108,7 +108,7 @@ namespace DataAccess.Repositories
                 $"department_id = {departmentId} WHERE employee_id = {newEmployeeData.EmployeeId}";
             
             Result updateResult = await _dataAccess
-                .ExecuteSQLNonQueryAsync(nonQuery);
+                .ExecuteSqlNonQueryAsync(nonQuery);
 
             return updateResult;
         }

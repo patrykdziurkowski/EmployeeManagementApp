@@ -8,12 +8,12 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ISQLDataAccess _dataAccess;
+        private ISqlDataAccess _dataAccess;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public JobHistoryRepository(ISQLDataAccess dataAccess)
+        public JobHistoryRepository(ISqlDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
         public virtual async Task<IEnumerable<JobHistory>> GetAllAsync()
         {
             return await _dataAccess
-                .ExecuteSQLQueryAsync<JobHistory>("SELECT * FROM job_history");
+                .ExecuteSqlQueryAsync<JobHistory>("SELECT * FROM job_history");
         }
 
         public virtual async Task<Result> InsertAsync(JobHistory jobHistory)
@@ -35,7 +35,7 @@ namespace DataAccess.Repositories
                 $"'{endDate}', '{jobHistory.JobId}', {jobHistory.DepartmentId})";
 
             Result insertionResult = await _dataAccess
-                .ExecuteSQLNonQueryAsync(nonQuery);
+                .ExecuteSqlNonQueryAsync(nonQuery);
 
             return insertionResult;
         }

@@ -8,13 +8,13 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ISQLDataAccess _dataAccess;
+        private ISqlDataAccess _dataAccess;
 
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentRepository(ISQLDataAccess dataAccess)
+        public DepartmentRepository(ISqlDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
@@ -28,7 +28,7 @@ namespace DataAccess.Repositories
             string query = "SELECT * FROM departments";
 
             return await _dataAccess
-                .ExecuteSQLQueryAsync<Department>(query);
+                .ExecuteSqlQueryAsync<Department>(query);
         }
 
         public async Task<Result<Department>> GetAsync(int departmentId)
@@ -36,7 +36,7 @@ namespace DataAccess.Repositories
             string query = $"SELECT * FROM departments WHERE department_id = { departmentId}";
 
             Department? departmentWithGivenId = (await _dataAccess
-                .ExecuteSQLQueryAsync<Department>(query))
+                .ExecuteSqlQueryAsync<Department>(query))
                 .FirstOrDefault();
 
             if (departmentWithGivenId is null)
@@ -52,7 +52,7 @@ namespace DataAccess.Repositories
             string query = $"SELECT * FROM employees WHERE department_id = {departmentId}";
             
             return await _dataAccess
-                .ExecuteSQLQueryAsync<Employee>(query);
+                .ExecuteSqlQueryAsync<Employee>(query);
         }
     }
 }
