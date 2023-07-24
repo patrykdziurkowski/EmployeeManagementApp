@@ -26,6 +26,7 @@ namespace Tests
         private Mock<IDateProvider> _mockDateProvider;
         private Mock<JobHistoryRepository> _mockJobHistoryRepository;
         private Mock<JobRepository> _mockJobRepository;
+        private Mock<DepartmentRepository> _mockDepartmentRepository;
         private Mock<EmployeeRepository> _mockEmployeeRepository;
         private Mock<EmployeesMenuViewModel> _mockViewModel;
 
@@ -36,11 +37,13 @@ namespace Tests
             Mock<ISqlDataAccess> mockDataAccess = new();
             _mockJobHistoryRepository = new(mockDataAccess.Object);
             _mockJobRepository = new(mockDataAccess.Object);
+            _mockDepartmentRepository = new(mockDataAccess.Object);
             _mockEmployeeRepository = new(mockDataAccess.Object);
 
             _mockDateProvider = new();
 
             _mockViewModel = new(_mockEmployeeRepository.Object,
+                                _mockDepartmentRepository.Object,
                                 _mockJobRepository.Object,
                                 _mockJobHistoryRepository.Object,
                                 _employeeValidator,
@@ -48,6 +51,7 @@ namespace Tests
 
             _subject = new(_mockViewModel.Object,
                 _mockEmployeeRepository.Object,
+                _mockDepartmentRepository.Object,
                 _employeeValidator,
                 _mockDateProvider.Object,
                 _mockJobHistoryRepository.Object);
@@ -292,6 +296,80 @@ namespace Tests
             Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
             Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
         }
+
+        [Fact]
+        public async Task Execute_GivenCommissionPctFromNonSalesDepartmentEmployee_SetsFailMessageAndIndicator()
+        {
+            //Arrange
+            IEnumerable<Department> departments = new List<Department>()
+            {
+                new Department()
+                {
+                    DepartmentId = 80,
+                    DepartmentName = "Sales"
+                }
+            };
+
+            EmployeeViewModel invalidEmployee = new()
+            {
+                EmployeeId = 100,
+                LastName = "Smith",
+                Email = "JSMITH",
+                JobId = "ST_MGR",
+                CommissionPct = 0.5f,
+                DepartmentId = 110
+            };
+            _mockViewModel.Object.UpdatedEmployee = invalidEmployee;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+
+            _mockDepartmentRepository
+                .Setup(x => x.GetAllAsync())
+                .Returns(Task.FromResult(departments));
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
+        }
+
+        [Fact]
+        public async Task Execute_GivenCommissionPctFromSalesDepartmentEmployee_SetsSuccessIndicator()
+        {
+            //Arrange
+            IEnumerable<Department> departments = new List<Department>()
+            {
+                new Department()
+                {
+                    DepartmentId = 80,
+                    DepartmentName = "Sales"
+                }
+            };
+
+            EmployeeViewModel validEmployee = new()
+            {
+                EmployeeId = 100,
+                LastName = "Smith",
+                Email = "JSMITH",
+                JobId = "ST_MGR",
+                CommissionPct = 0.5f,
+                DepartmentId = 80
+            };
+            _mockViewModel.Object.UpdatedEmployee = validEmployee;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+
+            _mockDepartmentRepository
+                .Setup(x => x.GetAllAsync())
+                .Returns(Task.FromResult(departments));
+
+            //Act
+            _subject.Execute(null);
+
+            //Assert
+            Assert.True(_mockViewModel.Object.IsLastCommandSuccessful);
+        }
+
     }
 #pragma warning restore CS1998
 }

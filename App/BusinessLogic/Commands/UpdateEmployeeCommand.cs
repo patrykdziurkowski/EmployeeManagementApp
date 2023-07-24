@@ -15,6 +15,7 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         private EmployeesMenuViewModel _viewModel;
         private EmployeeRepository _employeeRepository;
+        private DepartmentRepository _departmentRepository;
         private IValidator<EmployeeViewModel> _employeeValidator;
         private IDateProvider _dateProvider;
         private JobHistoryRepository _jobHistoryRepository;
@@ -26,12 +27,14 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         public UpdateEmployeeCommand(EmployeesMenuViewModel employeesMenuViewModel,
             EmployeeRepository employeeRepository,
+            DepartmentRepository departmentRepository,
             IValidator<EmployeeViewModel> employeeValidator,
             IDateProvider dateProvider,
             JobHistoryRepository jobHistoryRepository)
         {
             _viewModel = employeesMenuViewModel;
             _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
             _employeeValidator = employeeValidator;
             _dateProvider = dateProvider;
             _jobHistoryRepository = jobHistoryRepository;
@@ -54,7 +57,21 @@ namespace BusinessLogic.Commands
 
         public async void Execute(object? parameter)
         {
-            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee!;
+            if (_viewModel.UpdatedEmployee!.CommissionPct is not null)
+            {
+                IEnumerable<Department> departments = await _departmentRepository.GetAllAsync();
+                short salesDepartmentId = departments
+                                            .First(department => department.DepartmentName == "Sales")
+                                            .DepartmentId;
+                if (_viewModel.UpdatedEmployee.DepartmentId != salesDepartmentId)
+                {
+                    _viewModel.IsLastCommandSuccessful = false;
+                    _viewModel.CommandFailMessage = "Only an employee from the Sales department can have a commission percentage";
+                    return;
+                }
+            }
+
+            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
             Employee employeeToUpdate = new()
             {
                 EmployeeId = changedEmployee.EmployeeId,

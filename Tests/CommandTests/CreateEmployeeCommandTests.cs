@@ -28,6 +28,7 @@ namespace Tests
         private Mock<IDateProvider> _mockDateProvider;
         private Mock<JobHistoryRepository> _mockJobHistoryRepository;
         private Mock<JobRepository> _mockJobRepository;
+        private Mock<DepartmentRepository> _mockDepartmentRepository;
         private Mock<EmployeeRepository> _mockEmployeeRepository;
         private Mock<EmployeesMenuViewModel> _mockViewModel;
 
@@ -38,17 +39,19 @@ namespace Tests
             Mock<ISqlDataAccess> mockDataAccess = new();
             _mockJobHistoryRepository = new (mockDataAccess.Object);
             _mockJobRepository = new (mockDataAccess.Object);
+            _mockDepartmentRepository = new(mockDataAccess.Object);
             _mockEmployeeRepository = new (mockDataAccess.Object);
 
             _mockDateProvider = new();
 
             _mockViewModel = new(_mockEmployeeRepository.Object,
+                                _mockDepartmentRepository.Object,
                                 _mockJobRepository.Object,
                                 _mockJobHistoryRepository.Object,
                                 _employeeValidator,
                                 _mockDateProvider.Object);
 
-            _subject = new(_mockViewModel.Object, _mockEmployeeRepository.Object, _employeeValidator);
+            _subject = new(_mockViewModel.Object, _mockEmployeeRepository.Object, _mockDepartmentRepository.Object, _employeeValidator);
         }
 
         [Fact]
@@ -169,6 +172,94 @@ namespace Tests
             Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
             Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
         }
+
+        [Fact]
+        public async Task Execute_GivenCommissionPctFromNonSalesDepartmentEmployee_SetsFailureIndicatorAndMessage()
+        {
+            //Arrange
+            IEnumerable<Department> departments = new List<Department>()
+            {
+                new Department()
+                {
+                    DepartmentName = "Sales",
+                    DepartmentId = 80
+                }
+            };
+
+            EmployeeViewModel invalidNewEmployee = new()
+            {
+                EmployeeId = 100,
+                LastName = "Smith",
+                Email = "JSMITH",
+                JobId = "ST_CLERK",
+                DepartmentId = 110,
+                CommissionPct = 0.5f
+            };
+
+            _mockViewModel.Object.Employees.Add(invalidNewEmployee);
+            _mockViewModel.Object.CommandFailMessage = null;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+
+
+            _mockDepartmentRepository
+                .Setup(x => x.GetAllAsync())
+                .Returns(Task.FromResult(departments));
+            _mockEmployeeRepository
+                .Setup(x => x.HireAsync(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Ok()));
+
+            //Act
+            _subject.CanExecute(null);
+            _subject.Execute(null);
+
+            //Assert
+            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
+            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
+        }
+
+        [Fact]
+        public async Task Execute_GivenCommissionPctFromSalesDepartmentEmployee_SetsSuccessIndicator()
+        {
+            //Arrange
+            IEnumerable<Department> departments = new List<Department>()
+            {
+                new Department()
+                {
+                    DepartmentName = "Sales",
+                    DepartmentId = 80
+                }
+            };
+
+            EmployeeViewModel invalidNewEmployee = new()
+            {
+                EmployeeId = 100,
+                LastName = "Smith",
+                Email = "JSMITH",
+                JobId = "ST_CLERK",
+                DepartmentId = 80,
+                CommissionPct = 0.5f
+            };
+
+            _mockViewModel.Object.Employees.Add(invalidNewEmployee);
+            _mockViewModel.Object.CommandFailMessage = null;
+            _mockViewModel.Object.IsLastCommandSuccessful = true;
+
+
+            _mockDepartmentRepository
+                .Setup(x => x.GetAllAsync())
+                .Returns(Task.FromResult(departments));
+            _mockEmployeeRepository
+                .Setup(x => x.HireAsync(It.IsAny<Employee>()))
+                .Returns(Task.FromResult(Result.Ok()));
+
+            //Act
+            _subject.CanExecute(null);
+            _subject.Execute(null);
+
+            //Assert
+            Assert.True(_mockViewModel.Object.IsLastCommandSuccessful);
+        }
+
     }
 #pragma warning restore CS1998
 }

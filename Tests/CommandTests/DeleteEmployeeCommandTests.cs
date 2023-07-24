@@ -25,6 +25,7 @@ namespace Tests
         private Mock<IDateProvider> _mockDateProvider;
         private Mock<JobHistoryRepository> _mockJobHistoryRepository;
         private Mock<JobRepository> _mockJobRepository;
+        private Mock<DepartmentRepository> _mockDepartmentRepository;
         private Mock<EmployeeRepository> _mockEmployeeRepository;
         private Mock<EmployeesMenuViewModel> _mockViewModel;
 
@@ -35,11 +36,13 @@ namespace Tests
             Mock<ISqlDataAccess> mockDataAccess = new();
             _mockJobHistoryRepository = new(mockDataAccess.Object);
             _mockJobRepository = new(mockDataAccess.Object);
+            _mockDepartmentRepository = new(mockDataAccess.Object);
             _mockEmployeeRepository = new(mockDataAccess.Object);
 
             _mockDateProvider = new();
 
             _mockViewModel = new(_mockEmployeeRepository.Object,
+                                _mockDepartmentRepository.Object,
                                 _mockJobRepository.Object,
                                 _mockJobHistoryRepository.Object,
                                 _employeeValidator,

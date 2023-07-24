@@ -18,6 +18,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
         private JobRepository _jobRepository;
+        private DepartmentRepository _departmentRepository;
 
 
         private bool _isLastCommandSuccessful;
@@ -176,12 +177,14 @@ namespace BusinessLogic.ViewModels
         //  Constructors
         ////////////////////////////////////////////
         public EmployeesMenuViewModel(EmployeeRepository employeeRepository,
+            DepartmentRepository departmentRepository,
             JobRepository jobRepository,
             JobHistoryRepository jobHistoryRepository,
             IValidator<EmployeeViewModel> employeeValidator,
             IDateProvider dateProvider)
         {
             _jobRepository = jobRepository;
+            _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
 
             _employees = new ObservableCollection<EmployeeViewModel>();
@@ -191,8 +194,8 @@ namespace BusinessLogic.ViewModels
             IsLastCommandSuccessful = true;
 
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
-            CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, employeeValidator);
-            UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, employeeValidator, dateProvider, jobHistoryRepository);
+            CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, _departmentRepository, employeeValidator);
+            UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, _departmentRepository, employeeValidator, dateProvider, jobHistoryRepository);
         }
 
 

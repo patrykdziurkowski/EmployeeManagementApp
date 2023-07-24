@@ -7,8 +7,6 @@ namespace BusinessLogic.Validators
     {
         public EmployeeValidator()
         {
-            int salesDepartmentId = 80;
-
             RuleFor(x => x.EmployeeId)
                 .NotEmpty()
                 .GreaterThanOrEqualTo(0);
@@ -39,9 +37,8 @@ namespace BusinessLogic.Validators
                 .Unless(x => x.Salary is null);
 
             RuleFor(x => x.CommissionPct)
-                .Null()
-                .Unless(x => x.DepartmentId == salesDepartmentId)
-                .GreaterThan(0);
+                .GreaterThan(0)
+                .Unless(x => x.CommissionPct is null);
 
             RuleFor(x => x.ManagerId)
                 .GreaterThan(0)

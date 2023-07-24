@@ -296,36 +296,6 @@ namespace Tests
         }
 
         [Fact]
-        public async Task Validator_GivenCommissionPctWhileNotInSalesDepartment_Fails()
-        {
-            //Arrange
-            short notSalesDepartmentId = 110;
-
-            EmployeeViewModel employee = new()
-            {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
-                CommissionPct = 0.5f,
-                DepartmentId = notSalesDepartmentId
-            };
-
-            //Act
-            ValidationResult result = _subject.Validate(employee);
-
-            //Assert
-            if (result.IsValid)
-            {
-                Assert.Fail("Employee validation should not have passed");
-            }
-            else
-            {
-                Assert.True(true);
-            }
-        }
-
-        [Fact]
         public async Task Validator_GivenNegativeCommissionPctWhileInSalesDepartment_Fails()
         {
             //Arrange
