@@ -48,7 +48,7 @@ namespace BusinessLogic.Validators
                 .Unless(x => x.ManagerId is null);
 
             RuleFor(x => x.DepartmentId)
-                .GreaterThan((short)1)
+                .GreaterThan((short)0)
                 .When(x => x.DepartmentId.HasValue);
 
         }
