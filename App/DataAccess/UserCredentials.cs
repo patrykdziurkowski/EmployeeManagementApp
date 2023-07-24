@@ -16,5 +16,15 @@ namespace DataAccess
             UserName = null;
             Password = null;
         }
+
+        public bool AreFilledOut()
+        {
+            return UserName is not null && Password is not null;
+        }
+
+        public bool AreNotFilledOut()
+        {
+            return !AreFilledOut();
+        }
     }
 }

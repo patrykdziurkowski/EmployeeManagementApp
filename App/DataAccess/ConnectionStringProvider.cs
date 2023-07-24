@@ -41,6 +41,11 @@ namespace DataAccess
         ////////////////////////////////////////////
         public string GetConnectionString()
         {
+            if (_userCredentials.AreNotFilledOut())
+            {
+                throw new InvalidOperationException("Cannot provide a connection string before the user is authenticated");
+            }
+
             return $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={_host})(PORT={_port})))  (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {_sid}))); User Id = {_userCredentials.UserName};Password = {_userCredentials.Password}";
         }
     }
