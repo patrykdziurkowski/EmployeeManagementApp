@@ -25,7 +25,7 @@ namespace DataAccess
             string? port = ConfigurationManager.AppSettings["port"];
             string? sid = ConfigurationManager.AppSettings["sid"];
 
-            if (host is null || port is null || sid is null)
+            if (string.IsNullOrEmpty(host) || string.IsNullOrEmpty(port) || string.IsNullOrEmpty(sid))
             {
                 throw new ConfigurationErrorsException("Application's host, post and sid must all be configured");
             }
