@@ -21,9 +21,18 @@ namespace DataAccess
         {
             _userCredentials = userCredentials;
 
-            _host = ConfigurationManager.AppSettings["host"]!.ToString();
-            _port = ConfigurationManager.AppSettings["port"]!.ToString();
-            _sid = ConfigurationManager.AppSettings["sid"]!.ToString();
+            string? host = ConfigurationManager.AppSettings["host"];
+            string? port = ConfigurationManager.AppSettings["port"];
+            string? sid = ConfigurationManager.AppSettings["sid"];
+
+            if (host is null || port is null || sid is null)
+            {
+                throw new ConfigurationErrorsException("Application's host, post and sid must all be configured");
+            }
+
+            _host = host;
+            _port = port;
+            _sid = sid;
         }
 
 
