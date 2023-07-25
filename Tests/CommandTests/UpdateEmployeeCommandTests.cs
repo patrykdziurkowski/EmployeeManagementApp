@@ -61,16 +61,12 @@ namespace Tests
         public async Task CanExecute_GivenValidEmployee_ReturnsTrue()
         {
             //Arrange
-            EmployeeDto validEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.UpdatedEmployee = validEmployee;
 
             //Act
@@ -84,7 +80,12 @@ namespace Tests
         public async Task CanExecute_GivenInvalidEmployee_ReturnsFalse()
         {
             //Arrange
-            EmployeeDto invalidEmployee = new();
+            EmployeeDto invalidEmployee = new(
+                -1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.UpdatedEmployee = invalidEmployee;
 
             //Act
@@ -98,7 +99,11 @@ namespace Tests
         public async Task CanExecute_GivenInvalidEmployee_SetsFailMessageAndIndicator()
         {
             //Arrange
-            EmployeeDto invalidEmployee = new();
+            EmployeeDto invalidEmployee = new(
+                -1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
             _mockViewModel.Object.UpdatedEmployee = invalidEmployee;
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
@@ -115,16 +120,12 @@ namespace Tests
         public async Task Execute_GivenSuccessfulDatabaseUpdateAndNoJobChange_SetsSuccessIndicator()
         {
             //Arrange
-            EmployeeDto validEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.UpdatedEmployee = validEmployee;
             _mockViewModel.Object.IsLastCommandSuccessful = false;
             _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
@@ -147,16 +148,12 @@ namespace Tests
         public async Task Execute_GivenUnsuccessfulDatabaseUpdateAndNoJobChange_SetsFailureIndicatorAndMessage()
         {
             //Arrange
-            EmployeeDto validEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.UpdatedEmployee = validEmployee;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
             _mockViewModel.Object.CommandFailMessage = null;
@@ -181,16 +178,12 @@ namespace Tests
         public async Task Execute_GivenJobChangeAndSuccessfulDatabaseJobEntryCreation_SetsSuccessIndicator()
         {
             //Arrange
-            EmployeeDto validEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_MGR"
-            };
+            EmployeeDto validEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_MGR");
+
             _mockViewModel.Object.UpdatedEmployee = validEmployee;
             _mockViewModel.Object.IsLastCommandSuccessful = false;
             _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
@@ -216,16 +209,12 @@ namespace Tests
         public async Task Execute_GivenJobChangeAndUnsuccessfulDatabaseJobEntryCreation_SetsFailMessageAndIndicator()
         {
             //Arrange
-            EmployeeDto validEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_MGR"
-            };
+            EmployeeDto validEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_MGR");
+
             _mockViewModel.Object.UpdatedEmployee = validEmployee;
             _mockViewModel.Object.IsLastCommandSuccessful = false;
             _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
@@ -252,16 +241,12 @@ namespace Tests
         public async Task Execute_GivenTwoJobChangesInOneDay_SetsFailMessageAndIndicator()
         {
             //Arrange
-            EmployeeDto validEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = new DateOnly(2006, 2, 13),
-                JobId = "ST_MGR"
-            };
+            EmployeeDto validEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_MGR");
+
             _mockViewModel.Object.UpdatedEmployee = validEmployee;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
             _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
@@ -310,12 +295,12 @@ namespace Tests
                 }
             };
 
-            EmployeeDto invalidEmployee = new()
+            EmployeeDto invalidEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 100,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_MGR",
                 CommissionPct = 0.5f,
                 DepartmentId = 110
             };
@@ -347,12 +332,12 @@ namespace Tests
                 }
             };
 
-            EmployeeDto validEmployee = new()
+            EmployeeDto validEmployee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 100,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_MGR",
                 CommissionPct = 0.5f,
                 DepartmentId = 80
             };

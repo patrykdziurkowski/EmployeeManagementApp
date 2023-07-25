@@ -8,7 +8,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-#nullable disable
+
         private short _departmentId;
         public short DepartmentId
         {
@@ -23,7 +23,6 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-
         private string _departmentName;
         public string DepartmentName
         {
@@ -37,7 +36,6 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
 
         private string? _stateProvince;
         public string? StateProvince
@@ -53,7 +51,6 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-#nullable disable
         private string _city;
         public string City
         {
@@ -67,7 +64,6 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
 
         private string? _streetAddress;
         public string? StreetAddress
@@ -83,7 +79,6 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-
         private string? _regionName;
         public string? RegionName
         {
@@ -97,7 +92,6 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         private string? _countryName;
         public string? CountryName
@@ -116,9 +110,14 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentLocationDto()
+        public DepartmentLocationDto(
+            short departmentId,
+            string departmentName,
+            string city)
         {
-
+            _departmentId = departmentId;
+            _departmentName = departmentName;
+            _city = city;
         }
 
         ////////////////////////////////////////////

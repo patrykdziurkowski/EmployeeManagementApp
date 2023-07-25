@@ -24,7 +24,6 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-#nullable disable
         private short _departmentId;
         public short DepartmentId
         {
@@ -51,7 +50,7 @@ namespace BusinessLogic.ViewModels
                 _departmentName = value;
             }
         }
-#nullable enable
+
         private int? _managerId;
         public int? ManagerId
         {
@@ -84,8 +83,13 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentDto()
+        public DepartmentDto(
+            short departmentId,
+            string departmentName)
         {
+            _departmentId = departmentId;
+            _departmentName = departmentName;
+
             _employees = new ObservableCollection<EmployeeDto>();
         }
 

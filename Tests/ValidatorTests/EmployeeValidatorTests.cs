@@ -25,13 +25,11 @@ namespace Tests
         public async Task Validator_GivenValidEmployee_Succeeds()
         {
             //Arrange
-            EmployeeDto employee = new()
-            {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
 
             //Act
             ValidationResult result = _subject.Validate(employee);
@@ -61,13 +59,11 @@ namespace Tests
 
         {
             //Arrange
-            EmployeeDto employee = new()
-            {
-                EmployeeId = employeeId,
-                LastName = lastName,
-                Email = email,
-                JobId = jobId
-            };
+            EmployeeDto employee = new(
+                employeeId,
+                lastName,
+                email,
+                jobId);
 
             //Act
             ValidationResult result = _subject.Validate(employee);
@@ -87,13 +83,11 @@ namespace Tests
         public async Task Validator_GivenNegativeEmployeeId_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
-            {
-                EmployeeId = -1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto employee = new(
+                -1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
 
             //Act
             ValidationResult result = _subject.Validate(employee);
@@ -113,13 +107,13 @@ namespace Tests
         public async Task Validator_GivenTooLongFirstName_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                FirstName = "012345678901234567890",
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK"
+                FirstName = "012345678901234567890"
             };
 
             //Act
@@ -140,13 +134,11 @@ namespace Tests
         public async Task Validator_GivenTooLongLastName_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
-            {
-                EmployeeId = 1,
-                LastName = "01234567890123456789012345",
-                Email = "JSMITH",
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto employee = new(
+                1,
+                "01234567890123456789012345",
+                "JSMITH",
+                "ST_CLERK");
 
             //Act
             ValidationResult result = _subject.Validate(employee);
@@ -166,13 +158,11 @@ namespace Tests
         public async Task Validator_GivenTooLongEmail_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
-            {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "01234567890123456789012345",
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "01234567890123456789012345",
+                "ST_CLERK");
 
             //Act
             ValidationResult result = _subject.Validate(employee);
@@ -192,13 +182,13 @@ namespace Tests
         public async Task Validator_GivenTooLongPhoneNumber_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "012345678901234567890",
-                JobId = "ST_CLERK"
+                PhoneNumber = "012345678901234567890"
             };
 
             //Act
@@ -219,13 +209,11 @@ namespace Tests
         public async Task Validator_GivenTooLongJobId_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
-            {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "01234567890"
-            };
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "01234567890");
 
             //Act
             ValidationResult result = _subject.Validate(employee);
@@ -245,13 +233,13 @@ namespace Tests
         public async Task Validator_GivenNegativeSalary_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                Salary = -5,
-                JobId = "ST_CLERK"
+                Salary = -5
             };
 
             //Act
@@ -272,13 +260,13 @@ namespace Tests
         public async Task Validator_GivenSalaryEqualToZero_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                Salary = 0,
-                JobId = "ST_CLERK"
+                Salary = 0
             };
 
             //Act
@@ -301,12 +289,12 @@ namespace Tests
             //Arrange
             short salesDepartmentId = 80;
 
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 CommissionPct = -0.5f,
                 DepartmentId = salesDepartmentId
             };
@@ -331,12 +319,12 @@ namespace Tests
             //Arrange
             short salesDepartmentId = 80;
 
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 CommissionPct = null,
                 DepartmentId = salesDepartmentId
             };
@@ -361,12 +349,12 @@ namespace Tests
             //Arrange
             short salesDepartmentId = 80;
 
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 CommissionPct = 0f,
                 DepartmentId = salesDepartmentId
             };
@@ -389,12 +377,12 @@ namespace Tests
         public async Task Validator_GivenNegativeManagerId_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 ManagerId = -5
             };
 
@@ -416,12 +404,12 @@ namespace Tests
         public async Task Validator_GivenManagerIdEqualToZero_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 ManagerId = 0
             };
 
@@ -443,12 +431,12 @@ namespace Tests
         public async Task Validator_GivenNegativeDepartmentId_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 DepartmentId = -5
             };
 
@@ -470,12 +458,12 @@ namespace Tests
         public async Task Validator_GivenDepartmentIdEqualToZero_Fails()
         {
             //Arrange
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 1,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 DepartmentId = 0
             };
 

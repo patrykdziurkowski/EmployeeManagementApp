@@ -8,7 +8,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-#nullable disable
+
         private int _employeeId;
         public int EmployeeId {
             get
@@ -22,7 +22,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
+
         private string? _firstName;
         public string? FirstName
         {
@@ -37,7 +37,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable disable
+
         private string _lastName;
         public string LastName
         {
@@ -67,7 +67,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
+
         private string? _phoneNumber;
         public string? PhoneNumber
         {
@@ -82,7 +82,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable disable
+
         private DateOnly _hireDate;
         public DateOnly HireDate
         {
@@ -112,7 +112,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
+
         private double? _salary;
         public double? Salary
         {
@@ -176,13 +176,40 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
+        //Empty constructor is required for datagrid initialization
         public EmployeeDto()
         {
+            _employeeId = 0;
+            _lastName = string.Empty;
+            _email = string.Empty;
+            _jobId = string.Empty;
+            HireDate = new DateProvider().GetNow();
+        }
+        
+        public EmployeeDto(
+            int employeeId,
+            string lastName,
+            string email,
+            string jobId)
+        {
+            _employeeId = employeeId;
+            _lastName = lastName;
+            _email = email;
+            _jobId = jobId;
             HireDate = new DateProvider().GetNow();
         }
 
-        public EmployeeDto(IDateProvider dateProvider)
+        public EmployeeDto(
+            int employeeId,
+            string lastName,
+            string email,
+            string jobId,
+            IDateProvider dateProvider)
         {
+            _employeeId = employeeId;
+            _lastName = lastName;
+            _email = email;
+            _jobId = jobId;
             HireDate = dateProvider.GetNow();
         }
 

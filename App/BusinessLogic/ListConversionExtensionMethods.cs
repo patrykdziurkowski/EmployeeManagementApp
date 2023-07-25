@@ -11,15 +11,14 @@ namespace BusinessLogic
 
             foreach (Employee employee in employees)
             {
-                EmployeeDto employeeViewModel = new()
+                EmployeeDto employeeViewModel = new(
+                    employee.EmployeeId,
+                    employee.LastName,
+                    employee.Email,
+                    employee.JobId)
                 {
-                    EmployeeId = employee.EmployeeId,
                     FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    Email = employee.Email,
                     PhoneNumber = employee.PhoneNumber,
-                    HireDate = DateOnly.FromDateTime(employee.HireDate),
-                    JobId = employee.JobId,
                     Salary = employee.Salary,
                     CommissionPct = employee.CommissionPct,
                     ManagerId = employee.ManagerId,
@@ -37,12 +36,12 @@ namespace BusinessLogic
 
             foreach (DepartmentLocation departmentLocation in departmentLocations)
             {
-                DepartmentLocationDto departmentLocationViewModel = new()
+                DepartmentLocationDto departmentLocationViewModel = new(
+                    departmentLocation.DepartmentId,
+                    departmentLocation.DepartmentName,
+                    departmentLocation.City)
                 {
-                    DepartmentId = departmentLocation.DepartmentId,
-                    DepartmentName = departmentLocation.DepartmentName,
                     StateProvince = departmentLocation.StateProvince,
-                    City = departmentLocation.City,
                     StreetAddress = departmentLocation.StreetAddress,
                     RegionName = departmentLocation.RegionName,
                     CountryName = departmentLocation.CountryName
@@ -59,10 +58,10 @@ namespace BusinessLogic
 
             foreach (Department department in departments)
             {
-                DepartmentDto DepartmentViewModel = new()
+                DepartmentDto DepartmentViewModel = new(
+                    department.DepartmentId,
+                    department.DepartmentName)
                 {
-                    DepartmentId = department.DepartmentId,
-                    DepartmentName = department.DepartmentName,
                     ManagerId = department.ManagerId,
                     LocationId = department.LocationId
                 };
@@ -78,12 +77,12 @@ namespace BusinessLogic
 
             foreach (JobHistory jobHistory in jobHistories)
             {
-                JobHistoryDto jobHistoryViewModel = new()
+                JobHistoryDto jobHistoryViewModel = new(
+                    jobHistory.EmployeeId,
+                    jobHistory.JobId)
                 {
-                    EmployeeId = jobHistory.EmployeeId,
                     StartDate = DateOnly.FromDateTime(jobHistory.StartDate),
                     EndDate = DateOnly.FromDateTime(jobHistory.EndDate),
-                    JobId = jobHistory.JobId,
                     DepartmentId = jobHistory.DepartmentId
                 };
                 result.Add(jobHistoryViewModel);
@@ -98,10 +97,10 @@ namespace BusinessLogic
 
             foreach (Job job in jobs)
             {
-                JobDto jobViewModel = new()
+                JobDto jobViewModel = new(
+                    job.JobId,
+                    job.JobTitle)
                 {
-                    JobId = job.JobId,
-                    JobTitle = job.JobTitle,
                     MaxSalary = job.MaxSalary,
                     MinSalary = job.MinSalary
                 };
@@ -117,12 +116,12 @@ namespace BusinessLogic
 
             foreach (Employee employee in salaries)
             {
-                SalaryDto salaryViewModel = new()
+                SalaryDto salaryViewModel = new(
+                    employee.EmployeeId,
+                    employee.LastName,
+                    employee.JobId)
                 {
-                    EmployeeId = employee.EmployeeId,
                     FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    JobId = employee.JobId,
                     Salary = employee.Salary,
                 };
                 result.Add(salaryViewModel);

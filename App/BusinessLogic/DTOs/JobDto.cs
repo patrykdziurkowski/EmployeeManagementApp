@@ -13,19 +13,20 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-#nullable disable
         public string JobId { get; set; }
         public string JobTitle { get; set; }
-#nullable enable
         public int? MinSalary { get; set; }
         public int? MaxSalary { get; set; }
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public JobDto()
+        public JobDto(
+            string jobId,
+            string jobTitle)
         {
-
+            JobId = jobId;
+            JobTitle = jobTitle;
         }
 
         ////////////////////////////////////////////

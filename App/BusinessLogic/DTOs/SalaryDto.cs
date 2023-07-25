@@ -8,7 +8,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-#nullable disable
+
         private int _employeeId;
         public int EmployeeId
         {
@@ -22,7 +22,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
+
         private string? _firstName;
         public string? FirstName
         {
@@ -36,7 +36,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable disable
+
         private string _lastName;
         public string LastName
         {
@@ -64,7 +64,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
+
         private double? _salary;
         public double? Salary
         {
@@ -82,10 +82,16 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public SalaryDto()
+        public SalaryDto(
+            int employeeId,
+            string lastName,
+            string jobId)
         {
-
+            _employeeId = employeeId;
+            _lastName = lastName;
+            _jobId = jobId;
         }
+
 
         ////////////////////////////////////////////
         //  Methods

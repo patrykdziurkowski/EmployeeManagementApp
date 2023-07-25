@@ -56,27 +56,24 @@ namespace Tests
             short previousDepartmentId = 110;
             short nextDepartmentId = 20;
 
-            DepartmentDto previousDepartment = new()
-            {
-                DepartmentId = previousDepartmentId
-            };
-            DepartmentDto nextDepartment = new()
-            {
-                DepartmentId = nextDepartmentId
-            };
+            DepartmentDto previousDepartment = new(
+                previousDepartmentId,
+                "Sales");
+
+            DepartmentDto nextDepartment = new(
+                nextDepartmentId,
+                "IT");
+
             _mockViewModel.Object.Departments.Add(previousDepartment);
             _mockViewModel.Object.Departments.Add(nextDepartment);
 
 
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK",
                 DepartmentId = previousDepartmentId
             };
 
@@ -106,27 +103,24 @@ namespace Tests
             short previousDepartmentId = 110;
             short nextDepartmentId = 20;
 
-            DepartmentDto previousDepartment = new()
-            {
-                DepartmentId = previousDepartmentId
-            };
-            DepartmentDto nextDepartment = new()
-            {
-                DepartmentId = nextDepartmentId
-            };
+            DepartmentDto previousDepartment = new(
+                previousDepartmentId,
+                "Sales");
+
+            DepartmentDto nextDepartment = new(
+                nextDepartmentId,
+                "IT");
+
             _mockViewModel.Object.Departments.Add(previousDepartment);
             _mockViewModel.Object.Departments.Add(nextDepartment);
 
 
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK",
                 DepartmentId = previousDepartmentId
             };
 
@@ -156,27 +150,24 @@ namespace Tests
             short previousDepartmentId = 110;
             short nextDepartmentId = 20;
 
-            DepartmentDto previousDepartment = new()
-            {
-                DepartmentId = previousDepartmentId
-            };
-            DepartmentDto nextDepartment = new()
-            {
-                DepartmentId = nextDepartmentId
-            };
+            DepartmentDto previousDepartment = new(
+                previousDepartmentId,
+                "Sales");
+
+            DepartmentDto nextDepartment = new(
+                nextDepartmentId,
+                "IT");
+
             _mockViewModel.Object.Departments.Add(previousDepartment);
             _mockViewModel.Object.Departments.Add(nextDepartment);
 
 
-            EmployeeDto employee = new()
+            EmployeeDto employee = new(
+                1,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK",
                 DepartmentId = previousDepartmentId
             };
 

@@ -58,16 +58,11 @@ namespace Tests
         public async Task CanExecute_GivenValidNewEmployee_ReturnsTrue()
         {
             //Arrange
-            EmployeeDto validNewEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validNewEmployee = new(
+                100,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
 
             _mockViewModel.Object.Employees.Add(validNewEmployee);
 
@@ -82,7 +77,14 @@ namespace Tests
         public async Task CanExecute_GivenInvalidNewEmployee_ReturnsFalse()
         {
             //Arrange
-            EmployeeDto invalidNewEmployee = new();
+            EmployeeDto invalidNewEmployee = new(
+                100,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
+            {
+                Salary = -10
+            };
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
 
             //Act
@@ -96,7 +98,14 @@ namespace Tests
         public async Task CanExecute_GivenInvalidNewEmployee_SetsFailMessageAndFailureIndicator()
         {
             //Arrange
-            EmployeeDto invalidNewEmployee = new();
+            EmployeeDto invalidNewEmployee = new(
+                100,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
+            {
+                Salary = -10
+            };
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
 
             _mockViewModel.Object.CommandFailMessage = null;
@@ -114,16 +123,12 @@ namespace Tests
         public async Task Execute_GivenSuccessfulDatabaseCreation_SetsSuccessIndicator()
         {
             //Arrange
-            EmployeeDto validNewEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validNewEmployee = new(
+                100,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.Employees.Add(validNewEmployee);
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
@@ -145,16 +150,12 @@ namespace Tests
         public async Task Execute_GivenUnsuccessfulDatabaseCreation_SetsFailureIndicatorAndMessage()
         {
             //Arrange
-            EmployeeDto validNewEmployee = new()
-            {
-                EmployeeId = 100,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validNewEmployee = new(
+                100,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.Employees.Add(validNewEmployee);
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
@@ -186,12 +187,12 @@ namespace Tests
                 }
             };
 
-            EmployeeDto invalidNewEmployee = new()
+            EmployeeDto invalidNewEmployee = new(
+                100,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 100,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 DepartmentId = 110,
                 CommissionPct = 0.5f
             };
@@ -230,12 +231,12 @@ namespace Tests
                 }
             };
 
-            EmployeeDto invalidNewEmployee = new()
+            EmployeeDto invalidNewEmployee = new(
+                100,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK")
             {
-                EmployeeId = 100,
-                LastName = "Smith",
-                Email = "JSMITH",
-                JobId = "ST_CLERK",
                 DepartmentId = 80,
                 CommissionPct = 0.5f
             };

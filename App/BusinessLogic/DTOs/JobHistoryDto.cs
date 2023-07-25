@@ -8,7 +8,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-#nullable disable
+
         private int _employeeId;
         public int EmployeeId {
             get
@@ -21,7 +21,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
+
         private DateOnly? _startDate;
         public DateOnly? StartDate
         {
@@ -49,7 +49,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable disable
+
         private string _jobId;
         public string JobId
         {
@@ -63,7 +63,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-#nullable enable
+
         private short? _departmentId;
         public short? DepartmentId
         {
@@ -81,9 +81,12 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public JobHistoryDto()
+        public JobHistoryDto(
+            int employeeId,
+            string jobId)
         {
-           
+            _employeeId = employeeId;
+            _jobId = jobId;
         }
 
         ////////////////////////////////////////////

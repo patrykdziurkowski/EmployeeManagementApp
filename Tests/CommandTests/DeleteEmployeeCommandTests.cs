@@ -56,16 +56,12 @@ namespace Tests
         {
             //Arrange
             int employeeToDeleteId = 100;
-            EmployeeDto validNewEmployee = new()
-            {
-                EmployeeId = employeeToDeleteId,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validNewEmployee = new(
+                employeeToDeleteId,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.Employees.Add(validNewEmployee);
 
             _mockEmployeeRepository
@@ -85,16 +81,12 @@ namespace Tests
         {
             //Arrange
             int employeeToDeleteId = 100;
-            EmployeeDto validNewEmployee = new()
-            {
-                EmployeeId = employeeToDeleteId,
-                FirstName = "John",
-                LastName = "Smith",
-                Email = "JSMITH",
-                PhoneNumber = "111 111 1111",
-                HireDate = DateOnly.MaxValue,
-                JobId = "ST_CLERK"
-            };
+            EmployeeDto validNewEmployee = new(
+                employeeToDeleteId,
+                "Smith",
+                "JSMITH",
+                "ST_CLERK");
+
             _mockViewModel.Object.Employees.Add(validNewEmployee);
 
             _mockEmployeeRepository
