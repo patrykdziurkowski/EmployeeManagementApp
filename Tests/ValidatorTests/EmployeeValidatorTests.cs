@@ -18,7 +18,7 @@ namespace Tests
 
         public EmployeeValidatorTests()
         {
-            _subject = new EmployeeValidator();
+            _subject = new();
         }
 
         [Fact]

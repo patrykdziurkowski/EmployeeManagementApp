@@ -41,7 +41,7 @@ namespace BusinessLogic.ViewModels
         {
             _employeeRepository = employeeRepository;
 
-            _salaries = new ObservableCollection<SalaryDto>(); 
+            _salaries = new(); 
         }
 
         ////////////////////////////////////////////
@@ -50,7 +50,7 @@ namespace BusinessLogic.ViewModels
         public async Task InitializeDataAsync()
         {
             List<SalaryDto> salaryViewModels = (await _employeeRepository.GetAllAsync()).ToListOfSalaryViewModel();
-            ObservableCollection<SalaryDto> salaries = new ObservableCollection<SalaryDto>(salaryViewModels);
+            ObservableCollection<SalaryDto> salaries = new(salaryViewModels);
             _salaries = salaries;
             _salaries.CollectionChanged += Salaries_CollectionChanged;
         }
@@ -98,7 +98,7 @@ namespace BusinessLogic.ViewModels
 
         private string DoubleToStringMoney(double number)
         {
-            NumberFormatInfo nfi = new NumberFormatInfo();
+            NumberFormatInfo nfi = new();
             nfi.NumberDecimalSeparator = ".";
             return string.Format(nfi, "${0:0.00}", number);
         }

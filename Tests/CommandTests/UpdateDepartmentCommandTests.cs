@@ -27,13 +27,15 @@ namespace Tests
         {
             Mock<ISqlDataAccess> dataAccess = new();
 
-            _mockEmployeeRepository = new Mock<EmployeeRepository>(dataAccess.Object);
-            _mockDepartmentRepository = new Mock<DepartmentRepository>(dataAccess.Object);
+            _mockEmployeeRepository = new(dataAccess.Object);
+            _mockDepartmentRepository = new(dataAccess.Object);
 
-            _mockViewModel = new Mock<DepartmentsMenuViewModel>(_mockDepartmentRepository.Object,
+            _mockViewModel = new(
+                _mockDepartmentRepository.Object,
                 _mockEmployeeRepository.Object);
 
-            _subject = new UpdateDepartmentCommand(_mockViewModel.Object,
+            _subject = new(
+                _mockViewModel.Object,
                 _mockEmployeeRepository.Object);
         }
 

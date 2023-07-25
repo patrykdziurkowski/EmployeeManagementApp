@@ -90,7 +90,7 @@ namespace BusinessLogic.ViewModels
             _departmentId = departmentId;
             _departmentName = departmentName;
 
-            _employees = new ObservableCollection<EmployeeDto>();
+            _employees = new();
         }
 
 

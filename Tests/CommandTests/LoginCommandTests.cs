@@ -29,9 +29,14 @@ namespace Tests
 
             _mockEmployeeRepository = new(dataAccess.Object);
             _mockUserCredentials = new();
-            _mockViewModel = new(_mockUserCredentials.Object, _mockEmployeeRepository.Object);
 
-            _subject = new LoginCommand(_mockViewModel.Object, _mockEmployeeRepository.Object);
+            _mockViewModel = new(
+                _mockUserCredentials.Object,
+                _mockEmployeeRepository.Object);
+
+            _subject = new LoginCommand(
+                _mockViewModel.Object,
+                _mockEmployeeRepository.Object);
         }
 
         [Fact]

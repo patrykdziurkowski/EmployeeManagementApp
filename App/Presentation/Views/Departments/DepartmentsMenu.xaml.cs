@@ -136,9 +136,14 @@ namespace Presentation
             }
 
             e.Handled = true;
-            MouseWheelEventArgs eventArgs = new(e.MouseDevice, e.Timestamp, e.Delta);
-            eventArgs.RoutedEvent = MouseWheelEvent;
-            eventArgs.Source = sender;
+            MouseWheelEventArgs eventArgs = new(
+                e.MouseDevice,
+                e.Timestamp,
+                e.Delta)
+            {
+                RoutedEvent = MouseWheelEvent,
+                Source = sender
+            };
 
             UIElement parent = (UIElement)((Control)sender).Parent;
             parent?.RaiseEvent(eventArgs);

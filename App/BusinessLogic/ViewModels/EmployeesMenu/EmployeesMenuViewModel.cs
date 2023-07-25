@@ -187,8 +187,8 @@ namespace BusinessLogic.ViewModels
             _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
 
-            _employees = new ObservableCollection<EmployeeDto>();
-            _jobs = new ObservableCollection<string>();
+            _employees = new();
+            _jobs = new();
 
             NewEmployeeAlreadyExists = false;
             IsLastCommandSuccessful = true;
@@ -207,12 +207,12 @@ namespace BusinessLogic.ViewModels
             NewEmployeeAlreadyExists = false;
 
             List<EmployeeDto> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
-            ObservableCollection<EmployeeDto> employees = new ObservableCollection<EmployeeDto>(employeeViewModels);
+            ObservableCollection<EmployeeDto> employees = new(employeeViewModels);
             Employees = employees;
             Employees.CollectionChanged += Employees_CollectionChanged;
 
             List<JobDto> jobViewModels = (await _jobRepository.GetAllAsync()).ToListOfJobViewModel();
-            ObservableCollection<string> jobs = new ObservableCollection<string>(jobViewModels.Select(job => job.JobId));
+            ObservableCollection<string> jobs = new(jobViewModels.Select(job => job.JobId));
             Jobs = jobs;
             Jobs.CollectionChanged += Jobs_CollectionChanged;
 

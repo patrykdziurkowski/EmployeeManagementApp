@@ -7,7 +7,7 @@ namespace BusinessLogic
     {
         public static List<EmployeeDto> ToListOfEmployeeViewModel(this IEnumerable<Employee> employees)
         {
-            List<EmployeeDto> result = new List<EmployeeDto>();
+            List<EmployeeDto> result = new();
 
             foreach (Employee employee in employees)
             {
@@ -32,7 +32,7 @@ namespace BusinessLogic
 
         public static List<DepartmentLocationDto> ToListOfDepartmentLocationViewModel(this IEnumerable<DepartmentLocation> departmentLocations)
         {
-            List<DepartmentLocationDto> result = new List<DepartmentLocationDto>();
+            List<DepartmentLocationDto> result = new();
 
             foreach (DepartmentLocation departmentLocation in departmentLocations)
             {
@@ -54,7 +54,7 @@ namespace BusinessLogic
 
         public static List<DepartmentDto> ToListOfDepartmentViewModel(this IEnumerable<Department> departments)
         {
-            List<DepartmentDto> convertedDepartments = new List<DepartmentDto>();
+            List<DepartmentDto> convertedDepartments = new();
 
             foreach (Department department in departments)
             {
@@ -73,7 +73,7 @@ namespace BusinessLogic
 
         public static List<JobHistoryDto> ToListOfJobHistoryViewModel(this IEnumerable<JobHistory> jobHistories)
         {
-            List<JobHistoryDto> result = new List<JobHistoryDto>();
+            List<JobHistoryDto> result = new();
 
             foreach (JobHistory jobHistory in jobHistories)
             {
@@ -112,7 +112,7 @@ namespace BusinessLogic
 
         public static List<SalaryDto> ToListOfSalaryViewModel(this IEnumerable<Employee> salaries)
         {
-            List<SalaryDto> result = new List<SalaryDto>();
+            List<SalaryDto> result = new();
 
             foreach (Employee employee in salaries)
             {

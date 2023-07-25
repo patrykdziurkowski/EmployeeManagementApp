@@ -41,14 +41,17 @@ namespace Tests
 
             _mockDateProvider = new();
 
-            _mockViewModel = new(_mockEmployeeRepository.Object,
-                                _mockDepartmentRepository.Object,
-                                _mockJobRepository.Object,
-                                _mockJobHistoryRepository.Object,
-                                _employeeValidator,
-                                _mockDateProvider.Object);
+            _mockViewModel = new(
+                _mockEmployeeRepository.Object,
+                _mockDepartmentRepository.Object,
+                _mockJobRepository.Object,
+                _mockJobHistoryRepository.Object,
+                _employeeValidator,
+                _mockDateProvider.Object);
 
-            _subject = new(_mockViewModel.Object, _mockEmployeeRepository.Object);
+            _subject = new(
+                _mockViewModel.Object,
+                _mockEmployeeRepository.Object);
         }
 
         [Fact]

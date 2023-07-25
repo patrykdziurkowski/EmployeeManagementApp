@@ -34,7 +34,7 @@ namespace BusinessLogic.ViewModels
         {
             _jobHistoryRepository = jobHistoryRepository;
 
-            _jobHistory = new ObservableCollection<JobHistoryDto>();
+            _jobHistory = new();
         }
         
         ////////////////////////////////////////////
@@ -43,7 +43,7 @@ namespace BusinessLogic.ViewModels
         public async Task InitializeDataAsync()
         {
             List<JobHistoryDto> jobHistoryViewModels = (await _jobHistoryRepository.GetAllAsync()).ToListOfJobHistoryViewModel();
-            ObservableCollection<JobHistoryDto> jobHistory = new ObservableCollection<JobHistoryDto>(jobHistoryViewModels);
+            ObservableCollection<JobHistoryDto> jobHistory = new(jobHistoryViewModels);
 
             JobHistory = jobHistory;
             JobHistory.CollectionChanged += JobHistory_CollectionChanged;

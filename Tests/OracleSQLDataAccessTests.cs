@@ -51,7 +51,9 @@ namespace Tests
                 .Setup(x => x.BeginTransaction())
                 .Returns(_mockTransaction.Object);
 
-            _subject = new(_mockConnectionFactory.Object, _mockCommandFactory.Object);
+            _subject = new(
+                _mockConnectionFactory.Object,
+                _mockCommandFactory.Object);
         }
 
 
