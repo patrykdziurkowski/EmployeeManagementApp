@@ -47,8 +47,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public async Task InitializeDataAsync()
         {
-            List<DepartmentLocationDto> departmentLocationViewModels = (await _departmentLocationRepository.GetAllAsync()).ToListOfDepartmentLocationViewModel();
-            ObservableCollection<DepartmentLocationDto> departmentLocation = new(departmentLocationViewModels);
+            List<DepartmentLocationDto> departmentLocationDtos = (await _departmentLocationRepository.GetAllAsync()).ToListOfDepartmentLocationDto();
+            ObservableCollection<DepartmentLocationDto> departmentLocation = new(departmentLocationDtos);
 
             DepartmentLocation = departmentLocation;
             DepartmentLocation.CollectionChanged += DepartmentLocation_CollectionChanged;
