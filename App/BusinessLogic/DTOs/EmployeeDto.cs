@@ -8,7 +8,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private IDateProvider _dateProvider;
 #nullable disable
         private int _employeeId;
         public int EmployeeId {
@@ -179,16 +178,12 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public EmployeeDto()
         {
-            _dateProvider = new DateProvider();
-
-            HireDate = _dateProvider.GetNow();
+            HireDate = new DateProvider().GetNow();
         }
 
         public EmployeeDto(IDateProvider dateProvider)
         {
-            _dateProvider = dateProvider;
-
-            HireDate = _dateProvider.GetNow();
+            HireDate = dateProvider.GetNow();
         }
 
         ////////////////////////////////////////////
