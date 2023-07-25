@@ -44,12 +44,18 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         public bool CanExecute(object? parameter)
         {
-            _viewModel.NewEmployee = _viewModel.Employees.Last();
+            if (_viewModel.NewEmployee is null)
+            {
+                _viewModel.IsLastCommandSuccessful = false;
+                _viewModel.CommandFailMessage = "You must first add an employee to the table before adding them";
 
+                return false;
+            }
             ValidationResult validationResult = _employeeValidator.Validate(_viewModel.NewEmployee);
             if (!validationResult.IsValid)
             {
                 _viewModel.IsLastCommandSuccessful = false;
+                _viewModel.NewEmployee = null;
                 _viewModel.CommandFailMessage = validationResult.Errors.First().ErrorMessage;
 
                 return false;
@@ -98,6 +104,7 @@ namespace BusinessLogic.Commands
                 return;
             }
             _viewModel.NewEmployeeAlreadyExists = false;
+            _viewModel.NewEmployee = null;
         }
     }
 }

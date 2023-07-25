@@ -144,7 +144,7 @@
 
             <!-- Footer -->
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Button Content="Add Employee" Command="{Binding CreateEmployeeCommand}" Margin="20" VerticalAlignment="Center" Height="32" Width="88" HorizontalAlignment="Left"/>
+                <Button Content="Add Employee" Margin="20" VerticalAlignment="Center" Height="32" Width="88" HorizontalAlignment="Left" Click="CreateEmployee_Click"/>
                 <Button Content="Job History" Margin="0" VerticalAlignment="Center" Height="32" Width="88" Click="GoToJobHistoryMenu_Clicked" HorizontalAlignment="Left"/>
             </StackPanel>
             <Button Grid.Row="2" Content="Return" Margin="25" VerticalAlignment="Center" Height="32" Width="76" Click="ReturnToPreviousPage_Clicked" HorizontalAlignment="Right"/>

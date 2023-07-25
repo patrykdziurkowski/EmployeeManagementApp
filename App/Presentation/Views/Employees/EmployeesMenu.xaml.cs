@@ -119,6 +119,7 @@ namespace Presentation
                 return;
             }
             _viewModel.NewEmployeeAlreadyExists = true;
+            _viewModel.NewEmployee = (EmployeeDto)e.NewItem;
         }
 
         private void JobsComboBox_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -136,6 +137,16 @@ namespace Presentation
             else
             {
                 comboBox.IsDropDownOpen = true;
+            }
+            
+        }
+
+        private void CreateEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            if (_viewModel.CreateEmployeeCommand.CanExecute(null))
+            {
+                _viewModel.CreateEmployeeCommand.Execute(null);
             }
             
         }
