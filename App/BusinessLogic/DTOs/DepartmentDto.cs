@@ -48,6 +48,7 @@ namespace BusinessLogic.ViewModels
             set
             {
                 _departmentName = value;
+                OnPropertyChanged();
             }
         }
 

@@ -13,10 +13,57 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        public string JobId { get; set; }
-        public string JobTitle { get; set; }
-        public int? MinSalary { get; set; }
-        public int? MaxSalary { get; set; }
+        private string _jobId;
+        public string JobId
+        {
+            get
+            {
+                return _jobId;
+            }
+            set
+            {
+                _jobId = value;
+            }
+        }
+
+        private string _jobTitle;
+        public string JobTitle
+        {
+            get
+            {
+                return _jobTitle;
+            }
+            set
+            {
+                _jobTitle = value;
+            }
+        }
+
+        private int? _minSalary;
+        public int? MinSalary
+        {
+            get
+            {
+                return _minSalary;
+            }
+            set
+            {
+                _minSalary = value;
+            }
+        }
+
+        private int? _maxSalary;
+        public int? MaxSalary
+        {
+            get
+            {
+                return _maxSalary;
+            }
+            set
+            {
+                _maxSalary = value;
+            }
+        }
 
         ////////////////////////////////////////////
         //  Constructors
@@ -25,8 +72,8 @@ namespace BusinessLogic.ViewModels
             string jobId,
             string jobTitle)
         {
-            JobId = jobId;
-            JobTitle = jobTitle;
+            _jobId = jobId;
+            _jobTitle = jobTitle;
         }
 
         ////////////////////////////////////////////
