@@ -19,8 +19,8 @@ namespace BusinessLogic.ViewModels
         private DepartmentRepository _departmentRepository;
         private EmployeeRepository _employeeRepository;
 
-        private ObservableCollection<DepartmentViewModel> _departments;
-        public ObservableCollection<DepartmentViewModel> Departments
+        private ObservableCollection<DepartmentDto> _departments;
+        public ObservableCollection<DepartmentDto> Departments
         {
             get
             {
@@ -34,8 +34,8 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        private ObservableCollection<EmployeeViewModel> _employees;
-        public ObservableCollection<EmployeeViewModel> Employees
+        private ObservableCollection<EmployeeDto> _employees;
+        public ObservableCollection<EmployeeDto> Employees
         {
             get
             {
@@ -95,8 +95,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private EmployeeViewModel? _updatedEmployee;
-        public EmployeeViewModel? UpdatedEmployee
+        private EmployeeDto? _updatedEmployee;
+        public EmployeeDto? UpdatedEmployee
         {
             get
             {
@@ -120,8 +120,8 @@ namespace BusinessLogic.ViewModels
             _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
 
-            _departments = new ObservableCollection<DepartmentViewModel>();
-            _employees = new ObservableCollection<EmployeeViewModel>();
+            _departments = new ObservableCollection<DepartmentDto>();
+            _employees = new ObservableCollection<EmployeeDto>();
 
             IsLastCommandSuccessful = true;
 
@@ -133,19 +133,19 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public async Task InitializeDataAsync()
         {
-            List<DepartmentViewModel> departmentViewModels = (await _departmentRepository.GetAllAsync()).ToListOfDepartmentViewModel();
-            ObservableCollection<DepartmentViewModel> departments = new ObservableCollection<DepartmentViewModel>(departmentViewModels);
+            List<DepartmentDto> departmentViewModels = (await _departmentRepository.GetAllAsync()).ToListOfDepartmentViewModel();
+            ObservableCollection<DepartmentDto> departments = new ObservableCollection<DepartmentDto>(departmentViewModels);
 
-            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
-            ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
+            List<EmployeeDto> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
+            ObservableCollection<EmployeeDto> employees = new ObservableCollection<EmployeeDto>(employeeViewModels);
 
             Employees = employees;
             Departments = departments;
 
-            foreach(DepartmentViewModel department in Departments)
+            foreach(DepartmentDto department in Departments)
             {
-                List<EmployeeViewModel> employeeDepartmentViewModels = (await _departmentRepository.GetEmployeesForDepartmentAsync(department.DepartmentId)).ToListOfEmployeeViewModel();
-                department.Employees = new ObservableCollection<EmployeeViewModel>(employeeDepartmentViewModels);
+                List<EmployeeDto> employeeDepartmentViewModels = (await _departmentRepository.GetEmployeesForDepartmentAsync(department.DepartmentId)).ToListOfEmployeeViewModel();
+                department.Employees = new ObservableCollection<EmployeeDto>(employeeDepartmentViewModels);
 
                 department.Employees.CollectionChanged += Employees_CollectionChanged;
             }
@@ -153,7 +153,7 @@ namespace BusinessLogic.ViewModels
             _employees.CollectionChanged += Employees_CollectionChanged;
             _departments.CollectionChanged += Departments_CollectionChanged;
 
-            foreach (EmployeeViewModel employee in Employees)
+            foreach (EmployeeDto employee in Employees)
             {
                 employee.PropertyChanged += EmployeeUpdated;
             }
@@ -164,7 +164,7 @@ namespace BusinessLogic.ViewModels
         {
             if (sender is not null)
             {
-                UpdatedEmployee = (EmployeeViewModel)sender;
+                UpdatedEmployee = (EmployeeDto)sender;
 
                 if (UpdateDepartmentCommand.CanExecute(null))
                 {

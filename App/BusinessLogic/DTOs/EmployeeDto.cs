@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace BusinessLogic.ViewModels
 {
-    public class EmployeeViewModel : INotifyPropertyChanged, INotifyPropertyChanging
+    public class EmployeeDto : INotifyPropertyChanged, INotifyPropertyChanging
     {
         ////////////////////////////////////////////
         //  Fields and properties
@@ -177,14 +177,14 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public EmployeeViewModel()
+        public EmployeeDto()
         {
             _dateProvider = new DateProvider();
 
             HireDate = _dateProvider.GetNow();
         }
 
-        public EmployeeViewModel(IDateProvider dateProvider)
+        public EmployeeDto(IDateProvider dateProvider)
         {
             _dateProvider = dateProvider;
 

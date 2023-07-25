@@ -26,7 +26,7 @@ namespace Presentation
         
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddTransient<IValidator<EmployeeViewModel>, EmployeeValidator>();
+            services.AddTransient<IValidator<EmployeeDto>, EmployeeValidator>();
             services.AddTransient<IDateProvider, DateProvider>();
 
             services.AddSingleton<UserCredentials>();

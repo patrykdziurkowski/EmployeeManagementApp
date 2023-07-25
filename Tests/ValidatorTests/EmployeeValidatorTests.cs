@@ -25,7 +25,7 @@ namespace Tests
         public async Task Validator_GivenValidEmployee_Succeeds()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -61,7 +61,7 @@ namespace Tests
 
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = employeeId,
                 LastName = lastName,
@@ -87,7 +87,7 @@ namespace Tests
         public async Task Validator_GivenNegativeEmployeeId_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = -1,
                 LastName = "Smith",
@@ -113,7 +113,7 @@ namespace Tests
         public async Task Validator_GivenTooLongFirstName_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 FirstName = "012345678901234567890",
@@ -140,7 +140,7 @@ namespace Tests
         public async Task Validator_GivenTooLongLastName_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "01234567890123456789012345",
@@ -166,7 +166,7 @@ namespace Tests
         public async Task Validator_GivenTooLongEmail_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -192,7 +192,7 @@ namespace Tests
         public async Task Validator_GivenTooLongPhoneNumber_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -219,7 +219,7 @@ namespace Tests
         public async Task Validator_GivenTooLongJobId_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -245,7 +245,7 @@ namespace Tests
         public async Task Validator_GivenNegativeSalary_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -272,7 +272,7 @@ namespace Tests
         public async Task Validator_GivenSalaryEqualToZero_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -301,7 +301,7 @@ namespace Tests
             //Arrange
             short salesDepartmentId = 80;
 
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -331,7 +331,7 @@ namespace Tests
             //Arrange
             short salesDepartmentId = 80;
 
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -361,7 +361,7 @@ namespace Tests
             //Arrange
             short salesDepartmentId = 80;
 
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -389,7 +389,7 @@ namespace Tests
         public async Task Validator_GivenNegativeManagerId_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -416,7 +416,7 @@ namespace Tests
         public async Task Validator_GivenManagerIdEqualToZero_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -443,7 +443,7 @@ namespace Tests
         public async Task Validator_GivenNegativeDepartmentId_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",
@@ -470,7 +470,7 @@ namespace Tests
         public async Task Validator_GivenDepartmentIdEqualToZero_Fails()
         {
             //Arrange
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 1,
                 LastName = "Smith",

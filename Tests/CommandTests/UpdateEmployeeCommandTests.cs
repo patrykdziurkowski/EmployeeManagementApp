@@ -61,7 +61,7 @@ namespace Tests
         public async Task CanExecute_GivenValidEmployee_ReturnsTrue()
         {
             //Arrange
-            EmployeeViewModel validEmployee = new()
+            EmployeeDto validEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -84,7 +84,7 @@ namespace Tests
         public async Task CanExecute_GivenInvalidEmployee_ReturnsFalse()
         {
             //Arrange
-            EmployeeViewModel invalidEmployee = new();
+            EmployeeDto invalidEmployee = new();
             _mockViewModel.Object.UpdatedEmployee = invalidEmployee;
 
             //Act
@@ -98,7 +98,7 @@ namespace Tests
         public async Task CanExecute_GivenInvalidEmployee_SetsFailMessageAndIndicator()
         {
             //Arrange
-            EmployeeViewModel invalidEmployee = new();
+            EmployeeDto invalidEmployee = new();
             _mockViewModel.Object.UpdatedEmployee = invalidEmployee;
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
@@ -115,7 +115,7 @@ namespace Tests
         public async Task Execute_GivenSuccessfulDatabaseUpdateAndNoJobChange_SetsSuccessIndicator()
         {
             //Arrange
-            EmployeeViewModel validEmployee = new()
+            EmployeeDto validEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -147,7 +147,7 @@ namespace Tests
         public async Task Execute_GivenUnsuccessfulDatabaseUpdateAndNoJobChange_SetsFailureIndicatorAndMessage()
         {
             //Arrange
-            EmployeeViewModel validEmployee = new()
+            EmployeeDto validEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -181,7 +181,7 @@ namespace Tests
         public async Task Execute_GivenJobChangeAndSuccessfulDatabaseJobEntryCreation_SetsSuccessIndicator()
         {
             //Arrange
-            EmployeeViewModel validEmployee = new()
+            EmployeeDto validEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -216,7 +216,7 @@ namespace Tests
         public async Task Execute_GivenJobChangeAndUnsuccessfulDatabaseJobEntryCreation_SetsFailMessageAndIndicator()
         {
             //Arrange
-            EmployeeViewModel validEmployee = new()
+            EmployeeDto validEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -252,7 +252,7 @@ namespace Tests
         public async Task Execute_GivenTwoJobChangesInOneDay_SetsFailMessageAndIndicator()
         {
             //Arrange
-            EmployeeViewModel validEmployee = new()
+            EmployeeDto validEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -310,7 +310,7 @@ namespace Tests
                 }
             };
 
-            EmployeeViewModel invalidEmployee = new()
+            EmployeeDto invalidEmployee = new()
             {
                 EmployeeId = 100,
                 LastName = "Smith",
@@ -347,7 +347,7 @@ namespace Tests
                 }
             };
 
-            EmployeeViewModel validEmployee = new()
+            EmployeeDto validEmployee = new()
             {
                 EmployeeId = 100,
                 LastName = "Smith",

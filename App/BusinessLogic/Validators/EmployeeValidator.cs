@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BusinessLogic.Validators
 {
-    public class EmployeeValidator : AbstractValidator<EmployeeViewModel>
+    public class EmployeeValidator : AbstractValidator<EmployeeDto>
     {
         public EmployeeValidator()
         {

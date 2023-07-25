@@ -56,7 +56,7 @@ namespace Tests
         {
             //Arrange
             int employeeToDeleteId = 100;
-            EmployeeViewModel validNewEmployee = new()
+            EmployeeDto validNewEmployee = new()
             {
                 EmployeeId = employeeToDeleteId,
                 FirstName = "John",
@@ -85,7 +85,7 @@ namespace Tests
         {
             //Arrange
             int employeeToDeleteId = 100;
-            EmployeeViewModel validNewEmployee = new()
+            EmployeeDto validNewEmployee = new()
             {
                 EmployeeId = employeeToDeleteId,
                 FirstName = "John",

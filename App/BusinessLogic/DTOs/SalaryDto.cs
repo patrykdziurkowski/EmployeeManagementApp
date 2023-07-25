@@ -1,117 +1,106 @@
-﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BusinessLogic.ViewModels
 {
-    public class DepartmentViewModel : INotifyPropertyChanged
+    public class SalaryDto : INotifyPropertyChanged
     {
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ObservableCollection<EmployeeViewModel> _employees;
-        public ObservableCollection<EmployeeViewModel> Employees
-        {
-            get
-            {
-                return _employees;
-            }
-            set
-            {
-                _employees = value;
-                OnPropertyChanged();
-            }
-        }
-
 #nullable disable
-        private short _departmentId;
-        public short DepartmentId
+        private int _employeeId;
+        public int EmployeeId
         {
             get
             {
-                return _departmentId;
+                return _employeeId;
             }
             set
             {
-                _departmentId = value;
+                _employeeId = value;
                 OnPropertyChanged();
-            }
-        }
-
-        private string _departmentName;
-        public string DepartmentName
-        {
-            get
-            {
-                return _departmentName;
-            }
-            set
-            {
-                _departmentName = value;
             }
         }
 #nullable enable
-        private int? _managerId;
-        public int? ManagerId
+        private string? _firstName;
+        public string? FirstName
         {
             get
             {
-                return _managerId;
+                return _firstName;
             }
             set
             {
-                _managerId = value;
+                _firstName = value;
                 OnPropertyChanged();
             }
         }
-
-        private int? _locationId;
-        public int? LocationId
+#nullable disable
+        private string _lastName;
+        public string LastName
         {
             get
             {
-                return _locationId;
+                return _lastName;
             }
             set
             {
-                _locationId = value;
+                _lastName = value;
                 OnPropertyChanged();
             }
         }
-
+        
+        private string _jobId;
+        public string JobId
+        {
+            get
+            {
+                return _jobId;
+            }
+            set
+            {
+                _jobId = value;
+                OnPropertyChanged();
+            }
+        }
+#nullable enable
+        private double? _salary;
+        public double? Salary
+        {
+            get
+            {
+                return _salary;
+            }
+            set
+            {
+                _salary = value;
+                OnPropertyChanged();
+            }
+        }
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentViewModel()
+        public SalaryDto()
         {
-            _employees = new ObservableCollection<EmployeeViewModel>();
-        }
 
+        }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
         
 
-        
-
         ////////////////////////////////////////////
         //  Events and Data Binding
         ////////////////////////////////////////////
-        
         public event PropertyChangedEventHandler? PropertyChanged;
-        
+
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
-        }
+        } 
     }
 }
 

@@ -67,7 +67,7 @@ namespace Presentation
         {
             DeleteEmployeeConfirmation.Visibility = Visibility.Visible;
             Button senderButton = (Button)sender;
-            _viewModel.EmployeeToFire = (EmployeeViewModel)senderButton.Tag;
+            _viewModel.EmployeeToFire = (EmployeeDto)senderButton.Tag;
         }
 
         private void EmployeeDeleteProceed_Clicked(object sender, RoutedEventArgs e)
@@ -103,7 +103,7 @@ namespace Presentation
             }
             if (_viewModel.NewEmployeeAlreadyExists)
             {
-                _viewModel.Employees.Remove((EmployeeViewModel)e.NewItem);
+                _viewModel.Employees.Remove((EmployeeDto)e.NewItem);
             }  
         }
 
@@ -115,7 +115,7 @@ namespace Presentation
             }
             if (_viewModel.NewEmployeeAlreadyExists)
             {
-                _viewModel.Employees.Remove((EmployeeViewModel)e.NewItem);
+                _viewModel.Employees.Remove((EmployeeDto)e.NewItem);
                 return;
             }
             _viewModel.NewEmployeeAlreadyExists = true;

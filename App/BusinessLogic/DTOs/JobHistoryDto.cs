@@ -3,15 +3,14 @@ using System.Runtime.CompilerServices;
 
 namespace BusinessLogic.ViewModels
 {
-    public class SalaryViewModel : INotifyPropertyChanged
+    public class JobHistoryDto : INotifyPropertyChanged
     {
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
 #nullable disable
         private int _employeeId;
-        public int EmployeeId
-        {
+        public int EmployeeId {
             get
             {
                 return _employeeId;
@@ -23,34 +22,34 @@ namespace BusinessLogic.ViewModels
             }
         }
 #nullable enable
-        private string? _firstName;
-        public string? FirstName
+        private DateOnly? _startDate;
+        public DateOnly? StartDate
         {
             get
             {
-                return _firstName;
+                return _startDate;
             }
             set
             {
-                _firstName = value;
+                _startDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateOnly? _endDate;
+        public DateOnly? EndDate
+        {
+            get
+            {
+                return _endDate;
+            }
+            set
+            {
+                _endDate = value;
                 OnPropertyChanged();
             }
         }
 #nullable disable
-        private string _lastName;
-        public string LastName
-        {
-            get
-            {
-                return _lastName;
-            }
-            set
-            {
-                _lastName = value;
-                OnPropertyChanged();
-            }
-        }
-        
         private string _jobId;
         public string JobId
         {
@@ -65,16 +64,16 @@ namespace BusinessLogic.ViewModels
             }
         }
 #nullable enable
-        private double? _salary;
-        public double? Salary
+        private short? _departmentId;
+        public short? DepartmentId
         {
             get
             {
-                return _salary;
+                return _departmentId;
             }
             set
             {
-                _salary = value;
+                _departmentId = value;
                 OnPropertyChanged();
             }
         }
@@ -82,9 +81,9 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public SalaryViewModel()
+        public JobHistoryDto()
         {
-
+           
         }
 
         ////////////////////////////////////////////
@@ -100,9 +99,7 @@ namespace BusinessLogic.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        } 
+        }
+        
     }
 }
-
-
-

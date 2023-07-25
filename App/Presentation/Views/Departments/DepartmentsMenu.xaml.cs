@@ -79,11 +79,11 @@ namespace Presentation
             {
                 short targetDepartmentId = (short)targetDepartment.Tag;
 
-                EmployeeViewModel droppedEmployee = (EmployeeViewModel)e.Data.GetData(typeof(EmployeeViewModel));
+                EmployeeDto droppedEmployee = (EmployeeDto)e.Data.GetData(typeof(EmployeeDto));
 
                 if (droppedEmployee != null)
                 {
-                    EmployeeViewModel employeeToUpdate = _viewModel.Employees
+                    EmployeeDto employeeToUpdate = _viewModel.Employees
                         .First(employee => employee.EmployeeId == droppedEmployee.EmployeeId);
                     employeeToUpdate.DepartmentId = targetDepartmentId;
 

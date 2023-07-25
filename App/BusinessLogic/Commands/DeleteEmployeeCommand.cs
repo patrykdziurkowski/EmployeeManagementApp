@@ -46,7 +46,7 @@ namespace BusinessLogic.Commands
             
             if (deletionResult.IsSuccess)
             {
-                EmployeeViewModel employeeToRemove = _viewModel.Employees
+                EmployeeDto employeeToRemove = _viewModel.Employees
                 .First(employee => employee.EmployeeId == employeeToDeleteId);
                 
                 _viewModel.Employees.Remove(employeeToRemove);

@@ -15,8 +15,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
 
-        private ObservableCollection<SalaryViewModel> _salaries;
-        public ObservableCollection<SalaryViewModel> Salaries
+        private ObservableCollection<SalaryDto> _salaries;
+        public ObservableCollection<SalaryDto> Salaries
         {
             get
             {
@@ -41,7 +41,7 @@ namespace BusinessLogic.ViewModels
         {
             _employeeRepository = employeeRepository;
 
-            _salaries = new ObservableCollection<SalaryViewModel>(); 
+            _salaries = new ObservableCollection<SalaryDto>(); 
         }
 
         ////////////////////////////////////////////
@@ -49,8 +49,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public async Task InitializeDataAsync()
         {
-            List<SalaryViewModel> salaryViewModels = (await _employeeRepository.GetAllAsync()).ToListOfSalaryViewModel();
-            ObservableCollection<SalaryViewModel> salaries = new ObservableCollection<SalaryViewModel>(salaryViewModels);
+            List<SalaryDto> salaryViewModels = (await _employeeRepository.GetAllAsync()).ToListOfSalaryViewModel();
+            ObservableCollection<SalaryDto> salaries = new ObservableCollection<SalaryDto>(salaryViewModels);
             _salaries = salaries;
             _salaries.CollectionChanged += Salaries_CollectionChanged;
         }

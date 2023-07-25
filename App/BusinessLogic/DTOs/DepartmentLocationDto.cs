@@ -3,69 +3,14 @@ using System.Runtime.CompilerServices;
 
 namespace BusinessLogic.ViewModels
 {
-    public class JobHistoryViewModel : INotifyPropertyChanged
+    public class DepartmentLocationDto
     {
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
 #nullable disable
-        private int _employeeId;
-        public int EmployeeId {
-            get
-            {
-                return _employeeId;
-            }
-            set
-            {
-                _employeeId = value;
-                OnPropertyChanged();
-            }
-        }
-#nullable enable
-        private DateOnly? _startDate;
-        public DateOnly? StartDate
-        {
-            get
-            {
-                return _startDate;
-            }
-            set
-            {
-                _startDate = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private DateOnly? _endDate;
-        public DateOnly? EndDate
-        {
-            get
-            {
-                return _endDate;
-            }
-            set
-            {
-                _endDate = value;
-                OnPropertyChanged();
-            }
-        }
-#nullable disable
-        private string _jobId;
-        public string JobId
-        {
-            get
-            {
-                return _jobId;
-            }
-            set
-            {
-                _jobId = value;
-                OnPropertyChanged();
-            }
-        }
-#nullable enable
-        private short? _departmentId;
-        public short? DepartmentId
+        private short _departmentId;
+        public short DepartmentId
         {
             get
             {
@@ -78,12 +23,102 @@ namespace BusinessLogic.ViewModels
             }
         }
 
+
+        private string _departmentName;
+        public string DepartmentName
+        {
+            get
+            {  
+                return _departmentName;
+            }
+            set
+            {
+                _departmentName = value;
+                OnPropertyChanged();
+            }
+        }
+#nullable enable
+
+        private string? _stateProvince;
+        public string? StateProvince
+        {
+            get
+            {
+                return _stateProvince;
+            }
+            set
+            {
+                _stateProvince = value;
+                OnPropertyChanged();
+            }
+        }
+
+#nullable disable
+        private string _city;
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+            set
+            {
+                _city = value;
+                OnPropertyChanged();
+            }
+        }
+#nullable enable
+
+        private string? _streetAddress;
+        public string? StreetAddress
+        {
+            get
+            {
+                return _streetAddress;
+            }
+            set
+            {
+                _streetAddress = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string? _regionName;
+        public string? RegionName
+        {
+            get
+            {
+                return _regionName;
+            }
+            set
+            {
+                _regionName = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string? _countryName;
+        public string? CountryName
+        {
+            get
+            {
+                return _countryName;
+            }
+            set
+            {
+                _countryName = value;
+                OnPropertyChanged();
+            }
+        }
+
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public JobHistoryViewModel()
+        public DepartmentLocationDto()
         {
-           
+
         }
 
         ////////////////////////////////////////////
@@ -100,6 +135,6 @@ namespace BusinessLogic.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        
+
     }
 }

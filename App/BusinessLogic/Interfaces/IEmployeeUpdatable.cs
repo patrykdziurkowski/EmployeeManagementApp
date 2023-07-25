@@ -6,7 +6,7 @@ namespace BusinessLogic
 {
     public interface IEmployeeUpdatable
     {
-        public ObservableCollection<EmployeeViewModel> Employees { get; set; }
+        public ObservableCollection<EmployeeDto> Employees { get; set; }
 
         public void EmployeeUpdated(object sender, PropertyChangedEventArgs e);
     }

@@ -5,13 +5,13 @@ namespace BusinessLogic
 {
     public static class ListConversionExtensionMethods
     {
-        public static List<EmployeeViewModel> ToListOfEmployeeViewModel(this IEnumerable<Employee> employees)
+        public static List<EmployeeDto> ToListOfEmployeeViewModel(this IEnumerable<Employee> employees)
         {
-            List<EmployeeViewModel> result = new List<EmployeeViewModel>();
+            List<EmployeeDto> result = new List<EmployeeDto>();
 
             foreach (Employee employee in employees)
             {
-                EmployeeViewModel employeeViewModel = new()
+                EmployeeDto employeeViewModel = new()
                 {
                     EmployeeId = employee.EmployeeId,
                     FirstName = employee.FirstName,
@@ -31,13 +31,13 @@ namespace BusinessLogic
             return result;
         }
 
-        public static List<DepartmentLocationViewModel> ToListOfDepartmentLocationViewModel(this IEnumerable<DepartmentLocation> departmentLocations)
+        public static List<DepartmentLocationDto> ToListOfDepartmentLocationViewModel(this IEnumerable<DepartmentLocation> departmentLocations)
         {
-            List<DepartmentLocationViewModel> result = new List<DepartmentLocationViewModel>();
+            List<DepartmentLocationDto> result = new List<DepartmentLocationDto>();
 
             foreach (DepartmentLocation departmentLocation in departmentLocations)
             {
-                DepartmentLocationViewModel departmentLocationViewModel = new()
+                DepartmentLocationDto departmentLocationViewModel = new()
                 {
                     DepartmentId = departmentLocation.DepartmentId,
                     DepartmentName = departmentLocation.DepartmentName,
@@ -53,13 +53,13 @@ namespace BusinessLogic
             return result;
         }
 
-        public static List<DepartmentViewModel> ToListOfDepartmentViewModel(this IEnumerable<Department> departments)
+        public static List<DepartmentDto> ToListOfDepartmentViewModel(this IEnumerable<Department> departments)
         {
-            List<DepartmentViewModel> convertedDepartments = new List<DepartmentViewModel>();
+            List<DepartmentDto> convertedDepartments = new List<DepartmentDto>();
 
             foreach (Department department in departments)
             {
-                DepartmentViewModel DepartmentViewModel = new()
+                DepartmentDto DepartmentViewModel = new()
                 {
                     DepartmentId = department.DepartmentId,
                     DepartmentName = department.DepartmentName,
@@ -72,13 +72,13 @@ namespace BusinessLogic
             return convertedDepartments;
         }
 
-        public static List<JobHistoryViewModel> ToListOfJobHistoryViewModel(this IEnumerable<JobHistory> jobHistories)
+        public static List<JobHistoryDto> ToListOfJobHistoryViewModel(this IEnumerable<JobHistory> jobHistories)
         {
-            List<JobHistoryViewModel> result = new List<JobHistoryViewModel>();
+            List<JobHistoryDto> result = new List<JobHistoryDto>();
 
             foreach (JobHistory jobHistory in jobHistories)
             {
-                JobHistoryViewModel jobHistoryViewModel = new()
+                JobHistoryDto jobHistoryViewModel = new()
                 {
                     EmployeeId = jobHistory.EmployeeId,
                     StartDate = DateOnly.FromDateTime(jobHistory.StartDate),
@@ -92,13 +92,13 @@ namespace BusinessLogic
             return result;
         }
 
-        public static List<JobViewModel> ToListOfJobViewModel(this IEnumerable<Job> jobs)
+        public static List<JobDto> ToListOfJobViewModel(this IEnumerable<Job> jobs)
         {
-            List<JobViewModel> result = new();
+            List<JobDto> result = new();
 
             foreach (Job job in jobs)
             {
-                JobViewModel jobViewModel = new()
+                JobDto jobViewModel = new()
                 {
                     JobId = job.JobId,
                     JobTitle = job.JobTitle,
@@ -111,13 +111,13 @@ namespace BusinessLogic
             return result;
         }
 
-        public static List<SalaryViewModel> ToListOfSalaryViewModel(this IEnumerable<Employee> salaries)
+        public static List<SalaryDto> ToListOfSalaryViewModel(this IEnumerable<Employee> salaries)
         {
-            List<SalaryViewModel> result = new List<SalaryViewModel>();
+            List<SalaryDto> result = new List<SalaryDto>();
 
             foreach (Employee employee in salaries)
             {
-                SalaryViewModel salaryViewModel = new()
+                SalaryDto salaryViewModel = new()
                 {
                     EmployeeId = employee.EmployeeId,
                     FirstName = employee.FirstName,

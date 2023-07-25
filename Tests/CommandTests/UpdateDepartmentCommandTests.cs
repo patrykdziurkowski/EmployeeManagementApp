@@ -56,11 +56,11 @@ namespace Tests
             short previousDepartmentId = 110;
             short nextDepartmentId = 20;
 
-            DepartmentViewModel previousDepartment = new()
+            DepartmentDto previousDepartment = new()
             {
                 DepartmentId = previousDepartmentId
             };
-            DepartmentViewModel nextDepartment = new()
+            DepartmentDto nextDepartment = new()
             {
                 DepartmentId = nextDepartmentId
             };
@@ -68,7 +68,7 @@ namespace Tests
             _mockViewModel.Object.Departments.Add(nextDepartment);
 
 
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -106,11 +106,11 @@ namespace Tests
             short previousDepartmentId = 110;
             short nextDepartmentId = 20;
 
-            DepartmentViewModel previousDepartment = new()
+            DepartmentDto previousDepartment = new()
             {
                 DepartmentId = previousDepartmentId
             };
-            DepartmentViewModel nextDepartment = new()
+            DepartmentDto nextDepartment = new()
             {
                 DepartmentId = nextDepartmentId
             };
@@ -118,7 +118,7 @@ namespace Tests
             _mockViewModel.Object.Departments.Add(nextDepartment);
 
 
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -156,11 +156,11 @@ namespace Tests
             short previousDepartmentId = 110;
             short nextDepartmentId = 20;
 
-            DepartmentViewModel previousDepartment = new()
+            DepartmentDto previousDepartment = new()
             {
                 DepartmentId = previousDepartmentId
             };
-            DepartmentViewModel nextDepartment = new()
+            DepartmentDto nextDepartment = new()
             {
                 DepartmentId = nextDepartmentId
             };
@@ -168,7 +168,7 @@ namespace Tests
             _mockViewModel.Object.Departments.Add(nextDepartment);
 
 
-            EmployeeViewModel employee = new()
+            EmployeeDto employee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",

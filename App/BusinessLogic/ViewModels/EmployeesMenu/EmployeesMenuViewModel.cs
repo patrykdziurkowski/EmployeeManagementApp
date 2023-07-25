@@ -82,8 +82,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private EmployeeViewModel? _updatedEmployee;
-        public EmployeeViewModel? UpdatedEmployee
+        private EmployeeDto? _updatedEmployee;
+        public EmployeeDto? UpdatedEmployee
         {
             get
             {
@@ -96,8 +96,8 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        private EmployeeViewModel? _newEmployee;
-        public EmployeeViewModel? NewEmployee
+        private EmployeeDto? _newEmployee;
+        public EmployeeDto? NewEmployee
         {
             get
             {
@@ -125,8 +125,8 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        private EmployeeViewModel? _employeeToFire;
-        public EmployeeViewModel? EmployeeToFire
+        private EmployeeDto? _employeeToFire;
+        public EmployeeDto? EmployeeToFire
         {
             get
             {
@@ -140,8 +140,8 @@ namespace BusinessLogic.ViewModels
         }
 
 
-        private ObservableCollection<EmployeeViewModel> _employees;
-        public ObservableCollection<EmployeeViewModel> Employees
+        private ObservableCollection<EmployeeDto> _employees;
+        public ObservableCollection<EmployeeDto> Employees
         {
             get
             {
@@ -180,14 +180,14 @@ namespace BusinessLogic.ViewModels
             DepartmentRepository departmentRepository,
             JobRepository jobRepository,
             JobHistoryRepository jobHistoryRepository,
-            IValidator<EmployeeViewModel> employeeValidator,
+            IValidator<EmployeeDto> employeeValidator,
             IDateProvider dateProvider)
         {
             _jobRepository = jobRepository;
             _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
 
-            _employees = new ObservableCollection<EmployeeViewModel>();
+            _employees = new ObservableCollection<EmployeeDto>();
             _jobs = new ObservableCollection<string>();
 
             NewEmployeeAlreadyExists = false;
@@ -206,17 +206,17 @@ namespace BusinessLogic.ViewModels
         {
             NewEmployeeAlreadyExists = false;
 
-            List<EmployeeViewModel> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
-            ObservableCollection<EmployeeViewModel> employees = new ObservableCollection<EmployeeViewModel>(employeeViewModels);
+            List<EmployeeDto> employeeViewModels = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeViewModel();
+            ObservableCollection<EmployeeDto> employees = new ObservableCollection<EmployeeDto>(employeeViewModels);
             Employees = employees;
             Employees.CollectionChanged += Employees_CollectionChanged;
 
-            List<JobViewModel> jobViewModels = (await _jobRepository.GetAllAsync()).ToListOfJobViewModel();
+            List<JobDto> jobViewModels = (await _jobRepository.GetAllAsync()).ToListOfJobViewModel();
             ObservableCollection<string> jobs = new ObservableCollection<string>(jobViewModels.Select(job => job.JobId));
             Jobs = jobs;
             Jobs.CollectionChanged += Jobs_CollectionChanged;
 
-            foreach (EmployeeViewModel employee in Employees)
+            foreach (EmployeeDto employee in Employees)
             {
                 employee.PropertyChanging += EmployeeUpdating;
                 employee.PropertyChanged += EmployeeUpdated;
@@ -228,7 +228,7 @@ namespace BusinessLogic.ViewModels
         {
             if (sender is not null)
             {
-                EmployeeViewModel employeeBeforeChange = (EmployeeViewModel)sender;
+                EmployeeDto employeeBeforeChange = (EmployeeDto)sender;
                 UpdatedEmployeePreviousJob = (await _jobRepository.GetAllAsync())
                     .First(job => job.JobId == employeeBeforeChange.JobId);
             }
@@ -238,7 +238,7 @@ namespace BusinessLogic.ViewModels
         {
             if (sender is not null)
             {
-                UpdatedEmployee = (EmployeeViewModel)sender;
+                UpdatedEmployee = (EmployeeDto)sender;
 
                 if (UpdateEmployeeCommand.CanExecute(null))
                 {
@@ -276,7 +276,7 @@ namespace BusinessLogic.ViewModels
 
             if (e.NewItems is not null)
             {
-                foreach (EmployeeViewModel employee in e.NewItems)
+                foreach (EmployeeDto employee in e.NewItems)
                 {
                     employee.EmployeeId = GenerateUniqueEmployeeId();
                 }

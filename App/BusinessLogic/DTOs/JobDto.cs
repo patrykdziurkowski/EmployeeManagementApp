@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.ViewModels
 {
-    public class JobViewModel : INotifyPropertyChanged
+    public class JobDto : INotifyPropertyChanged
     {
         ////////////////////////////////////////////
         //  Fields and properties
@@ -23,7 +23,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public JobViewModel()
+        public JobDto()
         {
 
         }

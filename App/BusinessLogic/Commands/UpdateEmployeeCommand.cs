@@ -16,7 +16,7 @@ namespace BusinessLogic.Commands
         private EmployeesMenuViewModel _viewModel;
         private EmployeeRepository _employeeRepository;
         private DepartmentRepository _departmentRepository;
-        private IValidator<EmployeeViewModel> _employeeValidator;
+        private IValidator<EmployeeDto> _employeeValidator;
         private IDateProvider _dateProvider;
         private JobHistoryRepository _jobHistoryRepository;
 
@@ -28,7 +28,7 @@ namespace BusinessLogic.Commands
         public UpdateEmployeeCommand(EmployeesMenuViewModel employeesMenuViewModel,
             EmployeeRepository employeeRepository,
             DepartmentRepository departmentRepository,
-            IValidator<EmployeeViewModel> employeeValidator,
+            IValidator<EmployeeDto> employeeValidator,
             IDateProvider dateProvider,
             JobHistoryRepository jobHistoryRepository)
         {
@@ -71,7 +71,7 @@ namespace BusinessLogic.Commands
                 }
             }
 
-            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee;
+            EmployeeDto changedEmployee = _viewModel.UpdatedEmployee;
             Employee employeeToUpdate = new()
             {
                 EmployeeId = changedEmployee.EmployeeId,

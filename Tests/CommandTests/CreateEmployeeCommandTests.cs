@@ -58,7 +58,7 @@ namespace Tests
         public async Task CanExecute_GivenValidNewEmployee_ReturnsTrue()
         {
             //Arrange
-            EmployeeViewModel validNewEmployee = new()
+            EmployeeDto validNewEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -82,7 +82,7 @@ namespace Tests
         public async Task CanExecute_GivenInvalidNewEmployee_ReturnsFalse()
         {
             //Arrange
-            EmployeeViewModel invalidNewEmployee = new();
+            EmployeeDto invalidNewEmployee = new();
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
 
             //Act
@@ -96,7 +96,7 @@ namespace Tests
         public async Task CanExecute_GivenInvalidNewEmployee_SetsFailMessageAndFailureIndicator()
         {
             //Arrange
-            EmployeeViewModel invalidNewEmployee = new();
+            EmployeeDto invalidNewEmployee = new();
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
 
             _mockViewModel.Object.CommandFailMessage = null;
@@ -114,7 +114,7 @@ namespace Tests
         public async Task Execute_GivenSuccessfulDatabaseCreation_SetsSuccessIndicator()
         {
             //Arrange
-            EmployeeViewModel validNewEmployee = new()
+            EmployeeDto validNewEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -145,7 +145,7 @@ namespace Tests
         public async Task Execute_GivenUnsuccessfulDatabaseCreation_SetsFailureIndicatorAndMessage()
         {
             //Arrange
-            EmployeeViewModel validNewEmployee = new()
+            EmployeeDto validNewEmployee = new()
             {
                 EmployeeId = 100,
                 FirstName = "John",
@@ -186,7 +186,7 @@ namespace Tests
                 }
             };
 
-            EmployeeViewModel invalidNewEmployee = new()
+            EmployeeDto invalidNewEmployee = new()
             {
                 EmployeeId = 100,
                 LastName = "Smith",
@@ -230,7 +230,7 @@ namespace Tests
                 }
             };
 
-            EmployeeViewModel invalidNewEmployee = new()
+            EmployeeDto invalidNewEmployee = new()
             {
                 EmployeeId = 100,
                 LastName = "Smith",

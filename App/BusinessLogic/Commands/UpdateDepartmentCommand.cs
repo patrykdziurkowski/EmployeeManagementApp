@@ -43,7 +43,7 @@ namespace BusinessLogic.Commands
 
         public async void Execute(object? parameter)
         {
-            EmployeeViewModel changedEmployee = _viewModel.UpdatedEmployee!;
+            EmployeeDto changedEmployee = _viewModel.UpdatedEmployee!;
 
             Employee employeeToUpdate = new()
             {
@@ -77,11 +77,11 @@ namespace BusinessLogic.Commands
         /// </summary>
         /// <param name="changedEmployee">Employee that was updated</param>
         /// <returns></returns>
-        private void MoveEmployeeToTheirDepartment(EmployeeViewModel changedEmployee)
+        private void MoveEmployeeToTheirDepartment(EmployeeDto changedEmployee)
         {
-            foreach (DepartmentViewModel department in _viewModel.Departments)
+            foreach (DepartmentDto department in _viewModel.Departments)
             {
-                EmployeeViewModel? employeeToRemove = department.Employees
+                EmployeeDto? employeeToRemove = department.Employees
                     .FirstOrDefault(employee => employee.EmployeeId == changedEmployee.EmployeeId);
                 if (employeeToRemove is not null)
                 {

@@ -1,13 +1,29 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BusinessLogic.ViewModels
 {
-    public class DepartmentLocationViewModel
+    public class DepartmentDto : INotifyPropertyChanged
     {
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
+        private ObservableCollection<EmployeeDto> _employees;
+        public ObservableCollection<EmployeeDto> Employees
+        {
+            get
+            {
+                return _employees;
+            }
+            set
+            {
+                _employees = value;
+                OnPropertyChanged();
+            }
+        }
+
 #nullable disable
         private short _departmentId;
         public short DepartmentId
@@ -23,118 +39,81 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-
         private string _departmentName;
         public string DepartmentName
         {
             get
-            {  
+            {
                 return _departmentName;
             }
             set
             {
                 _departmentName = value;
-                OnPropertyChanged();
             }
         }
 #nullable enable
-
-        private string? _stateProvince;
-        public string? StateProvince
+        private int? _managerId;
+        public int? ManagerId
         {
             get
             {
-                return _stateProvince;
+                return _managerId;
             }
             set
             {
-                _stateProvince = value;
+                _managerId = value;
                 OnPropertyChanged();
             }
         }
 
-#nullable disable
-        private string _city;
-        public string City
+        private int? _locationId;
+        public int? LocationId
         {
             get
             {
-                return _city;
+                return _locationId;
             }
             set
             {
-                _city = value;
-                OnPropertyChanged();
-            }
-        }
-#nullable enable
-
-        private string? _streetAddress;
-        public string? StreetAddress
-        {
-            get
-            {
-                return _streetAddress;
-            }
-            set
-            {
-                _streetAddress = value;
+                _locationId = value;
                 OnPropertyChanged();
             }
         }
 
-
-        private string? _regionName;
-        public string? RegionName
-        {
-            get
-            {
-                return _regionName;
-            }
-            set
-            {
-                _regionName = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        private string? _countryName;
-        public string? CountryName
-        {
-            get
-            {
-                return _countryName;
-            }
-            set
-            {
-                _countryName = value;
-                OnPropertyChanged();
-            }
-        }
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public DepartmentLocationViewModel()
+        public DepartmentDto()
         {
-
+            _employees = new ObservableCollection<EmployeeDto>();
         }
+
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
         
 
+        
+
         ////////////////////////////////////////////
         //  Events and Data Binding
         ////////////////////////////////////////////
+        
         public event PropertyChangedEventHandler? PropertyChanged;
-
+        
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        private void Employees_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
+        }
     }
 }
+
+
+

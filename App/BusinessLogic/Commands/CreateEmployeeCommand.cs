@@ -21,7 +21,7 @@ namespace BusinessLogic.Commands
         private EmployeesMenuViewModel _viewModel;
         private EmployeeRepository _employeeRepository;
         private DepartmentRepository _departmentRepository;
-        private IValidator<EmployeeViewModel> _employeeValidator;
+        private IValidator<EmployeeDto> _employeeValidator;
 
         public event EventHandler? CanExecuteChanged;
 
@@ -31,7 +31,7 @@ namespace BusinessLogic.Commands
         public CreateEmployeeCommand(EmployeesMenuViewModel employeesMenuViewModel,
             EmployeeRepository employeeRepository,
             DepartmentRepository departmentRepository,
-            IValidator<EmployeeViewModel> employeeValidator)
+            IValidator<EmployeeDto> employeeValidator)
         {
             _viewModel = employeesMenuViewModel;
             _employeeRepository = employeeRepository;
