@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using BusinessLogic.ViewModels;
+using System.Linq;
 
 namespace Presentation
 {
@@ -44,7 +45,7 @@ namespace Presentation
             OverlayContentControl.Visibility = Visibility.Hidden;
 
             DataContext = _viewModel;
-            JobHistoryTable.ItemsSource = _viewModel.JobHistory;
+            JobHistoryTable.ItemsSource = _viewModel.JobHistory.OrderBy(x => x.EndDate);
         }
     }
 }
