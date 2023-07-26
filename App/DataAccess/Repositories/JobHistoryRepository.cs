@@ -29,10 +29,12 @@ namespace DataAccess.Repositories
 
         public virtual async Task<Result> InsertAsync(JobHistory jobHistory)
         {
-            string startDate = jobHistory.StartDate.ToString("yyyy-MM-dd");
-            string endDate = jobHistory.EndDate.ToString("yyyy-MM-dd");
-            string nonQuery = $"INSERT INTO job_history VALUES ({jobHistory.EmployeeId}, '{startDate}'," +
-                $"'{endDate}', '{jobHistory.JobId}', {jobHistory.DepartmentId})";
+            string nonQuery = $"INSERT INTO job_history VALUES (" +
+                $"{jobHistory.EmployeeId}," +
+                $"'{jobHistory.StartDate.ToString("yyyy-MM-dd")}'," +
+                $"'{jobHistory.EndDate.ToString("yyyy-MM-dd")}'," +
+                $"'{jobHistory.JobId}'," +
+                $"{((jobHistory.DepartmentId is null) ? "null" : jobHistory.DepartmentId)})";
 
             Result insertionResult = await _dataAccess
                 .ExecuteSqlNonQueryAsync(nonQuery);
