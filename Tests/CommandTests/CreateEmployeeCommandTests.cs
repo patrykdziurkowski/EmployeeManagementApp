@@ -70,6 +70,7 @@ namespace Tests
                 "ST_CLERK");
 
             _mockViewModel.Object.Employees.Add(validNewEmployee);
+            _mockViewModel.Object.NewEmployee = validNewEmployee;
 
             //Act
             bool canExecute = _subject.CanExecute(null);
@@ -91,6 +92,7 @@ namespace Tests
                 Salary = -10
             };
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
+            _mockViewModel.Object.NewEmployee = invalidNewEmployee;
 
             //Act
             bool canExecute = _subject.CanExecute(null);
@@ -112,6 +114,7 @@ namespace Tests
                 Salary = -10
             };
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
+            _mockViewModel.Object.NewEmployee = invalidNewEmployee;
 
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
@@ -135,6 +138,7 @@ namespace Tests
                 "ST_CLERK");
 
             _mockViewModel.Object.Employees.Add(validNewEmployee);
+            _mockViewModel.Object.NewEmployee = validNewEmployee;
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
 
@@ -162,6 +166,7 @@ namespace Tests
                 "ST_CLERK");
 
             _mockViewModel.Object.Employees.Add(validNewEmployee);
+            _mockViewModel.Object.NewEmployee = validNewEmployee;
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
 
@@ -203,6 +208,7 @@ namespace Tests
             };
 
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
+            _mockViewModel.Object.NewEmployee = invalidNewEmployee;
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
 
@@ -247,6 +253,7 @@ namespace Tests
             };
 
             _mockViewModel.Object.Employees.Add(invalidNewEmployee);
+            _mockViewModel.Object.NewEmployee = invalidNewEmployee;
             _mockViewModel.Object.CommandFailMessage = null;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
 
