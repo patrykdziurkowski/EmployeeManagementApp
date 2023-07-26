@@ -22,8 +22,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private DateOnly? _startDate;
-        public DateOnly? StartDate
+        private DateOnly _startDate;
+        public DateOnly StartDate
         {
             get
             {
@@ -36,8 +36,8 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        private DateOnly? _endDate;
-        public DateOnly? EndDate
+        private DateOnly _endDate;
+        public DateOnly EndDate
         {
             get
             {
@@ -83,10 +83,14 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public JobHistoryDto(
             int employeeId,
-            string jobId)
+            string jobId,
+            DateOnly startDate,
+            DateOnly endDate)
         {
             _employeeId = employeeId;
             _jobId = jobId;
+            _startDate = startDate;
+            _endDate = endDate;
         }
 
         ////////////////////////////////////////////

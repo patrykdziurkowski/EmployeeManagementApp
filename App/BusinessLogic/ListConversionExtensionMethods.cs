@@ -79,10 +79,10 @@ namespace BusinessLogic
             {
                 JobHistoryDto jobHistoryDto = new(
                     jobHistory.EmployeeId,
-                    jobHistory.JobId)
+                    jobHistory.JobId,
+                    DateOnly.FromDateTime(jobHistory.StartDate),
+                    DateOnly.FromDateTime(jobHistory.EndDate))
                 {
-                    StartDate = DateOnly.FromDateTime(jobHistory.StartDate),
-                    EndDate = DateOnly.FromDateTime(jobHistory.EndDate),
                     DepartmentId = jobHistory.DepartmentId
                 };
                 result.Add(jobHistoryDto);
