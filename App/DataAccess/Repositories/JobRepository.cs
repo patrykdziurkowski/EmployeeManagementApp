@@ -20,7 +20,7 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task<IEnumerable<Job>> GetAllAsync()
+        public virtual async Task<IEnumerable<Job>> GetAllAsync()
         {
             return await _dataAccess
                 .ExecuteSqlQueryAsync<Job>("SELECT * FROM jobs");
