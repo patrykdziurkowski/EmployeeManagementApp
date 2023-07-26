@@ -71,38 +71,45 @@ namespace DataAccess
             Open();
             IDbTransaction transaction = _connection!.BeginTransaction();
 
-            try
+            Result executionResult = await ExecuteCommandsAsync(nonQueries);
+            if (executionResult.IsFailed)
             {
-                await ExecuteCommandsAsync(nonQueries);
-
+                transaction.Rollback();
+            }
+            else
+            {
                 transaction.Commit();
             }
-            catch (Exception ex)
-             {
-                transaction.Rollback();
+            Close();
 
-                return Result.Fail(ex.Message);
-            }
-            finally
-            {
-                Close();
-            }
-
-            return Result.Ok();
+            return executionResult;
         }
 
-        private async Task<int> ExecuteCommandsAsync(string commands)
+        private async Task<Result> ExecuteCommandsAsync(string commands)
         {
             string[] nonQueries = commands.Split(';');
+            Result result = Result.Ok();
 
-            int affectedRows = 0;
             foreach (string nonQuery in nonQueries)
             {
                 IDbCommand command = _commandFactory.GetCommand(nonQuery, _connection!, ConnectionType.Oracle);
-                affectedRows += await Task.Run(() => command.ExecuteNonQuery());
-            }
+                
+                //Note: the try-catch must be done inside of this block since exceptions thrown
+                //on a different thread do not seem to be caught by try-catches up the stack
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        result = Result.Fail(ex.Message);
+                    }
 
-            return affectedRows;
+                });
+            }
+            return result;
         }
 
         private void Open()
