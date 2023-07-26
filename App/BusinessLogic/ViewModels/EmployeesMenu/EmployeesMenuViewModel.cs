@@ -169,6 +169,7 @@ namespace BusinessLogic.ViewModels
         }
 
 
+        public ICommand LoadEmployeesCommand { get; }
         public ICommand DeleteEmployeeCommand { get; }
         public ICommand CreateEmployeeCommand { get; }
         public ICommand UpdateEmployeeCommand { get; }
@@ -193,6 +194,7 @@ namespace BusinessLogic.ViewModels
             NewEmployeeAlreadyExists = false;
             IsLastCommandSuccessful = true;
 
+            LoadEmployeesCommand = new LoadEmployeesCommand(this, _employeeRepository, _jobRepository);
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
             CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, _departmentRepository, employeeValidator);
             UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, _departmentRepository, employeeValidator, dateProvider, jobHistoryRepository);
@@ -202,28 +204,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeDataAsync()
-        {
-            NewEmployeeAlreadyExists = false;
-
-            List<EmployeeDto> employeeDtos = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeDto();
-            ObservableCollection<EmployeeDto> employees = new(employeeDtos);
-            Employees = employees;
-            Employees.CollectionChanged += Employees_CollectionChanged;
-
-            List<JobDto> jobDtos = (await _jobRepository.GetAllAsync()).ToListOfJobDto();
-            ObservableCollection<string> jobs = new(jobDtos.Select(job => job.JobId));
-            Jobs = jobs;
-            Jobs.CollectionChanged += Jobs_CollectionChanged;
-
-            foreach (EmployeeDto employee in Employees)
-            {
-                employee.PropertyChanging += EmployeeUpdating;
-                employee.PropertyChanged += EmployeeUpdated;
-            }
-
-        }
-
         public async void EmployeeUpdating(object? sender, PropertyChangingEventArgs e)
         {
             if (sender is not null)
@@ -270,7 +250,7 @@ namespace BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        public void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
 
@@ -284,7 +264,7 @@ namespace BusinessLogic.ViewModels
             
         }
 
-        private void Jobs_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        public void Jobs_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Jobs"));
         }
