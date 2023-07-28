@@ -117,7 +117,13 @@ namespace Presentation
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             OverlayContentControl.Visibility = Visibility.Visible;
-            await Task.Run(() => _viewModel.InitializeDataAsync());
+            await Task.Run(() =>
+            {
+                if (_viewModel.LoadDepartmentsCommand.CanExecute(null))
+                {
+                    _viewModel.LoadDepartmentsCommand.Execute(null);
+                }
+            });
             OverlayContentControl.Visibility = Visibility.Hidden;
 
             DepartmentsTable.ItemsSource = _viewModel.Employees.OrderBy(employee => employee.DepartmentId);

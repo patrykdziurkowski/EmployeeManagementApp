@@ -110,6 +110,7 @@ namespace BusinessLogic.ViewModels
         }
 
         public ICommand UpdateDepartmentCommand { get; }
+        public ICommand LoadDepartmentsCommand { get; }
 
         ////////////////////////////////////////////
         //  Constructors
@@ -125,39 +126,13 @@ namespace BusinessLogic.ViewModels
 
             IsLastCommandSuccessful = true;
 
+            LoadDepartmentsCommand = new LoadDepartmentsCommand(this, departmentRepository, employeeRepository);
             UpdateDepartmentCommand = new UpdateDepartmentCommand(this, _employeeRepository);
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeDataAsync()
-        {
-            List<DepartmentDto> departmentDtos = (await _departmentRepository.GetAllAsync()).ToListOfDepartmentDto();
-            ObservableCollection<DepartmentDto> departments = new(departmentDtos);
-
-            List<EmployeeDto> employeeDtos = (await _employeeRepository.GetAllAsync()).ToListOfEmployeeDto();
-            ObservableCollection<EmployeeDto> employees = new(employeeDtos);
-
-            Employees = employees;
-            Departments = departments;
-
-            foreach(DepartmentDto department in Departments)
-            {
-                List<EmployeeDto> departmentEmployeesDtos = (await _departmentRepository.GetEmployeesForDepartmentAsync(department.DepartmentId)).ToListOfEmployeeDto();
-                department.Employees = new(departmentEmployeesDtos);
-
-                department.Employees.CollectionChanged += Employees_CollectionChanged;
-            }
-
-            _employees.CollectionChanged += Employees_CollectionChanged;
-            _departments.CollectionChanged += Departments_CollectionChanged;
-
-            foreach (EmployeeDto employee in Employees)
-            {
-                employee.PropertyChanged += EmployeeUpdated;
-            }
-        }
 
 
         public void EmployeeUpdated(object? sender, PropertyChangedEventArgs e)
@@ -182,12 +157,12 @@ namespace BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void Departments_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        public void Departments_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Departments"));
         }
 
-        private void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        public void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
         }
