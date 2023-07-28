@@ -1,8 +1,10 @@
-﻿using DataAccess.Repositories;
+﻿using BusinessLogic.Commands;
+using DataAccess.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace BusinessLogic.ViewModels
 {
@@ -11,8 +13,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private JobHistoryRepository _jobHistoryRepository;
-
         private ObservableCollection<JobHistoryDto> _jobHistory;
         public ObservableCollection<JobHistoryDto> JobHistory
         {
@@ -26,28 +26,22 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
+        public ICommand LoadJobHistoryCommand { get; }
+
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
         public JobHistoryMenuViewModel(JobHistoryRepository jobHistoryRepository)
         {
-            _jobHistoryRepository = jobHistoryRepository;
-
             _jobHistory = new();
+
+            LoadJobHistoryCommand = new LoadJobHistoryCommand(this, jobHistoryRepository);
         }
         
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeDataAsync()
-        {
-            List<JobHistoryDto> jobHistoryDtos = (await _jobHistoryRepository.GetAllAsync()).ToListOfJobHistoryDto();
-            ObservableCollection<JobHistoryDto> jobHistory = new(jobHistoryDtos);
-
-            JobHistory = jobHistory;
-            JobHistory.CollectionChanged += JobHistory_CollectionChanged;
-        }
 
 
         ////////////////////////////////////////////
@@ -59,7 +53,7 @@ namespace BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void JobHistory_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        public void JobHistory_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("JobHistory"));
         }
