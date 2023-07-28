@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Commands;
 using BusinessLogic.ViewModels;
 using DataAccess;
+using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Moq;
 using Oracle.ManagedDataAccess.Client;
@@ -12,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Tests
+namespace Tests.CommandTests
 {
 #pragma warning disable CS1998
     public class LoginCommandTests

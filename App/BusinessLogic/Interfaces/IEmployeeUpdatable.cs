@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace BusinessLogic
+namespace BusinessLogic.Interfaces
 {
     public interface IEmployeeUpdatable
     {

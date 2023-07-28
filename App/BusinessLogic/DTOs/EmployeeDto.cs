@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using BusinessLogic.Interfaces;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BusinessLogic.ViewModels

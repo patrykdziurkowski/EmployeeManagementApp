@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Tests
+namespace Tests.ValidatorTests
 {
 #pragma warning disable CS1998
 

@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Validators;
 using BusinessLogic.ViewModels;
 using DataAccess;
+using DataAccess.Interfaces;
 using DataAccess.Models;
 using DataAccess.Repositories;
 using FluentValidation.Results;

@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using DataAccess.Models;
 using System.Windows.Input;
 using BusinessLogic.Commands;
+using BusinessLogic.Interfaces;
 
 namespace BusinessLogic.ViewModels
 {

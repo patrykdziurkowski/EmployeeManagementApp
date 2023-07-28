@@ -4,6 +4,7 @@ using BusinessLogic.Interfaces;
 using BusinessLogic.Validators;
 using BusinessLogic.ViewModels;
 using DataAccess;
+using DataAccess.Interfaces;
 using DataAccess.Models;
 using DataAccess.Repositories;
 using FluentResults;
@@ -15,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Tests
+namespace Tests.CommandTests
 {
 #pragma warning disable CS1998
     public class UpdateEmployeeCommandTests

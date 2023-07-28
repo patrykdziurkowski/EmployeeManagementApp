@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic
+﻿namespace BusinessLogic.Interfaces
 {
     public interface IDateProvider
     {
