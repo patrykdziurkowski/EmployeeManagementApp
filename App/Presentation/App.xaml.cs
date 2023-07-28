@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Interfaces;
 using BusinessLogic.Validators;
 using BusinessLogic.ViewModels;
 using DataAccess;
@@ -26,7 +27,7 @@ namespace Presentation
         
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddTransient<IValidator<EmployeeDto>, EmployeeValidator>();
+            services.AddTransient<IEmployeeValidatorFactory, EmployeeValidatorFactory>();
             services.AddTransient<IDateProvider, DateProvider>();
 
             services.AddSingleton<UserCredentials>();

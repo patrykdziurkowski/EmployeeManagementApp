@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Commands;
+using BusinessLogic.Interfaces;
 using BusinessLogic.Validators;
 using BusinessLogic.ViewModels;
 using DataAccess;
@@ -21,40 +22,44 @@ namespace Tests
     {
         private UpdateEmployeeCommand _subject;
 
-        private EmployeeValidator _employeeValidator;
+        private Mock<IEmployeeValidatorFactory> _mockEmployeeValidatorFactory;
 
         private Mock<IDateProvider> _mockDateProvider;
         private Mock<JobHistoryRepository> _mockJobHistoryRepository;
         private Mock<JobRepository> _mockJobRepository;
-        private Mock<DepartmentRepository> _mockDepartmentRepository;
         private Mock<EmployeeRepository> _mockEmployeeRepository;
+        private Mock<DepartmentRepository> _mockDepartmentRepository;
         private Mock<EmployeesMenuViewModel> _mockViewModel;
 
         public UpdateEmployeeCommandTests()
         {
-            _employeeValidator = new();
-
             Mock<ISqlDataAccess> mockDataAccess = new();
             _mockJobHistoryRepository = new(mockDataAccess.Object);
             _mockJobRepository = new(mockDataAccess.Object);
-            _mockDepartmentRepository = new(mockDataAccess.Object);
             _mockEmployeeRepository = new(mockDataAccess.Object);
+            _mockDepartmentRepository = new(mockDataAccess.Object);
+
+            _mockEmployeeValidatorFactory = new();
+            _mockEmployeeValidatorFactory
+                .Setup(x => x.GetValidator(typeof(EmployeeValidator)))
+                .Returns(new EmployeeValidator());
+            _mockEmployeeValidatorFactory
+                .Setup(x => x.GetValidator(typeof(CommissionPctValidator)))
+                .Returns(new CommissionPctValidator(_mockDepartmentRepository.Object));
 
             _mockDateProvider = new();
 
             _mockViewModel = new(
                 _mockEmployeeRepository.Object,
-                _mockDepartmentRepository.Object,
                 _mockJobRepository.Object,
                 _mockJobHistoryRepository.Object,
-                _employeeValidator,
+                _mockEmployeeValidatorFactory.Object,
                 _mockDateProvider.Object);
 
             _subject = new(
                 _mockViewModel.Object,
                 _mockEmployeeRepository.Object,
-                _mockDepartmentRepository.Object,
-                _employeeValidator,
+                _mockEmployeeValidatorFactory.Object,
                 _mockDateProvider.Object,
                 _mockJobHistoryRepository.Object);
         }
@@ -308,7 +313,7 @@ namespace Tests
             };
             _mockViewModel.Object.UpdatedEmployee = invalidEmployee;
             _mockViewModel.Object.IsLastCommandSuccessful = true;
-
+            
             _mockDepartmentRepository
                 .Setup(x => x.GetAllAsync())
                 .Returns(Task.FromResult(departments));

@@ -1,4 +1,6 @@
-﻿using BusinessLogic.ViewModels;
+﻿using BusinessLogic.Interfaces;
+using BusinessLogic.Validators;
+using BusinessLogic.ViewModels;
 using DataAccess.Models;
 using DataAccess.Repositories;
 using FluentResults;
@@ -15,8 +17,8 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         private EmployeesMenuViewModel _viewModel;
         private EmployeeRepository _employeeRepository;
-        private DepartmentRepository _departmentRepository;
         private IValidator<EmployeeDto> _employeeValidator;
+        private IValidator<EmployeeDto> _commissionPctValidator;
         private IDateProvider _dateProvider;
         private JobHistoryRepository _jobHistoryRepository;
 
@@ -27,15 +29,14 @@ namespace BusinessLogic.Commands
         ////////////////////////////////////////////
         public UpdateEmployeeCommand(EmployeesMenuViewModel employeesMenuViewModel,
             EmployeeRepository employeeRepository,
-            DepartmentRepository departmentRepository,
-            IValidator<EmployeeDto> employeeValidator,
+            IEmployeeValidatorFactory employeeValidatorFactory,
             IDateProvider dateProvider,
             JobHistoryRepository jobHistoryRepository)
         {
             _viewModel = employeesMenuViewModel;
             _employeeRepository = employeeRepository;
-            _departmentRepository = departmentRepository;
-            _employeeValidator = employeeValidator;
+            _employeeValidator = employeeValidatorFactory.GetValidator(typeof(EmployeeValidator));
+            _commissionPctValidator = employeeValidatorFactory.GetValidator(typeof(CommissionPctValidator));
             _dateProvider = dateProvider;
             _jobHistoryRepository = jobHistoryRepository;
         }
@@ -57,21 +58,16 @@ namespace BusinessLogic.Commands
 
         public async void Execute(object? parameter)
         {
-            if (_viewModel.UpdatedEmployee!.CommissionPct is not null)
-            {
-                IEnumerable<Department> departments = await _departmentRepository.GetAllAsync();
-                short salesDepartmentId = departments
-                                            .First(department => department.DepartmentName == "Sales")
-                                            .DepartmentId;
-                if (_viewModel.UpdatedEmployee.DepartmentId != salesDepartmentId)
-                {
-                    _viewModel.IsLastCommandSuccessful = false;
-                    _viewModel.CommandFailMessage = "Only an employee from the Sales department can have a commission percentage";
-                    return;
-                }
-            }
+            EmployeeDto changedEmployee = _viewModel.UpdatedEmployee!;
 
-            EmployeeDto changedEmployee = _viewModel.UpdatedEmployee;
+            ValidationResult result = await _commissionPctValidator.ValidateAsync(changedEmployee);
+            if (!result.IsValid)
+            {
+                _viewModel.IsLastCommandSuccessful = false;
+                _viewModel.CommandFailMessage = result.Errors.First().ErrorMessage;
+                return;
+            }    
+
             Employee employeeToUpdate = new()
             {
                 EmployeeId = changedEmployee.EmployeeId,

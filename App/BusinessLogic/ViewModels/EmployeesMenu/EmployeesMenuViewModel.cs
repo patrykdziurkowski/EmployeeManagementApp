@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using DataAccess.Models;
 using System.Windows.Input;
 using BusinessLogic.Commands;
+using BusinessLogic.Interfaces;
 
 namespace BusinessLogic.ViewModels
 {
@@ -18,7 +19,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         private EmployeeRepository _employeeRepository;
         private JobRepository _jobRepository;
-        private DepartmentRepository _departmentRepository;
 
 
         private bool _isLastCommandSuccessful;
@@ -177,15 +177,14 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public EmployeesMenuViewModel(EmployeeRepository employeeRepository,
-            DepartmentRepository departmentRepository,
+        public EmployeesMenuViewModel(
+            EmployeeRepository employeeRepository,
             JobRepository jobRepository,
             JobHistoryRepository jobHistoryRepository,
-            IValidator<EmployeeDto> employeeValidator,
+            IEmployeeValidatorFactory employeeValidatorFactory,
             IDateProvider dateProvider)
         {
             _jobRepository = jobRepository;
-            _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
 
             _employees = new();
@@ -196,8 +195,8 @@ namespace BusinessLogic.ViewModels
 
             LoadEmployeesCommand = new LoadEmployeesCommand(this, _employeeRepository, _jobRepository);
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
-            CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, _departmentRepository, employeeValidator);
-            UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, _departmentRepository, employeeValidator, dateProvider, jobHistoryRepository);
+            CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, employeeValidatorFactory);
+            UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, employeeValidatorFactory, dateProvider, jobHistoryRepository);
         }
 
 
