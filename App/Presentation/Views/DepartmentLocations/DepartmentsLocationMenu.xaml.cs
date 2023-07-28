@@ -39,7 +39,13 @@ namespace Presentation
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             OverlayContentControl.Visibility = Visibility.Visible;
-            await Task.Run(() => _viewModel.InitializeDataAsync());
+            await Task.Run(() =>
+            {
+                if (_viewModel.LoadDepartmentLocationsCommand.CanExecute(null))
+                {
+                    _viewModel.LoadDepartmentLocationsCommand.Execute(null);
+                }
+            });
             OverlayContentControl.Visibility = Visibility.Hidden;
 
             DataContext = _viewModel;

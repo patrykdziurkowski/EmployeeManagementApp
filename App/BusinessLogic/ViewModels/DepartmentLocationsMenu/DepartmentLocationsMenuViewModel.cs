@@ -9,6 +9,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using BusinessLogic.Commands;
 
 namespace BusinessLogic.ViewModels
 {
@@ -17,8 +19,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private DepartmentLocationRepository _departmentLocationRepository;
-
         private ObservableCollection<DepartmentLocationDto> _departmentLocation;
         public ObservableCollection<DepartmentLocationDto> DepartmentLocation
         {
@@ -32,27 +32,21 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public ICommand LoadDepartmentLocationsCommand { get; set; }
+
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
         public DepartmentLocationsMenuViewModel(DepartmentLocationRepository departmentLocationRepository)
         {
-            _departmentLocationRepository = departmentLocationRepository;
-
             _departmentLocation = new();
+            LoadDepartmentLocationsCommand = new LoadDepartmentLocationsCommand(this, departmentLocationRepository);
         }
 
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
-        public async Task InitializeDataAsync()
-        {
-            List<DepartmentLocationDto> departmentLocationDtos = (await _departmentLocationRepository.GetAllAsync()).ToListOfDepartmentLocationDto();
-            ObservableCollection<DepartmentLocationDto> departmentLocation = new(departmentLocationDtos);
-
-            DepartmentLocation = departmentLocation;
-            DepartmentLocation.CollectionChanged += DepartmentLocation_CollectionChanged;
-        }
 
 
         ////////////////////////////////////////////
@@ -64,7 +58,7 @@ namespace BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void DepartmentLocation_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        public void DepartmentLocation_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DepartmentLocation"));
         }
