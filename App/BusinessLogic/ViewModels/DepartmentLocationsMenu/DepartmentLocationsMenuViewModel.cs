@@ -33,7 +33,7 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        public ICommand LoadDepartmentLocationsCommand { get; set; }
+        public ICommand LoadDepartmentLocationsCommand { get; }
 
         ////////////////////////////////////////////
         //  Constructors
