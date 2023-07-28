@@ -19,16 +19,16 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ObservableCollection<DepartmentLocationDto> _departmentLocation;
-        public ObservableCollection<DepartmentLocationDto> DepartmentLocation
+        private ObservableCollection<DepartmentLocationDto> _departmentLocations;
+        public ObservableCollection<DepartmentLocationDto> DepartmentLocations
         {
             get
             {
-                return _departmentLocation;
+                return _departmentLocations;
             }
             set
             {
-                _departmentLocation = value;
+                _departmentLocations = value;
                 OnPropertyChanged();
             }
         }
@@ -40,7 +40,7 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         public DepartmentLocationsMenuViewModel(DepartmentLocationRepository departmentLocationRepository)
         {
-            _departmentLocation = new();
+            _departmentLocations = new();
             LoadDepartmentLocationsCommand = new LoadDepartmentLocationsCommand(this, departmentLocationRepository);
         }
 

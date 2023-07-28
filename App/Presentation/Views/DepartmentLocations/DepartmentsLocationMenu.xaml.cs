@@ -49,7 +49,7 @@ namespace Presentation
             OverlayContentControl.Visibility = Visibility.Hidden;
 
             DataContext = _viewModel;
-            DepartmentLocationTable.ItemsSource = _viewModel.DepartmentLocation;
+            DepartmentLocationTable.ItemsSource = _viewModel.DepartmentLocations;
         }
     }
 }

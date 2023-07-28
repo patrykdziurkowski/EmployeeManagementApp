@@ -35,8 +35,8 @@ namespace BusinessLogic.Commands
             List<DepartmentLocationDto> departmentLocationDtos = (await _departmentLocationRepository.GetAllAsync()).ToListOfDepartmentLocationDto();
             ObservableCollection<DepartmentLocationDto> departmentLocations = new(departmentLocationDtos);
 
-            _viewModel.DepartmentLocation = departmentLocations;
-            _viewModel.DepartmentLocation.CollectionChanged += _viewModel.DepartmentLocation_CollectionChanged;
+            _viewModel.DepartmentLocations = departmentLocations;
+            _viewModel.DepartmentLocations.CollectionChanged += _viewModel.DepartmentLocation_CollectionChanged;
         }
     }
 }

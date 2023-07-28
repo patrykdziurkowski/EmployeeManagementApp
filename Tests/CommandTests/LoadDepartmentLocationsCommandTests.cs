@@ -66,10 +66,10 @@ namespace Tests.CommandTests
 
             //Assert
             Assert.True(canExecute);
-            Assert.Equal(3, _mockViewModel.Object.DepartmentLocation.Count);
-            Assert.Contains(_mockViewModel.Object.DepartmentLocation, location => location.DepartmentId == 1);
-            Assert.Contains(_mockViewModel.Object.DepartmentLocation, location => location.DepartmentId == 2);
-            Assert.Contains(_mockViewModel.Object.DepartmentLocation, location => location.DepartmentId == 3);
+            Assert.Equal(3, _mockViewModel.Object.DepartmentLocations.Count);
+            Assert.Contains(_mockViewModel.Object.DepartmentLocations, location => location.DepartmentId == 1);
+            Assert.Contains(_mockViewModel.Object.DepartmentLocations, location => location.DepartmentId == 2);
+            Assert.Contains(_mockViewModel.Object.DepartmentLocations, location => location.DepartmentId == 3);
         }
 
     }
