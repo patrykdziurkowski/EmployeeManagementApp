@@ -46,7 +46,7 @@ namespace Tests.CommandTests
         }
 
         [Fact]
-        public async Task Execute_GivenDepartmentLocationsFromDatabase_AssignsThemToViewModelProperty()
+        public async Task Execute_GivenJobHistoryFromDatabase_AssignsItToViewModelProperty()
         {
             //Arrange
             IEnumerable<JobHistory> jobHistory = new List<JobHistory>()
