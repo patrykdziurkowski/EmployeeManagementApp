@@ -1,10 +1,12 @@
-﻿using DataAccess;
+﻿using BusinessLogic.Commands;
+using DataAccess;
 using DataAccess.Repositories;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace BusinessLogic.ViewModels
 {
@@ -13,8 +15,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private EmployeeRepository _employeeRepository;
-
         private ObservableCollection<SalaryDto> _salaries;
         public ObservableCollection<SalaryDto> Salaries
         {
@@ -34,27 +34,21 @@ namespace BusinessLogic.ViewModels
         public string MinSalaryText => DoubleToStringMoney(GetMinSalary());
         public string SumOfSalariesText => DoubleToStringMoney(GetSumOfSalaries());
 
+        public ICommand LoadSalariesCommand { get; }
+
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
         public SalariesMenuViewModel(EmployeeRepository employeeRepository)
         {
-            _employeeRepository = employeeRepository;
-
             _salaries = new(); 
+            
+            LoadSalariesCommand = new LoadSalariesCommand(this, employeeRepository);
         }
 
         ////////////////////////////////////////////
         //  Methods
-        ////////////////////////////////////////////
-        public async Task InitializeDataAsync()
-        {
-            List<SalaryDto> salaryDtos = (await _employeeRepository.GetAllAsync()).ToListOfSalaryDto();
-            ObservableCollection<SalaryDto> salaries = new(salaryDtos);
-            _salaries = salaries;
-            _salaries.CollectionChanged += Salaries_CollectionChanged;
-        }
-        
+        ////////////////////////////////////////////        
         public double GetAverageSalary()
         {
             double? averageSalary = Salaries.Average(employee => employee.Salary);
@@ -112,7 +106,7 @@ namespace BusinessLogic.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        private void Salaries_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        public void Salaries_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Salaries"));
         }
