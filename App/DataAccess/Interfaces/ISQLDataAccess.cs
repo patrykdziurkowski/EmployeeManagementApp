@@ -9,7 +9,7 @@ namespace DataAccess.Interfaces
 {
     public interface ISqlDataAccess
     {
-        Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(string query) where T : class, new();
-        Task<Result> ExecuteSqlNonQueryAsync(string nonQuery);
+        Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(string query, object? parameters = null) where T : class, new();
+        Task<Result> ExecuteSqlNonQueryAsync(string nonQuery, object? parameters = null);
     }
 }

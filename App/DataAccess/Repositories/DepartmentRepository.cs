@@ -34,10 +34,10 @@ namespace DataAccess.Repositories
 
         public virtual async Task<Result<Department>> GetAsync(int departmentId)
         {
-            string query = $"SELECT * FROM departments WHERE department_id = { departmentId}";
+            string query = $"SELECT * FROM departments WHERE department_id = :DepartmentId";
 
             Department? departmentWithGivenId = (await _dataAccess
-                .ExecuteSqlQueryAsync<Department>(query))
+                .ExecuteSqlQueryAsync<Department>(query, new { DepartmentId = departmentId }))
                 .FirstOrDefault();
 
             if (departmentWithGivenId is null)
@@ -50,10 +50,10 @@ namespace DataAccess.Repositories
 
         public virtual async Task<IEnumerable<Employee>> GetEmployeesForDepartmentAsync(int departmentId)
         {
-            string query = $"SELECT * FROM employees WHERE department_id = {departmentId}";
+            string query = $"SELECT * FROM employees WHERE department_id = :DepartmentId";
             
             return await _dataAccess
-                .ExecuteSqlQueryAsync<Employee>(query);
+                .ExecuteSqlQueryAsync<Employee>(query, new { DepartmentId = departmentId });
         }
     }
 }

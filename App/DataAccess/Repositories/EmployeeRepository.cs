@@ -30,10 +30,10 @@ namespace DataAccess.Repositories
 
         public virtual async Task<Result<Employee>> GetAsync(int employeeId)
         {
-            string query = $"SELECT * FROM employees WHERE employee_id = {employeeId}";
+            string query = $"SELECT * FROM employees WHERE employee_id = :EmployeeId";
 
             Employee? employeeWithGivenId = (await _dataAccess
-                .ExecuteSqlQueryAsync<Employee>(query))
+                .ExecuteSqlQueryAsync<Employee>(query, new { EmployeeId = employeeId }))
                 .FirstOrDefault();
             if (employeeWithGivenId is null)
             {
@@ -46,30 +46,31 @@ namespace DataAccess.Repositories
         public virtual async Task<Result> HireAsync(Employee employee)
         {
             string nonQuery = $"INSERT INTO employees VALUES (" +
-                $"{employee.EmployeeId}," +
-                $"'{employee.FirstName ?? "null"}', " +
-                $"'{employee.LastName}'," +
-                $"'{employee.Email}'," +
-                $"'{employee.PhoneNumber ?? "null"}'," +
-                $"'{employee.HireDate.ToString("yyyy-MM-dd")}'," +
-                $"'{employee.JobId}', " +
-                $"{((employee.Salary is null) ? "null" : employee.Salary)}," +
-                $"{((employee.CommissionPct is null) ? "null" : employee.CommissionPct.ToString()!.Replace(",", "."))}," +
-                $"{((employee.ManagerId is null) ? "null" : employee.ManagerId)}," +
-                $"{((employee.DepartmentId is null) ? "null" : employee.DepartmentId)})";
+                $":EmployeeId, " +
+                $":FirstName, " +
+                $":LastName, " +
+                $":Email, " +
+                $":PhoneNumber, " +
+                $":HireDate, " +
+                $":JobId, " +
+                $":Salary, " +
+                $":CommissionPct, " +
+                $":ManagerId, " +
+                $":DepartmentId" +
+                $")";
             
             Result insertionResult = await _dataAccess
-                .ExecuteSqlNonQueryAsync(nonQuery);
+                .ExecuteSqlNonQueryAsync(nonQuery, employee);
 
             return insertionResult;
         }
 
         public virtual async Task<Result> FireAsync(int employeeId)
         {
-            string nonQuery = $"DELETE FROM employees WHERE employee_id = {employeeId}";
+            string nonQuery = $"DELETE FROM employees WHERE employee_id = :EmployeeId";
             
             Result deletionResult = await _dataAccess
-                .ExecuteSqlNonQueryAsync(nonQuery);
+                .ExecuteSqlNonQueryAsync(nonQuery, new { EmployeeId = employeeId });
 
             return deletionResult;
         }
@@ -77,21 +78,21 @@ namespace DataAccess.Repositories
         public virtual async Task<Result> UpdateAsync(Employee employee)
         {
             string nonQuery = $"UPDATE employees SET " +
-                $"employee_id = {employee.EmployeeId}," +
-                $"first_name = '{employee.FirstName ?? "null"}'," +
-                $"last_name = '{employee.LastName}'," +
-                $"email = '{employee.Email}'," +
-                $"phone_number = '{employee.PhoneNumber ?? "null"}'," +
-                $"hire_date = '{employee.HireDate.ToString("yyyy-MM-dd")}'," +
-                $"job_id = '{employee.JobId}'," +
-                $"salary = {((employee.Salary is null) ? "null" : employee.Salary)}," +
-                $"commission_pct = {((employee.CommissionPct is null) ? "null" : employee.CommissionPct.ToString()!.Replace(",", "."))}," +
-                $"manager_id = {((employee.ManagerId is null) ? "null" : employee.ManagerId)}, " +
-                $"department_id = {((employee.DepartmentId is null) ? "null" : employee.DepartmentId)}" +
-                $" WHERE employee_id = {employee.EmployeeId}";
+                $"employee_id = :EmployeeId, " +
+                $"first_name = :FirstName, " +
+                $"last_name = :LastName, " +
+                $"email = :Email, " +
+                $"phone_number = :PhoneNumber, " +
+                $"hire_date = :HireDate, " +
+                $"job_id = :JobId, " +
+                $"salary = :Salary, " +
+                $"commission_pct = :CommissionPct, " +
+                $"manager_id = :ManagerId, " +
+                $"department_id = :DepartmentId " +
+                $"WHERE employee_id = :EmployeeId";
             
             Result updateResult = await _dataAccess
-                .ExecuteSqlNonQueryAsync(nonQuery);
+                .ExecuteSqlNonQueryAsync(nonQuery, employee);
 
             return updateResult;
         }

@@ -36,11 +36,13 @@ namespace DataAccess
         /// <typeparam name="T">The type of database entity to be returned</typeparam>
         /// <param name="query">The query in string format</param>
         /// <returns>IEnumerable of given entity, can be empty.</returns>
-        public async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(string query) where T : class, new()
+        public async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(
+            string query,
+            object? parameters = null) where T : class, new()
         {
             Open();
             
-            IEnumerable<T> result = await _dapperAdapter.QueryAsync<T>(_connection!, query);
+            IEnumerable<T> result = await _dapperAdapter.QueryAsync<T>(_connection!, query, parameters);
 
             Close();
             return result;
@@ -53,13 +55,18 @@ namespace DataAccess
         ///     An Oracle SQL command to be executed on the database.
         ///     Multiple queries can be used in a transaction by delimiting them with a semi-colon: ";"
         /// </param>
+        /// <param name="parameters">
+        ///     An object containing values for the parameterized queries.
+        /// </param>
         /// <returns>Number of affected rows</returns>
-        public async Task<Result> ExecuteSqlNonQueryAsync(string nonQueries)
+        public async Task<Result> ExecuteSqlNonQueryAsync(
+            string nonQueries,
+            object? parameters = null)
         {
             Open();
             IDbTransaction transaction = _connection!.BeginTransaction();
 
-            Result executionResult = await ExecuteCommandsAsync(nonQueries);
+            Result executionResult = await ExecuteCommandsAsync(nonQueries, parameters);
             if (executionResult.IsFailed)
             {
                 transaction.Rollback();
@@ -73,7 +80,9 @@ namespace DataAccess
             return executionResult;
         }
 
-        private async Task<Result> ExecuteCommandsAsync(string commands)
+        private async Task<Result> ExecuteCommandsAsync(
+            string commands,
+            object? parameters = null)
         {
             string[] nonQueries = commands.Split(';');
             Result result = Result.Ok();
@@ -82,7 +91,7 @@ namespace DataAccess
             {   
                 try
                 {
-                    await _dapperAdapter.ExecuteAsync(_connection!, nonQuery);
+                    await _dapperAdapter.ExecuteAsync(_connection!, nonQuery, parameters);
                 }
                 catch (Exception ex)
                 {
