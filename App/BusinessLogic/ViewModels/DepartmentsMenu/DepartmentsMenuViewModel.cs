@@ -160,12 +160,12 @@ namespace BusinessLogic.ViewModels
 
         public void Departments_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Departments"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Departments)));
         }
 
         public void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Employees)));
         }
     }
 }

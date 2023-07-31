@@ -251,7 +251,7 @@ namespace BusinessLogic.ViewModels
 
         public void Employees_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Employees"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Employees)));
 
             if (e.NewItems is not null)
             {
@@ -265,7 +265,7 @@ namespace BusinessLogic.ViewModels
 
         public void Jobs_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Jobs"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Jobs)));
         }
     }
 }
