@@ -126,7 +126,7 @@ namespace Tests.CommandTests
             _mockViewModel.Object.IsLastCommandSuccessful = true;
 
             //Act
-            bool canExecute = _subject.CanExecute(null);
+            _subject.CanExecute(null);
 
             //Assert
             Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
