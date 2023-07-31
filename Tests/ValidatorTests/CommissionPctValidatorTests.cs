@@ -15,7 +15,6 @@ using Xunit;
 
 namespace Tests.ValidatorTests
 {
-#pragma warning disable CS1998
     public class CommissionPctValidatorTests
     {
         private readonly CommissionPctValidator _subject;
@@ -122,5 +121,4 @@ namespace Tests.ValidatorTests
 
 
     }
-#pragma warning restore CS1998
 }

@@ -16,7 +16,6 @@ using Xunit;
 
 namespace Tests
 {
-#pragma warning disable CS1998
     public class OracleSqlDataAccessTests
     {
         private readonly OracleSqlDataAccess _subject;
@@ -141,5 +140,4 @@ namespace Tests
 
     }
 
-#pragma warning restore CS1998
 }
