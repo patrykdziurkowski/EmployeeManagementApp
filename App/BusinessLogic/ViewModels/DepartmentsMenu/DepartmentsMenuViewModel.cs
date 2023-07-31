@@ -17,7 +17,6 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private DepartmentRepository _departmentRepository;
         private EmployeeRepository _employeeRepository;
 
         private ObservableCollection<DepartmentDto> _departments;
@@ -119,7 +118,6 @@ namespace BusinessLogic.ViewModels
         public DepartmentsMenuViewModel(DepartmentRepository departmentRepository,
             EmployeeRepository employeeRepository)
         {
-            _departmentRepository = departmentRepository;
             _employeeRepository = employeeRepository;
 
             _departments = new();
