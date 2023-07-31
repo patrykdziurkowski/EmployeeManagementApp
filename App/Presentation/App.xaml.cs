@@ -20,7 +20,7 @@ namespace Presentation
 
         public App()
         {
-            ServiceCollection services = new ServiceCollection();
+            ServiceCollection services = new();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
 
