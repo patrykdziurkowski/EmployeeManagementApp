@@ -56,5 +56,5 @@ serve any real-life purpose, there is little reason to contribute to it. If you 
 code, I would love to hear you out!
 
 # Contributors
-Patryk Dziurkowski
+Patryk Dziurkowski  
 Szymon Kruk
