@@ -149,7 +149,6 @@ namespace Presentation
 
         private void CreateEmployee_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
             if (_viewModel.CreateEmployeeCommand.CanExecute(null))
             {
                 _viewModel.CreateEmployeeCommand.Execute(null);
