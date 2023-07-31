@@ -18,11 +18,11 @@ namespace Tests.CommandTests
 #pragma warning disable CS1998
     public class UpdateDepartmentCommandTests
     {
-        private UpdateDepartmentCommand _subject;
+        private readonly UpdateDepartmentCommand _subject;
 
-        private Mock<DepartmentRepository> _mockDepartmentRepository;
-        private Mock<EmployeeRepository> _mockEmployeeRepository;
-        private Mock<DepartmentsMenuViewModel> _mockViewModel;
+        private readonly Mock<DepartmentRepository> _mockDepartmentRepository;
+        private readonly Mock<EmployeeRepository> _mockEmployeeRepository;
+        private readonly Mock<DepartmentsMenuViewModel> _mockViewModel;
 
         public UpdateDepartmentCommandTests()
         {

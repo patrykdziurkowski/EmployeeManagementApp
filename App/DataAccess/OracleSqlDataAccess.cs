@@ -11,8 +11,8 @@ namespace DataAccess
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private IConnectionFactory _connectionFactory;
-        private IDapperAdapter _dapperAdapter;
+        private readonly IConnectionFactory _connectionFactory;
+        private readonly IDapperAdapter _dapperAdapter;
 
         private IDbConnection? _connection;
 

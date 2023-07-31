@@ -16,8 +16,8 @@ namespace Presentation
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private EmployeesMenuViewModel _viewModel;
-        private JobHistoryMenu _jobHistoryMenu;
+        private readonly EmployeesMenuViewModel _viewModel;
+        private readonly JobHistoryMenu _jobHistoryMenu;
 
 
         ////////////////////////////////////////////

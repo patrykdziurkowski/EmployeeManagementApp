@@ -18,9 +18,9 @@ namespace Tests.ValidatorTests
 #pragma warning disable CS1998
     public class CommissionPctValidatorTests
     {
-        private CommissionPctValidator _subject;
+        private readonly CommissionPctValidator _subject;
 
-        private Mock<DepartmentRepository> _mockDepartmentRepository;
+        private readonly Mock<DepartmentRepository> _mockDepartmentRepository;
 
         public CommissionPctValidatorTests()
         {

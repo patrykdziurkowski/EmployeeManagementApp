@@ -9,7 +9,7 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private ISqlDataAccess _dataAccess;
+        private readonly ISqlDataAccess _dataAccess;
 
 
         ////////////////////////////////////////////

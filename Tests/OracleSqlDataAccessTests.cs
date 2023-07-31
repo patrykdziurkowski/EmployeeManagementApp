@@ -19,13 +19,13 @@ namespace Tests
 #pragma warning disable CS1998
     public class OracleSqlDataAccessTests
     {
-        private OracleSqlDataAccess _subject;
+        private readonly OracleSqlDataAccess _subject;
 
-        private Mock<IConnectionFactory> _mockConnectionFactory;
-        private Mock<IDapperAdapter> _mockDapperAdapter;
+        private readonly Mock<IConnectionFactory> _mockConnectionFactory;
+        private readonly Mock<IDapperAdapter> _mockDapperAdapter;
 
-        private Mock<IDbConnection> _mockConnection;
-        private Mock<IDbTransaction> _mockTransaction;
+        private readonly Mock<IDbConnection> _mockConnection;
+        private readonly Mock<IDbTransaction> _mockTransaction;
 
         public OracleSqlDataAccessTests()
         {

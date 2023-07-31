@@ -12,9 +12,9 @@ namespace BusinessLogic.Commands
 {
     public class LoadDepartmentsCommand : ICommand
     {
-        private DepartmentsMenuViewModel _viewModel;
-        private DepartmentRepository _departmentRepository;
-        private EmployeeRepository _employeeRepository;
+        private readonly DepartmentsMenuViewModel _viewModel;
+        private readonly DepartmentRepository _departmentRepository;
+        private readonly EmployeeRepository _employeeRepository;
 
         public event EventHandler? CanExecuteChanged;
 

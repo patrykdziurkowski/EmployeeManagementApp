@@ -12,8 +12,8 @@ namespace BusinessLogic.Commands
 {
     public class LoadDepartmentLocationsCommand : ICommand
     {
-        private DepartmentLocationsMenuViewModel _viewModel;
-        private DepartmentLocationRepository _departmentLocationRepository;
+        private readonly DepartmentLocationsMenuViewModel _viewModel;
+        private readonly DepartmentLocationRepository _departmentLocationRepository;
 
         public event EventHandler? CanExecuteChanged;
 

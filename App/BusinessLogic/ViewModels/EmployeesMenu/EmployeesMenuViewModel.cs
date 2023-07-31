@@ -17,8 +17,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private EmployeeRepository _employeeRepository;
-        private JobRepository _jobRepository;
+        private readonly EmployeeRepository _employeeRepository;
+        private readonly JobRepository _jobRepository;
 
 
         private bool _isLastCommandSuccessful;

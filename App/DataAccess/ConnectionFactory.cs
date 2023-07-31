@@ -17,7 +17,7 @@ namespace DataAccess
 
     public class ConnectionFactory : IConnectionFactory
     {
-        private ConnectionStringProvider _connectionStringProvider;
+        private readonly ConnectionStringProvider _connectionStringProvider;
 
         public ConnectionFactory(ConnectionStringProvider connectionStringProvider)
         {

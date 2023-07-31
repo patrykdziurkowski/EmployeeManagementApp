@@ -21,16 +21,16 @@ namespace Tests.CommandTests
 #pragma warning disable CS1998
     public class UpdateEmployeeCommandTests
     {
-        private UpdateEmployeeCommand _subject;
+        private readonly UpdateEmployeeCommand _subject;
 
-        private Mock<IEmployeeValidatorFactory> _mockEmployeeValidatorFactory;
+        private readonly Mock<IEmployeeValidatorFactory> _mockEmployeeValidatorFactory;
 
-        private Mock<IDateProvider> _mockDateProvider;
-        private Mock<JobHistoryRepository> _mockJobHistoryRepository;
-        private Mock<JobRepository> _mockJobRepository;
-        private Mock<EmployeeRepository> _mockEmployeeRepository;
-        private Mock<DepartmentRepository> _mockDepartmentRepository;
-        private Mock<EmployeesMenuViewModel> _mockViewModel;
+        private readonly Mock<IDateProvider> _mockDateProvider;
+        private readonly Mock<JobHistoryRepository> _mockJobHistoryRepository;
+        private readonly Mock<JobRepository> _mockJobRepository;
+        private readonly Mock<EmployeeRepository> _mockEmployeeRepository;
+        private readonly Mock<DepartmentRepository> _mockDepartmentRepository;
+        private readonly Mock<EmployeesMenuViewModel> _mockViewModel;
 
         public UpdateEmployeeCommandTests()
         {

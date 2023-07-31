@@ -14,7 +14,7 @@ namespace Tests.ValidatorTests
 
     public class EmployeeValidatorTests
     {
-        private EmployeeValidator _subject;
+        private readonly EmployeeValidator _subject;
 
         public EmployeeValidatorTests()
         {

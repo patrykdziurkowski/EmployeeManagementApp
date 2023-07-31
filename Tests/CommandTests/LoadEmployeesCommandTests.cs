@@ -20,15 +20,15 @@ namespace Tests.CommandTests
 #pragma warning disable CS1998
     public class LoadEmployeesCommandTests
     {
-        private LoadEmployeesCommand _subject;
+        private readonly LoadEmployeesCommand _subject;
 
-        private Mock<IEmployeeValidatorFactory> _mockEmployeeValidatorFactory;
-        private Mock<IDateProvider> _mockDateProvider;
-        private Mock<JobHistoryRepository> _mockJobHistoryRepository;
-        private Mock<JobRepository> _mockJobRepository;
-        private Mock<EmployeeRepository> _mockEmployeeRepository;
+        private readonly Mock<IEmployeeValidatorFactory> _mockEmployeeValidatorFactory;
+        private readonly Mock<IDateProvider> _mockDateProvider;
+        private readonly Mock<JobHistoryRepository> _mockJobHistoryRepository;
+        private readonly Mock<JobRepository> _mockJobRepository;
+        private readonly Mock<EmployeeRepository> _mockEmployeeRepository;
 
-        private Mock<EmployeesMenuViewModel> _mockViewModel;
+        private readonly Mock<EmployeesMenuViewModel> _mockViewModel;
 
         public LoadEmployeesCommandTests()
         {

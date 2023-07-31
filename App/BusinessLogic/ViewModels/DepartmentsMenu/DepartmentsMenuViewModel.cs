@@ -17,7 +17,8 @@ namespace BusinessLogic.ViewModels
         ////////////////////////////////////////////
         //  Fields and properties
         ////////////////////////////////////////////
-        private EmployeeRepository _employeeRepository;
+        private readonly EmployeeRepository _employeeRepository;
+
 
         private ObservableCollection<DepartmentDto> _departments;
         public ObservableCollection<DepartmentDto> Departments
@@ -32,7 +33,6 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         private ObservableCollection<EmployeeDto> _employees;
         public ObservableCollection<EmployeeDto> Employees
