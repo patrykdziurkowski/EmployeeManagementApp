@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using Dapper;
+using DataAccess;
 using DataAccess.Interfaces;
 using DataAccess.Models;
 using Moq;
@@ -21,30 +22,21 @@ namespace Tests
         private OracleSqlDataAccess _subject;
 
         private Mock<IConnectionFactory> _mockConnectionFactory;
-        private Mock<ICommandFactory> _mockCommandFactory;
+        private Mock<IDapperAdapter> _mockDapperAdapter;
 
         private Mock<IDbConnection> _mockConnection;
-        private Mock<IDbCommand> _mockCommand;
-
         private Mock<IDbTransaction> _mockTransaction;
 
         public OracleSqlDataAccessTests()
         {
             _mockConnection = new();
-            _mockCommand = new();
-            _mockCommand
-                .Setup(x => x.ExecuteReader())
-                .Returns((OracleDataReader)null!);
             
             _mockConnectionFactory = new();
             _mockConnectionFactory
                 .Setup(x => x.GetConnection(ConnectionType.Oracle))
                 .Returns(_mockConnection.Object);
 
-            _mockCommandFactory = new();
-            _mockCommandFactory
-                .Setup(x => x.GetCommand(It.IsAny<string>(), _mockConnection.Object, ConnectionType.Oracle))
-                .Returns(_mockCommand.Object);
+            _mockDapperAdapter = new();
 
             _mockTransaction = new();
             _mockConnection
@@ -53,7 +45,7 @@ namespace Tests
 
             _subject = new(
                 _mockConnectionFactory.Object,
-                _mockCommandFactory.Object);
+                _mockDapperAdapter.Object);
         }
 
 
@@ -108,8 +100,14 @@ namespace Tests
         public async Task ExecuteSqlNonQueryAsync_GivenException_RollsbackTransaction()
         {
             //Arrange
-            _mockCommand
-                .Setup(x => x.ExecuteNonQuery())
+            _mockDapperAdapter
+                .Setup(x => x.ExecuteAsync(
+                    It.IsAny<IDbConnection>(),
+                    It.IsAny<string>(),
+                    null,
+                    null,
+                    null,
+                    null))
                 .Throws<Exception>();
 
             //Act
@@ -129,8 +127,15 @@ namespace Tests
             await _subject.ExecuteSqlNonQueryAsync("command1;command2;command3");
 
             //Assert
-            _mockCommand
-                .Verify(x => x.ExecuteNonQuery(), Times.Exactly(3));
+            _mockDapperAdapter
+                .Verify(x => x.ExecuteAsync(
+                        It.IsAny<IDbConnection>(),
+                        It.IsAny<string>(),
+                        null,
+                        null,
+                        null,
+                        null), 
+                    Times.Exactly(3));
         }
 
 

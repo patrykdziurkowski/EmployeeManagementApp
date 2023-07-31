@@ -1,6 +1,6 @@
-﻿using DataAccess.Interfaces;
+﻿using Dapper;
+using DataAccess.Interfaces;
 using FluentResults;
-using Oracle.ManagedDataAccess.Client;
 using System.Data;
 
 namespace DataAccess
@@ -12,18 +12,19 @@ namespace DataAccess
         //  Fields and properties
         ////////////////////////////////////////////
         private IConnectionFactory _connectionFactory;
-        private ICommandFactory _commandFactory;
-        
+        private IDapperAdapter _dapperAdapter;
+
         private IDbConnection? _connection;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public OracleSqlDataAccess(IConnectionFactory connectionFactory,
-            ICommandFactory commandFactory)
+        public OracleSqlDataAccess(
+            IConnectionFactory connectionFactory,
+            IDapperAdapter dapperAdapter)
         {
             _connectionFactory = connectionFactory;
-            _commandFactory = commandFactory;
+            _dapperAdapter = dapperAdapter;
         }
 
         ////////////////////////////////////////////
@@ -37,22 +38,9 @@ namespace DataAccess
         /// <returns>IEnumerable of given entity, can be empty.</returns>
         public async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(string query) where T : class, new()
         {
-            List<T> result = new();
             Open();
-
-            IDbCommand command = _commandFactory.GetCommand(query, _connection!, ConnectionType.Oracle);
             
-            //Note: the nullcheck here is purely for unit testing purposes, as it's the only
-            //workaround for Oracle's library being largely sealed an internal and thus unmockable
-            OracleDataReader? reader = (OracleDataReader)command.ExecuteReader();
-
-            if (reader is not null)
-            {
-                while (reader.Read())
-                {
-                    result.Add(await reader.ConvertToObjectAsync<T>());
-                }
-            }
+            IEnumerable<T> result = await _dapperAdapter.QueryAsync<T>(_connection!, query);
 
             Close();
             return result;
@@ -91,23 +79,15 @@ namespace DataAccess
             Result result = Result.Ok();
 
             foreach (string nonQuery in nonQueries)
-            {
-                IDbCommand command = _commandFactory.GetCommand(nonQuery, _connection!, ConnectionType.Oracle);
-                
-                //Note: the try-catch must be done inside of this block since exceptions thrown
-                //on a different thread do not seem to be caught by try-catches up the stack
-                await Task.Run(() =>
+            {   
+                try
                 {
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        result = Result.Fail(ex.Message);
-                    }
-
-                });
+                    await _dapperAdapter.ExecuteAsync(_connection!, nonQuery);
+                }
+                catch (Exception ex)
+                {
+                    result = Result.Fail(ex.Message);
+                }
             }
             return result;
         }

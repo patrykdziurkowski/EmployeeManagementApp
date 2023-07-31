@@ -23,6 +23,8 @@ namespace Presentation
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
+
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }
         
         private void ConfigureServices(ServiceCollection services)
@@ -34,7 +36,7 @@ namespace Presentation
             services.AddSingleton<ConnectionStringProvider>();
             services.AddSingleton<ISqlDataAccess, OracleSqlDataAccess>();
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
-            services.AddSingleton<ICommandFactory, CommandFactory>();
+            services.AddSingleton<IDapperAdapter, DapperAdapter>();
 
             services.AddTransient<JobRepository>();
             services.AddTransient<EmployeeRepository>();
