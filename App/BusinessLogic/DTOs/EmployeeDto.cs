@@ -183,7 +183,7 @@ namespace BusinessLogic.ViewModels
             _employeeId = 0;
             _lastName = string.Empty;
             _email = string.Empty;
-            _jobId = string.Empty;
+            _jobId = "ST_CLERK";
             HireDate = new DateProvider().GetNow();
         }
         
