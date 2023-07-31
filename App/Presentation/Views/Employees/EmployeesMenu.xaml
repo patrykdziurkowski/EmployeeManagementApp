@@ -114,13 +114,13 @@
             <DataGrid Grid.Row="1" ItemsSource="{Binding Employees, Mode=TwoWay}" Name="EmployeesTable" SelectionUnit="Cell" DataGridCell.Selected="DataGridCell_Selected"  HeadersVisibility="Column" AutoGenerateColumns="False" AddingNewItem="EmployeesTable_AddingNewItem" InitializingNewItem="EmployeesTable_InitializingNewItem">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId, Mode=TwoWay}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName, Mode=TwoWay, TargetNullValue=''}"/>
                     <DataGridTextColumn Header="LastName" Binding="{Binding LastName, Mode=TwoWay}"/>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=TwoWay}"/>
-                    <DataGridTextColumn Header="PhoneNumber" Binding="{Binding PhoneNumber, Mode=TwoWay}"/>
-                    <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay}"/>
-                    <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay}"/>
-                    <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="PhoneNumber" Binding="{Binding PhoneNumber, Mode=TwoWay, TargetNullValue=''}"/>
+                    <DataGridTextColumn Header="Salary" Binding="{Binding Salary, Mode=TwoWay, TargetNullValue=''}"/>
+                    <DataGridTextColumn Header="Department" Binding="{Binding DepartmentId, Mode=TwoWay, TargetNullValue=''}"/>
+                    <DataGridTextColumn Header="Manager" Binding="{Binding ManagerId, Mode=TwoWay, TargetNullValue=''}"/>
                     <DataGridTemplateColumn Header="Job" Width="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -129,7 +129,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="HireDate" Binding="{Binding HireDate, Mode=OneWay}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Commission (%)" Binding="{Binding CommissionPct, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Commission (%)" Binding="{Binding CommissionPct, Mode=TwoWay, TargetNullValue=''}"/>
                     <!-- Delete button -->
                     <DataGridTemplateColumn Header="Delete" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
