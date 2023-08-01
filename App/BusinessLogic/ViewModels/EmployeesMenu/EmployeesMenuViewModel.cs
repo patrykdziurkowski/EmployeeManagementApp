@@ -37,7 +37,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool _isLastCommandFailAcknowledged;
         public bool IsLastCommandFailAcknowledged
         {
@@ -52,7 +52,7 @@ namespace BusinessLogic.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private string? _commandFailMessage;
         public string? CommandFailMessage
         {
@@ -67,7 +67,17 @@ namespace BusinessLogic.ViewModels
             }
         }
 
-        public bool IsUpdatedEmployeeJobChanged => UpdatedEmployeePreviousJob?.JobId != UpdatedEmployee?.JobId;
+        public bool IsUpdatedEmployeeJobChanged
+        {
+            get
+            {
+                if (UpdatedEmployeePreviousJob is null || UpdatedEmployee is null)
+                {
+                    return false;
+                }
+                return UpdatedEmployeePreviousJob.JobId != UpdatedEmployee.JobId;
+            }
+        }
 
         private Job? _updatedEmployeePreviousJob;
         public Job? UpdatedEmployeePreviousJob
