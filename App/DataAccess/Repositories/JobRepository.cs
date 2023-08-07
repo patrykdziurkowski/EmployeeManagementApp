@@ -1,5 +1,7 @@
 ﻿using DataAccess.Interfaces;
 using DataAccess.Models;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace DataAccess.Repositories
 {
@@ -23,8 +25,11 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         public virtual async Task<IEnumerable<Job>> GetAllAsync()
         {
+            OracleDynamicParameters parameters = new();
+            parameters.Add("out_jobs_cur", OracleDbType.RefCursor, ParameterDirection.Output);
+
             return await _dataAccess
-                .ExecuteSqlQueryAsync<Job>("SELECT * FROM jobs");
+                .QueryStoredProcedureAsync<Job>("JOBPROCEDURES.getJobs", parameters);
         }
     }
 }
