@@ -1,6 +1,8 @@
 ﻿using DataAccess.Interfaces;
 using DataAccess.Models;
 using FluentResults;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace DataAccess.Repositories
 {
@@ -26,34 +28,38 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         public virtual async Task<IEnumerable<Department>> GetAllAsync()
         {
-            string query = "SELECT * FROM departments";
+            OracleDynamicParameters parameters = new();
+            parameters.Add("out_departments_cur", OracleDbType.RefCursor, ParameterDirection.Output);
 
             return await _dataAccess
-                .ExecuteSqlQueryAsync<Department>(query);
+                .QueryStoredProcedureAsync<Department>("DEPARTMENTPROCEDURES.getDepartments", parameters);
         }
 
         public virtual async Task<Result<Department>> GetAsync(int departmentId)
         {
-            string query = $"SELECT * FROM departments WHERE department_id = :DepartmentId";
+            OracleDynamicParameters parameters = new();
+            parameters.Add(":in_department_id", departmentId);
+            parameters.Add("out_departments_cur", OracleDbType.RefCursor, ParameterDirection.Output);
 
-            Department? departmentWithGivenId = (await _dataAccess
-                .ExecuteSqlQueryAsync<Department>(query, new { DepartmentId = departmentId }))
+            Department? department = (await _dataAccess
+                .QueryStoredProcedureAsync<Department>("DEPARTMENTPROCEDURES.getDepartment", parameters))
                 .FirstOrDefault();
 
-            if (departmentWithGivenId is null)
+            if (department is null)
             {
-                return Result.Fail($"No user with id {departmentId} was found");
+                return Result.Fail("No department with such id was found");
             }
-
-            return Result.Ok(departmentWithGivenId);
+            return Result.Ok(department);
         }
 
         public virtual async Task<IEnumerable<Employee>> GetEmployeesForDepartmentAsync(int departmentId)
         {
-            string query = $"SELECT * FROM employees WHERE department_id = :DepartmentId";
-            
+            OracleDynamicParameters parameters = new();
+            parameters.Add(":in_department_id", departmentId);
+            parameters.Add("out_employees_cur", OracleDbType.RefCursor, ParameterDirection.Output);
+
             return await _dataAccess
-                .ExecuteSqlQueryAsync<Employee>(query, new { DepartmentId = departmentId });
+                .QueryStoredProcedureAsync<Employee>("DEPARTMENTPROCEDURES.getEmployeesForDepartment", parameters);
         }
     }
 }
