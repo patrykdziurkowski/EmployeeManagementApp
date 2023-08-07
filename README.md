@@ -5,11 +5,11 @@ A WPF MVVM application that connects to an Oracle DB server.
 This is a project made for learning purposes.
 
 # Setup Guide
-This app requires that you have access to an Oracle database server
+This app requires that you have access to an Oracle database server (for example via Docker)
 
 To setup the application, follow the steps below:
 1. Fork or clone the repository
-2. While on your Oracle server, execute the schema script found in DatabaseSetup folder of this project to create the database with sample data
+2. While on your Oracle server, execute the scripts found in DatabaseSetup folder of this project to create the database with sample data as well as the stored procedures.
 3. Inside the project directory, navigate to ```App/Presentation/App.config```
 4. Once you open the file you will find three settings named ```host```, ```port``` and ```sid```
 5. Fill the values of these settings to match the host, port and sid of your OracleDB server
