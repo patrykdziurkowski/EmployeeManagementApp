@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DataAccess.Interfaces;
 using FluentResults;
+using Oracle.ManagedDataAccess.Client;
 using System.Data;
 
 namespace DataAccess
@@ -30,6 +31,40 @@ namespace DataAccess
         ////////////////////////////////////////////
         //  Methods
         ////////////////////////////////////////////
+        public async Task<Result> ExecuteStoredProcedureAsync(
+            string procedureName,
+            object? data = null)
+        {
+            Open();
+
+            try
+            {
+                await _connection.ExecuteAsync(procedureName, data, commandType: CommandType.StoredProcedure);
+                return Result.Ok();
+            }
+            catch (OracleException ex)
+            {
+                return Result.Fail(ex.Message);
+            }
+            finally
+            {
+                Close();
+            }
+
+        }
+
+        public async Task<IEnumerable<T>> QueryStoredProcedureAsync<T>(
+            string procedureName,
+            object? data = null)
+        {
+            Open();
+
+            IEnumerable<T> result = await _connection.QueryAsync<T>(procedureName, data, commandType: CommandType.StoredProcedure);
+
+            Close();
+            return result;
+        }
+        
         /// <summary>
         /// Executes a SELECT type Oracle SQL command that returns matching rows
         /// </summary>
