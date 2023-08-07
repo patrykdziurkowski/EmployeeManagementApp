@@ -1,6 +1,8 @@
 ﻿using DataAccess.Interfaces;
 using DataAccess.Models;
 using FluentResults;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace DataAccess.Repositories
 {
@@ -24,23 +26,24 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         public virtual async Task<IEnumerable<JobHistory>> GetAllAsync()
         {
+            OracleDynamicParameters parameters = new();
+            parameters.Add("out_job_history_cur", OracleDbType.RefCursor, ParameterDirection.Output);
+
             return await _dataAccess
-                .ExecuteSqlQueryAsync<JobHistory>("SELECT * FROM job_history");
+                .QueryStoredProcedureAsync<JobHistory>("JOBHISTORYPROCEDURES.getJobHistory", parameters);
         }
 
         public virtual async Task<Result> InsertAsync(JobHistory jobHistory)
         {
-            string nonQuery = $"INSERT INTO job_history VALUES (" +
-                $":EmployeeId, " +
-                $":StartDate, " +
-                $":EndDate, " +
-                $":JobId, " +
-                $":DepartmentId)";
+            OracleDynamicParameters parameters = new();
+            parameters.Add(":in_employee_id", jobHistory.EmployeeId);
+            parameters.Add(":in_start_date", jobHistory.StartDate);
+            parameters.Add(":in_end_date", jobHistory.EndDate);
+            parameters.Add(":in_job_id", jobHistory.JobId);
+            parameters.Add(":in_department_id", jobHistory.DepartmentId);
 
-            Result insertionResult = await _dataAccess
-                .ExecuteSqlNonQueryAsync(nonQuery, jobHistory);
-
-            return insertionResult;
+            return await _dataAccess
+                .ExecuteStoredProcedureAsync("JOBHISTORYPROCEDURES.createJobHistory", parameters);
         }
     }
 }
