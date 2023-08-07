@@ -23,8 +23,6 @@ namespace Tests.CommandTests
         private readonly LoadEmployeesCommand _subject;
 
         private readonly Mock<IEmployeeValidatorFactory> _mockEmployeeValidatorFactory;
-        private readonly Mock<IDateProvider> _mockDateProvider;
-        private readonly Mock<JobHistoryRepository> _mockJobHistoryRepository;
         private readonly Mock<JobRepository> _mockJobRepository;
         private readonly Mock<EmployeeRepository> _mockEmployeeRepository;
 
@@ -33,7 +31,6 @@ namespace Tests.CommandTests
         public LoadEmployeesCommandTests()
         {
             Mock<ISqlDataAccess> mockDataAccess = new();
-            _mockJobHistoryRepository = new(mockDataAccess.Object);
             _mockJobRepository = new(mockDataAccess.Object);
             _mockEmployeeRepository = new(mockDataAccess.Object);
 
@@ -42,14 +39,11 @@ namespace Tests.CommandTests
                 .Setup(x => x.GetValidator(typeof(EmployeeValidator)))
                 .Returns(new EmployeeValidator());
 
-            _mockDateProvider = new();
 
             _mockViewModel = new(
                 _mockEmployeeRepository.Object,
                 _mockJobRepository.Object,
-                _mockJobHistoryRepository.Object,
-                _mockEmployeeValidatorFactory.Object,
-                _mockDateProvider.Object);
+                _mockEmployeeValidatorFactory.Object);
 
             _subject = new(
                 _mockViewModel.Object,

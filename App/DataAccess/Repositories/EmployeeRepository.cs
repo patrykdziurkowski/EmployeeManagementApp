@@ -1,6 +1,9 @@
-﻿using DataAccess.Interfaces;
+﻿using Dapper;
+using DataAccess.Interfaces;
 using DataAccess.Models;
 using FluentResults;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace DataAccess.Repositories
 {
@@ -24,77 +27,70 @@ namespace DataAccess.Repositories
         ////////////////////////////////////////////
         public virtual async Task<IEnumerable<Employee>> GetAllAsync()
         {
+            OracleDynamicParameters parameters = new();
+            parameters.Add("out_employees_cur", OracleDbType.RefCursor, ParameterDirection.Output);
+
             return await _dataAccess
-                .ExecuteSqlQueryAsync<Employee>("SELECT * FROM employees");
-        }
-
-        public virtual async Task<Result<Employee>> GetAsync(int employeeId)
-        {
-            string query = $"SELECT * FROM employees WHERE employee_id = :EmployeeId";
-
-            Employee? employeeWithGivenId = (await _dataAccess
-                .ExecuteSqlQueryAsync<Employee>(query, new { EmployeeId = employeeId }))
-                .FirstOrDefault();
-            if (employeeWithGivenId is null)
-            {
-                return Result.Fail($"No user with id {employeeId} was found");
-            }
-
-            return Result.Ok(employeeWithGivenId);
+                .QueryStoredProcedureAsync<Employee>("EMPLOYEEPROCEDURES.getEmployees", parameters);
         }
 
         public virtual async Task<Result> HireAsync(Employee employee)
         {
-            string nonQuery = $"INSERT INTO employees VALUES (" +
-                $":EmployeeId, " +
-                $":FirstName, " +
-                $":LastName, " +
-                $":Email, " +
-                $":PhoneNumber, " +
-                $":HireDate, " +
-                $":JobId, " +
-                $":Salary, " +
-                $":CommissionPct, " +
-                $":ManagerId, " +
-                $":DepartmentId" +
-                $")";
-            
-            Result insertionResult = await _dataAccess
-                .ExecuteSqlNonQueryAsync(nonQuery, employee);
+            DynamicParameters parameters = new();
+            parameters.Add(":in_employee_id", employee.EmployeeId);
+            parameters.Add(":in_first_name", employee.FirstName);
+            parameters.Add(":in_last_name", employee.LastName);
+            parameters.Add(":in_email", employee.Email);
+            parameters.Add(":in_phone_number", employee.PhoneNumber);
+            parameters.Add(":in_hire_date", employee.HireDate);
+            parameters.Add(":in_job_id", employee.JobId);
+            parameters.Add(":in_salary", employee.Salary);
+            parameters.Add(":in_commission_pct", employee.CommissionPct);
+            parameters.Add(":inout_manager_id", employee.ManagerId);
+            parameters.Add(":inout_department_id", employee.DepartmentId);
 
-            return insertionResult;
+            Result updateResult = await _dataAccess.ExecuteStoredProcedureAsync("EMPLOYEEPROCEDURES.createEmployee", parameters);
+
+            if (updateResult.IsFailed)
+            {
+                return Result.Fail(updateResult.Errors.First().Message);
+            }
+            return Result.Ok();
         }
 
         public virtual async Task<Result> FireAsync(int employeeId)
         {
-            string nonQuery = $"DELETE FROM employees WHERE employee_id = :EmployeeId";
-            
+            DynamicParameters parameters = new();
+            parameters.Add(":in_employee_id", employeeId);
+
             Result deletionResult = await _dataAccess
-                .ExecuteSqlNonQueryAsync(nonQuery, new { EmployeeId = employeeId });
+                .ExecuteStoredProcedureAsync("EMPLOYEEPROCEDURES.deleteEmployee", parameters);
 
             return deletionResult;
         }
 
         public virtual async Task<Result> UpdateAsync(Employee employee)
         {
-            string nonQuery = $"UPDATE employees SET " +
-                $"employee_id = :EmployeeId, " +
-                $"first_name = :FirstName, " +
-                $"last_name = :LastName, " +
-                $"email = :Email, " +
-                $"phone_number = :PhoneNumber, " +
-                $"hire_date = :HireDate, " +
-                $"job_id = :JobId, " +
-                $"salary = :Salary, " +
-                $"commission_pct = :CommissionPct, " +
-                $"manager_id = :ManagerId, " +
-                $"department_id = :DepartmentId " +
-                $"WHERE employee_id = :EmployeeId";
-            
-            Result updateResult = await _dataAccess
-                .ExecuteSqlNonQueryAsync(nonQuery, employee);
+            DynamicParameters parameters = new();
+            parameters.Add(":in_employee_id", employee.EmployeeId);
+            parameters.Add(":in_first_name", employee.FirstName);
+            parameters.Add(":in_last_name", employee.LastName);
+            parameters.Add(":in_email", employee.Email);
+            parameters.Add(":in_phone_number", employee.PhoneNumber);
+            parameters.Add(":in_hire_date", employee.HireDate);
+            parameters.Add(":in_job_id", employee.JobId);
+            parameters.Add(":in_salary", employee.Salary);
+            parameters.Add(":in_commission_pct", employee.CommissionPct);
+            parameters.Add(":inout_manager_id", employee.ManagerId);
+            parameters.Add(":inout_department_id", employee.DepartmentId);
 
-            return updateResult;
+            Result updateResult = await _dataAccess.ExecuteStoredProcedureAsync("EMPLOYEEPROCEDURES.updateEmployee", parameters);
+
+            if (updateResult.IsFailed)
+            {
+                return Result.Fail(updateResult.Errors.First().Message);
+            }
+            return Result.Ok();
         }
     }
 }

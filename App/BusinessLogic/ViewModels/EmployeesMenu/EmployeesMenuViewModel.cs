@@ -190,9 +190,7 @@ namespace BusinessLogic.ViewModels
         public EmployeesMenuViewModel(
             EmployeeRepository employeeRepository,
             JobRepository jobRepository,
-            JobHistoryRepository jobHistoryRepository,
-            IEmployeeValidatorFactory employeeValidatorFactory,
-            IDateProvider dateProvider)
+            IEmployeeValidatorFactory employeeValidatorFactory)
         {
             _jobRepository = jobRepository;
             _employeeRepository = employeeRepository;
@@ -206,7 +204,7 @@ namespace BusinessLogic.ViewModels
             LoadEmployeesCommand = new LoadEmployeesCommand(this, _employeeRepository, _jobRepository);
             DeleteEmployeeCommand = new DeleteEmployeeCommand(this, _employeeRepository);
             CreateEmployeeCommand = new CreateEmployeeCommand(this, _employeeRepository, employeeValidatorFactory);
-            UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, employeeValidatorFactory, dateProvider, jobHistoryRepository);
+            UpdateEmployeeCommand = new UpdateEmployeeCommand(this, _employeeRepository, employeeValidatorFactory);
         }
 
 

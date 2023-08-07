@@ -25,8 +25,6 @@ namespace Tests.CommandTests
 
         private readonly Mock<IEmployeeValidatorFactory> _mockEmployeeValidatorFactory;
 
-        private readonly Mock<IDateProvider> _mockDateProvider;
-        private readonly Mock<JobHistoryRepository> _mockJobHistoryRepository;
         private readonly Mock<JobRepository> _mockJobRepository;
         private readonly Mock<EmployeeRepository> _mockEmployeeRepository;
         private readonly Mock<DepartmentRepository> _mockDepartmentRepository;
@@ -35,7 +33,6 @@ namespace Tests.CommandTests
         public UpdateEmployeeCommandTests()
         {
             Mock<ISqlDataAccess> mockDataAccess = new();
-            _mockJobHistoryRepository = new(mockDataAccess.Object);
             _mockJobRepository = new(mockDataAccess.Object);
             _mockEmployeeRepository = new(mockDataAccess.Object);
             _mockDepartmentRepository = new(mockDataAccess.Object);
@@ -48,21 +45,15 @@ namespace Tests.CommandTests
                 .Setup(x => x.GetValidator(typeof(CommissionPctValidator)))
                 .Returns(new CommissionPctValidator(_mockDepartmentRepository.Object));
 
-            _mockDateProvider = new();
-
             _mockViewModel = new(
                 _mockEmployeeRepository.Object,
                 _mockJobRepository.Object,
-                _mockJobHistoryRepository.Object,
-                _mockEmployeeValidatorFactory.Object,
-                _mockDateProvider.Object);
+                _mockEmployeeValidatorFactory.Object);
 
             _subject = new(
                 _mockViewModel.Object,
                 _mockEmployeeRepository.Object,
-                _mockEmployeeValidatorFactory.Object,
-                _mockDateProvider.Object,
-                _mockJobHistoryRepository.Object);
+                _mockEmployeeValidatorFactory.Object);
         }
 
         [Fact]
@@ -125,7 +116,7 @@ namespace Tests.CommandTests
         }
 
         [Fact]
-        public async Task Execute_GivenSuccessfulDatabaseUpdateAndNoJobChange_SetsSuccessIndicator()
+        public async Task Execute_GivenSuccessfulDatabaseUpdate_SetsSuccessIndicator()
         {
             //Arrange
             EmployeeDto validEmployee = new(
@@ -153,7 +144,7 @@ namespace Tests.CommandTests
         }
 
         [Fact]
-        public async Task Execute_GivenUnsuccessfulDatabaseUpdateAndNoJobChange_SetsFailureIndicatorAndMessage()
+        public async Task Execute_GivenUnsuccessfulDatabaseUpdate_SetsFailureIndicatorAndMessage()
         {
             //Arrange
             EmployeeDto validEmployee = new(
@@ -173,114 +164,6 @@ namespace Tests.CommandTests
             _mockEmployeeRepository
                 .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
                 .Returns(Task.FromResult(Result.Fail("")));
-
-            //Act
-            _subject.Execute(null);
-
-            //Assert
-            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
-            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
-        }
-
-        [Fact]
-        public async Task Execute_GivenJobChangeAndSuccessfulDatabaseJobEntryCreation_SetsSuccessIndicator()
-        {
-            //Arrange
-            EmployeeDto validEmployee = new(
-                1,
-                "Smith",
-                "JSMITH",
-                "ST_MGR");
-
-            _mockViewModel.Object.UpdatedEmployee = validEmployee;
-            _mockViewModel.Object.IsLastCommandSuccessful = false;
-            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
-            {
-                JobId = "ST_CLERK"
-            };
-
-            _mockEmployeeRepository
-                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
-                .Returns(Task.FromResult(Result.Ok()));
-            _mockJobHistoryRepository
-                .Setup(x => x.InsertAsync(It.IsAny<JobHistory>()))
-                .Returns(Task.FromResult(Result.Ok()));
-
-            //Act
-            _subject.Execute(null);
-
-            //Assert
-            Assert.True(_mockViewModel.Object.IsLastCommandSuccessful);
-        }
-
-        [Fact]
-        public async Task Execute_GivenJobChangeAndUnsuccessfulDatabaseJobEntryCreation_SetsFailMessageAndIndicator()
-        {
-            //Arrange
-            EmployeeDto validEmployee = new(
-                1,
-                "Smith",
-                "JSMITH",
-                "ST_MGR");
-
-            _mockViewModel.Object.UpdatedEmployee = validEmployee;
-            _mockViewModel.Object.IsLastCommandSuccessful = false;
-            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
-            {
-                JobId = "ST_CLERK"
-            };
-
-            _mockEmployeeRepository
-                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
-                .Returns(Task.FromResult(Result.Ok()));
-            _mockJobHistoryRepository
-                .Setup(x => x.InsertAsync(It.IsAny<JobHistory>()))
-                .Returns(Task.FromResult(Result.Fail("")));
-
-            //Act
-            _subject.Execute(null);
-
-            //Assert
-            Assert.False(_mockViewModel.Object.IsLastCommandSuccessful);
-            Assert.NotNull(_mockViewModel.Object.CommandFailMessage);
-        }
-
-        [Fact]
-        public async Task Execute_GivenTwoJobChangesInOneDay_SetsFailMessageAndIndicator()
-        {
-            //Arrange
-            EmployeeDto validEmployee = new(
-                1,
-                "Smith",
-                "JSMITH",
-                "ST_MGR");
-
-            _mockViewModel.Object.UpdatedEmployee = validEmployee;
-            _mockViewModel.Object.IsLastCommandSuccessful = true;
-            _mockViewModel.Object.UpdatedEmployeePreviousJob = new Job()
-            {
-                JobId = "ST_CLERK"
-            };
-
-            IEnumerable<JobHistory> employeesPastJobs = new List<JobHistory>()
-            {
-                new JobHistory()
-                {
-                    EmployeeId = validEmployee.EmployeeId,
-                    StartDate = validEmployee.HireDate.ToDateTime(TimeOnly.MinValue),
-                    EndDate = new DateTime(2008, 4, 27)
-                }
-            };
-            _mockDateProvider
-                .Setup(x => x.GetNow())
-                .Returns(new DateOnly(2008, 4, 27));
-            _mockEmployeeRepository
-                .Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
-                .Returns(Task.FromResult(Result.Ok()));
-            _mockJobHistoryRepository
-                .Setup(x => x.GetAllAsync())
-                .Returns(Task.FromResult(employeesPastJobs));
-                
 
             //Act
             _subject.Execute(null);

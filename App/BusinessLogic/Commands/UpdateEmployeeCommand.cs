@@ -19,26 +19,21 @@ namespace BusinessLogic.Commands
         private EmployeeRepository _employeeRepository;
         private IValidator<EmployeeDto> _employeeValidator;
         private IValidator<EmployeeDto> _commissionPctValidator;
-        private IDateProvider _dateProvider;
-        private JobHistoryRepository _jobHistoryRepository;
 
         public event EventHandler? CanExecuteChanged;
 
         ////////////////////////////////////////////
         //  Constructors
         ////////////////////////////////////////////
-        public UpdateEmployeeCommand(EmployeesMenuViewModel employeesMenuViewModel,
+        public UpdateEmployeeCommand(
+            EmployeesMenuViewModel employeesMenuViewModel,
             EmployeeRepository employeeRepository,
-            IEmployeeValidatorFactory employeeValidatorFactory,
-            IDateProvider dateProvider,
-            JobHistoryRepository jobHistoryRepository)
+            IEmployeeValidatorFactory employeeValidatorFactory)
         {
             _viewModel = employeesMenuViewModel;
             _employeeRepository = employeeRepository;
             _employeeValidator = employeeValidatorFactory.GetValidator(typeof(EmployeeValidator));
             _commissionPctValidator = employeeValidatorFactory.GetValidator(typeof(CommissionPctValidator));
-            _dateProvider = dateProvider;
-            _jobHistoryRepository = jobHistoryRepository;
         }
 
         ////////////////////////////////////////////
@@ -83,18 +78,6 @@ namespace BusinessLogic.Commands
                 DepartmentId = changedEmployee.DepartmentId
             };
 
-            if (_viewModel.IsUpdatedEmployeeJobChanged)
-            {
-                Result jobHistoryEntryCreationResult = await CreateJobHistoryEntryAsync(employeeToUpdate);
-                if (jobHistoryEntryCreationResult.IsFailed)
-                {
-                    _viewModel.IsLastCommandSuccessful = false;
-                    _viewModel.CommandFailMessage = jobHistoryEntryCreationResult.Reasons.First().Message;
-
-                    return;
-                }
-            }
-
             Result updateResult = await _employeeRepository.UpdateAsync(employeeToUpdate);
             _viewModel.IsLastCommandSuccessful = updateResult.IsSuccess;
             if (updateResult.IsFailed)
@@ -103,37 +86,5 @@ namespace BusinessLogic.Commands
             }
         }
 
-
-        private async Task<Result> CreateJobHistoryEntryAsync(Employee employeeToUpdate)
-        {
-            IEnumerable<JobHistory> employeeToUpdatePastJobs = (await _jobHistoryRepository.GetAllAsync())
-                                                                    .Where(jobHistoryEntry => jobHistoryEntry.EmployeeId == employeeToUpdate.EmployeeId);
-
-            DateTime previousJobStart = employeeToUpdate.HireDate;
-            if (employeeToUpdatePastJobs.Any())
-            {
-                previousJobStart = employeeToUpdatePastJobs
-                                                    .Select(jobHistoryEntry => jobHistoryEntry.EndDate)
-                                                    .Max();
-            }
-
-            JobHistory previousJobEntry = new()
-            {
-                EmployeeId = employeeToUpdate.EmployeeId,
-                StartDate = previousJobStart,
-                EndDate = _dateProvider.GetNow().ToDateTime(TimeOnly.MinValue),
-                JobId = _viewModel.UpdatedEmployeePreviousJob!.JobId,
-                DepartmentId = employeeToUpdate.DepartmentId
-            };
-
-            if (previousJobEntry.StartDate.Date == previousJobEntry.EndDate.Date)
-            {
-                return Result.Fail("Cannot change an employee's job twice in one day");
-            }
-
-            Result insertionResult = await _jobHistoryRepository.InsertAsync(previousJobEntry);
-
-            return insertionResult;
-        }
     }
 }
